@@ -1,0 +1,15 @@
+{
+  "name": "kps-interier",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.2.20",
+  "scripts": {
+    "dev": "bun --cwd app run dev",
+    "build": "bun --cwd app run build",
+    "preview": "bun --cwd app run preview",
+    "typecheck": "bun --cwd app run typecheck",
+    "format": "bun --cwd app run format",
+    "lint:biome": "bun --cwd app run lint:biome",
+    "lint:css": "bun --cwd app run lint:css"
+  }
+}
