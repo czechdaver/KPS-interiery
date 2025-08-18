@@ -31,6 +31,9 @@ jobs:
           # Disable npm caching to avoid stale optional deps causing Rollup native issues
           cache: ''
 
+      - name: Upgrade npm to latest
+        run: npm i -g npm@latest
+
       - name: Install dependencies
         working-directory: app
         run: |
@@ -56,10 +59,20 @@ jobs:
           fi
           export GITHUB_PAGES=true
           npm run build
+          # Ensure a static index.html exists for Pages; if Qwik build did not output it, run client build
+          if [ ! -f dist/index.html ]; then
+            echo "dist/index.html not found after qwik build; running client build"
+            npm run build.client
+          fi
 
       - name: Create 404.html for SPA fallback
         working-directory: app
-        run: cp dist/index.html dist/404.html
+        run: |
+          if [ -f dist/index.html ]; then
+            cp dist/index.html dist/404.html
+          else
+            echo "Skipping 404.html creation: dist/index.html not found"
+          fi
 
       - name: Copy static files (favicon/manifest/robots)
         working-directory: app
