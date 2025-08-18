@@ -1,25 +1,68 @@
-import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import React from "react";
+import { Navigation } from "../components/Navigation";
+import { HeroSection } from "../components/HeroSection";
+import { ValuesSection } from "../components/ValuesSection";
+import { ServicesSection } from "../components/ServicesSection";
+import { PortfolioSection } from "../components/PortfolioSection";
+import { PartnersSection } from "../components/PartnersSection";
+import { InstagramSection } from "../components/InstagramSection";
+import { ContactSection } from "../components/ContactSection";
+import { Footer } from "../components/Footer";
 
-export default component$(() => {
+export default function HomePage() {
   return (
-    <>
-      <h1>Hi 👋</h1>
-      <div>
-        Can't wait to see what you build with qwik!
-        <br />
-        Happy coding.
-      </div>
-    </>
+    <div id="home">
+      <Navigation />
+      <HeroSection />
+      <ValuesSection />
+      <ServicesSection />
+      <PortfolioSection />
+      <PartnersSection />
+      <InstagramSection />
+      <ContactSection />
+      <Footer />
+    </div>
   );
-});
+}
 
-export const head: DocumentHead = {
-  title: "Welcome to Qwik",
+export const head = {
+  title: "KPS Interiéry - Kvalitní nábytek na míru | Kuchyně, Skříně, Koupelny",
   meta: [
     {
       name: "description",
-      content: "Qwik site description",
+      content: "Specializujeme se na zakázkovou výrobu nábytku na míru. Kuchyně, vestavěné skříně, koupelnový a kancelářský nábytek. Kvalita, preciznost, spokojenost.",
+    },
+    {
+      name: "keywords",
+      content: "nábytek na míru, kuchyně, skříně, koupelny, kancelářský nábytek, KPS Interiéry, Morava, Brno, zakázková výroba",
+    },
+    {
+      name: "author",
+      content: "KPS Interiéry",
+    },
+    {
+      property: "og:title",
+      content: "KPS Interiéry - Kvalitní nábytek na míru",
+    },
+    {
+      property: "og:description",
+      content: "Vytváříme nábytek na míru, který předčí vaše očekávání. Kvalita, preciznost a spokojenost zákazníků jsou naše hlavní hodnoty.",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:locale",
+      content: "cs_CZ",
+    },
+    {
+      name: "robots",
+      content: "index, follow",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1.0",
     },
   ],
 };

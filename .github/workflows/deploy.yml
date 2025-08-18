@@ -1,0 +1,75 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: |
+          REPO_NAME='${{ github.event.repository.name }}'
+          OWNER='${{ github.repository_owner }}'
+          if [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
+            export PAGES_BASE_PATH=""
+          else
+            export PAGES_BASE_PATH="$REPO_NAME"
+          fi
+          export GITHUB_PAGES=true
+          npm run build
+
+      - name: Create 404.html for SPA fallback
+        run: cp dist/index.html dist/404.html
+
+      - name: Copy static files (favicon/manifest/robots)
+        run: |
+          cp -f app/public/favicon.svg dist/favicon.svg || true
+          cp -f app/public/manifest.json dist/manifest.json || true
+          cp -f app/public/robots.txt dist/robots.txt || true
+
+      - name: Include CNAME if present (custom domain)
+        run: |
+          if [ -f CNAME ]; then cp -f CNAME dist/CNAME; fi
+
+      - name: Add .nojekyll
+        run: touch dist/.nojekyll
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
