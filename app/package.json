@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "qwik build",
+    "build:static": "qwik build && vite build -c adapters/static/vite.config.ts",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.types": "tsc --incremental --noEmit",

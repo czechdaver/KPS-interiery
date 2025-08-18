@@ -58,12 +58,8 @@ jobs:
             export PAGES_BASE_PATH="$REPO_NAME"
           fi
           export GITHUB_PAGES=true
-          npm run build
-          # Ensure a static index.html exists for Pages; if Qwik build did not output it, run client build
-          if [ ! -f dist/index.html ]; then
-            echo "dist/index.html not found after qwik build; running client build"
-            npm run build.client
-          fi
+          # Build fully static site via Qwik City static adapter
+          npm run build:static
 
       - name: Create 404.html for SPA fallback
         working-directory: app
