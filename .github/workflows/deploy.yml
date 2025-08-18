@@ -28,9 +28,11 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        working-directory: app
         run: npm ci
 
       - name: Build
+        working-directory: app
         run: |
           REPO_NAME='${{ github.event.repository.name }}'
           OWNER='${{ github.repository_owner }}'
@@ -43,25 +45,28 @@ jobs:
           npm run build
 
       - name: Create 404.html for SPA fallback
+        working-directory: app
         run: cp dist/index.html dist/404.html
 
       - name: Copy static files (favicon/manifest/robots)
+        working-directory: app
         run: |
-          cp -f app/public/favicon.svg dist/favicon.svg || true
-          cp -f app/public/manifest.json dist/manifest.json || true
-          cp -f app/public/robots.txt dist/robots.txt || true
+          cp -f public/favicon.svg dist/favicon.svg || true
+          cp -f public/manifest.json dist/manifest.json || true
+          cp -f public/robots.txt dist/robots.txt || true
 
       - name: Include CNAME if present (custom domain)
         run: |
-          if [ -f CNAME ]; then cp -f CNAME dist/CNAME; fi
+          if [ -f CNAME ]; then cp -f CNAME app/dist/CNAME; fi
 
       - name: Add .nojekyll
+        working-directory: app
         run: touch dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: app/dist
 
   deploy:
     needs: build
