@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ROLLUP_SKIP_NODE_NATIVE: '1'
+      ROLLUP_DISABLE_NATIVE: '1'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,14 +28,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: app/package-lock.json
+          # Disable npm caching to avoid stale optional deps causing Rollup native issues
+          cache: ''
 
       - name: Install dependencies
         working-directory: app
         run: |
-          # Try reproducible install; if optional platform deps fail, fall back to fresh install
-          npm ci || (rm -f package-lock.json && rm -rf node_modules && npm install)
+          # Fresh install without lockfile so optional platform deps resolve on Linux
+          rm -f package-lock.json
+          rm -rf node_modules
+          npm install
+
+      - name: "Workaround: ensure Rollup native binary is present"
+        working-directory: app
+        run: |
+          npm i @rollup/rollup-linux-x64-gnu --no-save || true
 
       - name: Build
         working-directory: app
@@ -45,9 +55,6 @@ jobs:
             export PAGES_BASE_PATH="$REPO_NAME"
           fi
           export GITHUB_PAGES=true
-          # Workaround Rollup native optional dep issue on CI
-          export ROLLUP_SKIP_NODE_NATIVE=1
-          export ROLLUP_DISABLE_NATIVE=1
           npm run build
 
       - name: Create 404.html for SPA fallback
