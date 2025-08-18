@@ -30,7 +30,9 @@ jobs:
 
       - name: Install dependencies
         working-directory: app
-        run: npm ci
+        run: |
+          # Try reproducible install; if optional platform deps fail, fall back to fresh install
+          npm ci || (rm -f package-lock.json && rm -rf node_modules && npm install)
 
       - name: Build
         working-directory: app
@@ -45,6 +47,7 @@ jobs:
           export GITHUB_PAGES=true
           # Workaround Rollup native optional dep issue on CI
           export ROLLUP_SKIP_NODE_NATIVE=1
+          export ROLLUP_DISABLE_NATIVE=1
           npm run build
 
       - name: Create 404.html for SPA fallback
