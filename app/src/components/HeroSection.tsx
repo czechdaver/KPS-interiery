@@ -1,45 +1,7 @@
-import React from "react";
+import { component$, useStylesScoped$ } from "@builder.io/qwik";
 
-export const HeroSection = () => {
-  return (
-    <section className="hero-section">
-      <div className="hero-background">
-        <img 
-          src="https://images.unsplash.com/photo-1742192757416-27d69a5d5029?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85"
-          alt="Modern luxury kitchen interior with custom cabinets - Shishu Yadava on Unsplash"
-          className="hero-image"
-          width="1920"
-          height="1080"
-        />
-        <div className="hero-overlay"></div>
-      </div>
-      
-      <div className="hero-content">
-        <div className="container">
-          <div className="hero-text">
-            <h1 className="hero-title">
-              <span className="hero-values">KVALITA. PRECIZNOST. SPOKOJENOST.</span>
-              <span className="hero-subtitle">Vytváříme nábytek na míru, který předčí vaše očekávání</span>
-            </h1>
-            
-            <p className="hero-description">
-              Od návrhu po montáž – realizujeme vaše sny o dokonalém interiéru.
-              Specializujeme se na zakázkovou výrobu nábytku pro domácnosti i firmy.
-            </p>
-            
-            <div className="hero-buttons">
-              <a href="#contact" className="btn btn-primary">
-                Nezávazná poptávka
-              </a>
-              <a href="#portfolio" className="btn btn-secondary">
-                Naše realizace
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <style>{`
+export const HeroSection = component$(() => {
+  useStylesScoped$(`
         .hero-section {
           position: relative;
           height: 100vh;
@@ -161,7 +123,45 @@ export const HeroSection = () => {
             max-width: 280px;
           }
         }
-      `}</style>
+      `);
+  return (
+    <section class="hero-section">
+      <div class="hero-background">
+        <img 
+          src="https://images.unsplash.com/photo-1742192757416-27d69a5d5029?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85"
+          alt="Modern luxury kitchen interior with custom cabinets - Shishu Yadava on Unsplash"
+          class="hero-image"
+          width="1920"
+          height="1080"
+        />
+        <div class="hero-overlay"></div>
+      </div>
+      
+      <div class="hero-content">
+        <div class="container">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              <span class="hero-values">KVALITA. PRECIZNOST. SPOKOJENOST.</span>
+              <span class="hero-subtitle">Vytváříme nábytek na míru, který předčí vaše očekávání</span>
+            </h1>
+            
+            <p class="hero-description">
+              Od návrhu po montáž – realizujeme vaše sny o dokonalém interiéru.
+              Specializujeme se na zakázkovou výrobu nábytku pro domácnosti i firmy.
+            </p>
+            
+            <div class="hero-buttons">
+              <a href="#contact" class="btn btn-primary">
+                Nezávazná poptávka
+              </a>
+              <a href="#portfolio" class="btn btn-secondary">
+                Naše realizace
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </section>
   );
-};
+});

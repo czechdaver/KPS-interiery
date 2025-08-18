@@ -1,48 +1,16 @@
-import React, { useState } from "react";
+import { component$, useSignal, useStylesScoped$ } from "@builder.io/qwik";
 
-export const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  return (
-    <nav className="navigation">
-      <div className="container">
-        <div className="nav-content">
-          <div className="nav-logo">
-            <a href="#home">
-              <span className="logo-text">KPS</span>
-              <span className="logo-subtitle">Interiéry</span>
-            </a>
-          </div>
-          
-          <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''}`}>
-            <a href="#home" className="nav-link">Úvod</a>
-            <a href="#services" className="nav-link">Služby</a>
-            <a href="#portfolio" className="nav-link">Realizace</a>
-            <a href="#contact" className="nav-link">Kontakt</a>
-            <a href="#contact" className="btn btn-glass nav-cta">Poptávka</a>
-          </div>
-          
-          <button 
-            className="nav-toggle"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className="nav-toggle-line"></span>
-            <span className="nav-toggle-line"></span>
-            <span className="nav-toggle-line"></span>
-          </button>
-        </div>
-      </div>
-      
-      <style>{`
+export const Navigation = component$(() => {
+  const isMenuOpen = useSignal(false);
+  useStylesScoped$(`
         .navigation {
           position: fixed;
           top: 0;
           left: 0;
           width: 100%;
-          background: rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.2);
           backdrop-filter: blur(25px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.26);
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
           z-index: 1000;
           transition: var(--transition);
@@ -145,7 +113,7 @@ export const Navigation = () => {
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.26);
             flex-direction: column;
             padding: 2rem;
             gap: 1.5rem;
@@ -185,7 +153,40 @@ export const Navigation = () => {
             transform: rotate(-45deg) translate(7px, -6px);
           }
         }
-      `}</style>
+      `);
+
+  return (
+    <nav class="navigation">
+      <div class="container">
+        <div class="nav-content">
+          <div class="nav-logo">
+            <a href="#home">
+              <span class="logo-text">KPS</span>
+              <span class="logo-subtitle">Interiéry</span>
+            </a>
+          </div>
+          
+          <div class={`nav-menu ${isMenuOpen.value ? 'nav-menu-open' : ''}`}>
+            <a href="#home" class="nav-link">Úvod</a>
+            <a href="#services" class="nav-link">Služby</a>
+            <a href="#portfolio" class="nav-link">Realizace</a>
+            <a href="#contact" class="nav-link">Kontakt</a>
+            <a href="#contact" class="btn btn-glass nav-cta">Poptávka</a>
+          </div>
+          
+          <button 
+            class="nav-toggle"
+            onClick$={() => { isMenuOpen.value = !isMenuOpen.value; }}
+            aria-label="Toggle menu"
+          >
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+            <span class="nav-toggle-line"></span>
+          </button>
+        </div>
+      </div>
+      
+      
     </nav>
   );
-};
+});

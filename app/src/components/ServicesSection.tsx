@@ -1,103 +1,7 @@
-import React from "react";
+import { component$, useStylesScoped$ } from "@builder.io/qwik";
 
-export const ServicesSection = () => {
-  return (
-    <section className="services-section section" id="services">
-      <div className="container">
-        <div className="services-header">
-          <h2 className="section-title">Co pro vás můžeme vyrobit?</h2>
-        </div>
-        
-        <div className="services-grid">
-          <div className="service-card kitchen-card">
-            <div className="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18 2.01L6 2c-1.1 0-2 .89-2 2v16c0 1.11.9 2 2 2h12c1.1 0 2-.89 2-2V4c0-1.11-.9-1.99-2-1.99zM18 20H6v-9.02h12V20zm0-11H6V4h12v5z"/>
-                <circle cx="8" cy="7" r="1"/>
-                <circle cx="8" cy="16" r="1"/>
-                <circle cx="16" cy="16" r="1"/>
-              </svg>
-            </div>
-            <h3 className="service-title">Kuchyně na míru</h3>
-            <p className="service-description">
-              Srdce každého domova podle vašich představ
-            </p>
-            <div className="service-hover-content">
-              <p>Kompletní návrh, výběr materiálů, moderní kování a spotřebiče, profesionální montáž</p>
-            </div>
-          </div>
-          
-          <div className="service-card wardrobe-card">
-            <div className="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M2 19h20v2H2v-2zm1.15-12.05L4 5l.85 1.95.66-.3L5.92 5 7 6.05l-.66.3L5.49 8 4 6.95l-.85 1.95-.66-.3L3.34 6.05l-.66.3L2 5l.85-1.95.66.3L4.36 5l-.85 1.95-.66-.3zm6.7-.3L8.5 8 7 6.95l-.85 1.95-.66-.3L6.34 6.05l-.66.3L5 5l.85-1.95.66.3L7.36 5l-.85 1.95-.66-.3L7.7 6.65l.66.3L9.21 5l-.85 1.95-.66-.3z"/>
-                <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h12v16z"/>
-              </svg>
-            </div>
-            <h3 className="service-title">Vestavěné skříně</h3>
-            <p className="service-description">
-              Maximální využití prostoru s elegantním designem
-            </p>
-            <div className="service-hover-content">
-              <p>Posuvné dveře, organizační systémy, LED osvětlení, atypické rozměry</p>
-            </div>
-          </div>
-          
-          <div className="service-card bathroom-card">
-            <div className="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7 7h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z"/>
-                <path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H4V4h16v16z"/>
-              </svg>
-            </div>
-            <h3 className="service-title">Koupelnový nábytek</h3>
-            <p className="service-description">
-              Funkční a stylové řešení pro vaši pohodu
-            </p>
-            <div className="service-hover-content">
-              <p>Vodotěsné materiály, skryté úložné prostory, moderní umyvadla</p>
-            </div>
-          </div>
-          
-          <div className="service-card office-card">
-            <div className="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
-              </svg>
-            </div>
-            <h3 className="service-title">Kancelářský nábytek</h3>
-            <p className="service-description">
-              Profesionální prostředí pro váš business
-            </p>
-            <div className="service-hover-content">
-              <p>Ergonomické řešení, kabelový management, modulární systémy</p>
-            </div>
-          </div>
-          
-          <div className="service-card atypical-card">
-            <div className="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-            </div>
-            <h3 className="service-title">Atypické řešení</h3>
-            <p className="service-description">
-              Zubní ordinace, školy, nebo cokoliv si dokážete představit
-            </p>
-            <div className="service-hover-content">
-              <p>Individuální přístup, speciální materiály, nestandardní rozměry</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="services-cta">
-          <a href="#contact" className="btn btn-glass">
-            Zobrazit všechny služby
-          </a>
-        </div>
-      </div>
-      
-      <style>{`
+export const ServicesSection = component$(() => {
+  useStylesScoped$(`
         .services-section {
           background: var(--white);
         }
@@ -115,9 +19,9 @@ export const ServicesSection = () => {
         }
         
         .service-card {
-          background: rgba(255, 255, 255, 0.7);
+          background: rgba(255, 255, 255, 0.85);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.26);
           border-radius: var(--radius-lg);
           padding: 2.5rem 2rem;
           text-align: center;
@@ -147,9 +51,9 @@ export const ServicesSection = () => {
         
         .service-card:hover {
           transform: translateY(-8px);
-          background: rgba(255, 255, 255, 0.9);
+          background: rgba(255, 255, 255, 0.95);
           backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.5);
           box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
         }
         
@@ -241,7 +145,103 @@ export const ServicesSection = () => {
             height: 60px;
           }
         }
-      `}</style>
+      `);
+  return (
+    <section class="services-section section" id="services">
+      <div class="container">
+        <div class="services-header">
+          <h2 class="section-title">Co pro vás můžeme vyrobit?</h2>
+        </div>
+        
+        <div class="services-grid">
+          <div class="service-card kitchen-card">
+            <div class="service-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2.01L6 2c-1.1 0-2 .89-2 2v16c0 1.11.9 2 2 2h12c1.1 0 2-.89 2-2V4c0-1.11-.9-1.99-2-1.99zM18 20H6v-9.02h12V20zm0-11H6V4h12v5z"/>
+                <circle cx="8" cy="7" r="1"/>
+                <circle cx="8" cy="16" r="1"/>
+                <circle cx="16" cy="16" r="1"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Kuchyně na míru</h3>
+            <p class="service-description">
+              Srdce každého domova podle vašich představ
+            </p>
+            <div class="service-hover-content">
+              <p>Kompletní návrh, výběr materiálů, moderní kování a spotřebiče, profesionální montáž</p>
+            </div>
+          </div>
+          
+          <div class="service-card wardrobe-card">
+            <div class="service-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2 19h20v2H2v-2zm1.15-12.05L4 5l.85 1.95.66-.3L5.92 5 7 6.05l-.66.3L5.49 8 4 6.95l-.85 1.95-.66-.3L3.34 6.05l-.66.3L2 5l.85-1.95.66.3L4.36 5l-.85 1.95-.66-.3zm6.7-.3L8.5 8 7 6.95l-.85 1.95-.66-.3L6.34 6.05l-.66.3L5 5l.85-1.95.66.3L7.36 5l-.85 1.95-.66-.3L7.7 6.65l.66.3L9.21 5l-.85 1.95-.66-.3z"/>
+                <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h12v16z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Vestavěné skříně</h3>
+            <p class="service-description">
+              Maximální využití prostoru s elegantním designem
+            </p>
+            <div class="service-hover-content">
+              <p>Posuvné dveře, organizační systémy, LED osvětlení, atypické rozměry</p>
+            </div>
+          </div>
+          
+          <div class="service-card bathroom-card">
+            <div class="service-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 7h10v2H7V7zm0 3h10v2H7v-2zm0 3h10v2H7v-2z"/>
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H4V4h16v16z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Koupelnový nábytek</h3>
+            <p class="service-description">
+              Funkční a stylové řešení pro vaši pohodu
+            </p>
+            <div class="service-hover-content">
+              <p>Vodotěsné materiály, skryté úložné prostory, moderní umyvadla</p>
+            </div>
+          </div>
+          
+          <div class="service-card office-card">
+            <div class="service-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Kancelářský nábytek</h3>
+            <p class="service-description">
+              Profesionální prostředí pro váš business
+            </p>
+            <div class="service-hover-content">
+              <p>Ergonomické řešení, kabelový management, modulární systémy</p>
+            </div>
+          </div>
+          
+          <div class="service-card atypical-card">
+            <div class="service-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <h3 class="service-title">Atypické řešení</h3>
+            <p class="service-description">
+              Zubní ordinace, školy, nebo cokoliv si dokážete představit
+            </p>
+            <div class="service-hover-content">
+              <p>Individuální přístup, speciální materiály, nestandardní rozměry</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="services-cta">
+          <a href="#contact" class="btn btn-glass">
+            Zobrazit všechny služby
+          </a>
+        </div>
+      </div>
+      
     </section>
   );
-};
+});

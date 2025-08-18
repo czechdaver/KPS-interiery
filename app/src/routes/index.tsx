@@ -1,4 +1,5 @@
-import React from "react";
+import { component$ } from '@builder.io/qwik';
+import type { DocumentHead } from '@builder.io/qwik-city';
 import { Navigation } from "../components/Navigation";
 import { HeroSection } from "../components/HeroSection";
 import { ValuesSection } from "../components/ValuesSection";
@@ -9,7 +10,7 @@ import { InstagramSection } from "../components/InstagramSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
 
-export default function HomePage() {
+export default component$(() => {
   return (
     <div id="home">
       <Navigation />
@@ -23,9 +24,9 @@ export default function HomePage() {
       <Footer />
     </div>
   );
-}
+});
 
-export const head = {
+export const head: DocumentHead = {
   title: "KPS Interiéry - Kvalitní nábytek na míru | Kuchyně, Skříně, Koupelny",
   meta: [
     {
