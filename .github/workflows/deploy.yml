@@ -43,6 +43,8 @@ jobs:
             export PAGES_BASE_PATH="$REPO_NAME"
           fi
           export GITHUB_PAGES=true
+          # Workaround Rollup native optional dep issue on CI
+          export ROLLUP_SKIP_NODE_NATIVE=1
           npm run build
 
       - name: Create 404.html for SPA fallback
