@@ -10,11 +10,17 @@ export default defineConfig((): UserConfig => {
   return mergeConfig(base, {
     build: {
       outDir: 'dist',
+      ssr: 'src/entry.ssr.tsx',
+      rollupOptions: {
+        input: [
+          'src/entry.ssr.tsx',
+          '@qwik-city-plan',
+        ],
+      },
     },
     plugins: [
       ...(base.plugins || []),
       staticAdapter({
-        // Leave origin empty for GitHub Pages; base path is handled via baseConfig
         origin: '',
       }),
     ],
