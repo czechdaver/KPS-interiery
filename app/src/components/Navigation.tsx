@@ -1,19 +1,31 @@
-import { component$, useSignal, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, useSignal, useStylesScoped$, useOnWindow, $ } from "@builder.io/qwik";
 
 export const Navigation = component$(() => {
   const isMenuOpen = useSignal(false);
+  const isScrolled = useSignal(false);
+
+  useOnWindow('scroll', $(() => {
+    isScrolled.value = window.scrollY > 50;
+  }));
   useStylesScoped$(`
         .navigation {
           position: fixed;
           top: 0;
           left: 0;
           width: 100%;
+          background: var(--white);
+          backdrop-filter: none;
+          border-bottom: 1px solid transparent;
+          box-shadow: none;
+          z-index: 1000;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .navigation-scrolled {
           background: rgba(255, 255, 255, 0.47);
           backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(255, 255, 255, 0.39);
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-          z-index: 1000;
-          transition: var(--transition);
         }
         
         .nav-content {
@@ -156,7 +168,7 @@ export const Navigation = component$(() => {
       `);
 
   return (
-    <nav class="navigation">
+    <nav class={`navigation ${isScrolled.value ? 'navigation-scrolled' : ''}`}>
       <div class="container">
         <div class="nav-content">
           <div class="nav-logo">
