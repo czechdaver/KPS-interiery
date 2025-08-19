@@ -17,6 +17,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Workaround for Rollup native binary issues in CI
+      ROLLUP_SKIP_NODE_NATIVE: '1'
+      ROLLUP_DISABLE_NATIVE: '1'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,12 +29,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: 'app/package-lock.json'
 
       - name: Install dependencies
         working-directory: app
-        run: npm ci
+        run: |
+          # Remove lockfile to avoid optional dependency issues in CI
+          rm -f package-lock.json
+          rm -rf node_modules
+          npm install
+
+      - name: Install Rollup native binary (workaround)
+        working-directory: app
+        run: |
+          npm install @rollup/rollup-linux-x64-gnu --save-dev --no-save || true
 
       - name: Build client bundle
         working-directory: app
