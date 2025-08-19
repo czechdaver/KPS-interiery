@@ -1,11 +1,11 @@
-import { component$, useSignal, useStylesScoped$, useOnWindow, $ } from "@builder.io/qwik";
+import { component$, useSignal, useStylesScoped$, useOnDocument, $ } from "@builder.io/qwik";
 
 export const Navigation = component$(() => {
   const isMenuOpen = useSignal(false);
   const isScrolled = useSignal(false);
 
-  useOnWindow('scroll', $(() => {
-    isScrolled.value = window.scrollY > 50;
+  useOnDocument('scroll', $(() => {
+    isScrolled.value = (document.documentElement.scrollTop || document.body.scrollTop) > 50;
   }));
   useStylesScoped$(`
         .navigation {
