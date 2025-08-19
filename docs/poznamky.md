@@ -2,13 +2,24 @@
 
 ## Spuštění:
 cd app
-bun run dev
+npm install
+npm run dev
 
 ## Kontroly:
+npm run typecheck
+npm run lint:biome
+npm run lint:css
+
+## Build/preview:
+npm run build:static
+npm run preview 
+
+## (Volitelně) Bun ekvivalenty:
+cd app
+bun install
+bun run dev
 bun run typecheck
 bun run lint:biome
 bun run lint:css
-
-## Build/preview:
 bun run build
-bun run preview 
+bun run preview

@@ -1,54 +1,94 @@
-# React + TypeScript + Vite
+# KPS Interiéry — Qwik + Qwik City
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository hosts the KPS Interiéry website built with Qwik + Qwik City and deployed to GitHub Pages. The web app lives under `app/` and is built as a fully static site using the Qwik City static adapter.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `app/` — Qwik app root
+  - `src/` — components, routes, styles
+  - `src/routes/` — file‑based routing (Qwik City)
+  - `vite.config.ts` — Vite config with dynamic base for Pages
+  - `adapters/static/vite.config.ts` — Qwik City static adapter config
+  - `dist/` — build output
+- `docs/` — product docs (tech stack, setup, content)
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Qwik + Qwik City (`@builder.io/qwik`, `@builder.io/qwik-city`)
+- Vite 5
+- Tailwind CSS v4 (via `@tailwindcss/postcss`)
+- Tailwind Variants (`tailwind-variants`)
+- PostCSS (`@tailwindcss/postcss`, `postcss-preset-env`, `autoprefixer`)
+- TypeScript
+- Biome (TS/JS formatter & linter)
+- Stylelint (CSS/SCSS)
+- SASS
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+See `docs/techstack.md` for details.
+
+## Prerequisites
+
+- Node.js 20+
+- Package manager: npm (CI uses npm). You may also use Bun locally if preferred.
+
+## Getting Started
+
+1) Install dependencies
+
+```sh
+cd app
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2) Start dev server
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+```sh
+npm run dev
+# open http://localhost:5173
 ```
+
+## Build & Preview
+
+- Build static site (required for GitHub Pages):
+
+```sh
+npm run build:static
+# outputs to app/dist
+```
+
+- Preview production build locally:
+
+```sh
+npm run preview
+```
+
+## Deployment (GitHub Pages)
+
+Deployments are automated via GitHub Actions (`.github/workflows/deploy.yml`). The workflow:
+
+- Builds from `app/`
+- Exports `PAGES_BASE_PATH` for correct Vite base:
+  - User/org pages: base = `/`
+  - Project pages: base = `/<repo-name>/`
+- Runs `npm run build:static` (Qwik City static adapter) to generate `dist/index.html`
+- Publishes `app/dist` to GitHub Pages and copies `404.html` for SPA routing fallback
+
+## Troubleshooting CI
+
+- Rollup native prebuilds on Linux CI can fail. The workflow sets:
+  - `ROLLUP_SKIP_NODE_NATIVE=1`
+  - `ROLLUP_DISABLE_NATIVE=1`
+- It also performs a fresh install without reusing a lockfile cache.
+
+If a build fails, check the latest GitHub Actions logs.
+
+## Useful Scripts (in `app/package.json`)
+
+- `dev` — start dev server (SSR)
+- `build` — Qwik build (generates plan)
+- `build:static` — Qwik build + static adapter build (Pages)
+- `preview` — preview production build
+
+## License
+
+Private project. All rights reserved.
