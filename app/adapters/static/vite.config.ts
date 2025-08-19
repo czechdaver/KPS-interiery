@@ -22,6 +22,9 @@ export default defineConfig((): UserConfig => {
       ...(base.plugins || []),
       staticAdapter({
         origin: '',
+        // Copy all client build files to the static output
+        // This ensures JS/CSS assets are included in the final build
+        copyClientBuildFiles: true,
       }),
     ],
   });

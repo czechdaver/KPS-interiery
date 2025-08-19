@@ -17,95 +17,65 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ROLLUP_SKIP_NODE_NATIVE: '1'
-      ROLLUP_DISABLE_NATIVE: '1'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # Disable npm caching to avoid stale optional deps causing Rollup native issues
-          cache: ''
-
-      - name: Upgrade npm to latest
-        run: npm i -g npm@latest
+          cache: 'npm'
+          cache-dependency-path: 'app/package-lock.json'
 
       - name: Install dependencies
         working-directory: app
-        run: |
-          # Fresh install without lockfile so optional platform deps resolve on Linux
-          rm -f package-lock.json
-          rm -rf node_modules
-          npm install
+        run: npm ci
 
-      - name: "Workaround: ensure Rollup native binary is present"
+      - name: Build client bundle
         working-directory: app
         run: |
-          npm i @rollup/rollup-linux-x64-gnu --no-save || true
+          export PAGES_BASE_PATH="KPS-interiery"
+          npm run build
 
-      - name: Build
+      - name: Save client build artifacts
         working-directory: app
         run: |
-          REPO_NAME='${{ github.event.repository.name }}'
-          OWNER='${{ github.repository_owner }}'
-          if [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
-            export PAGES_BASE_PATH=""
-          else
-            export PAGES_BASE_PATH="$REPO_NAME"
-          fi
-          export GITHUB_PAGES=true
-          # Build fully static site via Qwik City static adapter
-          npm run build:static
+          # Save the client build artifacts before they're overwritten by static generation
+          mkdir -p ../temp-build
+          cp -r dist/KPS-interiery/build ../temp-build/ 2>/dev/null || echo "No build directory found"
+          cp -r dist/KPS-interiery/assets ../temp-build/ 2>/dev/null || echo "No assets directory found"
+          cp -r dist/KPS-interiery/*.json ../temp-build/ 2>/dev/null || echo "No JSON files found"
 
-      - name: Prepare deployment directory
+      - name: Generate static pages
         working-directory: app
         run: |
-          REPO_NAME='${{ github.event.repository.name }}'
-          OWNER='${{ github.repository_owner }}'
-          if [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
-            DIST_PATH="dist"
-          else
-            DIST_PATH="dist/$REPO_NAME"
-          fi
-          
-          echo "Deployment files location: $DIST_PATH"
-          ls -la "$DIST_PATH" || echo "Directory not found"
-          
-          # Create 404.html for SPA fallback
-          if [ -f "$DIST_PATH/index.html" ]; then
-            cp "$DIST_PATH/index.html" "$DIST_PATH/404.html"
-          else
-            echo "Skipping 404.html creation: $DIST_PATH/index.html not found"
-          fi
-          
-          # Copy static files (favicon/manifest/robots)
-          cp -f public/favicon.svg "$DIST_PATH/favicon.svg" || true
-          cp -f public/manifest.json "$DIST_PATH/manifest.json" || true
-          cp -f public/robots.txt "$DIST_PATH/robots.txt" || true
-          
-          # Add .nojekyll
-          touch "$DIST_PATH/.nojekyll"
+          export PAGES_BASE_PATH="KPS-interiery"
+          vite build -c adapters/static/vite.config.ts
 
-      - name: Include CNAME if present (custom domain)
+      - name: Restore client build artifacts
+        working-directory: app
         run: |
-          REPO_NAME='${{ github.event.repository.name }}'
-          OWNER='${{ github.repository_owner }}'
-          if [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
-            DIST_PATH="app/dist"
-          else
-            DIST_PATH="app/dist/$REPO_NAME"
-          fi
+          # Restore the client build artifacts to the static output
+          cp -r ../temp-build/build dist/KPS-interiery/ 2>/dev/null || echo "No build directory to restore"
+          cp -r ../temp-build/assets dist/KPS-interiery/ 2>/dev/null || echo "No assets directory to restore"
+          cp ../temp-build/*.json dist/KPS-interiery/ 2>/dev/null || echo "No JSON files to restore" 
           
-          if [ -f CNAME ]; then cp -f CNAME "$DIST_PATH/CNAME"; fi
+          # Copy static files from public
+          cp -f public/favicon.svg dist/KPS-interiery/favicon.svg || true
+          cp -f public/manifest.json dist/KPS-interiery/manifest.json || true
+          cp -f public/robots.txt dist/KPS-interiery/robots.txt || true
+          
+          # Add .nojekyll to prevent Jekyll processing
+          touch dist/KPS-interiery/.nojekyll
+          
+          echo "Final deployment directory contents:"
+          ls -la dist/KPS-interiery/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && 'app/dist' || format('app/dist/{0}', github.event.repository.name) }}
+          path: 'app/dist/KPS-interiery'
 
   deploy:
     needs: build
