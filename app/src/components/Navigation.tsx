@@ -8,8 +8,8 @@ export const Navigation = component$(() => {
           top: 0;
           left: 0;
           width: 100%;
-          background: rgba(255, 255, 255, 0.3);
-          backdrop-filter: blur(25px);
+          background: rgba(255, 255, 255, 0.47);
+          backdrop-filter: blur(20px);
           border-bottom: 1px solid rgba(255, 255, 255, 0.39);
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
           z-index: 1000;
