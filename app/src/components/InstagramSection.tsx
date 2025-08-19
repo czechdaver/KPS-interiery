@@ -27,18 +27,18 @@ const styles = `
   }
   
   .instagram-post {
-    background: rgba(255, 255, 255, 0.13);
+    background: rgba(255, 255, 255, 0.20);
     border-radius: var(--radius-lg);
     overflow: hidden;
     transition: var(--transition);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.26);
+    border: 1px solid rgba(255, 255, 255, 0.39);
   }
   
   .instagram-post:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg);
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.30);
   }
   
   .instagram-image-container {

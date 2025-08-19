@@ -8,9 +8,9 @@ export const Navigation = component$(() => {
           top: 0;
           left: 0;
           width: 100%;
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.3);
           backdrop-filter: blur(25px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.26);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.39);
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
           z-index: 1000;
           transition: var(--transition);
@@ -111,9 +111,9 @@ export const Navigation = component$(() => {
             top: 100%;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.26);
+            border: 1px solid rgba(255, 255, 255, 0.39);
             flex-direction: column;
             padding: 2rem;
             gap: 1.5rem;

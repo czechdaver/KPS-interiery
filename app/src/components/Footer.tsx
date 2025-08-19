@@ -55,7 +55,7 @@ export const Footer = component$(() => {
         .social-link {
           width: 48px;
           height: 48px;
-          background: rgba(255, 255, 255, 0.13);
+          background: rgba(255, 255, 255, 0.20);
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -63,7 +63,7 @@ export const Footer = component$(() => {
           color: var(--white);
           transition: var(--transition);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.26);
+          border: 1px solid rgba(255, 255, 255, 0.39);
         }
         
         .social-link:hover {

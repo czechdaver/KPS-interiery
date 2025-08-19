@@ -19,9 +19,9 @@ export const ServicesSection = component$(() => {
         }
         
         .service-card {
-          background: rgba(255, 255, 255, 0.85);
+          background: rgba(255, 255, 255, 0.93);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.26);
+          border: 1px solid rgba(255, 255, 255, 0.39);
           border-radius: var(--radius-lg);
           padding: 2.5rem 2rem;
           text-align: center;
@@ -51,9 +51,9 @@ export const ServicesSection = component$(() => {
         
         .service-card:hover {
           transform: translateY(-8px);
-          background: rgba(255, 255, 255, 0.95);
+          background: rgba(255, 255, 255, 0.98);
           backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.75);
           box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
         }
         

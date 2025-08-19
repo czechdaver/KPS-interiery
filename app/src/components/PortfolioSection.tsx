@@ -24,9 +24,9 @@ const styles = `
     overflow: hidden;
     transition: var(--transition);
     box-shadow: var(--shadow-sm);
-    background: rgba(255, 255, 255, 0.13);
+    background: rgba(255, 255, 255, 0.20);
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.13);
+    border: 1px solid rgba(255, 255, 255, 0.20);
   }
   
   .portfolio-item.featured {
@@ -40,9 +40,9 @@ const styles = `
   
   .portfolio-item:hover {
     transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.27);
+    background: rgba(255, 255, 255, 0.41);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.60);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
   }
   
@@ -103,7 +103,7 @@ const styles = `
   
   .portfolio-category {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.33);
+    background: rgba(255, 255, 255, 0.50);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
