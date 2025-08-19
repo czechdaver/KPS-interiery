@@ -186,7 +186,7 @@ export const Navigation = component$(() => {
             <a href="#services" class="nav-link">Služby</a>
             <a href="#portfolio" class="nav-link">Realizace</a>
             <a href="#contact" class="nav-link">Kontakt</a>
-            <a href="#contact" class="btn btn-glass nav-cta">Poptávka</a>
+            <a href="#contact" class="btn btn-accent nav-cta">Poptávka</a>
           </div>
           
           <button 
