@@ -1,14 +1,10 @@
-import { component$, useSignal, useStylesScoped$, useOnWindow, useStore, $ } from "@builder.io/qwik";
+import { component$, useSignal, useStylesScoped$, useStore, $ } from "@builder.io/qwik";
 
 export const Navigation = component$(() => {
   const isMenuOpen = useSignal(false);
   const scrollState = useStore({
     isScrolled: false
   });
-
-  useOnWindow('scroll', $(() => {
-    scrollState.isScrolled = window.scrollY > 50;
-  }));
   useStylesScoped$(`
         .navigation {
           position: fixed;
@@ -170,7 +166,12 @@ export const Navigation = component$(() => {
       `);
 
   return (
-    <nav class={`navigation ${scrollState.isScrolled ? 'navigation-scrolled' : ''}`}>
+    <nav 
+      class={`navigation ${scrollState.isScrolled ? 'navigation-scrolled' : ''}`}
+      window:onScroll$={$(() => {
+        scrollState.isScrolled = window.scrollY > 50;
+      })}
+    >
       <div class="container">
         <div class="nav-content">
           <div class="nav-logo">
