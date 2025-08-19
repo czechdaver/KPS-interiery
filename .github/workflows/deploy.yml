@@ -62,7 +62,7 @@ jobs:
         working-directory: app
         run: |
           export PAGES_BASE_PATH="KPS-interiery"
-          vite build -c adapters/static/vite.config.ts
+          npx vite build -c adapters/static/vite.config.ts
 
       - name: Restore client build artifacts
         working-directory: app
