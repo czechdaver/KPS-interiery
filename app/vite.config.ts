@@ -22,7 +22,7 @@ export default defineConfig((): UserConfig => {
   return {
     plugins: [qwikCity(), qwikVite(), tsconfigPaths({ root: "." })],
     // Ensure correct asset base when hosted under a repo subpath (e.g., GitHub Pages)
-    base: process.env.PAGES_BASE_PATH ? `/${process.env.PAGES_BASE_PATH}/` : "/",
+    base: "/KPS-interiery/",
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.
