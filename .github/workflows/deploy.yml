@@ -61,34 +61,51 @@ jobs:
           # Build fully static site via Qwik City static adapter
           npm run build:static
 
-      - name: Create 404.html for SPA fallback
+      - name: Prepare deployment directory
         working-directory: app
         run: |
-          if [ -f dist/index.html ]; then
-            cp dist/index.html dist/404.html
+          REPO_NAME='${{ github.event.repository.name }}'
+          OWNER='${{ github.repository_owner }}'
+          if [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
+            DIST_PATH="dist"
           else
-            echo "Skipping 404.html creation: dist/index.html not found"
+            DIST_PATH="dist/$REPO_NAME"
           fi
-
-      - name: Copy static files (favicon/manifest/robots)
-        working-directory: app
-        run: |
-          cp -f public/favicon.svg dist/favicon.svg || true
-          cp -f public/manifest.json dist/manifest.json || true
-          cp -f public/robots.txt dist/robots.txt || true
+          
+          echo "Deployment files location: $DIST_PATH"
+          ls -la "$DIST_PATH" || echo "Directory not found"
+          
+          # Create 404.html for SPA fallback
+          if [ -f "$DIST_PATH/index.html" ]; then
+            cp "$DIST_PATH/index.html" "$DIST_PATH/404.html"
+          else
+            echo "Skipping 404.html creation: $DIST_PATH/index.html not found"
+          fi
+          
+          # Copy static files (favicon/manifest/robots)
+          cp -f public/favicon.svg "$DIST_PATH/favicon.svg" || true
+          cp -f public/manifest.json "$DIST_PATH/manifest.json" || true
+          cp -f public/robots.txt "$DIST_PATH/robots.txt" || true
+          
+          # Add .nojekyll
+          touch "$DIST_PATH/.nojekyll"
 
       - name: Include CNAME if present (custom domain)
         run: |
-          if [ -f CNAME ]; then cp -f CNAME app/dist/CNAME; fi
-
-      - name: Add .nojekyll
-        working-directory: app
-        run: touch dist/.nojekyll
+          REPO_NAME='${{ github.event.repository.name }}'
+          OWNER='${{ github.repository_owner }}'
+          if [ "$REPO_NAME" = "${OWNER}.github.io" ]; then
+            DIST_PATH="app/dist"
+          else
+            DIST_PATH="app/dist/$REPO_NAME"
+          fi
+          
+          if [ -f CNAME ]; then cp -f CNAME "$DIST_PATH/CNAME"; fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: app/dist
+          path: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && 'app/dist' || format('app/dist/{0}', github.event.repository.name) }}
 
   deploy:
     needs: build
