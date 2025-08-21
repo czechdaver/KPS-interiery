@@ -44,11 +44,11 @@ export const ServicesSection = component$(() => {
         
         .service-overlay {
           position: absolute;
-          top: -30px;
-          left: -30px;
-          width: calc(100% + 60px);
-          height: calc(100% + 60px);
-          background: linear-gradient(135deg, rgba(44, 62, 80, 0.75) 0%, rgba(230, 126, 34, 0.75) 100%);
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, rgba(44, 62, 80, 0.85) 0%, rgba(230, 126, 34, 0.85) 100%);
           opacity: 0;
           visibility: hidden;
           transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
@@ -95,6 +95,7 @@ export const ServicesSection = component$(() => {
           transform: translateY(0);
         }
         
+        
         .service-icon {
           margin: 0 auto 1.5rem;
           display: flex;
@@ -108,6 +109,7 @@ export const ServicesSection = component$(() => {
         .service-card:hover .service-content {
           opacity: 0;
           transform: translateY(-10px);
+          background: transparent;
         }
         
         .service-title {
