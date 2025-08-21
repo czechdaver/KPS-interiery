@@ -22,7 +22,7 @@ export const ServicesSection = component$(() => {
           position: relative;
           border-radius: 24px;
           overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
           cursor: pointer;
           background: rgba(255, 255, 255, 0.15);
@@ -48,9 +48,10 @@ export const ServicesSection = component$(() => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(135deg, rgba(44, 62, 80, 0.85) 0%, rgba(230, 126, 34, 0.85) 100%);
+          background: linear-gradient(135deg, rgba(44, 62, 80, 0.75) 0%, rgba(230, 126, 34, 0.75) 100%);
           opacity: 0;
-          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+          visibility: hidden;
+          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -58,10 +59,13 @@ export const ServicesSection = component$(() => {
           z-index: 3;
           padding: 2rem;
           text-align: center;
+          transform: translateY(10px);
         }
         
         .service-card:hover .service-overlay {
           opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
         }
         
         .service-card:hover .service-background {
@@ -87,7 +91,9 @@ export const ServicesSection = component$(() => {
           justify-content: center;
           text-align: center;
           background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
-          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
+          opacity: 1;
+          transform: translateY(0);
         }
         
         .service-icon {
@@ -95,14 +101,14 @@ export const ServicesSection = component$(() => {
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: var(--transition);
+          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
           position: relative;
           z-index: 2;
         }
         
         .service-card:hover .service-content {
           opacity: 0;
-          transform: translateY(-20px);
+          transform: translateY(-10px);
         }
         
         .service-title {
@@ -112,7 +118,7 @@ export const ServicesSection = component$(() => {
           margin-bottom: 1rem;
           position: relative;
           z-index: 2;
-          transition: var(--transition);
+          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
         }
         
         .service-overlay .service-title {
@@ -127,7 +133,7 @@ export const ServicesSection = component$(() => {
           color: var(--gray);
           position: relative;
           z-index: 2;
-          transition: var(--transition);
+          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
         }
         
         .service-overlay .service-description {
@@ -141,6 +147,13 @@ export const ServicesSection = component$(() => {
           margin-bottom: 1.5rem;
           color: var(--white);
           opacity: 0.9;
+          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
+          transform: translateY(5px);
+        }
+        
+        .service-card:hover .service-overlay-icon {
+          transform: translateY(0);
+          opacity: 1;
         }
         
         
