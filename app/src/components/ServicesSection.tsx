@@ -19,63 +19,90 @@ export const ServicesSection = component$(() => {
         }
         
         .service-card {
-          background: rgba(255, 255, 255, 0.93);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.39);
-          border-radius: var(--radius-lg);
-          padding: 2.5rem 2rem;
-          text-align: center;
           position: relative;
+          border-radius: 24px;
           overflow: hidden;
-          transition: var(--transition);
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
           cursor: pointer;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          min-height: 320px;
         }
         
-        .service-card::before {
-          content: '';
+        .service-background {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(135deg, var(--accent), var(--primary));
-          opacity: 0;
+          object-fit: cover;
           transition: var(--transition);
           z-index: 1;
         }
         
-        .service-card:hover::before {
-          opacity: 0.95;
+        .service-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, rgba(44, 62, 80, 0.85) 0%, rgba(230, 126, 34, 0.85) 100%);
+          opacity: 0;
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          z-index: 3;
+          padding: 2rem;
+          text-align: center;
+        }
+        
+        .service-card:hover .service-overlay {
+          opacity: 1;
+        }
+        
+        .service-card:hover .service-background {
+          transform: scale(1.05);
         }
         
         .service-card:hover {
-          transform: translateY(-8px);
-          background: rgba(255, 255, 255, 0.98);
+          transform: translateY(-12px);
+          background: rgba(255, 255, 255, 0.25);
           backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.75);
-          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+        
+        .service-content {
+          position: relative;
+          z-index: 2;
+          padding: 2.5rem 2rem;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
+          transition: var(--transition);
         }
         
         .service-icon {
-          width: 80px;
-          height: 80px;
-          margin: 0 auto 2rem;
-          background: linear-gradient(135deg, var(--accent), var(--primary));
-          border-radius: 50%;
+          margin: 0 auto 1.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--white);
           transition: var(--transition);
           position: relative;
           z-index: 2;
         }
         
-        .service-card:hover .service-icon {
-          transform: scale(1.1);
-          background: var(--white);
-          color: var(--primary);
+        .service-card:hover .service-content {
+          opacity: 0;
+          transform: translateY(-20px);
         }
         
         .service-title {
@@ -88,8 +115,10 @@ export const ServicesSection = component$(() => {
           transition: var(--transition);
         }
         
-        .service-card:hover .service-title {
+        .service-overlay .service-title {
           color: var(--white);
+          font-size: 1.6rem;
+          margin-bottom: 1.5rem;
         }
         
         .service-description {
@@ -101,28 +130,32 @@ export const ServicesSection = component$(() => {
           transition: var(--transition);
         }
         
-        .service-card:hover .service-description {
+        .service-overlay .service-description {
           color: var(--white);
-          opacity: 0;
+          font-size: 1.1rem;
+          line-height: 1.7;
+          opacity: 0.95;
         }
         
-        .service-hover-content {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 90%;
-          opacity: 0;
-          z-index: 3;
-          transition: var(--transition);
+        .service-overlay-icon {
+          margin-bottom: 2rem;
           color: var(--white);
-          font-size: 1rem;
-          line-height: 1.5;
+          opacity: 0.9;
         }
         
-        .service-card:hover .service-hover-content {
-          opacity: 1;
-          transform: translate(-50%, -40%);
+        .service-category {
+          display: inline-block;
+          background: rgba(255, 255, 255, 0.25);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          padding: 0.5rem 1.2rem;
+          border-radius: 25px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: var(--white);
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
         
         .services-cta {
@@ -137,12 +170,11 @@ export const ServicesSection = component$(() => {
           }
           
           .service-card {
-            padding: 2rem 1.5rem;
+            min-height: 280px;
           }
           
-          .service-icon {
-            width: 60px;
-            height: 60px;
+          .service-content {
+            padding: 2rem 1.5rem;
           }
         }
       `);
@@ -155,67 +187,147 @@ export const ServicesSection = component$(() => {
         
         <div class="services-grid">
           <div class="service-card kitchen-card">
-            <div class="service-icon">
-              <i class="ph-duotone ph-cooking-pot icon-duotone" style="font-size: 48px;"></i>
+            <img 
+              src="https://images.unsplash.com/photo-1742192757416-27d69a5d5029?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85"
+              alt="Modern luxury kitchen"
+              class="service-background"
+              width="400"
+              height="320"
+            />
+            <div class="service-content">
+              <div class="service-icon">
+                <i class="ph-duotone ph-cooking-pot icon-duotone-accent" style="font-size: 48px;"></i>
+              </div>
+              <h3 class="service-title">Kuchyně na míru</h3>
+              <p class="service-description">
+                Srdce každého domova podle vašich představ
+              </p>
             </div>
-            <h3 class="service-title">Kuchyně na míru</h3>
-            <p class="service-description">
-              Srdce každého domova podle vašich představ
-            </p>
-            <div class="service-hover-content">
-              <p>Kompletní návrh, výběr materiálů, moderní kování a spotřebiče, profesionální montáž</p>
+            <div class="service-overlay">
+              <span class="service-category">Kuchyně</span>
+              <div class="service-overlay-icon">
+                <i class="ph-duotone ph-cooking-pot" style="font-size: 56px;"></i>
+              </div>
+              <h3 class="service-title">Kuchyně na míru</h3>
+              <p class="service-description">
+                Kompletní návrh, výběr materiálů, moderní kování a spotřebiče, profesionální montáž
+              </p>
             </div>
           </div>
           
           <div class="service-card wardrobe-card">
-            <div class="service-icon">
-              <i class="ph-duotone ph-wardrobe icon-duotone" style="font-size: 48px;"></i>
+            <img 
+              src="https://images.unsplash.com/photo-1722942116307-52f7afb38e7f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw0fHx3YXJkcm9iZSUyMGNsb3NldCUyMGJlZHJvb20lMjBzbGlkaW5nJTIwZG9vcnN8ZW58MHwxfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85"
+              alt="Built-in wardrobe with sliding doors"
+              class="service-background"
+              width="400"
+              height="320"
+            />
+            <div class="service-content">
+              <div class="service-icon">
+                <i class="ph-duotone ph-wardrobe icon-duotone-accent" style="font-size: 48px;"></i>
+              </div>
+              <h3 class="service-title">Vestavěné skříně</h3>
+              <p class="service-description">
+                Maximální využití prostoru s elegantním designem
+              </p>
             </div>
-            <h3 class="service-title">Vestavěné skříně</h3>
-            <p class="service-description">
-              Maximální využití prostoru s elegantním designem
-            </p>
-            <div class="service-hover-content">
-              <p>Posuvné dveře, organizační systémy, LED osvětlení, atypické rozměry</p>
+            <div class="service-overlay">
+              <span class="service-category">Skříně</span>
+              <div class="service-overlay-icon">
+                <i class="ph-duotone ph-wardrobe" style="font-size: 56px;"></i>
+              </div>
+              <h3 class="service-title">Vestavěné skříně</h3>
+              <p class="service-description">
+                Posuvné dveře, organizační systémy, LED osvětlení, atypické rozměry
+              </p>
             </div>
           </div>
           
           <div class="service-card bathroom-card">
-            <div class="service-icon">
-              <i class="ph-duotone ph-bathtub icon-duotone" style="font-size: 48px;"></i>
+            <img 
+              src="https://images.unsplash.com/photo-1633681140152-3b8726450518?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxiYXRocm9vbSUyMHZhbml0eSUyMG1pcnJvciUyMG1vZGVybiUyMGRlc2lnbnxlbnwwfDB8fHwxNzU1MzM1NDI5fDA&ixlib=rb-4.1.0&q=85"
+              alt="Modern bathroom vanity"
+              class="service-background"
+              width="400"
+              height="320"
+            />
+            <div class="service-content">
+              <div class="service-icon">
+                <i class="ph-duotone ph-bathtub icon-duotone-accent" style="font-size: 48px;"></i>
+              </div>
+              <h3 class="service-title">Koupelnový nábytek</h3>
+              <p class="service-description">
+                Funkční a stylové řešení pro vaši pohodu
+              </p>
             </div>
-            <h3 class="service-title">Koupelnový nábytek</h3>
-            <p class="service-description">
-              Funkční a stylové řešení pro vaši pohodu
-            </p>
-            <div class="service-hover-content">
-              <p>Vodotěsné materiály, skryté úložné prostory, moderní umyvadla</p>
+            <div class="service-overlay">
+              <span class="service-category">Koupelny</span>
+              <div class="service-overlay-icon">
+                <i class="ph-duotone ph-bathtub" style="font-size: 56px;"></i>
+              </div>
+              <h3 class="service-title">Koupelnový nábytek</h3>
+              <p class="service-description">
+                Vodotěsné materiály, skryté úložné prostory, moderní umyvadla
+              </p>
             </div>
           </div>
           
           <div class="service-card office-card">
-            <div class="service-icon">
-              <i class="ph-duotone ph-desk icon-duotone" style="font-size: 48px;"></i>
+            <img 
+              src="https://images.unsplash.com/photo-1745970347652-8f22f5d7d3ba?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxvZmZpY2UlMjBkZXNrJTIwd29ya3NwYWNlJTIwcHJvZmVzc2lvbmFsfGVufDB8MHx8fDE3NTUzMzU0Mjl8MA&ixlib=rb-4.1.0&q=85"
+              alt="Contemporary office workspace"
+              class="service-background"
+              width="400"
+              height="320"
+            />
+            <div class="service-content">
+              <div class="service-icon">
+                <i class="ph-duotone ph-desk icon-duotone-accent" style="font-size: 48px;"></i>
+              </div>
+              <h3 class="service-title">Kancelářský nábytek</h3>
+              <p class="service-description">
+                Profesionální prostředí pro váš business
+              </p>
             </div>
-            <h3 class="service-title">Kancelářský nábytek</h3>
-            <p class="service-description">
-              Profesionální prostředí pro váš business
-            </p>
-            <div class="service-hover-content">
-              <p>Ergonomické řešení, kabelový management, modulární systémy</p>
+            <div class="service-overlay">
+              <span class="service-category">Kanceláře</span>
+              <div class="service-overlay-icon">
+                <i class="ph-duotone ph-desk" style="font-size: 56px;"></i>
+              </div>
+              <h3 class="service-title">Kancelářský nábytek</h3>
+              <p class="service-description">
+                Ergonomické řešení, kabelový management, modulární systémy
+              </p>
             </div>
           </div>
           
           <div class="service-card atypical-card">
-            <div class="service-icon">
-              <i class="ph-duotone ph-magic-wand icon-duotone" style="font-size: 48px;"></i>
+            <img 
+              src="https://images.unsplash.com/photo-1631889993959-41b4e9c18b12?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHx3b3Jrc2hvcCUyMGN1c3RvbSUyMGZ1cm5pdHVyZSUyMGNyYWZ0c21hbnxlbnwwfDB8fHwxNzU1MzM1NDI5fDA&ixlib=rb-4.1.0&q=85"
+              alt="Custom furniture workshop"
+              class="service-background"
+              width="400"
+              height="320"
+            />
+            <div class="service-content">
+              <div class="service-icon">
+                <i class="ph-duotone ph-magic-wand icon-duotone-accent" style="font-size: 48px;"></i>
+              </div>
+              <h3 class="service-title">Atypické řešení</h3>
+              <p class="service-description">
+                Zubní ordinace, školy, nebo cokoliv si dokážete představit
+              </p>
             </div>
-            <h3 class="service-title">Atypické řešení</h3>
-            <p class="service-description">
-              Zubní ordinace, školy, nebo cokoliv si dokážete představit
-            </p>
-            <div class="service-hover-content">
-              <p>Individuální přístup, speciální materiály, nestandardní rozměry</p>
+            <div class="service-overlay">
+              <span class="service-category">Atypické</span>
+              <div class="service-overlay-icon">
+                <i class="ph-duotone ph-magic-wand" style="font-size: 56px;"></i>
+              </div>
+              <h3 class="service-title">Atypické řešení</h3>
+              <p class="service-description">
+                Individuální přístup, speciální materiály, nestandardní rozměry
+              </p>
             </div>
           </div>
         </div>
