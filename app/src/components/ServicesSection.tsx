@@ -44,10 +44,10 @@ export const ServicesSection = component$(() => {
         
         .service-overlay {
           position: absolute;
-          top: -10px;
-          left: -10px;
-          width: calc(100% + 20px);
-          height: calc(100% + 20px);
+          top: -30px;
+          left: -30px;
+          width: calc(100% + 60px);
+          height: calc(100% + 60px);
           background: linear-gradient(135deg, rgba(44, 62, 80, 0.75) 0%, rgba(230, 126, 34, 0.75) 100%);
           opacity: 0;
           visibility: hidden;
