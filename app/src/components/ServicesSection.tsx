@@ -38,7 +38,7 @@ export const ServicesSection = component$(() => {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: var(--transition);
+          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
           z-index: 1;
         }
         
@@ -50,7 +50,7 @@ export const ServicesSection = component$(() => {
           height: 100%;
           background: linear-gradient(135deg, rgba(44, 62, 80, 0.85) 0%, rgba(230, 126, 34, 0.85) 100%);
           opacity: 0;
-          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -65,7 +65,7 @@ export const ServicesSection = component$(() => {
         }
         
         .service-card:hover .service-background {
-          transform: scale(1.05);
+          transform: scale(1.025);
         }
         
         .service-card:hover {
@@ -87,7 +87,7 @@ export const ServicesSection = component$(() => {
           justify-content: center;
           text-align: center;
           background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
-          transition: var(--transition);
+          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         .service-icon {
@@ -138,25 +138,11 @@ export const ServicesSection = component$(() => {
         }
         
         .service-overlay-icon {
-          margin-bottom: 2rem;
+          margin-bottom: 1.5rem;
           color: var(--white);
           opacity: 0.9;
         }
         
-        .service-category {
-          display: inline-block;
-          background: rgba(255, 255, 255, 0.25);
-          backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          padding: 0.5rem 1.2rem;
-          border-radius: 25px;
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: var(--white);
-          margin-bottom: 1rem;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
         
         .services-cta {
           text-align: center;
@@ -204,7 +190,6 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
             <div class="service-overlay">
-              <span class="service-category">Kuchyně</span>
               <div class="service-overlay-icon">
                 <i class="ph-duotone ph-cooking-pot" style="font-size: 56px;"></i>
               </div>
@@ -233,7 +218,6 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
             <div class="service-overlay">
-              <span class="service-category">Skříně</span>
               <div class="service-overlay-icon">
                 <i class="ph-duotone ph-wardrobe" style="font-size: 56px;"></i>
               </div>
@@ -262,7 +246,6 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
             <div class="service-overlay">
-              <span class="service-category">Koupelny</span>
               <div class="service-overlay-icon">
                 <i class="ph-duotone ph-bathtub" style="font-size: 56px;"></i>
               </div>
@@ -291,7 +274,6 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
             <div class="service-overlay">
-              <span class="service-category">Kanceláře</span>
               <div class="service-overlay-icon">
                 <i class="ph-duotone ph-desk" style="font-size: 56px;"></i>
               </div>
@@ -320,7 +302,6 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
             <div class="service-overlay">
-              <span class="service-category">Atypické</span>
               <div class="service-overlay-icon">
                 <i class="ph-duotone ph-magic-wand" style="font-size: 56px;"></i>
               </div>
