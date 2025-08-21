@@ -27,7 +27,6 @@ export const ServicesSection = component$(() => {
           cursor: pointer;
           background: rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
           min-height: 320px;
         }
         
@@ -40,6 +39,7 @@ export const ServicesSection = component$(() => {
           object-fit: cover;
           transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
           z-index: 1;
+          transform: scale(1.05);
         }
         
         .service-overlay {
@@ -69,14 +69,13 @@ export const ServicesSection = component$(() => {
         }
         
         .service-card:hover .service-background {
-          transform: scale(1.025);
+          transform: scale(1.08);
         }
         
         .service-card:hover {
           transform: translateY(-12px);
           background: rgba(255, 255, 255, 0.25);
           backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
         }
         
@@ -223,7 +222,7 @@ export const ServicesSection = component$(() => {
             />
             <div class="service-content">
               <div class="service-icon">
-                <i class="ph-duotone ph-wardrobe icon-duotone-accent" style="font-size: 48px;"></i>
+                <i class="ph-duotone ph-door-open icon-duotone-accent" style="font-size: 48px;"></i>
               </div>
               <h3 class="service-title">Vestavěné skříně</h3>
               <p class="service-description">
@@ -232,7 +231,7 @@ export const ServicesSection = component$(() => {
             </div>
             <div class="service-overlay">
               <div class="service-overlay-icon">
-                <i class="ph-duotone ph-wardrobe" style="font-size: 56px;"></i>
+                <i class="ph-duotone ph-door-open" style="font-size: 56px;"></i>
               </div>
               <h3 class="service-title">Vestavěné skříně</h3>
               <p class="service-description">
