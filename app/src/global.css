@@ -5,6 +5,9 @@
   --primary: #2C3E50;
   --primary-light: #34495E;
   --accent: #E67E22;
+  --gold: #D4A574;
+  --gold-light: #E6C799;
+  --gold-dark: #B8924F;
   --white: #FFFFFF;
   --light-gray: #F8F9FA;
   --gray: #6C757D;
@@ -313,4 +316,27 @@ html {
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Phosphor Icons Duotone Utilities */
+.icon-duotone {
+  --ph-duotone-primary: var(--gold);
+  --ph-duotone-secondary: currentColor;
+  transition: var(--transition);
+}
+
+.icon-duotone-reverse {
+  --ph-duotone-primary: currentColor;
+  --ph-duotone-secondary: var(--gold);
+  transition: var(--transition);
+}
+
+.icon-duotone-accent {
+  --ph-duotone-primary: var(--accent);
+  --ph-duotone-secondary: currentColor;
+  transition: var(--transition);
+}
+
+.icon-hover-lift:hover {
+  transform: translateY(-2px);
 }
