@@ -34,14 +34,16 @@ export const ValuesSection = component$(() => {
         }
         
         .value-card {
-          background: var(--white);
-          padding: 3rem 2rem;
-          border-radius: var(--radius-lg);
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          padding: 3.5rem 2.5rem;
+          border-radius: 24px;
           text-align: center;
           position: relative;
           overflow: hidden;
-          transition: var(--transition);
-          box-shadow: var(--shadow-sm);
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
         
         .value-card::before {
@@ -50,56 +52,57 @@ export const ValuesSection = component$(() => {
           top: 0;
           left: 0;
           width: 100%;
-          height: 4px;
-          background: linear-gradient(90deg, var(--accent), var(--primary));
+          height: 3px;
+          background: linear-gradient(90deg, var(--gold), var(--gold-light));
+          border-radius: 24px 24px 0 0;
         }
         
         .value-card:hover {
-          transform: translateY(-8px);
-          box-shadow: var(--shadow-lg);
+          transform: translateY(-12px) scale(1.02);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(30px);
+          border: 1px solid rgba(212, 165, 116, 0.3);
         }
         
         .quality-card:hover {
-          background: linear-gradient(135deg, rgba(230, 126, 34, 0.05), var(--white));
+          background: linear-gradient(135deg, rgba(212, 165, 116, 0.08), rgba(255, 255, 255, 0.95));
         }
         
         .precision-card:hover {
-          background: linear-gradient(135deg, rgba(44, 62, 80, 0.05), var(--white));
+          background: linear-gradient(135deg, rgba(44, 62, 80, 0.08), rgba(255, 255, 255, 0.95));
         }
         
         .satisfaction-card:hover {
-          background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), var(--white));
+          background: linear-gradient(135deg, rgba(230, 126, 34, 0.08), rgba(255, 255, 255, 0.95));
         }
         
         .value-icon {
-          width: 80px;
-          height: 80px;
           margin: 0 auto 2rem;
-          background: linear-gradient(135deg, var(--accent), var(--primary));
-          border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--white);
           transition: var(--transition);
         }
         
         .value-card:hover .value-icon {
-          transform: scale(1.1) rotate(5deg);
+          transform: scale(1.15) rotate(3deg);
         }
         
         .value-title {
-          font-size: 1.5rem;
-          font-weight: 700;
+          font-size: 1.6rem;
+          font-weight: 800;
           color: var(--primary);
-          margin-bottom: 1rem;
-          letter-spacing: 1px;
+          margin-bottom: 1.2rem;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
         }
         
         .value-description {
           font-size: 1.1rem;
-          line-height: 1.6;
+          line-height: 1.7;
           color: var(--gray);
+          font-weight: 400;
         }
         
         @media (max-width: 768px) {
@@ -109,13 +112,9 @@ export const ValuesSection = component$(() => {
           }
           
           .value-card {
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 2rem;
           }
           
-          .value-icon {
-            width: 60px;
-            height: 60px;
-          }
         }
       `);
   return (
@@ -133,9 +132,7 @@ export const ValuesSection = component$(() => {
         <div class="values-grid">
           <div class="value-card quality-card">
             <div class="value-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
+              <i class="ph-duotone ph-medal icon-duotone-accent" style="font-size: 64px;"></i>
             </div>
             <h3 class="value-title">KVALITA</h3>
             <p class="value-description">
@@ -145,9 +142,7 @@ export const ValuesSection = component$(() => {
           
           <div class="value-card precision-card">
             <div class="value-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
+              <i class="ph-duotone ph-crosshair icon-duotone-accent" style="font-size: 64px;"></i>
             </div>
             <h3 class="value-title">PRECIZNOST</h3>
             <p class="value-description">
@@ -157,9 +152,7 @@ export const ValuesSection = component$(() => {
           
           <div class="value-card satisfaction-card">
             <div class="value-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
+              <i class="ph-duotone ph-heart icon-duotone-accent" style="font-size: 64px;"></i>
             </div>
             <h3 class="value-title">SPOKOJENOST</h3>
             <p class="value-description">
