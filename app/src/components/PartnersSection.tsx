@@ -15,6 +15,8 @@ const styles = `
     margin-bottom: 4rem;
     overflow: hidden;
     position: relative;
+    padding: 2rem 0;
+    margin: 0 -2rem 4rem -2rem;
   }
   
   .partners-carousel::before,
@@ -22,7 +24,7 @@ const styles = `
     content: '';
     position: absolute;
     top: 0;
-    width: 100px;
+    width: 120px;
     height: 100%;
     z-index: 2;
     pointer-events: none;
@@ -40,41 +42,57 @@ const styles = `
   
   .partners-track {
     display: flex;
-    animation: scroll 30s linear infinite;
-    width: calc(200px * 16); /* 8 partners * 2 sets * 200px width */
+    animation: scroll 60s linear infinite;
+    width: calc(200px * 54); /* 27 partners * 2 sets * 200px width */
   }
   
   .partner-item {
     flex: 0 0 200px;
-    height: 100px;
+    height: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 1rem;
+    padding: 1rem 0;
   }
   
   .partner-logo {
-    background: var(--light-gray);
-    border: 2px solid transparent;
-    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-md);
     padding: 1.5rem 2rem;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--primary);
-    transition: var(--transition);
-    text-align: center;
-    min-width: 140px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 140px;
+    min-height: 80px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  .partner-logo img {
+    max-width: 100%;
+    max-height: 50px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: 16/9;
+    filter: grayscale(100%) contrast(1.2) brightness(0.8);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
   
   .partner-item:hover .partner-logo {
-    background: var(--primary);
-    color: var(--white);
-    border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--gold);
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(20px);
+  }
+  
+  .partner-item:hover .partner-logo img {
+    filter: grayscale(0%) contrast(1) brightness(1);
+    transform: scale(1.1);
   }
   
   .partners-description {
@@ -101,14 +119,14 @@ const styles = `
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-200px * 8 - 2rem * 8)); /* Move by width of 8 partners */
+      transform: translateX(calc(-200px * 27 - 2rem * 27)); /* Move by width of 27 partners */
     }
   }
   
   @media (max-width: 768px) {
     .partners-carousel::before,
     .partners-carousel::after {
-      width: 50px;
+      width: 80px;
     }
     
     .partner-item {
@@ -117,7 +135,7 @@ const styles = `
     }
     
     .partners-track {
-      width: calc(150px * 16 + 1rem * 16);
+      width: calc(150px * 54 + 1rem * 54);
     }
     
     .partner-logo {
@@ -131,7 +149,7 @@ const styles = `
         transform: translateX(0);
       }
       100% {
-        transform: translateX(calc(-150px * 8 - 1rem * 8));
+        transform: translateX(calc(-150px * 27 - 1rem * 27));
       }
     }
   }
@@ -145,14 +163,33 @@ const styles = `
 export const PartnersSection = component$(() => {
   useStylesScoped$(styles);
   const partners = [
-    { name: "Blum", logo: "BLUM" },
-    { name: "Egger", logo: "EGGER" },
-    { name: "Kronospan", logo: "KRONOSPAN" },
-    { name: "Fundermax", logo: "FUNDERMAX" },
-    { name: "Hettich", logo: "HETTICH" },
-    { name: "Franke", logo: "FRANKE" },
-    { name: "Blanco", logo: "BLANCO" },
-    { name: "Häfele", logo: "HÄFELE" }
+    { name: "Blum", logo: "blum.svg" },
+    { name: "Egger", logo: "egger.svg" },
+    { name: "Kronospan", logo: "kronospan.svg" },
+    { name: "Fundermax", logo: "Fundermax.svg" },
+    { name: "Hettich", logo: "Hettich.svg" },
+    { name: "Franke", logo: "franke.svg" },
+    { name: "Blanco", logo: "blanco.svg" },
+    { name: "Häfele", logo: "Hafele.svg" },
+    { name: "Kaindl", logo: "Kaindl.svg" },
+    { name: "Kessebohmer", logo: "Kesseboehmer.svg" },
+    { name: "Kooplast", logo: "Kooplast.svg" },
+    { name: "Sapeli", logo: "Sapeli.svg" },
+    { name: "Cobra", logo: "cobra.svg" },
+    { name: "Demos", logo: "demos.svg" },
+    { name: "Doornite", logo: "doornite.svg" },
+    { name: "JAF", logo: "jaf.svg" },
+    { name: "Kerrock", logo: "kerrock.svg" },
+    { name: "Kili", logo: "kili.svg" },
+    { name: "Lamelio", logo: "lamelio.svg" },
+    { name: "Mivokor", logo: "mivokor.svg" },
+    { name: "MT", logo: "MT.svg" },
+    { name: "Rostex", logo: "rostex.svg" },
+    { name: "Salu", logo: "salu.svg" },
+    { name: "Schock", logo: "schock.svg" },
+    { name: "Trachea", logo: "trachea.svg" },
+    { name: "Wireli", logo: "wireli.svg" },
+    { name: "Zlomek", logo: "Zlomek.svg" }
   ];
 
   return (
@@ -171,7 +208,11 @@ export const PartnersSection = component$(() => {
             {partners.map((partner, index) => (
               <div key={`${partner.name}-1-${index}`} class="partner-item">
                 <div class="partner-logo">
-                  {partner.logo}
+                  <img 
+                    src={`/images/partners/${partner.logo}`}
+                    alt={`${partner.name} logo`}
+                    loading="lazy"
+                  />
                 </div>
               </div>
             ))}
@@ -179,7 +220,11 @@ export const PartnersSection = component$(() => {
             {partners.map((partner, index) => (
               <div key={`${partner.name}-2-${index}`} class="partner-item">
                 <div class="partner-logo">
-                  {partner.logo}
+                  <img 
+                    src={`/images/partners/${partner.logo}`}
+                    alt={`${partner.name} logo`}
+                    loading="lazy"
+                  />
                 </div>
               </div>
             ))}

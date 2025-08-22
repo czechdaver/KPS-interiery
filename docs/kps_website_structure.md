@@ -71,10 +71,11 @@
 
 ### 4. NAŠE REALIZACE (Galerie)
 
-**Filtrovatelná galerie**
+**Filtrovatelná galerie s PhotoSwipe lightbox**
 - Kategorie: Kuchyně, Skříně, Koupelny, Kanceláře, Atypické
-- Lightbox pro detail
-- Optimalizované pro mobily
+- PhotoSwipe v5.4.4 lightbox pro detail
+- Optimalizované pro mobily a touch gestures
+- Zoom, swipe, a další interaktivní funkce
 
 ### 5. PARTNEŘI A DODAVATELÉ
 

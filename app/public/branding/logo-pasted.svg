@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Placeholder for the original pasted SVG logo.
+     Paste your full SVG content (starting with <svg ...> and ending with </svg>)
+     here to use it across the showcase page. The page at index.html will load
+     this file for the "Original (Pasted)" variant. -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-labelledby="title desc">
+  <title id="title">KPS Interiéry - Placeholder (Paste your original SVG here)</title>
+  <desc id="desc">Temporary placeholder until the original SVG is pasted into this file.</desc>
+  <rect x="0" y="0" width="1200" height="400" fill="#F8F9FA"/>
+  <g transform="translate(100, 120)">
+    <text x="0" y="0" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Helvetica, Arial, sans-serif" font-size="96" font-weight="900" fill="#2C3E50">KPS</text>
+    <text x="0" y="72" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#E67E22">Interiéry</text>
+    <text x="0" y="128" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Helvetica, Arial, sans-serif" font-size="20" fill="#6C757D">Paste your original SVG code into this file</text>
+  </g>
+</svg>

@@ -22,12 +22,26 @@ export const ServicesSection = component$(() => {
           position: relative;
           border-radius: 24px;
           overflow: hidden;
-          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+          transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
           cursor: pointer;
-          background: rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(10px);
+          padding: 3.5rem 2.5rem;
+          text-align: center;
           min-height: 320px;
+        }
+        
+        .service-glassmorphism {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.25);
+          backdrop-filter: blur(5px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 24px;
+          z-index: 3;
+          transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         .service-background {
@@ -37,131 +51,131 @@ export const ServicesSection = component$(() => {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
           z-index: 1;
-          transform: scale(1.05);
         }
         
-        .service-overlay {
+        .service-background-overlay {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(135deg, rgba(44, 62, 80, 0.85) 0%, rgba(230, 126, 34, 0.85) 100%);
-          opacity: 0;
-          visibility: hidden;
-          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          z-index: 3;
-          padding: 2rem;
-          text-align: center;
-          transform: translateY(10px);
+          z-index: 2;
+          transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
-        .service-card:hover .service-overlay {
-          opacity: 1;
-          visibility: visible;
-          transform: translateY(0);
+        .kitchen-card .service-background-overlay {
+          background: linear-gradient(135deg, 
+            rgba(212, 165, 116, 0.7) 0%, 
+            rgba(230, 126, 34, 0.6) 50%, 
+            rgba(212, 165, 116, 0.8) 100%);
         }
         
-        .service-card:hover .service-background {
-          transform: scale(1.08);
+        .wardrobe-card .service-background-overlay {
+          background: linear-gradient(135deg, 
+            rgba(44, 62, 80, 0.7) 0%, 
+            rgba(52, 73, 94, 0.6) 50%, 
+            rgba(44, 62, 80, 0.8) 100%);
+        }
+        
+        .bathroom-card .service-background-overlay {
+          background: linear-gradient(135deg, 
+            rgba(230, 126, 34, 0.7) 0%, 
+            rgba(241, 196, 15, 0.6) 50%, 
+            rgba(230, 126, 34, 0.8) 100%);
+        }
+        
+        .office-card .service-background-overlay {
+          background: linear-gradient(135deg, 
+            rgba(52, 152, 219, 0.7) 0%, 
+            rgba(41, 128, 185, 0.6) 50%, 
+            rgba(52, 152, 219, 0.8) 100%);
+        }
+        
+        .atypical-card .service-background-overlay {
+          background: linear-gradient(135deg, 
+            rgba(155, 89, 182, 0.7) 0%, 
+            rgba(142, 68, 173, 0.6) 50%, 
+            rgba(155, 89, 182, 0.8) 100%);
         }
         
         .service-card:hover {
-          transform: translateY(-12px);
-          background: rgba(255, 255, 255, 0.25);
-          backdrop-filter: blur(20px);
+          transform: translateY(-12px) scale(1.02);
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+        
+        .service-card:hover .service-glassmorphism {
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(7.5px);
+          border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .service-card:hover .service-background-overlay {
+          opacity: 0.2;
         }
         
         .service-content {
           position: relative;
-          z-index: 2;
-          padding: 2.5rem 2rem;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
-          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
-          opacity: 1;
-          transform: translateY(0);
+          z-index: 4;
         }
-        
         
         .service-icon {
-          margin: 0 auto 1.5rem;
+          margin: 0 auto 2rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
-          position: relative;
-          z-index: 2;
+          transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
-        .service-card:hover .service-content {
-          opacity: 0;
-          transform: translateY(-10px);
-          background: transparent;
+        .service-icon i {
+          filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+          transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+          color: white;
+          --ph-duotone-primary: white;
+          --ph-duotone-secondary: rgba(255, 255, 255, 0.6);
+        }
+        
+        .service-card:hover .service-icon {
+          transform: scale(1.15) rotate(3deg);
+        }
+        
+        .service-card:hover .service-icon i {
+          filter: none;
+          color: var(--gold);
+          --ph-duotone-primary: var(--gold);
+          --ph-duotone-secondary: var(--gold-light);
         }
         
         .service-title {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: var(--primary);
-          margin-bottom: 1rem;
-          position: relative;
-          z-index: 2;
-          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
-        }
-        
-        .service-overlay .service-title {
-          color: var(--white);
           font-size: 1.6rem;
-          margin-bottom: 1.5rem;
+          font-weight: 800;
+          color: var(--white);
+          margin-bottom: 1.2rem;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         .service-description {
           font-size: 1.1rem;
-          line-height: 1.6;
-          color: var(--gray);
-          position: relative;
-          z-index: 2;
-          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
-        }
-        
-        .service-overlay .service-description {
-          color: var(--white);
-          font-size: 1.1rem;
           line-height: 1.7;
-          opacity: 0.95;
+          color: rgba(255, 255, 255, 0.9);
+          font-weight: 400;
+          transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
         
-        .service-overlay-icon {
-          margin-bottom: 1.5rem;
-          color: var(--white);
-          opacity: 0.9;
-          transition: all 0.8s cubic-bezier(0.15, 0.85, 0.15, 1);
-          transform: translateY(5px);
+        .service-card:hover .service-title {
+          color: var(--primary);
+          text-shadow: none;
         }
         
-        .service-card:hover .service-overlay-icon {
-          transform: translateY(0);
-          opacity: 1;
+        .service-card:hover .service-description {
+          color: var(--gray);
+          text-shadow: none;
         }
         
-        
-        .services-cta {
-          text-align: center;
-          margin-top: 3rem;
-        }
         
         @media (max-width: 768px) {
           .services-grid {
@@ -170,11 +184,7 @@ export const ServicesSection = component$(() => {
           }
           
           .service-card {
-            min-height: 280px;
-          }
-          
-          .service-content {
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 2rem;
           }
         }
       `);
@@ -194,22 +204,15 @@ export const ServicesSection = component$(() => {
               width="400"
               height="320"
             />
+            <div class="service-background-overlay"></div>
+            <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <i class="ph-duotone ph-cooking-pot icon-duotone-accent" style="font-size: 48px;"></i>
+                <i class="ph-duotone ph-cooking-pot icon-duotone-reverse" style="font-size: 48px;"></i>
               </div>
               <h3 class="service-title">Kuchyně na míru</h3>
               <p class="service-description">
                 Srdce každého domova podle vašich představ
-              </p>
-            </div>
-            <div class="service-overlay">
-              <div class="service-overlay-icon">
-                <i class="ph-duotone ph-cooking-pot" style="font-size: 56px;"></i>
-              </div>
-              <h3 class="service-title">Kuchyně na míru</h3>
-              <p class="service-description">
-                Kompletní návrh, výběr materiálů, moderní kování a spotřebiče, profesionální montáž
               </p>
             </div>
           </div>
@@ -222,22 +225,15 @@ export const ServicesSection = component$(() => {
               width="400"
               height="320"
             />
+            <div class="service-background-overlay"></div>
+            <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <i class="ph-duotone ph-door-open icon-duotone-accent" style="font-size: 48px;"></i>
+                <i class="ph-duotone ph-door-open icon-duotone-reverse" style="font-size: 48px;"></i>
               </div>
               <h3 class="service-title">Vestavěné skříně</h3>
               <p class="service-description">
                 Maximální využití prostoru s elegantním designem
-              </p>
-            </div>
-            <div class="service-overlay">
-              <div class="service-overlay-icon">
-                <i class="ph-duotone ph-door-open" style="font-size: 56px;"></i>
-              </div>
-              <h3 class="service-title">Vestavěné skříně</h3>
-              <p class="service-description">
-                Posuvné dveře, organizační systémy, LED osvětlení, atypické rozměry
               </p>
             </div>
           </div>
@@ -250,22 +246,15 @@ export const ServicesSection = component$(() => {
               width="400"
               height="320"
             />
+            <div class="service-background-overlay"></div>
+            <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <i class="ph-duotone ph-bathtub icon-duotone-accent" style="font-size: 48px;"></i>
+                <i class="ph-duotone ph-bathtub icon-duotone-reverse" style="font-size: 48px;"></i>
               </div>
               <h3 class="service-title">Koupelnový nábytek</h3>
               <p class="service-description">
                 Funkční a stylové řešení pro vaši pohodu
-              </p>
-            </div>
-            <div class="service-overlay">
-              <div class="service-overlay-icon">
-                <i class="ph-duotone ph-bathtub" style="font-size: 56px;"></i>
-              </div>
-              <h3 class="service-title">Koupelnový nábytek</h3>
-              <p class="service-description">
-                Vodotěsné materiály, skryté úložné prostory, moderní umyvadla
               </p>
             </div>
           </div>
@@ -278,22 +267,15 @@ export const ServicesSection = component$(() => {
               width="400"
               height="320"
             />
+            <div class="service-background-overlay"></div>
+            <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <i class="ph-duotone ph-desk icon-duotone-accent" style="font-size: 48px;"></i>
+                <i class="ph-duotone ph-desk icon-duotone-reverse" style="font-size: 48px;"></i>
               </div>
               <h3 class="service-title">Kancelářský nábytek</h3>
               <p class="service-description">
                 Profesionální prostředí pro váš business
-              </p>
-            </div>
-            <div class="service-overlay">
-              <div class="service-overlay-icon">
-                <i class="ph-duotone ph-desk" style="font-size: 56px;"></i>
-              </div>
-              <h3 class="service-title">Kancelářský nábytek</h3>
-              <p class="service-description">
-                Ergonomické řešení, kabelový management, modulární systémy
               </p>
             </div>
           </div>
@@ -306,32 +288,20 @@ export const ServicesSection = component$(() => {
               width="400"
               height="320"
             />
+            <div class="service-background-overlay"></div>
+            <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <i class="ph-duotone ph-magic-wand icon-duotone-accent" style="font-size: 48px;"></i>
+                <i class="ph-duotone ph-magic-wand icon-duotone-reverse" style="font-size: 48px;"></i>
               </div>
               <h3 class="service-title">Atypické řešení</h3>
               <p class="service-description">
                 Zubní ordinace, školy, nebo cokoliv si dokážete představit
               </p>
             </div>
-            <div class="service-overlay">
-              <div class="service-overlay-icon">
-                <i class="ph-duotone ph-magic-wand" style="font-size: 56px;"></i>
-              </div>
-              <h3 class="service-title">Atypické řešení</h3>
-              <p class="service-description">
-                Individuální přístup, speciální materiály, nestandardní rozměry
-              </p>
-            </div>
           </div>
         </div>
         
-        <div class="services-cta">
-          <a href="#contact" class="btn btn-glass">
-            Zobrazit všechny služby
-          </a>
-        </div>
       </div>
       
     </section>
