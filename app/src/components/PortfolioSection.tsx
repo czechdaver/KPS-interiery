@@ -1,4 +1,5 @@
-import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, useStylesScoped$, useTask$, useSignal, useVisibleTask$, $ } from "@builder.io/qwik";
+import { loadAllGalleries, type GalleryData, getImagePath } from '../lib/gallery';
 
 const styles = `
   .portfolio-section {
@@ -144,6 +145,13 @@ const styles = `
     text-align: center;
   }
   
+  .portfolio-loading {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--gray);
+    font-size: 1.1rem;
+  }
+  
   @media (max-width: 1024px) {
     .portfolio-item.featured,
     .portfolio-item.wide {
@@ -175,50 +183,57 @@ const styles = `
 
 export const PortfolioSection = component$(() => {
   useStylesScoped$(styles);
-  const portfolioItems = [
-    {
-      id: 1,
-      title: "Moderní kuchyň s ostrůvkem",
-      category: "Kuchyně",
-      image: "https://images.unsplash.com/photo-1742192757416-27d69a5d5029?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85",
-      alt: "Modern luxury kitchen interior - Shishu Yadava on Unsplash"
-    },
-    {
-      id: 2,
-      title: "Vestavěná skříň s posuvnými dveřmi",
-      category: "Skříně",
-      image: "https://images.unsplash.com/photo-1722942116307-52f7afb38e7f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw0fHx3YXJkcm9iZSUyMGNsb3NldCUyMGJlZHJvb20lMjBzbGlkaW5nJTIwZG9vcnN8ZW58MHwxfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85",
-      alt: "Built-in wardrobe with sliding doors - Lisa Anna on Unsplash"
-    },
-    {
-      id: 3,
-      title: "Koupelnový nábytek s umyvadlem",
-      category: "Koupelny",
-      image: "https://images.unsplash.com/photo-1633681140152-3b8726450518?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxiYXRocm9vbSUyMHZhbml0eSUyMG1pcnJvciUyMG1vZGVybiUyMGRlc2lnbnxlbnwwfDB8fHwxNzU1MzM1NDI5fDA&ixlib=rb-4.1.0&q=85",
-      alt: "Modern bathroom vanity with custom storage - Benyamin Bohlouli on Unsplash"
-    },
-    {
-      id: 4,
-      title: "Kancelářský nábytek na míru",
-      category: "Kanceláře",
-      image: "https://images.unsplash.com/photo-1745970347652-8f22f5d7d3ba?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxvZmZpY2UlMjBkZXNrJTIwd29ya3NwYWNlJTIwcHJvZmVzc2lvbmFsfGVufDB8MHx8fDE3NTUzMzU0Mjl8MA&ixlib=rb-4.1.0&q=85",
-      alt: "Contemporary office space with custom desk - Deliberate Directions on Unsplash"
-    },
-    {
-      id: 5,
-      title: "Luxusní kuchyň s mramorovými akcenty",
-      category: "Kuchyně",
-      image: "https://images.unsplash.com/photo-1742280879518-ada47b660ccd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw0fHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85",
-      alt: "Luxury kitchen with marble accents - Shishu Yadava on Unsplash"
-    },
-    {
-      id: 6,
-      title: "Moderní koupelna s dřevěnými prvky",
-      category: "Koupelny",
-      image: "https://images.unsplash.com/photo-1595515769499-0f61fc8db2e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw3fHxiYXRocm9vbSUyMHZhbml0eSUyMG1pcnJvciUyMG1vZGVybiUyMGRlc2lnbnxlbnwwfDB8fHwxNzU1MzM1NDI5fDA&ixlib=rb-4.1.0&q=85",
-      alt: "Modern bathroom with wooden elements - Sanibell BV on Unsplash"
+  const galleries = useSignal<GalleryData[]>([]);
+  const isLoading = useSignal(true);
+
+  useTask$(async () => {
+    try {
+      const loadedGalleries = await loadAllGalleries();
+      galleries.value = loadedGalleries;
+    } catch (error) {
+      console.error('Failed to load galleries:', error);
+    } finally {
+      isLoading.value = false;
     }
-  ];
+  });
+
+  const openLightbox = $((gallery: GalleryData) => {
+    if (typeof window !== 'undefined') {
+      import('photoswipe').then(({ default: PhotoSwipe }) => {
+        const items = gallery.images.map(img => ({
+          src: `./images/galleries/${gallery.id}/${img.src}`,
+          width: img.width,
+          height: img.height,
+          alt: img.alt
+        }));
+
+        const pswp = new PhotoSwipe({
+          showHideAnimationType: 'zoom',
+          bgOpacity: 0.9,
+          spacing: 0.1,
+          allowPanToNext: true,
+          loop: true,
+          pinchToClose: true,
+          closeOnVerticalDrag: true
+        });
+        
+        pswp.init();
+        pswp.loadAndOpen(0, items);
+      });
+    }
+  });
+
+  useVisibleTask$(() => {
+    if (typeof window !== 'undefined') {
+      const existingLink = document.querySelector('link[href*=\"photoswipe.css\"]');
+      if (!existingLink) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css';
+        document.head.appendChild(link);
+      }
+    }
+  });
 
   return (
     <section class="portfolio-section section" id="portfolio">
@@ -230,36 +245,47 @@ export const PortfolioSection = component$(() => {
           </p>
         </div>
         
-        <div class="portfolio-grid">
-          {portfolioItems.map((item, index) => (
-            <div 
-              key={item.id} 
-              class={`portfolio-item ${index === 0 ? 'featured' : ''} ${index === 3 ? 'wide' : ''}`}
-            >
-              <div class="portfolio-image-container">
-                <img 
-                  src={item.image}
-                  alt={item.alt}
-                  class="portfolio-image"
-                  width="400"
-                  height="300"
-                />
-                <div class="portfolio-overlay">
-                  <div class="portfolio-content">
-                    <span class="portfolio-category">{item.category}</span>
-                    <h3 class="portfolio-title">{item.title}</h3>
-                    <button class="portfolio-view-btn">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                      </svg>
-                      Zobrazit detail
-                    </button>
+        {isLoading.value ? (
+          <div class="portfolio-loading">
+            <p>Načítání galerií...</p>
+          </div>
+        ) : (
+          <div class="portfolio-grid">
+            {galleries.value.map((gallery, index) => (
+              <div 
+                key={gallery.id} 
+                class={`portfolio-item ${index === 0 ? 'featured' : ''} ${index === 3 ? 'wide' : ''}`}
+              >
+                <div class="portfolio-image-container">
+                  <img 
+                    src={getImagePath(gallery.id, gallery.coverImage)}
+                    alt={gallery.title}
+                    class="portfolio-image"
+                    width="400"
+                    height="300"
+                    loading={index < 2 ? 'eager' : 'lazy'}
+                  />
+                  <div class="portfolio-overlay">
+                    <div class="portfolio-content">
+                      <span class="portfolio-category">{gallery.category}</span>
+                      <h3 class="portfolio-title">{gallery.title}</h3>
+                      <button 
+                        class="portfolio-view-btn"
+                        onClick$={() => openLightbox(gallery)}
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                        </svg>
+                        Zobrazit galerii
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+        
         
         <div class="portfolio-cta">
           <a href="#contact" class="btn btn-glass">
