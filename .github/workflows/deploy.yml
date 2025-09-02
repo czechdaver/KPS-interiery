@@ -72,8 +72,9 @@ jobs:
           cp -r ../temp-build/assets dist/KPS-interiery/ 2>/dev/null || echo "No assets directory to restore"
           cp ../temp-build/*.json dist/KPS-interiery/ 2>/dev/null || echo "No JSON files to restore" 
           
-          # Copy static files from public
-          cp -f public/favicon.svg dist/KPS-interiery/favicon.svg || true
+          # Copy static assets from public (directories and key files)
+          cp -r public/branding dist/KPS-interiery/ || true
+          cp -r public/images dist/KPS-interiery/ || true
           cp -f public/manifest.json dist/KPS-interiery/manifest.json || true
           cp -f public/robots.txt dist/KPS-interiery/robots.txt || true
           
