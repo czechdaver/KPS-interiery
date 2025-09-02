@@ -29,13 +29,17 @@ export const SimplePhotoSwipe = component$<SimplePhotoSwipeProps>(({ gallery }) 
           closeOnVerticalDrag: true
         };
 
-        const pswp = new PhotoSwipe(options);
+        const pswp = new PhotoSwipe({
+          dataSource: items,
+          ...options,
+          index: 0
+        });
+        
         pswp.addFilter('placeholderSrc', () => {
           return `./images/galleries/${gallery.id}/${gallery.coverImage}`;
         });
         
         pswp.init();
-        pswp.loadAndOpen(0, items);
       });
     }
   });
@@ -43,7 +47,7 @@ export const SimplePhotoSwipe = component$<SimplePhotoSwipeProps>(({ gallery }) 
   useVisibleTask$(() => {
     // Preload PhotoSwipe CSS
     if (typeof window !== 'undefined') {
-      const existingLink = document.querySelector('link[href*=\"photoswipe.css\"]');
+      const existingLink = document.querySelector('link[href*="photoswipe.css"]');
       if (!existingLink) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';

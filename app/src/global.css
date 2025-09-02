@@ -1,19 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
 :root {
-  /* KPS Interiéry Brand Colors */
-  --primary: #2C3E50;
-  --primary-light: #34495E;
-  --accent: #E67E22;
-  --gold: #D4A574;
-  --gold-light: #E6C799;
-  --gold-dark: #B8924F;
-  --white: #FFFFFF;
-  --light-gray: #F8F9FA;
-  --gray: #6C757D;
-  --dark-gray: #495057;
-  --wood-light: #D4A574;
-  --wood-dark: #8B4513;
+  /* KPS Interiéry Brand Colors - Mocha Sophistication Palette */
+  --primary: #322624;        /* Primary (logo) - Desaturated mocha brown */
+  --primary-light: #3E2F2B;  /* Lighter mocha for hover states */
+  --secondary: #C88B4E;      /* Secondary - Saturated warm caramel */
+  --secondary-light: #D4A373; /* Light secondary for backgrounds */
+  --accent: #8D6E63;         /* Accent - Muted brown */
+  --accent-light: #A0817A;   /* Light accent */
+  --accent-dark: #705651;    /* Dark accent */
+  --neutral-base: #F5ECE6;   /* Neutral base - Warm cream */
+  --white: #FFFFFF;          /* Text/Detail white */
+  --light-gray: #F5ECE6;     /* Use neutral base as light background */
+  --gray: #8D6E63;           /* Use accent as medium gray */
+  --dark-gray: #3E2723;      /* Use primary as dark gray */
+  --warm-light: #F5ECE6;     /* Neutral base for warm light */
+  --warm-dark: #2A1A17;      /* Darker version of primary */
   
   /* Typography */
   --font-family: 'Inter', sans-serif;
@@ -32,6 +34,7 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-xl: 20px;
   
   /* Transitions */
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -104,7 +107,7 @@ html {
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(15px);
   color: var(--primary);
-  border: 1px solid rgba(44, 62, 80, 0.15);
+  border: 1px solid rgba(60, 46, 38, 0.15);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
@@ -112,7 +115,7 @@ html {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   color: var(--primary);
-  border: 1px solid rgba(44, 62, 80, 0.225);
+  border: 1px solid rgba(60, 46, 38, 0.225);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
@@ -133,12 +136,13 @@ html {
 }
 
 .btn-accent {
-  background-color: var(--accent);
+  background-color: var(--secondary);
   color: var(--white);
 }
 
 .btn-accent:hover {
-  background-color: #d35400;
+  background-color: var(--secondary-light);
+  color: var(--primary);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -153,7 +157,7 @@ html {
 }
 
 .text-accent {
-  color: var(--accent);
+  color: var(--secondary);
 }
 
 .text-gray {
@@ -175,15 +179,15 @@ html {
 }
 
 .glass-dark {
-  background: rgba(44, 62, 80, 0.113);
+  background: rgba(60, 46, 38, 0.113);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(44, 62, 80, 0.165);
+  border: 1px solid rgba(60, 46, 38, 0.165);
 }
 
 .glass-accent {
-  background: rgba(230, 126, 34, 0.3);
+  background: rgba(200, 139, 78, 0.3);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(230, 126, 34, 0.62);
+  border: 1px solid rgba(200, 139, 78, 0.62);
 }
 
 .glass-hover {
@@ -332,7 +336,7 @@ html {
 }
 
 .icon-duotone-accent {
-  --ph-duotone-primary: var(--accent);
+  --ph-duotone-primary: var(--secondary);
   --ph-duotone-secondary: currentColor;
   transition: var(--transition);
 }

@@ -66,37 +66,37 @@ export const ServicesSection = component$(() => {
         
         .kitchen-card .service-background-overlay {
           background: linear-gradient(135deg, 
-            rgba(212, 165, 116, 0.7) 0%, 
-            rgba(230, 126, 34, 0.6) 50%, 
-            rgba(212, 165, 116, 0.8) 100%);
+            rgba(200, 139, 78, 0.65) 0%, 
+            rgba(212, 163, 115, 0.55) 50%, 
+            rgba(141, 110, 99, 0.7) 100%);
         }
         
         .wardrobe-card .service-background-overlay {
           background: linear-gradient(135deg, 
-            rgba(44, 62, 80, 0.7) 0%, 
-            rgba(52, 73, 94, 0.6) 50%, 
-            rgba(44, 62, 80, 0.8) 100%);
+            rgba(50, 38, 36, 0.65) 0%, 
+            rgba(62, 47, 43, 0.55) 50%, 
+            rgba(35, 25, 23, 0.7) 100%);
         }
         
         .bathroom-card .service-background-overlay {
           background: linear-gradient(135deg, 
-            rgba(230, 126, 34, 0.7) 0%, 
-            rgba(241, 196, 15, 0.6) 50%, 
-            rgba(230, 126, 34, 0.8) 100%);
+            rgba(141, 110, 99, 0.65) 0%, 
+            rgba(200, 139, 78, 0.55) 50%, 
+            rgba(160, 129, 122, 0.7) 100%);
         }
         
         .office-card .service-background-overlay {
           background: linear-gradient(135deg, 
-            rgba(52, 152, 219, 0.7) 0%, 
-            rgba(41, 128, 185, 0.6) 50%, 
-            rgba(52, 152, 219, 0.8) 100%);
+            rgba(50, 38, 36, 0.65) 0%, 
+            rgba(141, 110, 99, 0.55) 50%, 
+            rgba(112, 86, 81, 0.7) 100%);
         }
         
         .atypical-card .service-background-overlay {
           background: linear-gradient(135deg, 
-            rgba(155, 89, 182, 0.7) 0%, 
-            rgba(142, 68, 173, 0.6) 50%, 
-            rgba(155, 89, 182, 0.8) 100%);
+            rgba(200, 139, 78, 0.65) 0%, 
+            rgba(141, 110, 99, 0.55) 50%, 
+            rgba(212, 163, 115, 0.7) 100%);
         }
         
         .service-card:hover {
@@ -141,9 +141,9 @@ export const ServicesSection = component$(() => {
         
         .service-card:hover .service-icon i {
           filter: none;
-          color: var(--gold);
-          --ph-duotone-primary: var(--gold);
-          --ph-duotone-secondary: var(--gold-light);
+          color: var(--secondary);
+          --ph-duotone-primary: var(--secondary);
+          --ph-duotone-secondary: var(--secondary-light);
         }
         
         .service-title {

@@ -77,8 +77,8 @@ const styles = `
     height: 100%;
     background: linear-gradient(
       135deg,
-      rgba(44, 62, 80, 0.8) 0%,
-      rgba(230, 126, 34, 0.8) 100%
+      rgba(50, 38, 36, 0.7) 0%,
+      rgba(200, 139, 78, 0.6) 100%
     );
     opacity: 0;
     transition: var(--transition);
@@ -208,24 +208,25 @@ export const PortfolioSection = component$(() => {
         }));
 
         const pswp = new PhotoSwipe({
+          dataSource: items,
           showHideAnimationType: 'zoom',
           bgOpacity: 0.9,
           spacing: 0.1,
           allowPanToNext: true,
           loop: true,
           pinchToClose: true,
-          closeOnVerticalDrag: true
+          closeOnVerticalDrag: true,
+          index: 0
         });
         
         pswp.init();
-        pswp.loadAndOpen(0, items);
       });
     }
   });
 
   useVisibleTask$(() => {
     if (typeof window !== 'undefined') {
-      const existingLink = document.querySelector('link[href*=\"photoswipe.css\"]');
+      const existingLink = document.querySelector('link[href*="photoswipe.css"]');
       if (!existingLink) {
         const link = document.createElement('link');
         link.rel = 'stylesheet';

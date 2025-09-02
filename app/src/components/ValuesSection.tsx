@@ -53,7 +53,7 @@ export const ValuesSection = component$(() => {
           left: 0;
           width: 100%;
           height: 3px;
-          background: linear-gradient(90deg, var(--gold), var(--gold-light));
+          background: linear-gradient(90deg, var(--secondary), var(--secondary-light));
           border-radius: 24px 24px 0 0;
         }
         
@@ -62,19 +62,19 @@ export const ValuesSection = component$(() => {
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
           background: rgba(255, 255, 255, 0.95);
           backdrop-filter: blur(30px);
-          border: 1px solid rgba(212, 165, 116, 0.3);
+          border: 1px solid rgba(200, 139, 78, 0.4);
         }
         
         .quality-card:hover {
-          background: linear-gradient(135deg, rgba(212, 165, 116, 0.08), rgba(255, 255, 255, 0.95));
+          background: linear-gradient(135deg, rgba(200, 139, 78, 0.12), rgba(255, 255, 255, 0.95));
         }
         
         .precision-card:hover {
-          background: linear-gradient(135deg, rgba(44, 62, 80, 0.08), rgba(255, 255, 255, 0.95));
+          background: linear-gradient(135deg, rgba(50, 38, 36, 0.12), rgba(255, 255, 255, 0.95));
         }
         
         .satisfaction-card:hover {
-          background: linear-gradient(135deg, rgba(230, 126, 34, 0.08), rgba(255, 255, 255, 0.95));
+          background: linear-gradient(135deg, rgba(141, 110, 99, 0.12), rgba(255, 255, 255, 0.95));
         }
         
         .value-icon {

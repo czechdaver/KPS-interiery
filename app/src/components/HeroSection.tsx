@@ -35,9 +35,9 @@ export const HeroSection = component$(() => {
           height: 100%;
           background: linear-gradient(
             135deg,
-            rgba(44, 62, 80, 0.8) 0%,
-            rgba(44, 62, 80, 0.6) 50%,
-            rgba(230, 126, 34, 0.3) 100%
+            rgba(50, 38, 36, 0.5) 0%,
+            rgba(35, 25, 23, 0.45) 50%,
+            rgba(200, 139, 78, 0.25) 100%
           );
         }
         
@@ -63,7 +63,7 @@ export const HeroSection = component$(() => {
           font-weight: 900;
           line-height: 1.1;
           margin-bottom: 1rem;
-          background: linear-gradient(135deg, var(--white) 0%, var(--accent) 100%);
+          background: linear-gradient(135deg, var(--white) 0%, var(--secondary) 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;

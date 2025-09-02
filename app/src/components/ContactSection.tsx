@@ -1,59 +1,140 @@
-import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, useStylesScoped$, useStore, $ } from "@builder.io/qwik";
 
 const styles = `
   .contact-section {
-    background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+    background: linear-gradient(135deg, 
+      rgba(60, 46, 38, 0.05) 0%, 
+      rgba(199, 122, 90, 0.05) 50%, 
+      rgba(60, 46, 38, 0.05) 100%
+    );
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(199, 122, 90, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(60, 46, 38, 0.1) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    z-index: 1;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -30px) rotate(1deg); }
+    66% { transform: translate(-20px, 20px) rotate(-1deg); }
+  }
+  
+  .contact-container {
+    position: relative;
+    z-index: 2;
   }
   
   .contact-header {
     text-align: center;
-    max-width: 800px;
-    margin: 0 auto 4rem;
+    max-width: 700px;
+    margin: 0 auto 5rem;
+  }
+  
+  .contact-header h2 {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
   }
   
   .contact-content {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 4rem;
-    margin-bottom: 4rem;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    margin-bottom: 5rem;
   }
   
   .contact-info {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   
   .contact-item {
+    position: relative;
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: var(--white);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
+    gap: 1.5rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  
+  .contact-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
   }
   
   .contact-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-item:hover::before {
+    transform: scaleX(1);
   }
   
   .contact-icon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, var(--accent), var(--primary));
-    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
     flex-shrink: 0;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-icon::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .contact-item:hover .contact-icon {
+    transform: rotate(5deg) scale(1.1);
+  }
+  
+  .contact-item:hover .contact-icon::after {
+    opacity: 0.3;
   }
   
   .contact-details h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--primary);
     margin-bottom: 0.5rem;
@@ -61,7 +142,7 @@ const styles = `
   
   .contact-details p {
     color: var(--gray);
-    line-height: 1.5;
+    line-height: 1.6;
     margin: 0;
   }
   
@@ -70,23 +151,52 @@ const styles = `
     text-decoration: none;
     font-weight: 600;
     transition: var(--transition);
+    position: relative;
   }
   
-  .contact-details a:hover {
-    color: var(--primary);
+  .contact-details a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  
+  .contact-details a:hover::after {
+    width: 100%;
   }
   
   .contact-form-container {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(25px);
     padding: 3rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .contact-form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
   }
   
   .contact-form h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 2rem;
     text-align: center;
   }
@@ -94,7 +204,7 @@ const styles = `
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
   }
   
   .form-group {
@@ -105,33 +215,38 @@ const styles = `
     display: block;
     font-weight: 600;
     color: var(--primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
   }
   
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
+  .form-input {
     width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid var(--light-gray);
-    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-md);
     font-family: var(--font-family);
     font-size: 1rem;
-    transition: var(--transition);
-    background: var(--white);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    color: var(--primary);
   }
   
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
+  .form-input:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 4px rgba(199, 122, 90, 0.1);
+    transform: translateY(-2px);
   }
   
-  .form-group textarea {
+  .form-input::placeholder {
+    color: rgba(60, 46, 38, 0.6);
+  }
+  
+  .form-textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 120px;
   }
   
   .checkbox-group {
@@ -140,43 +255,124 @@ const styles = `
   
   .checkbox-label {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    align-items: flex-start;
+    gap: 1rem;
     cursor: pointer;
     font-size: 0.95rem;
+    line-height: 1.5;
   }
   
-  .checkbox-label input[type="checkbox"] {
-    width: auto;
-    margin: 0;
+  .checkbox-input {
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0 0;
+    accent-color: var(--accent);
   }
   
   .submit-btn {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1.25rem 2rem;
     font-size: 1.1rem;
     font-weight: 700;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(199, 122, 90, 0.4);
+  }
+  
+  .submit-btn:hover::before {
+    left: 100%;
+  }
+  
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+  
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .form-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .form-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #059669;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+  
+  .form-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.3);
   }
   
   .service-area {
     text-align: center;
     padding: 3rem;
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .service-area::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
   }
   
   .service-area h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 1rem;
   }
   
   .service-area p {
     font-size: 1.1rem;
     color: var(--gray);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
   }
   
   .service-regions {
@@ -187,12 +383,19 @@ const styles = `
   }
   
   .region {
-    background: linear-gradient(135deg, var(--accent), var(--primary));
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
     color: var(--white);
-    padding: 0.5rem 1.5rem;
-    border-radius: 25px;
-    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border-radius: 30px;
+    font-weight: 700;
     font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(199, 122, 90, 0.3);
+  }
+  
+  .region:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(199, 122, 90, 0.4);
   }
   
   @media (max-width: 1024px) {
@@ -211,26 +414,107 @@ const styles = `
       grid-template-columns: 1fr;
     }
     
+    .contact-item {
+      padding: 1.5rem;
+    }
+    
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+    }
+    
     .service-regions {
       gap: 0.75rem;
     }
     
     .region {
-      padding: 0.4rem 1rem;
+      padding: 0.5rem 1.25rem;
       font-size: 0.9rem;
     }
   }
 `;
 
+interface FormData {
+  name: string;
+  phone: string;
+  email: string;
+  projectType: string;
+  description: string;
+  budget: string;
+  timeline: string;
+  consent: boolean;
+}
+
 export const ContactSection = component$(() => {
   useStylesScoped$(styles);
+  
+  const formData = useStore<FormData>({
+    name: '',
+    phone: '',
+    email: '',
+    projectType: '',
+    description: '',
+    budget: '',
+    timeline: '',
+    consent: false
+  });
+  
+  const formState = useStore({
+    isSubmitting: false,
+    message: '',
+    messageType: '' as 'success' | 'error' | ''
+  });
+  
+  const submitForm = $(async () => {
+    if (!formData.consent) {
+      formState.message = 'Musíte souhlasit se zpracováním osobních údajů';
+      formState.messageType = 'error';
+      return;
+    }
+    
+    formState.isSubmitting = true;
+    formState.message = '';
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        formState.message = 'Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme!';
+        formState.messageType = 'success';
+        
+        // Reset form
+        formData.name = '';
+        formData.phone = '';
+        formData.email = '';
+        formData.projectType = '';
+        formData.description = '';
+        formData.budget = '';
+        formData.timeline = '';
+        formData.consent = false;
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch {
+      formState.message = 'Nastala chyba při odesílání zprávy. Zkuste to prosím znovu.';
+      formState.messageType = 'error';
+    } finally {
+      formState.isSubmitting = false;
+    }
+  });
+  
   return (
     <section class="contact-section section" id="contact">
-      <div class="container">
+      <div class="container contact-container">
         <div class="contact-header">
           <h2 class="section-title">Pojďme si promluvit o vašem projektu</h2>
           <p class="section-description">
-            Máte nápad na nový nábytek? Napište nám nebo zavolejte. Rádi vám poradíme a vytvoříme nezávaznou nabídku.
+            Máte nápad na nový nábytek? Napište nám nebo zavolejte. Rádi vám poradíme a vytvoříme nezávaznou nabídku na míru.
           </p>
         </div>
         
@@ -238,7 +522,7 @@ export const ContactSection = component$(() => {
           <div class="contact-info">
             <div class="contact-item">
               <div class="contact-icon">
-                <i class="ph-duotone ph-map-pin icon-duotone-accent" style="font-size: 24px;"></i>
+                <i class="ph-duotone ph-map-pin" style="font-size: 28px;"></i>
               </div>
               <div class="contact-details">
                 <h3>Adresa</h3>
@@ -248,7 +532,7 @@ export const ContactSection = component$(() => {
             
             <div class="contact-item">
               <div class="contact-icon">
-                <i class="ph-duotone ph-phone icon-duotone-accent" style="font-size: 24px;"></i>
+                <i class="ph-duotone ph-phone" style="font-size: 28px;"></i>
               </div>
               <div class="contact-details">
                 <h3>Telefon</h3>
@@ -258,17 +542,17 @@ export const ContactSection = component$(() => {
             
             <div class="contact-item">
               <div class="contact-icon">
-                <i class="ph-duotone ph-envelope-simple icon-duotone-accent" style="font-size: 24px;"></i>
+                <i class="ph-duotone ph-envelope-simple" style="font-size: 28px;"></i>
               </div>
               <div class="contact-details">
                 <h3>Email</h3>
-                <p><a href="mailto:info@kpsinteriery.cz">info@kpsinteriery.cz</a></p>
+                <p><a href="mailto:david@motalik.cz">david@motalik.cz</a></p>
               </div>
             </div>
             
             <div class="contact-item">
               <div class="contact-icon">
-                <i class="ph-duotone ph-clock icon-duotone-accent" style="font-size: 24px;"></i>
+                <i class="ph-duotone ph-clock" style="font-size: 28px;"></i>
               </div>
               <div class="contact-details">
                 <h3>Otevírací doba</h3>
@@ -278,28 +562,57 @@ export const ContactSection = component$(() => {
           </div>
           
           <div class="contact-form-container">
-            <form class="contact-form">
+            <form class="contact-form" preventdefault:submit onSubmit$={submitForm}>
               <h3>Máte nápad? Napište nám!</h3>
               
               <div class="form-row">
                 <div class="form-group">
                   <label for="name">Jméno a příjmení *</label>
-                  <input type="text" id="name" name="name" required />
+                  <input 
+                    type="text" 
+                    id="name" 
+                    class="form-input"
+                    value={formData.name}
+                    onInput$={(event) => formData.name = (event.target as HTMLInputElement).value}
+                    required 
+                    placeholder="Jan Novák"
+                  />
                 </div>
                 <div class="form-group">
                   <label for="phone">Telefon *</label>
-                  <input type="tel" id="phone" name="phone" required />
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    class="form-input"
+                    value={formData.phone}
+                    onInput$={(event) => formData.phone = (event.target as HTMLInputElement).value}
+                    required 
+                    placeholder="+420 123 456 789"
+                  />
                 </div>
               </div>
               
               <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required />
+                <input 
+                  type="email" 
+                  id="email" 
+                  class="form-input"
+                  value={formData.email}
+                  onInput$={(event) => formData.email = (event.target as HTMLInputElement).value}
+                  required 
+                  placeholder="jan@example.com"
+                />
               </div>
               
               <div class="form-group">
                 <label for="project-type">Typ projektu</label>
-                <select id="project-type" name="project-type">
+                <select 
+                  id="project-type" 
+                  class="form-input"
+                  value={formData.projectType}
+                  onChange$={(event) => formData.projectType = (event.target as HTMLSelectElement).value}
+                >
                   <option value="">Vyberte typ projektu</option>
                   <option value="kitchen">Kuchyň</option>
                   <option value="wardrobe">Skříně</option>
@@ -311,13 +624,25 @@ export const ContactSection = component$(() => {
               
               <div class="form-group">
                 <label for="description">Popis projektu *</label>
-                <textarea id="description" name="description" rows={4} required placeholder="Popište nám váš projekt..."></textarea>
+                <textarea 
+                  id="description" 
+                  class="form-input form-textarea"
+                  value={formData.description}
+                  onInput$={(event) => formData.description = (event.target as HTMLTextAreaElement).value}
+                  required 
+                  placeholder="Popište nám váš projekt, představy a požadavky..."
+                ></textarea>
               </div>
               
               <div class="form-row">
                 <div class="form-group">
                   <label for="budget">Přibližný rozpočet (volitelné)</label>
-                  <select id="budget" name="budget">
+                  <select 
+                    id="budget" 
+                    class="form-input"
+                    value={formData.budget}
+                    onChange$={(event) => formData.budget = (event.target as HTMLSelectElement).value}
+                  >
                     <option value="">Vyberte rozpočet</option>
                     <option value="50000">Do 50 000 Kč</option>
                     <option value="100000">50 000 - 100 000 Kč</option>
@@ -328,7 +653,12 @@ export const ContactSection = component$(() => {
                 </div>
                 <div class="form-group">
                   <label for="timeline">Kdy by měla realizace proběhnout?</label>
-                  <select id="timeline" name="timeline">
+                  <select 
+                    id="timeline" 
+                    class="form-input"
+                    value={formData.timeline}
+                    onChange$={(event) => formData.timeline = (event.target as HTMLSelectElement).value}
+                  >
                     <option value="">Vyberte termín</option>
                     <option value="asap">Co nejdříve</option>
                     <option value="1-3months">1-3 měsíce</option>
@@ -340,22 +670,37 @@ export const ContactSection = component$(() => {
               
               <div class="form-group checkbox-group">
                 <label class="checkbox-label">
-                  <input type="checkbox" required />
-                  <span class="checkmark"></span>
-                  Souhlasím se zpracováním osobních údajů
+                  <input 
+                    type="checkbox" 
+                    class="checkbox-input"
+                    checked={formData.consent}
+                    onChange$={(event) => formData.consent = (event.target as HTMLInputElement).checked}
+                    required 
+                  />
+                  <span>Souhlasím se zpracováním osobních údajů pro účely kontaktování a zpracování poptávky</span>
                 </label>
               </div>
               
-              <button type="submit" class="btn btn-primary submit-btn">
-                Odeslat poptávku
+              <button 
+                type="submit" 
+                class="submit-btn"
+                disabled={formState.isSubmitting}
+              >
+                {formState.isSubmitting ? 'Odesílání...' : 'Odeslat poptávku'}
               </button>
+              
+              {formState.message && (
+                <div class={`form-message ${formState.messageType}`}>
+                  {formState.message}
+                </div>
+              )}
             </form>
           </div>
         </div>
         
         <div class="service-area">
           <h3>Naše působení</h3>
-          <p>Realizujeme projekty primárně na Moravě, ale kvalitní projekty rádi realizujeme i v Čechách.</p>
+          <p>Realizujeme projekty primárně na Moravě, ale kvalitní projekty rádi realizujeme i v ostatních částech České republiky.</p>
           <div class="service-regions">
             <span class="region">Brno</span>
             <span class="region">Ostrava</span>
@@ -366,7 +711,6 @@ export const ContactSection = component$(() => {
           </div>
         </div>
       </div>
-      
     </section>
   );
 });

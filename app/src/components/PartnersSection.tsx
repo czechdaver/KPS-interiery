@@ -212,6 +212,8 @@ export const PartnersSection = component$(() => {
                     src={`./images/partners/${partner.logo}`}
                     alt={`${partner.name} logo`}
                     loading="lazy"
+                    width="120"
+                    height="60"
                   />
                 </div>
               </div>
@@ -224,6 +226,8 @@ export const PartnersSection = component$(() => {
                     src={`./images/partners/${partner.logo}`}
                     alt={`${partner.name} logo`}
                     loading="lazy"
+                    width="120"
+                    height="60"
                   />
                 </div>
               </div>

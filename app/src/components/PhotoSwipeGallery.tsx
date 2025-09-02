@@ -3,17 +3,16 @@ import type { GalleryData } from '../lib/gallery';
 
 interface PhotoSwipeGalleryProps {
   gallery: GalleryData;
-  onOpen?: () => void;
-  onClose?: () => void;
 }
 
-export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery, onOpen, onClose }) => {
+export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery }) => {
   const pswpRef = useSignal<HTMLDivElement>();
   const isOpen = useSignal(false);
 
   const openGallery = $((startIndex: number = 0) => {
     if (typeof window !== 'undefined' && pswpRef.value) {
       import('photoswipe').then(({ default: PhotoSwipe }) => {
+
         const items = gallery.images.map(img => ({
           src: `./images/galleries/${gallery.id}/${img.src}`,
           width: img.width,
@@ -23,9 +22,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery, 
         }));
 
         const pswp = new PhotoSwipe({
-          gallery: pswpRef.value!,
-          children: 'a',
-          pswpModule: PhotoSwipe,
+          dataSource: items,
           showHideAnimationType: 'zoom',
           bgOpacity: 0.9,
           spacing: 0.1,
@@ -35,19 +32,18 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery, 
           closeOnVerticalDrag: true,
           showAnimationDuration: 300,
           hideAnimationDuration: 300,
+          index: startIndex
         });
 
         pswp.on('afterInit', () => {
           isOpen.value = true;
-          onOpen?.();
         });
 
         pswp.on('destroy', () => {
           isOpen.value = false;
-          onClose?.();
         });
 
-        pswp.loadAndOpen(startIndex);
+        pswp.init();
       });
     }
   });
@@ -86,6 +82,8 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery, 
             alt={image.alt}
             loading="lazy"
             class="hidden"
+            width={image.width}
+            height={image.height}
           />
         </a>
       ))}
