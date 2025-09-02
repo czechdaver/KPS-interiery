@@ -35,23 +35,19 @@ export const Navigation = component$(() => {
         
         .nav-logo a {
           display: flex;
-          flex-direction: column;
+          align-items: center;
           text-decoration: none;
           line-height: 1;
         }
         
-        .logo-text {
-          font-size: 2rem;
-          font-weight: 900;
-          color: var(--primary);
-          letter-spacing: -1px;
+        .nav-logo img {
+          height: 40px;
+          width: auto;
+          transition: var(--transition);
         }
         
-        .logo-subtitle {
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: var(--accent);
-          margin-top: -4px;
+        .nav-logo img:hover {
+          opacity: 0.8;
         }
         
         .nav-menu {
@@ -176,8 +172,7 @@ export const Navigation = component$(() => {
         <div class="nav-content">
           <div class="nav-logo">
             <a href="#home">
-              <span class="logo-text">KPS</span>
-              <span class="logo-subtitle">Interiéry</span>
+              <img src="/branding/kps-compact-logo.svg" alt="KPS Interiéry" width="120" height="40" />
             </a>
           </div>
           

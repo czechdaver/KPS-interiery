@@ -21,23 +21,14 @@ export const Footer = component$(() => {
         
         .footer-logo {
           display: flex;
-          flex-direction: column;
+          align-items: flex-start;
           margin-bottom: 1.5rem;
           line-height: 1;
         }
         
-        .footer-logo .logo-text {
-          font-size: 2.5rem;
-          font-weight: 900;
-          color: var(--white);
-          letter-spacing: -1px;
-        }
-        
-        .footer-logo .logo-subtitle {
-          font-size: 1rem;
-          font-weight: 600;
-          color: var(--accent);
-          margin-top: -4px;
+        .footer-logo img {
+          height: 80px;
+          width: auto;
         }
         
         .footer-description {
@@ -182,8 +173,7 @@ export const Footer = component$(() => {
         <div class="footer-content">
           <div class="footer-brand">
             <div class="footer-logo">
-              <span class="logo-text">KPS</span>
-              <span class="logo-subtitle">Interiéry</span>
+              <img src="/branding/kps-logo-slogan-inverse.svg" alt="KPS Interiéry" width="200" height="80" />
             </div>
             <p class="footer-description">
               Vytváříme nábytek na míru, který předčí vaše očekávání. 
