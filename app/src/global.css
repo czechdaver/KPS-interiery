@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,opsz,wght@0,14..144,400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 :root {
   /* KPS Interiéry Brand Colors - Mocha Sophistication Palette */
@@ -19,7 +19,7 @@
   --warm-dark: #2A1A17;      /* Darker version of primary */
   
   /* Typography */
-  --font-family: 'Inter', sans-serif;
+  --font-family: 'Cabin', sans-serif;
   --font-family-headings: 'Montserrat', sans-serif;
   
   /* Spacing */
@@ -217,6 +217,39 @@ h6, .h6 {
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
+}
+
+/* Cabin Typography Classes */
+.cabin-regular {
+  font-family: "Cabin", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.cabin-medium {
+  font-family: "Cabin", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.cabin-semibold {
+  font-family: "Cabin", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.cabin-bold {
+  font-family: "Cabin", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
 }
 
 .text-primary {
