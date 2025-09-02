@@ -172,7 +172,7 @@ export const Navigation = component$(() => {
         <div class="nav-content">
           <div class="nav-logo">
             <a href="#home">
-              <img src="/branding/kps-compact-logo.svg" alt="KPS Interiéry" width="120" height="40" />
+              <img src={`${import.meta.env.BASE_URL}branding/kps-compact-logo.svg`} alt="KPS Interiéry" width="120" height="40" />
             </a>
           </div>
           

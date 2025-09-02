@@ -209,7 +209,7 @@ export const PartnersSection = component$(() => {
               <div key={`${partner.name}-1-${index}`} class="partner-item">
                 <div class="partner-logo">
                   <img 
-                    src={`./images/partners/${partner.logo}`}
+                    src={`${import.meta.env.BASE_URL}images/partners/${partner.logo}`}
                     alt={`${partner.name} logo`}
                     loading="lazy"
                     width="120"
@@ -223,7 +223,7 @@ export const PartnersSection = component$(() => {
               <div key={`${partner.name}-2-${index}`} class="partner-item">
                 <div class="partner-logo">
                   <img 
-                    src={`./images/partners/${partner.logo}`}
+                    src={`${import.meta.env.BASE_URL}images/partners/${partner.logo}`}
                     alt={`${partner.name} logo`}
                     loading="lazy"
                     width="120"

@@ -173,7 +173,7 @@ export const Footer = component$(() => {
         <div class="footer-content">
           <div class="footer-brand">
             <div class="footer-logo">
-              <img src="/branding/kps-logo-slogan-inverse.svg" alt="KPS Interiéry" width="200" height="80" />
+              <img src={`${import.meta.env.BASE_URL}branding/kps-logo-slogan-inverse.svg`} alt="KPS Interiéry" width="200" height="80" />
             </div>
             <p class="footer-description">
               Vytváříme nábytek na míru, který předčí vaše očekávání. 

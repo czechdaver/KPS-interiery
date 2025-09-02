@@ -56,7 +56,7 @@ export async function loadGalleryData(slug: GallerySlug): Promise<GalleryData | 
   }
   
   try {
-    const response = await fetch(`./images/galleries/${slug}/gallery.json`);
+    const response = await fetch(`${import.meta.env.BASE_URL}images/galleries/${slug}/gallery.json`);
     if (!response.ok) {
       console.warn(`Failed to load gallery data for ${slug}`);
       return null;
@@ -108,5 +108,5 @@ export async function loadAllGalleries(): Promise<GalleryData[]> {
  * Get full image path for gallery
  */
 export function getImagePath(galleryId: string, imageSrc: string): string {
-  return `./images/galleries/${galleryId}/${imageSrc}`;
+  return `${import.meta.env.BASE_URL}images/galleries/${galleryId}/${imageSrc}`;
 }

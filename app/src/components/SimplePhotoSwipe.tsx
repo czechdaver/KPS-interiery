@@ -13,7 +13,7 @@ export const SimplePhotoSwipe = component$<SimplePhotoSwipeProps>(({ gallery }) 
       // Dynamically import PhotoSwipe
       import('photoswipe').then(({ default: PhotoSwipe }) => {
         const items = gallery.images.map(img => ({
-          src: `./images/galleries/${gallery.id}/${img.src}`,
+          src: `${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${img.src}`,
           width: img.width,
           height: img.height,
           alt: img.alt
@@ -36,7 +36,7 @@ export const SimplePhotoSwipe = component$<SimplePhotoSwipeProps>(({ gallery }) 
         });
         
         pswp.addFilter('placeholderSrc', () => {
-          return `./images/galleries/${gallery.id}/${gallery.coverImage}`;
+          return `${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${gallery.coverImage}`;
         });
         
         pswp.init();

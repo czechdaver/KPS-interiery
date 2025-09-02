@@ -201,7 +201,7 @@ export const PortfolioSection = component$(() => {
     if (typeof window !== 'undefined') {
       import('photoswipe').then(({ default: PhotoSwipe }) => {
         const items = gallery.images.map(img => ({
-          src: `./images/galleries/${gallery.id}/${img.src}`,
+          src: `${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${img.src}`,
           width: img.width,
           height: img.height,
           alt: img.alt

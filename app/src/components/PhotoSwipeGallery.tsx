@@ -14,7 +14,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery }
       import('photoswipe').then(({ default: PhotoSwipe }) => {
 
         const items = gallery.images.map(img => ({
-          src: `./images/galleries/${gallery.id}/${img.src}`,
+          src: `${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${img.src}`,
           width: img.width,
           height: img.height,
           alt: img.alt,
@@ -67,7 +67,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery }
       {gallery.images.map((image, index) => (
         <a
           key={index}
-          href={`./images/galleries/${gallery.id}/${image.src}`}
+          href={`${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${image.src}`}
           data-pswp-width={image.width}
           data-pswp-height={image.height}
           target="_blank"
@@ -78,7 +78,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery }
           }}
         >
           <img 
-            src={`./images/galleries/${gallery.id}/${image.src}`}
+            src={`${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${image.src}`}
             alt={image.alt}
             loading="lazy"
             class="hidden"
