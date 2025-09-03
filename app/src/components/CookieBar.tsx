@@ -315,26 +315,6 @@ export const CookieBar = component$(() => {
     preferences: false
   });
 
-  useVisibleTask$(() => {
-    // Check if user has already made a choice
-    const savedConsent = localStorage.getItem('cookie-consent');
-    if (!savedConsent) {
-      // Show cookie bar after a short delay
-      setTimeout(() => {
-        isVisible.value = true;
-      }, 1000);
-    } else {
-      // Load saved preferences
-      const parsed = JSON.parse(savedConsent);
-      consent.value = { ...consent.value, ...parsed };
-      
-      // Initialize analytics if consented
-      if (parsed.analytics) {
-        initializeAnalytics();
-      }
-    }
-  });
-
   const initializeAnalytics = $(() => {
     // Initialize Google Analytics 4
     if (typeof window !== 'undefined') {
@@ -356,6 +336,26 @@ export const CookieBar = component$(() => {
         });
       `;
       document.head.appendChild(script2);
+    }
+  });
+
+  useVisibleTask$(() => {
+    // Check if user has already made a choice
+    const savedConsent = localStorage.getItem('cookie-consent');
+    if (!savedConsent) {
+      // Show cookie bar after a short delay
+      setTimeout(() => {
+        isVisible.value = true;
+      }, 1000);
+    } else {
+      // Load saved preferences
+      const parsed = JSON.parse(savedConsent);
+      consent.value = { ...consent.value, ...parsed };
+      
+      // Initialize analytics if consented
+      if (parsed.analytics) {
+        initializeAnalytics();
+      }
     }
   });
 

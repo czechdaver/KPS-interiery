@@ -24,35 +24,72 @@ export const ResponsiveImage = component$<ResponsiveImageProps>(({
   // Generate different sized images for responsive loading
   const generateImageSources = (baseSrc: string) => {
     try {
-      // For gallery images, we'll use imagetools query parameters
+      // For gallery images, check if we're in development or production
       if (baseSrc.includes('/images/galleries/')) {
-        const avifSrcSet = [
-          `${baseSrc}?format=avif&w=400&quality=85 400w`,
-          `${baseSrc}?format=avif&w=800&quality=85 800w`, 
-          `${baseSrc}?format=avif&w=1200&quality=85 1200w`,
-          `${baseSrc}?format=avif&w=1600&quality=85 1600w`
-        ].join(', ');
+        const isDev = import.meta.env.DEV;
         
-        const webpSrcSet = [
-          `${baseSrc}?format=webp&w=400&quality=85 400w`,
-          `${baseSrc}?format=webp&w=800&quality=85 800w`,
-          `${baseSrc}?format=webp&w=1200&quality=85 1200w`, 
-          `${baseSrc}?format=webp&w=1600&quality=85 1600w`
-        ].join(', ');
-        
-        const jpegSrcSet = [
-          `${baseSrc}?format=jpg&w=400&quality=85 400w`,
-          `${baseSrc}?format=jpg&w=800&quality=85 800w`,
-          `${baseSrc}?format=jpg&w=1200&quality=85 1200w`,
-          `${baseSrc}?format=jpg&w=1600&quality=85 1600w`
-        ].join(', ');
-        
-        return {
-          avif: avifSrcSet,
-          webp: webpSrcSet,
-          jpeg: jpegSrcSet,
-          fallback: `${baseSrc}?format=jpg&w=${width}&quality=85`
-        };
+        if (isDev) {
+          // Development: Use imagetools query parameters
+          const avifSrcSet = [
+            `${baseSrc}?format=avif&w=400&quality=85 400w`,
+            `${baseSrc}?format=avif&w=800&quality=85 800w`, 
+            `${baseSrc}?format=avif&w=1200&quality=85 1200w`,
+            `${baseSrc}?format=avif&w=1600&quality=85 1600w`
+          ].join(', ');
+          
+          const webpSrcSet = [
+            `${baseSrc}?format=webp&w=400&quality=85 400w`,
+            `${baseSrc}?format=webp&w=800&quality=85 800w`,
+            `${baseSrc}?format=webp&w=1200&quality=85 1200w`, 
+            `${baseSrc}?format=webp&w=1600&quality=85 1600w`
+          ].join(', ');
+          
+          const jpegSrcSet = [
+            `${baseSrc}?format=jpg&w=400&quality=85 400w`,
+            `${baseSrc}?format=jpg&w=800&quality=85 800w`,
+            `${baseSrc}?format=jpg&w=1200&quality=85 1200w`,
+            `${baseSrc}?format=jpg&w=1600&quality=85 1600w`
+          ].join(', ');
+          
+          return {
+            avif: avifSrcSet,
+            webp: webpSrcSet,
+            jpeg: jpegSrcSet,
+            fallback: `${baseSrc}?format=jpg&w=${width}&quality=85`
+          };
+        } else {
+          // Production: Use pre-generated static files
+          const baseName = baseSrc.split('/').pop()?.replace(/\.[^/.]+$/, '') || '';
+          const baseDir = baseSrc.substring(0, baseSrc.lastIndexOf('/'));
+          
+          const avifSrcSet = [
+            `${baseDir}/${baseName}-400w.avif 400w`,
+            `${baseDir}/${baseName}-800w.avif 800w`,
+            `${baseDir}/${baseName}-1200w.avif 1200w`,
+            `${baseDir}/${baseName}-1600w.avif 1600w`
+          ].join(', ');
+          
+          const webpSrcSet = [
+            `${baseDir}/${baseName}-400w.webp 400w`,
+            `${baseDir}/${baseName}-800w.webp 800w`,
+            `${baseDir}/${baseName}-1200w.webp 1200w`,
+            `${baseDir}/${baseName}-1600w.webp 1600w`
+          ].join(', ');
+          
+          const jpegSrcSet = [
+            `${baseDir}/${baseName}-400w.jpeg 400w`,
+            `${baseDir}/${baseName}-800w.jpeg 800w`,
+            `${baseDir}/${baseName}-1200w.jpeg 1200w`,
+            `${baseDir}/${baseName}-1600w.jpeg 1600w`
+          ].join(', ');
+          
+          return {
+            avif: avifSrcSet,
+            webp: webpSrcSet,
+            jpeg: jpegSrcSet,
+            fallback: `${baseDir}/${baseName}-optimized.jpg`
+          };
+        }
       }
       
       // Fallback for external images (like Unsplash)
