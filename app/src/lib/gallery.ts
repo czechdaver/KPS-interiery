@@ -15,6 +15,11 @@ export interface GalleryData {
   images: GalleryImage[];
   features: string[];
   materials: string[];
+  // New fields for galleries page
+  location: string;
+  date: string;
+  imageCount: number;
+  coverImages: string[]; // Array of images for gallery preview
 }
 
 // Gallery slugs that correspond to folder names
@@ -51,7 +56,11 @@ export async function loadGalleryData(slug: GallerySlug): Promise<GalleryData | 
         }
       ],
       features: ['Feature 1', 'Feature 2'],
-      materials: ['Material 1', 'Material 2']
+      materials: ['Material 1', 'Material 2'],
+      location: 'Praha',
+      date: '2024-01',
+      imageCount: 5,
+      coverImages: ['cover.jpg']
     };
   }
   
@@ -109,4 +118,30 @@ export async function loadAllGalleries(): Promise<GalleryData[]> {
  */
 export function getImagePath(galleryId: string, imageSrc: string): string {
   return `${import.meta.env.BASE_URL}images/galleries/${galleryId}/${imageSrc}`;
+}
+
+/**
+ * Map gallery data for galleries page display
+ */
+export function mapGalleryForDisplay(gallery: GalleryData) {
+  return {
+    id: gallery.id,
+    title: gallery.title,
+    description: gallery.description,
+    location: gallery.location,
+    date: gallery.date,
+    imageCount: gallery.imageCount,
+    coverImages: gallery.coverImages.map(img => getImagePath(gallery.id, img))
+  };
+}
+
+/**
+ * Get galleries grouped by category
+ */
+export function getGalleriesByCategory(galleries: GalleryData[]) {
+  return {
+    kuchyne: galleries.filter(g => g.category === 'Kuchyně'),
+    koupelny: galleries.filter(g => g.category === 'Koupelny'), 
+    ostatni: galleries.filter(g => !['Kuchyně', 'Koupelny'].includes(g.category))
+  };
 }

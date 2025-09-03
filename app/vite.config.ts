@@ -6,6 +6,7 @@ import { defineConfig, type UserConfig } from "vite";
 import { qwikVite } from "@builder.io/qwik/optimizer";
 import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { imagetools } from "vite-imagetools";
 import pkg from "./package.json";
 
 type PkgDep = Record<string, string>;
@@ -20,7 +21,25 @@ errorOnDuplicatesPkgDeps(devDependencies, dependencies);
  */
 export default defineConfig((): UserConfig => {
   return {
-    plugins: [qwikCity(), qwikVite(), tsconfigPaths({ root: "." })],
+    plugins: [
+      qwikCity(), 
+      qwikVite(), 
+      tsconfigPaths({ root: "." }),
+      imagetools({
+        defaultDirectives: (url) => {
+          // Only process gallery images
+          if (url.pathname.includes('/images/galleries/')) {
+            return new URLSearchParams({
+              format: 'avif;webp;jpg',
+              as: 'picture',
+              w: '400;800;1200;1600',
+              quality: '85'
+            });
+          }
+          return new URLSearchParams();
+        }
+      })
+    ],
     // Ensure correct asset base when hosted under a repo subpath (e.g., GitHub Pages)
     base: process.env.NODE_ENV === "production" 
       ? (process.env.PAGES_BASE_PATH ? `/${process.env.PAGES_BASE_PATH}/` : "/KPS-interiery/")

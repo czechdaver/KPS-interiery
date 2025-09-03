@@ -1,5 +1,6 @@
 import { component$, useStylesScoped$, useTask$, useSignal, useVisibleTask$, $ } from "@builder.io/qwik";
 import { loadAllGalleries, type GalleryData, getImagePath } from '../lib/gallery';
+import { ResponsiveImage } from "./ResponsiveImage";
 
 const styles = `
   .portfolio-section {
@@ -145,6 +146,12 @@ const styles = `
     text-align: center;
   }
   
+  .portfolio-cta .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
   .portfolio-loading {
     text-align: center;
     padding: 4rem 0;
@@ -258,13 +265,15 @@ export const PortfolioSection = component$(() => {
                 class={`portfolio-item ${index === 0 ? 'featured' : ''} ${index === 3 ? 'wide' : ''}`}
               >
                 <div class="portfolio-image-container">
-                  <img 
+                  <ResponsiveImage 
                     src={getImagePath(gallery.id, gallery.coverImage)}
                     alt={gallery.title}
                     class="portfolio-image"
-                    width="400"
-                    height="300"
+                    width={400}
+                    height={300}
                     loading={index < 2 ? 'eager' : 'lazy'}
+                    priority={index === 0}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div class="portfolio-overlay">
                     <div class="portfolio-content">
@@ -289,7 +298,8 @@ export const PortfolioSection = component$(() => {
         
         
         <div class="portfolio-cta">
-          <a href="#contact" class="btn btn-glass">
+          <a href="#galleries" class="btn btn-accent">
+            <i class="ph-duotone ph-images" style="font-size: 24px;"></i>
             Zobrazit celou galerii
           </a>
         </div>

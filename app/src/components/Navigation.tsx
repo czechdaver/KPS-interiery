@@ -180,6 +180,7 @@ export const Navigation = component$(() => {
             <a href="#home" class="nav-link">Úvod</a>
             <a href="#services" class="nav-link">Služby</a>
             <a href="#portfolio" class="nav-link">Realizace</a>
+            <a href="#galleries" class="nav-link">Galerie</a>
             <a href="#contact" class="nav-link">Kontakt</a>
             <a href="#contact" class="btn btn-accent nav-cta">Poptávka</a>
           </div>

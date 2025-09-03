@@ -41,13 +41,6 @@ const styles = `
     margin: 0 auto 5rem;
   }
   
-  .contact-header h2 {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1.5rem;
-  }
   
   .contact-content {
     display: grid;
@@ -230,6 +223,15 @@ const styles = `
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     color: var(--primary);
+    appearance: none;
+  }
+  
+  select.form-input {
+    padding-right: 2.5rem;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23322624" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,9 12,15 18,9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
   }
   
   .form-input:focus {
@@ -253,20 +255,26 @@ const styles = `
     margin: 2rem 0;
   }
   
-  .checkbox-label {
+  .checkbox-wrapper {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 0.75rem;
+  }
+  
+  .checkbox-label {
     cursor: pointer;
     font-size: 0.95rem;
     line-height: 1.5;
+    margin: 0;
   }
   
   .checkbox-input {
-    width: 20px;
-    height: 20px;
-    margin: 2px 0 0 0;
+    width: 18px;
+    height: 18px;
+    margin: 0.25rem 0 0 0;
     accent-color: var(--accent);
+    flex-shrink: 0;
+    cursor: pointer;
   }
   
   .submit-btn {
@@ -526,7 +534,11 @@ export const ContactSection = component$(() => {
               </div>
               <div class="contact-details">
                 <h3>Adresa</h3>
-                <p>Brno, Moravskoslezský kraj<br />Česká republika</p>
+                <p>
+                  <a href="https://maps.google.com/?q=Stará+cesta+32,+Zlín-Štípa+763+14,+Česká+republika" target="_blank" rel="noopener noreferrer">
+                    Stará cesta 32<br />Zlín-Štípa 763 14<br />Česká republika
+                  </a>
+                </p>
               </div>
             </div>
             
@@ -536,7 +548,7 @@ export const ContactSection = component$(() => {
               </div>
               <div class="contact-details">
                 <h3>Telefon</h3>
-                <p><a href="tel:+420123456789">+420 123 456 789</a></p>
+                <p><a href="tel:+420728657413">+420 728 657 413</a></p>
               </div>
             </div>
             
@@ -546,7 +558,7 @@ export const ContactSection = component$(() => {
               </div>
               <div class="contact-details">
                 <h3>Email</h3>
-                <p><a href="mailto:david@motalik.cz">david@motalik.cz</a></p>
+                <p><a href="mailto:info@kpsinteriery.cz">info@kpsinteriery.cz</a></p>
               </div>
             </div>
             
@@ -587,7 +599,7 @@ export const ContactSection = component$(() => {
                     value={formData.phone}
                     onInput$={(event) => formData.phone = (event.target as HTMLInputElement).value}
                     required 
-                    placeholder="+420 123 456 789"
+                    placeholder="+420 728 657 413"
                   />
                 </div>
               </div>
@@ -601,7 +613,7 @@ export const ContactSection = component$(() => {
                   value={formData.email}
                   onInput$={(event) => formData.email = (event.target as HTMLInputElement).value}
                   required 
-                  placeholder="jan@example.com"
+                  placeholder="vas@email.cz"
                 />
               </div>
               
@@ -669,16 +681,19 @@ export const ContactSection = component$(() => {
               </div>
               
               <div class="form-group checkbox-group">
-                <label class="checkbox-label">
+                <div class="checkbox-wrapper">
                   <input 
                     type="checkbox" 
+                    id="consent"
                     class="checkbox-input"
                     checked={formData.consent}
                     onChange$={(event) => formData.consent = (event.target as HTMLInputElement).checked}
                     required 
                   />
-                  <span>Souhlasím se zpracováním osobních údajů pro účely kontaktování a zpracování poptávky</span>
-                </label>
+                  <label for="consent" class="checkbox-label">
+                    Souhlasím se zpracováním osobních údajů pro účely kontaktování a zpracování poptávky
+                  </label>
+                </div>
               </div>
               
               <button 
@@ -702,10 +717,10 @@ export const ContactSection = component$(() => {
           <h3>Naše působení</h3>
           <p>Realizujeme projekty primárně na Moravě, ale kvalitní projekty rádi realizujeme i v ostatních částech České republiky.</p>
           <div class="service-regions">
+            <span class="region">Zlín</span>
             <span class="region">Brno</span>
             <span class="region">Ostrava</span>
             <span class="region">Olomouc</span>
-            <span class="region">Zlín</span>
             <span class="region">Jihlava</span>
             <span class="region">Praha</span>
           </div>

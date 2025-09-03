@@ -12,19 +12,6 @@ export const ValuesSection = component$(() => {
           margin: 0 auto 4rem;
         }
         
-        .section-title {
-          font-size: clamp(2rem, 4vw, 3rem);
-          font-weight: 700;
-          color: var(--primary);
-          margin-bottom: 1.5rem;
-          line-height: 1.2;
-        }
-        
-        .section-description {
-          font-size: 1.2rem;
-          line-height: 1.6;
-          color: var(--gray);
-        }
         
         .values-grid {
           display: grid;

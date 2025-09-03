@@ -2,8 +2,10 @@ import { component$, useStylesScoped$ } from "@builder.io/qwik";
 
 const styles = `
   .instagram-section {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--dark-gray) 100%);
     color: var(--white);
+    border-top: 1px solid rgba(200, 139, 78, 0.2);
+    border-bottom: 1px solid rgba(200, 139, 78, 0.2);
   }
   
   .instagram-header {
@@ -12,11 +14,11 @@ const styles = `
   }
   
   .instagram-header .section-title {
-    color: var(--white);
+    /* Uses global gradient from .section-title */
   }
   
   .instagram-header .section-description {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.8);
   }
   
   .instagram-grid {
@@ -27,18 +29,19 @@ const styles = `
   }
   
   .instagram-post {
-    background: rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.8);
     border-radius: var(--radius-lg);
     overflow: hidden;
     transition: var(--transition);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.39);
+    border: 1px solid rgba(200, 139, 78, 0.2);
   }
   
   .instagram-post:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg);
-    background: rgba(255, 255, 255, 0.30);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(200, 139, 78, 0.4);
   }
   
   .instagram-image-container {
@@ -109,7 +112,7 @@ const styles = `
     font-size: 0.95rem;
     line-height: 1.5;
     margin: 0;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--dark-gray);
   }
   
   .instagram-cta {
@@ -204,7 +207,7 @@ export const InstagramSection = component$(() => {
     <section class="instagram-section section">
       <div class="container">
         <div class="instagram-header">
-          <h2 class="section-title">Sledujte nás na Instagramu</h2>
+          <h2 class="section-title-bright">Sledujte nás na Instagramu</h2>
           <p class="section-description">
             Nejnovější realizace a zákulisí naší práce najdete na našem Instagram profilu
           </p>

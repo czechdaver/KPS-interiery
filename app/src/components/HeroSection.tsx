@@ -71,10 +71,40 @@ export const HeroSection = component$(() => {
         
         .hero-subtitle {
           display: block;
-          font-size: clamp(1.5rem, 3vw, 2.5rem);
-          font-weight: 700;
-          line-height: 1.2;
+          font-size: clamp(1.02rem, 2.125vw, 1.7rem);
+          font-weight: 500;
+          line-height: 1.3;
           color: var(--white);
+          position: relative;
+          font-style: italic;
+          opacity: 0.95;
+          margin-top: 1rem;
+        }
+        
+        .hero-subtitle::before {
+          content: '"';
+          font-size: 2em;
+          color: var(--secondary);
+          position: absolute;
+          left: -0.4em;
+          top: -0.15em;
+          font-family: "Georgia", serif;
+          font-weight: 400;
+          line-height: 1;
+          opacity: 0.7;
+        }
+        
+        .hero-subtitle::after {
+          content: '"';
+          font-size: 2em;
+          color: var(--secondary);
+          position: absolute;
+          right: -0.25em;
+          bottom: -0.3em;
+          font-family: "Georgia", serif;
+          font-weight: 400;
+          line-height: 1;
+          opacity: 0.7;
         }
         
         .hero-description {
@@ -105,7 +135,19 @@ export const HeroSection = component$(() => {
           }
           
           .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+          }
+          
+          .hero-subtitle::before {
+            font-size: 1.8em;
+            left: -0.25em;
+            top: -0.1em;
+          }
+          
+          .hero-subtitle::after {
+            font-size: 1.8em;
+            right: -0.15em;
+            bottom: -0.25em;
           }
           
           .hero-description {

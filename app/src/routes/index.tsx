@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { Navigation } from "../components/Navigation";
 import { HeroSection } from "../components/HeroSection";
@@ -9,20 +9,49 @@ import { PartnersSection } from "../components/PartnersSection";
 import { InstagramSection } from "../components/InstagramSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
+import { GalleriesPage } from "../components/GalleriesPage";
+import { CookieBar } from "../components/CookieBar";
 
 export default component$(() => {
+  const currentPage = useSignal('home');
+
+  useVisibleTask$(() => {
+    const updateCurrentPage = () => {
+      const hash = window.location.hash;
+      if (hash === '#galleries') {
+        currentPage.value = 'galleries';
+      } else {
+        currentPage.value = 'home';
+      }
+    };
+
+    updateCurrentPage();
+    window.addEventListener('hashchange', updateCurrentPage);
+    
+    return () => {
+      window.removeEventListener('hashchange', updateCurrentPage);
+    };
+  });
+
   return (
-    <div id="home">
-      <Navigation />
-      <HeroSection />
-      <ValuesSection />
-      <ServicesSection />
-      <PortfolioSection />
-      <PartnersSection />
-      <InstagramSection />
-      <ContactSection />
-      <Footer />
-    </div>
+    <>
+      {currentPage.value === 'galleries' ? (
+        <GalleriesPage />
+      ) : (
+        <div id="home">
+          <Navigation />
+          <HeroSection />
+          <ValuesSection />
+          <ServicesSection />
+          <PortfolioSection />
+          <PartnersSection />
+          <InstagramSection />
+          <ContactSection />
+          <Footer />
+        </div>
+      )}
+      <CookieBar />
+    </>
   );
 });
 
@@ -35,7 +64,7 @@ export const head: DocumentHead = {
     },
     {
       name: "keywords",
-      content: "nábytek na míru, kuchyně, skříně, koupelny, kancelářský nábytek, KPS Interiéry, Morava, Brno, zakázková výroba",
+      content: "nábytek na míru, kuchyně, skříně, koupelny, kancelářský nábytek, KPS Interiéry, Morava, Zlín, zakázková výroba",
     },
     {
       name: "author",
