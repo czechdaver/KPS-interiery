@@ -25,6 +25,7 @@ export interface GalleryData {
 // Gallery slugs that correspond to folder names
 export const GALLERY_SLUGS = [
   'kitchen-modern-island',
+  'kitchen-white-attic',
   'wardrobe-sliding-doors', 
   'bathroom-vanity-modern',
   'office-custom-furniture',
@@ -81,6 +82,7 @@ export async function loadGalleryData(slug: GallerySlug): Promise<GalleryData | 
 function getDefaultTitle(slug: string): string {
   const titles: Record<string, string> = {
     'kitchen-modern-island': 'Moderní kuchyň s ostrůvkem',
+    'kitchen-white-attic': 'Bílá kuchyň v podkroví',
     'wardrobe-sliding-doors': 'Vestavěná skříň s posuvnými dveřmi',
     'bathroom-vanity-modern': 'Koupelnový nábytek s umyvadlem',
     'office-custom-furniture': 'Kancelářský nábytek na míru',
