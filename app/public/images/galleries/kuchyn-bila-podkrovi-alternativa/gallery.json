@@ -1,0 +1,109 @@
+{
+  "id": "kitchen-bila-podkrovi",
+  "title": "Bílá kuchyň v podkroví",
+  "category": "Kuchyně",
+  "description": "Elegantní bílá kuchyně přizpůsobená podkrovním prostorům se šikmými střechami a maximální využitím dostupného prostoru.",
+  "coverImage": "kuchyne_0031-web.jpg",
+  "images": [
+    {
+      "src": "kuchyne_0031-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na bílou kuchyni v podkroví"
+    },
+    {
+      "src": "kuchyne_0042-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail vysokých skříněk",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Vysoké bílé skříňky využívající výšku prostoru"
+    },
+    {
+      "src": "kuchyne_0044-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - pracovní plocha",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Pracovní plocha s bílými horními skříňkami"
+    },
+    {
+      "src": "kuchyne_0045-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail úložných prostor",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Promyšlené úložné prostory v podkroví"
+    },
+    {
+      "src": "kuchyne_0046-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - kuchyňská linka",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Bílá kuchyňská linka přizpůsobená šikmým stropům"
+    },
+    {
+      "src": "kuchyne_0047-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - kompletní realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní realizace bílé kuchyně v podkroví"
+    },
+    {
+      "src": "kuchyne_0048-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail spotřebičů",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Vestavěné spotřebiče a úložné systémy"
+    },
+    {
+      "src": "kuchyne_0051-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - další pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Alternativní pohled na kuchyňskou linku"
+    },
+    {
+      "src": "kuchyne_0058-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail řešení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail řešení podkrovního prostoru"
+    },
+    {
+      "src": "kuchyne_0061-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - vertikální pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Vertikální pohled na úložné systémy"
+    },
+    {
+      "src": "kuchyne_0064-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - dokončená realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Dokončená realizace bílé kuchyně"
+    }
+  ],
+  "features": [
+    "Přizpůsobení šikmým střechám",
+    "Maximální využití prostoru",
+    "Bílé matné fronty",
+    "Vestavěné spotřebiče",
+    "Optimalizované úložné systémy",
+    "LED osvětlení",
+    "Kvalitní kování"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "location": "Praha",
+  "date": "2024-02",
+  "imageCount": 11,
+  "coverImages": [
+    "kuchyne_0031-web.jpg",
+    "kuchyne_0042-web.jpg",
+    "kuchyne_0046-web.jpg"
+  ]
+}

@@ -1,5 +1,5 @@
 import { component$, useStylesScoped$, useTask$, useSignal, useVisibleTask$, $ } from "@builder.io/qwik";
-import { loadAllGalleries, type GalleryData, getImagePath } from '../lib/gallery';
+import { loadAllGalleries, type GalleryData, getImagePath, getLightboxImageUrl } from '../lib/gallery';
 import { ResponsiveImage } from "./ResponsiveImage";
 
 const styles = `
@@ -207,12 +207,16 @@ export const PortfolioSection = component$(() => {
   const openLightbox = $((gallery: GalleryData) => {
     if (typeof window !== 'undefined') {
       import('photoswipe').then(({ default: PhotoSwipe }) => {
-        const items = gallery.images.map(img => ({
-          src: `${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${img.src}`,
-          width: img.width,
-          height: img.height,
-          alt: img.alt
-        }));
+        const items = gallery.images.map(img => {
+          // Use optimized images for lightbox
+          return {
+            src: getLightboxImageUrl(gallery.id, img.src),
+            width: img.width,
+            height: img.height,
+            alt: img.alt,
+            caption: img.caption
+          };
+        });
 
         const pswp = new PhotoSwipe({
           dataSource: items,
@@ -259,40 +263,42 @@ export const PortfolioSection = component$(() => {
           </div>
         ) : (
           <div class="portfolio-grid">
-            {galleries.value.map((gallery, index) => (
-              <div 
-                key={gallery.id} 
-                class={`portfolio-item ${index === 0 ? 'featured' : ''} ${index === 3 ? 'wide' : ''}`}
-              >
-                <div class="portfolio-image-container">
-                  <ResponsiveImage 
-                    src={getImagePath(gallery.id, gallery.coverImage)}
-                    alt={gallery.title}
-                    class="portfolio-image"
-                    width={400}
-                    height={300}
-                    loading={index < 2 ? 'eager' : 'lazy'}
-                    priority={index === 0}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-content">
-                      <span class="portfolio-category">{gallery.category}</span>
-                      <h3 class="portfolio-title">{gallery.title}</h3>
-                      <button 
-                        class="portfolio-view-btn"
-                        onClick$={() => openLightbox(gallery)}
-                      >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                        </svg>
-                        Zobrazit galerii
-                      </button>
+            {galleries.value.map((gallery) => 
+              gallery.images.slice(0, 6).map((image, imageIndex) => (
+                <div 
+                  key={`${gallery.id}-${imageIndex}`} 
+                  class={`portfolio-item ${imageIndex === 0 ? 'featured' : ''} ${imageIndex === 3 ? 'wide' : ''}`}
+                >
+                  <div class="portfolio-image-container">
+                    <ResponsiveImage 
+                      src={getImagePath(gallery.id, image.src)}
+                      alt={image.alt}
+                      class="portfolio-image"
+                      width={400}
+                      height={300}
+                      loading={imageIndex < 2 ? 'eager' : 'lazy'}
+                      priority={imageIndex === 0}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div class="portfolio-overlay">
+                      <div class="portfolio-content">
+                        <span class="portfolio-category">{gallery.category}</span>
+                        <h3 class="portfolio-title">{gallery.title}</h3>
+                        <button 
+                          class="portfolio-view-btn"
+                          onClick$={() => openLightbox(gallery)}
+                        >
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                          </svg>
+                          Zobrazit galerii
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ).flat()}
           </div>
         )}
         

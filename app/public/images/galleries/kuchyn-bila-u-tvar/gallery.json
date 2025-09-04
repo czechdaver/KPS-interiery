@@ -1,0 +1,60 @@
+{
+  "id": "kitchen-bila-u",
+  "title": "Bílá kuchyň do U",
+  "category": "Kuchyně",
+  "description": "Prostorná bílá kuchyň v uspořádání do tvaru U s maximálním využitím úložných prostorů a ergonomickým řešením pracovního trojúhelníku.",
+  "coverImage": "skrine-0201-web.jpg",
+  "images": [
+    {
+      "src": "skrine-0201-web.jpg",
+      "alt": "Bílá kuchyň do U - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na bílou kuchyni v uspořádání do U"
+    },
+    {
+      "src": "skrine-0204-web.jpg",
+      "alt": "Bílá kuchyň do U - detail spotřebičů",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Vestavěné spotřebiče a vysoké skříňky"
+    },
+    {
+      "src": "skrine-0205-web.jpg",
+      "alt": "Bílá kuchyň do U - pracovní plocha",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Praktická pracovní plocha s dostatkem úložného prostoru"
+    },
+    {
+      "src": "skrine-0206-web.jpg",
+      "alt": "Bílá kuchyň do U - detail rohového řešení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Rohové řešení s optimálním využitím prostoru"
+    }
+  ],
+  "features": [
+    "Uspořádání do tvaru U",
+    "Ergonomický pracovní trojúhelník",
+    "Bílé matné fronty",
+    "Vestavěné spotřebiče",
+    "Rohové řešení úložných systémů",
+    "LED osvětlení linky",
+    "Kvalitní kování"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "location": "Praha",
+  "date": "2024-02",
+  "imageCount": 4,
+  "coverImages": [
+    "skrine-0201-web.jpg",
+    "skrine-0204-web.jpg",
+    "skrine-0205-web.jpg"
+  ]
+}

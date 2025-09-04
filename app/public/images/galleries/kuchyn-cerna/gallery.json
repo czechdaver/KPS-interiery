@@ -1,0 +1,88 @@
+{
+  "id": "kuchyn-cerna",
+  "title": "Černá kuchyň",
+  "category": "Kuchyně",
+  "description": "Elegantní černá kuchyň s moderním designem a sofistikovaným vzhledem pro náročné zákazníky.",
+  "coverImage": "kuchyne_0065-web.jpg",
+  "images": [
+    {
+      "src": "kuchyne_0065-web.jpg",
+      "alt": "Černá kuchyň - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na elegantní černou kuchyni"
+    },
+    {
+      "src": "kuchyne_0071-web.jpg",
+      "alt": "Černá kuchyň - detail provedení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitního provedení černé kuchyně"
+    },
+    {
+      "src": "kuchyne_0078-web.jpg",
+      "alt": "Černá kuchyň - pracovní plocha",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Moderní pracovní plocha s integrovanými spotřebiči"
+    },
+    {
+      "src": "kuchyne_0081-web.jpg",
+      "alt": "Černá kuchyň - vysoké skříňky",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Vysoké černé skříňky s maximálním úložným prostorem"
+    },
+    {
+      "src": "kuchyne_0084-web.jpg",
+      "alt": "Černá kuchyň - kuchyňská linka",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Moderní černá kuchyňská linka"
+    },
+    {
+      "src": "kuchyne_0086-web.jpg",
+      "alt": "Černá kuchyň - úložné systémy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Inteligentní úložné systémy v černé kuchyni"
+    },
+    {
+      "src": "kuchyne_0088-web.jpg",
+      "alt": "Černá kuchyň - osvětlení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Atmosférické LED osvětlení černé kuchyně"
+    },
+    {
+      "src": "kuchyne_0089-web.jpg",
+      "alt": "Černá kuchyň - kompletní realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní realizace sofistikované černé kuchyně"
+    }
+  ],
+  "features": [
+    "Elegantní černý design",
+    "Matné černé fronty",
+    "Vestavěné spotřebiče",
+    "LED osvětlení",
+    "Kvalitní úložné systémy",
+    "Moderní kování",
+    "Sofistikovaný vzhled"
+  ],
+  "materials": [
+    "Lamino černá mat",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "location": "Praha",
+  "date": "2024-01",
+  "imageCount": 8,
+  "coverImages": [
+    "kuchyne_0065-web.jpg",
+    "kuchyne_0078-web.jpg",
+    "kuchyne_0086-web.jpg"
+  ]
+}

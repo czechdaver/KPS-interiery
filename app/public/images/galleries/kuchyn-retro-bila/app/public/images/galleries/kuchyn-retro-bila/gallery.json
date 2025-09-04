@@ -1,0 +1,95 @@
+{
+  "id": "kuchyn-retro-bila",
+  "title": "Retro bílá kuchyň",
+  "category": "Kuchyně",
+  "description": "Elegantní retro bílá kuchyň s vintage designem a moderní funkčností, která dokonale kombinuje nostalgii s praktičností současného kuchyňského vybavení.",
+  "coverImage": "kuchyne_0066-web.jpg",
+  "images": [
+    {
+      "src": "kuchyne_0066-web.jpg",
+      "alt": "Retro bílá kuchyň - celkový pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Celkový pohled na retro bílou kuchyň"
+    },
+    {
+      "src": "kuchyne_0074-web.jpg",
+      "alt": "Retro bílá kuchyň - vintage detail",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Vintage detaily a retro zpracování kuchyně"
+    },
+    {
+      "src": "kuchyne_0081-web.jpg",
+      "alt": "Retro bílá kuchyň - bílé fronty",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Elegantní bílé fronty v retro stylu"
+    },
+    {
+      "src": "kuchyne_0082-web.jpg",
+      "alt": "Retro bílá kuchyň - úložné prostory",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Praktické úložné prostory v kuchyni"
+    },
+    {
+      "src": "kuchyne_0094-web.jpg",
+      "alt": "Retro bílá kuchyň - detail konstrukce",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail retro konstrukce a zpracování"
+    },
+    {
+      "src": "kuchyne_0097-web.jpg",
+      "alt": "Retro bílá kuchyň - vnitřní uspořádání",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Optimalizované vnitřní uspořádání kuchyně"
+    },
+    {
+      "src": "kuchyne_0105-web.jpg",
+      "alt": "Retro bílá kuchyň - funkční řešení",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Funkční řešení v retro designu"
+    },
+    {
+      "src": "kuchyne_0113-web.jpg",
+      "alt": "Retro bílá kuchyň - dokončený vzhled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Dokončený retro vzhled kuchyně"
+    },
+    {
+      "src": "kuchyne_0120-web.jpg",
+      "alt": "Retro bílá kuchyň - finální realizace",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Finální realizace retro bílé kuchyně"
+    }
+  ],
+  "features": [
+    "Retro vintage design",
+    "Bílé matné fronty",
+    "Moderní funkčnost",
+    "Kvalitní zpracování",
+    "Praktické úložné systémy",
+    "Vintage úchyty a kování",
+    "Kombinace retro a moderního stylu"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Retro kování",
+    "Vintage úchyty",
+    "Kvalitní desky"
+  ],
+  "location": "Praha",
+  "date": "2024-01",
+  "imageCount": 9,
+  "coverImages": [
+    "kuchyne_0066-web.jpg",
+    "kuchyne_0074-web.jpg",
+    "kuchyne_0081-web.jpg"
+  ]
+}

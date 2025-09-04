@@ -3,7 +3,7 @@
   "title": "Bílá kuchyň v podkroví",
   "category": "Kuchyně",
   "description": "Elegantní bílá kuchyně přizpůsobená podkrovním prostorům se šikmými střechami a maximální využitím dostupného prostoru.",
-  "coverImage": "kuchyne_0047-web.jpg",
+  "coverImage": "kuchyne_0031-web.jpg",
   "images": [
     {
       "src": "kuchyne_0031-web.jpg",
@@ -102,8 +102,8 @@
   "date": "2024-02",
   "imageCount": 11,
   "coverImages": [
-    "kuchyne_0047-web.jpg",
     "kuchyne_0031-web.jpg",
+    "kuchyne_0042-web.jpg",
     "kuchyne_0046-web.jpg"
   ]
 }

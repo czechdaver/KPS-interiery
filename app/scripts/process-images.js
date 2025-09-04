@@ -31,11 +31,13 @@ const SIZES = [
 const SOURCE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.tiff', '.tif', '.raw'];
 
 /**
- * Check if file is a source image
+ * Check if file is a source image (must end with -original-resource.jpg)
  */
 function isSourceImage(filename) {
   const ext = path.extname(filename).toLowerCase();
-  return SOURCE_EXTENSIONS.includes(ext);
+  const hasValidExt = SOURCE_EXTENSIONS.includes(ext);
+  const isOriginalResource = filename.includes('-original-resource');
+  return hasValidExt && isOriginalResource;
 }
 
 /**
@@ -53,7 +55,8 @@ function isProcessedImage(filename) {
 async function processImage(inputPath, outputDir, filename) {
   console.log(`Processing: ${filename}`);
   
-  const baseName = path.parse(filename).name;
+  // Remove -original-resource suffix and create web basename
+  const baseName = path.parse(filename).name.replace('-original-resource', '');
   
   try {
     const image = sharp(inputPath);
@@ -61,13 +64,13 @@ async function processImage(inputPath, outputDir, filename) {
     
     console.log(`  Original: ${metadata.width}x${metadata.height} (${metadata.format})`);
     
-    // Generate all format and size combinations
+    // Generate all format and size combinations with -web prefix
     for (const { format, quality } of FORMATS) {
       for (const { width, suffix } of SIZES) {
         // Skip if original is smaller than target width
         if (metadata.width < width) continue;
         
-        const outputFilename = `${baseName}${suffix}.${format}`;
+        const outputFilename = `${baseName}-web${suffix}.${format}`;
         const outputPath = path.join(outputDir, outputFilename);
         
         try {
@@ -87,14 +90,14 @@ async function processImage(inputPath, outputDir, filename) {
       }
     }
     
-    // Also keep a standard optimized version
-    const standardPath = path.join(outputDir, `${baseName}-optimized.jpg`);
+    // Also keep a standard web version (fallback)
+    const webPath = path.join(outputDir, `${baseName}-web.jpg`);
     await image
       .clone()
       .jpeg({ quality: 90 })
-      .toFile(standardPath);
+      .toFile(webPath);
     
-    console.log(`    Generated: ${baseName}-optimized.jpg`);
+    console.log(`    Generated: ${baseName}-web.jpg`);
     
   } catch (error) {
     console.error(`Failed to process ${filename}:`, error.message);

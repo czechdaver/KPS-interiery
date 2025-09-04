@@ -41,14 +41,10 @@ coordination/
 .roomodes
 CLAUDE.md
 
+# Gallery files should NOT be ignored - removing any gallery ignore rules
+# All gallery JSON and image files should be tracked
+
 # Project specific
-app/public/images/galleries/
-!app/public/images/galleries/*/gallery.json
-!app/public/images/galleries/*/*.jpg
-!app/public/images/galleries/*/*.jpeg
-!app/public/images/galleries/*/*.png
-!app/public/images/galleries/*/*.avif
-!app/public/images/galleries/*/*.webp
 *.db
 *.db-journal
 *.db-wal

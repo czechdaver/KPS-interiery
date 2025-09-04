@@ -1,5 +1,6 @@
 import { component$, useSignal, useVisibleTask$, $ } from '@builder.io/qwik';
 import type { GalleryData } from '../lib/gallery';
+import { getLightboxImageUrl } from '../lib/gallery';
 
 interface PhotoSwipeGalleryProps {
   gallery: GalleryData;
@@ -14,7 +15,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery }
       import('photoswipe').then(({ default: PhotoSwipe }) => {
 
         const items = gallery.images.map(img => ({
-          src: `${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${img.src}`,
+          src: getLightboxImageUrl(gallery.id, img.src),
           width: img.width,
           height: img.height,
           alt: img.alt,
@@ -67,7 +68,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery }
       {gallery.images.map((image, index) => (
         <a
           key={index}
-          href={`${import.meta.env.BASE_URL}images/galleries/${gallery.id}/${image.src}`}
+          href={getLightboxImageUrl(gallery.id, image.src)}
           data-pswp-width={image.width}
           data-pswp-height={image.height}
           target="_blank"

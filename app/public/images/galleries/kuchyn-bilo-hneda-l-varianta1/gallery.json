@@ -1,0 +1,75 @@
+{
+  "id": "kitchen-bilo-hneda-l-varianta-1",
+  "title": "Bílo-hnědá kuchyň do L - varianta 1",
+  "category": "Kuchyně",
+  "description": "Elegantní kuchyň v uspořádání do L kombinující bílé horní skříňky s hnědými dolními, vytvářející harmonický a praktický prostor.",
+  "coverImage": "skrine-0001-web.jpg",
+  "images": [
+    {
+      "src": "skrine-0001-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na bílo-hnědou kuchyni v uspořádání do L"
+    },
+    {
+      "src": "skrine-0004-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - detail kombinace barev",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail kombinace bílých a hnědých front"
+    },
+    {
+      "src": "skrine-0005-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - pracovní plocha",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Praktická pracovní plocha s kontrastními barvami"
+    },
+    {
+      "src": "skrine-0007-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - úložné systémy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Efektivní úložné systémy v moderním provedení"
+    },
+    {
+      "src": "skrine-0010-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - rohové řešení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Rohové řešení s optimálním využitím prostoru"
+    },
+    {
+      "src": "skrine-0017-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - dokončená realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Dokončená realizace elegantní dvoubarevné kuchyně"
+    }
+  ],
+  "features": [
+    "Uspořádání do tvaru L",
+    "Kombinace bílých a hnědých front",
+    "Kontrastní barevné řešení",
+    "Moderní úchyty",
+    "LED osvětlení",
+    "Rohové optimalizace",
+    "Kvalitní kování"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Lamino hnědá",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "location": "Praha",
+  "date": "2024-01",
+  "imageCount": 6,
+  "coverImages": [
+    "skrine-0001-web.jpg",
+    "skrine-0004-web.jpg",
+    "skrine-0010-web.jpg"
+  ]
+}

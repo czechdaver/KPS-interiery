@@ -1,0 +1,67 @@
+{
+  "id": "kuchyn-mala-panel",
+  "title": "Malá panelová kuchyň",
+  "category": "Kuchyně",
+  "description": "Kompaktní panelová kuchyň optimalizovaná pro menší prostory s promyšleným využitím výšky a praktickými úložnými řešeními.",
+  "coverImage": "kuchyne_0176-web.jpg",
+  "images": [
+    {
+      "src": "kuchyne_0176-web.jpg",
+      "alt": "Malá panelová kuchyň - celkový pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Celkový pohled na kompaktní panelovou kuchyň"
+    },
+    {
+      "src": "kuchyne_0190-web.jpg",
+      "alt": "Malá panelová kuchyň - detail konstrukce",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail panelové konstrukce a zpracování"
+    },
+    {
+      "src": "kuchyne_0191-web.jpg",
+      "alt": "Malá panelová kuchyň - úložné systémy",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Praktické úložné systémy pro malou kuchyň"
+    },
+    {
+      "src": "kuchyne_0193-web.jpg",
+      "alt": "Malá panelová kuchyň - vnitřní uspořádání",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Optimalizované vnitřní uspořádání kuchyně"
+    },
+    {
+      "src": "kuchyne_0197-web.jpg",
+      "alt": "Malá panelová kuchyň - finální podoba",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Finální podoba malé panelové kuchyně"
+    }
+  ],
+  "features": [
+    "Kompaktní rozměry",
+    "Využití výšky prostoru",
+    "Panelová konstrukce",
+    "Praktické úložné systémy",
+    "Kvalitní zpracování",
+    "Optimalizované pro malé prostory",
+    "Moderní design"
+  ],
+  "materials": [
+    "Panel lamino",
+    "Kompaktní deska",
+    "Kovové úchyty",
+    "Kvalitní kování"
+  ],
+  "location": "Praha",
+  "date": "2024-02",
+  "imageCount": 5,
+  "coverImages": [
+    "kuchyne_0176-web.jpg",
+    "kuchyne_0190-web.jpg",
+    "kuchyne_0193-web.jpg"
+  ]
+}

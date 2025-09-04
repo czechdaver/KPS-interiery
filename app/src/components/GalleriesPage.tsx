@@ -1,5 +1,5 @@
-import { component$, useStylesScoped$, useSignal, useTask$, useVisibleTask$ } from "@builder.io/qwik";
-import { loadAllGalleries, getGalleriesByCategory, mapGalleryForDisplay } from "../lib/gallery";
+import { component$, useStylesScoped$, useSignal, useTask$, useVisibleTask$, $ } from "@builder.io/qwik";
+import { loadAllGalleries, getGalleriesByCategory, mapGalleryForDisplay, getLightboxImageUrl } from "../lib/gallery";
 import type { GalleryData } from "../lib/gallery";
 import { ResponsiveImage } from "./ResponsiveImage";
 
@@ -331,17 +331,57 @@ export const GalleriesPage = component$(() => {
     }
   });
 
+  const openLightbox = $((gallery: GalleryData) => {
+    if (typeof window !== 'undefined') {
+      import('photoswipe').then(({ default: PhotoSwipe }) => {
+        const items = gallery.images.map(img => {
+          // Use optimized images for lightbox
+          return {
+            src: getLightboxImageUrl(gallery.id, img.src),
+            width: img.width,
+            height: img.height,
+            alt: img.alt
+          };
+        });
+
+        const pswp = new PhotoSwipe({
+          dataSource: items,
+          showHideAnimationType: 'zoom',
+          bgOpacity: 0.9,
+          spacing: 0.1,
+          allowPanToNext: true,
+          loop: true,
+          pinchToClose: true,
+          closeOnVerticalDrag: true,
+          index: 0
+        });
+        
+        pswp.init();
+      });
+    }
+  });
+
   useVisibleTask$(() => {
     window.scrollTo(0, 0);
+    
+    // Preload PhotoSwipe styles
+    if (typeof window !== 'undefined') {
+      const existingLink = document.querySelector('link[href*="photoswipe.css"]');
+      if (!existingLink) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css';
+        document.head.appendChild(link);
+      }
+    }
   });
 
   // Get categorized galleries
   const categorizedGalleries = getGalleriesByCategory(galleries.value);
   
   // Map galleries for display
-  const kitchenGalleries = categorizedGalleries.kuchyne.map(mapGalleryForDisplay);
-  const bathroomGalleries = categorizedGalleries.koupelny.map(mapGalleryForDisplay);
-  const otherGalleries = categorizedGalleries.ostatni.map(mapGalleryForDisplay);
+  const bathroomGalleries = categorizedGalleries.koupelny;
+  const otherGalleries = categorizedGalleries.ostatni;
 
   if (isLoading.value) {
     return (
@@ -373,7 +413,7 @@ export const GalleriesPage = component$(() => {
               Prohlédněte si kompletní galerii našich nejlepších projektů
             </p>
             
-            <a href="/" onClick$={() => {window.location.hash = '';}} class="back-button">
+            <a href="#home" onClick$={() => {window.location.hash = '#home';}} class="back-button">
               <i class="ph-duotone ph-arrow-left" style="font-size: 20px;"></i>
               Zpět na hlavní stránku
             </a>
@@ -394,175 +434,201 @@ export const GalleriesPage = component$(() => {
             </div>
             
             <div class="gallery-grid">
-              {kitchenGalleries.map((gallery) => (
-                <div key={gallery.id} class="gallery-card">
-                  <div class="gallery-preview">
-                    <div class="gallery-preview-grid">
-                      {gallery.coverImages.map((image, index) => (
-                        <ResponsiveImage 
-                          key={index}
-                          src={image}
-                          alt={`${gallery.title} - náhled ${index + 1}`}
-                          class="gallery-preview-image"
-                          width={400}
-                          height={280}
-                          loading="lazy"
-                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                        />
-                      ))}
-                    </div>
-                    <div class="gallery-overlay">
-                      <div class="gallery-count">
-                        <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
-                        {gallery.imageCount} fotografií
+              {categorizedGalleries.kuchyne.map((gallery) => {
+                const displayGallery = mapGalleryForDisplay(gallery);
+                return (
+                  <div key={gallery.id} class="gallery-card">
+                    <div class="gallery-preview">
+                      <div class="gallery-preview-grid">
+                        {displayGallery.coverImages.map((image, index) => (
+                          <ResponsiveImage 
+                            key={index}
+                            src={image}
+                            alt={`${displayGallery.title} - náhled ${index + 1}`}
+                            class="gallery-preview-image"
+                            width={400}
+                            height={280}
+                            loading="lazy"
+                            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                          />
+                        ))}
                       </div>
-                    </div>
-                  </div>
-                  
-                  <div class="gallery-info">
-                    <h3 class="gallery-title">{gallery.title}</h3>
-                    <p class="gallery-description">{gallery.description}</p>
-                    
-                    <div class="gallery-meta">
-                      <div class="gallery-date">
-                        <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
-                        {gallery.date}
-                      </div>
-                      <div class="gallery-location">
-                        <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
-                        {gallery.location}
+                      <div class="gallery-overlay">
+                        <div class="gallery-count">
+                          <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                          {displayGallery.imageCount} fotografií
+                        </div>
                       </div>
                     </div>
                     
-                    <a href={`#gallery-${gallery.id}`} class="view-gallery-btn">
-                      <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
-                      Zobrazit galerii
-                    </a>
+                    <div class="gallery-info">
+                      <h3 class="gallery-title">{displayGallery.title}</h3>
+                      <p class="gallery-description">{displayGallery.description}</p>
+                      
+                      <div class="gallery-meta">
+                        <div class="gallery-date">
+                          <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                          {displayGallery.date}
+                        </div>
+                        <div class="gallery-location">
+                          <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                          {displayGallery.location}
+                        </div>
+                      </div>
+                      
+                      <button 
+                        class="view-gallery-btn"
+                        onClick$={() => openLightbox(gallery)}
+                        style="border: none; cursor: pointer;"
+                      >
+                        <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                        Zobrazit galerii
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
+
 
           {/* Koupelny Section */}
-          <div class="gallery-section">
-            <div class="gallery-section-header">
-              <h2 class="gallery-section-title">Koupelny</h2>
-              <p class="gallery-section-description">
-                Elegantní koupelnové prostory s důrazem na funkčnost a wellness
-              </p>
+          {bathroomGalleries.length > 0 && (
+            <div class="gallery-section">
+              <div class="gallery-section-header">
+                <h2 class="gallery-section-title">Koupelny</h2>
+                <p class="gallery-section-description">
+                  Elegantní koupelnové prostory s důrazem na funkčnost a wellness
+                </p>
+              </div>
+              
+              <div class="gallery-grid">
+                {bathroomGalleries.map((gallery) => {
+                  const displayGallery = mapGalleryForDisplay(gallery);
+                  return (
+                    <div key={gallery.id} class="gallery-card">
+                      <div class="gallery-preview">
+                        <div class="gallery-preview-grid">
+                          {displayGallery.coverImages.map((image, index) => (
+                            <ResponsiveImage 
+                              key={index}
+                              src={image}
+                              alt={`${displayGallery.title} - náhled ${index + 1}`}
+                              class="gallery-preview-image"
+                              width={400}
+                              height={280}
+                              loading="lazy"
+                              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                            />
+                          ))}
+                        </div>
+                        <div class="gallery-overlay">
+                          <div class="gallery-count">
+                            <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                            {displayGallery.imageCount} fotografií
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="gallery-info">
+                        <h3 class="gallery-title">{displayGallery.title}</h3>
+                        <p class="gallery-description">{displayGallery.description}</p>
+                        
+                        <div class="gallery-meta">
+                          <div class="gallery-date">
+                            <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                            {displayGallery.date}
+                          </div>
+                          <div class="gallery-location">
+                            <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                            {displayGallery.location}
+                          </div>
+                        </div>
+                        
+                        <button 
+                          class="view-gallery-btn"
+                          onClick$={() => openLightbox(gallery)}
+                          style="border: none; cursor: pointer;"
+                        >
+                          <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                          Zobrazit galerii
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            
-            <div class="gallery-grid">
-              {bathroomGalleries.map((gallery) => (
-                <div key={gallery.id} class="gallery-card">
-                  <div class="gallery-preview">
-                    <div class="gallery-preview-grid">
-                      {gallery.coverImages.map((image, index) => (
-                        <ResponsiveImage 
-                          key={index}
-                          src={image}
-                          alt={`${gallery.title} - náhled ${index + 1}`}
-                          class="gallery-preview-image"
-                          width={400}
-                          height={280}
-                          loading="lazy"
-                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                        />
-                      ))}
-                    </div>
-                    <div class="gallery-overlay">
-                      <div class="gallery-count">
-                        <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
-                        {gallery.imageCount} fotografií
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="gallery-info">
-                    <h3 class="gallery-title">{gallery.title}</h3>
-                    <p class="gallery-description">{gallery.description}</p>
-                    
-                    <div class="gallery-meta">
-                      <div class="gallery-date">
-                        <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
-                        {gallery.date}
-                      </div>
-                      <div class="gallery-location">
-                        <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
-                        {gallery.location}
-                      </div>
-                    </div>
-                    
-                    <a href={`#gallery-${gallery.id}`} class="view-gallery-btn">
-                      <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
-                      Zobrazit galerii
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          )}
 
           {/* Ostatní Section */}
-          <div class="gallery-section">
-            <div class="gallery-section-header">
-              <h2 class="gallery-section-title">Ostatní projekty</h2>
-              <p class="gallery-section-description">
-                Kancelářský nábytek, vestavěné skříně a další atypické realizace
-              </p>
+          {otherGalleries.length > 0 && (
+            <div class="gallery-section">
+              <div class="gallery-section-header">
+                <h2 class="gallery-section-title">Ostatní projekty</h2>
+                <p class="gallery-section-description">
+                  Kancelářský nábytek, vestavěné skříně a další atypické realizace
+                </p>
+              </div>
+              
+              <div class="gallery-grid">
+                {otherGalleries.map((gallery) => {
+                  const displayGallery = mapGalleryForDisplay(gallery);
+                  return (
+                    <div key={gallery.id} class="gallery-card">
+                      <div class="gallery-preview">
+                        <div class="gallery-preview-grid">
+                          {displayGallery.coverImages.map((image, index) => (
+                            <ResponsiveImage 
+                              key={index}
+                              src={image}
+                              alt={`${displayGallery.title} - náhled ${index + 1}`}
+                              class="gallery-preview-image"
+                              width={400}
+                              height={280}
+                              loading="lazy"
+                              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                            />
+                          ))}
+                        </div>
+                        <div class="gallery-overlay">
+                          <div class="gallery-count">
+                            <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                            {displayGallery.imageCount} fotografií
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="gallery-info">
+                        <h3 class="gallery-title">{displayGallery.title}</h3>
+                        <p class="gallery-description">{displayGallery.description}</p>
+                        
+                        <div class="gallery-meta">
+                          <div class="gallery-date">
+                            <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                            {displayGallery.date}
+                          </div>
+                          <div class="gallery-location">
+                            <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                            {displayGallery.location}
+                          </div>
+                        </div>
+                        
+                        <button 
+                          class="view-gallery-btn"
+                          onClick$={() => openLightbox(gallery)}
+                          style="border: none; cursor: pointer;"
+                        >
+                          <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                          Zobrazit galerii
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            
-            <div class="gallery-grid">
-              {otherGalleries.map((gallery) => (
-                <div key={gallery.id} class="gallery-card">
-                  <div class="gallery-preview">
-                    <div class="gallery-preview-grid">
-                      {gallery.coverImages.map((image, index) => (
-                        <ResponsiveImage 
-                          key={index}
-                          src={image}
-                          alt={`${gallery.title} - náhled ${index + 1}`}
-                          class="gallery-preview-image"
-                          width={400}
-                          height={280}
-                          loading="lazy"
-                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                        />
-                      ))}
-                    </div>
-                    <div class="gallery-overlay">
-                      <div class="gallery-count">
-                        <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
-                        {gallery.imageCount} fotografií
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="gallery-info">
-                    <h3 class="gallery-title">{gallery.title}</h3>
-                    <p class="gallery-description">{gallery.description}</p>
-                    
-                    <div class="gallery-meta">
-                      <div class="gallery-date">
-                        <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
-                        {gallery.date}
-                      </div>
-                      <div class="gallery-location">
-                        <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
-                        {gallery.location}
-                      </div>
-                    </div>
-                    
-                    <a href={`#gallery-${gallery.id}`} class="view-gallery-btn">
-                      <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
-                      Zobrazit galerii
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          )}
 
         </div>
       </section>

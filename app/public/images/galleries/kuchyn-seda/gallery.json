@@ -1,0 +1,88 @@
+{
+  "id": "kuchyn-seda",
+  "title": "Šedá kuchyň",
+  "category": "Kuchyně",
+  "description": "Moderní šedá kuchyň s minimalistickým designem a čistými liniemi pro časový vzhled.",
+  "coverImage": "skrine2-0125-web.jpg",
+  "images": [
+    {
+      "src": "skrine2-0125-web.jpg",
+      "alt": "Šedá kuchyň - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na moderní šedou kuchyni"
+    },
+    {
+      "src": "skrine2-0127-web.jpg",
+      "alt": "Šedá kuchyň - detail linky",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail šedé kuchyňské linky s minimalistickým designem"
+    },
+    {
+      "src": "skrine2-0128-web.jpg",
+      "alt": "Šedá kuchyň - pracovní plocha",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Funkční pracovní plocha s moderními spotřebiči"
+    },
+    {
+      "src": "skrine2-0130-web.jpg",
+      "alt": "Šedá kuchyň - úložné systémy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Efektivní úložné systémy v šedé kuchyni"
+    },
+    {
+      "src": "skrine2-0131-web.jpg",
+      "alt": "Šedá kuchyň - vysoké skříňky",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Vysoké šedé skříňky s maximálním využitím prostoru"
+    },
+    {
+      "src": "skrine2-0141-web.jpg",
+      "alt": "Šedá kuchyň - detail provedení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitního provedení šedé kuchyně"
+    },
+    {
+      "src": "skrine2-0146-web.jpg",
+      "alt": "Šedá kuchyň - osvětlení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Moderní LED osvětlení šedé kuchyně"
+    },
+    {
+      "src": "skrine2-0159-web.jpg",
+      "alt": "Šedá kuchyň - kompletní realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní realizace šedé kuchyně"
+    }
+  ],
+  "features": [
+    "Minimalistický šedý design",
+    "Matné šedé fronty",
+    "Čisté linie",
+    "Vestavěné spotřebiče",
+    "LED osvětlení",
+    "Efektivní úložné systémy",
+    "Kvalitní kování"
+  ],
+  "materials": [
+    "Lamino šedá mat",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "location": "Praha",
+  "date": "2024-02",
+  "imageCount": 8,
+  "coverImages": [
+    "skrine2-0125-web.jpg",
+    "skrine2-0128-web.jpg",
+    "skrine2-0141-web.jpg"
+  ]
+}

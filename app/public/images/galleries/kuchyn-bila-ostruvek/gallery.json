@@ -1,0 +1,88 @@
+{
+  "id": "kuchyn-bila-ostruvek",
+  "title": "Bílá kuchyň s ostrůvkem",
+  "category": "Kuchyně",
+  "description": "Moderní bílá kuchyň s praktickým kuchyňským ostrůvkem pro maximální komfort a funkčnost.",
+  "coverImage": "kuchyne_0002-web.jpg",
+  "images": [
+    {
+      "src": "kuchyne_0002-web.jpg",
+      "alt": "Bílá kuchyň s ostrůvkem - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na moderní bílou kuchyň s kuchyňským ostrůvkem"
+    },
+    {
+      "src": "kuchyne_0004-web.jpg",
+      "alt": "Bílá kuchyň s ostrůvkem - detail linky",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail bílé kuchyňské linky s moderním designem"
+    },
+    {
+      "src": "kuchyne_0009-web.jpg",
+      "alt": "Bílá kuchyň s ostrůvkem - kuchyňský ostrůvek",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Praktický kuchyňský ostrůvek s dodatečnou pracovní plochou"
+    },
+    {
+      "src": "kuchyne_0012-web.jpg",
+      "alt": "Bílá kuchyň s ostrůvkem - úložné systémy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Promyšlené úložné systémy v bílé kuchyni"
+    },
+    {
+      "src": "kuchyne_0013-web.jpg",
+      "alt": "Bílá kuchyň s ostrůvkem - pracovní plocha",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Rozsáhlá pracovní plocha s kvalitními spotřebiči"
+    },
+    {
+      "src": "kuchyne_0015-web.jpg",
+      "alt": "Bílá kuchyň s ostrůvkem - detail provedení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitního provedení bílé kuchyně"
+    },
+    {
+      "src": "kuchyne_0017-web.jpg",
+      "alt": "Bílá kuchyň s ostrůvkem - osvětlení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Moderní LED osvětlení kuchyně"
+    },
+    {
+      "src": "kuchyne_0018-web.jpg",
+      "alt": "Bílá kuchyň s ostrůvkem - kompletní realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní realizace bílé kuchyně s ostrůvkem"
+    }
+  ],
+  "features": [
+    "Kuchyňský ostrůvek s dodatečnou plochou",
+    "Bílé matné fronty",
+    "Vestavěné spotřebiče",
+    "LED osvětlení",
+    "Rozsáhlé úložné prostory",
+    "Kvalitní kování",
+    "Kompaktní pracovní plocha"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "location": "Praha",
+  "date": "2024-01",
+  "imageCount": 8,
+  "coverImages": [
+    "kuchyne_0002-web.jpg",
+    "kuchyne_0009-web.jpg",
+    "kuchyne_0015-web.jpg"
+  ]
+}

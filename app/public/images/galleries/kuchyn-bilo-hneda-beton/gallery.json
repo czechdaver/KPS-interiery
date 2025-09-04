@@ -1,0 +1,82 @@
+{
+  "id": "kitchen-bilo-hneda-beton",
+  "title": "Bílo-hnědá kuchyň s betonovým designem",
+  "category": "Kuchyně",
+  "description": "Moderní kuchyň kombinující bílé a hnědé prvky s betonovou pracovní deskou, vytvářející industriální a současně útulný design.",
+  "coverImage": "skrine2-0255-web.jpg",
+  "images": [
+    {
+      "src": "skrine2-0255-web.jpg",
+      "alt": "Bílo-hnědá kuchyň s betonem - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na moderní bílo-hnědou kuchyni"
+    },
+    {
+      "src": "skrine2-0260-web.jpg",
+      "alt": "Bílo-hnědá kuchyň s betonem - pracovní plocha",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Betonová pracovní deska s hnědými dolními skříňkami"
+    },
+    {
+      "src": "skrine2-0262-web.jpg",
+      "alt": "Bílo-hnědá kuchyň s betonem - detail fronty",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kombinace bílých a hnědých front"
+    },
+    {
+      "src": "skrine2-0264-web.jpg",
+      "alt": "Bílo-hnědá kuchyň s betonem - úložné systémy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Praktické úložné systémy v moderním designu"
+    },
+    {
+      "src": "skrine2-0266-web.jpg",
+      "alt": "Bílo-hnědá kuchyň s betonem - minimalistický detail",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Minimalistický design s čistými liniemi"
+    },
+    {
+      "src": "skrine2-0270-web.jpg",
+      "alt": "Bílo-hnědá kuchyň s betonem - funkční řešení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Funkční řešení s důrazem na ergonomii"
+    },
+    {
+      "src": "skrine2-0280-web.jpg",
+      "alt": "Bílo-hnědá kuchyň s betonem - kompletní realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní realizace industriální kuchyně"
+    }
+  ],
+  "features": [
+    "Kombinace bílých a hnědých front",
+    "Betonová pracovní deska",
+    "Industriální design",
+    "Moderní úchyty bez madel",
+    "LED osvětlení",
+    "Ergonomické řešení",
+    "Kvalitní kování"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Lamino hnědá",
+    "Betonová deska",
+    "Nerezové prvky",
+    "Kování Blum"
+  ],
+  "location": "Praha",
+  "date": "2024-03",
+  "imageCount": 7,
+  "coverImages": [
+    "skrine2-0255-web.jpg",
+    "skrine2-0260-web.jpg",
+    "skrine2-0264-web.jpg"
+  ]
+}
