@@ -18,7 +18,7 @@ export default component$(() => {
   useVisibleTask$(() => {
     const updateCurrentPage = () => {
       const hash = window.location.hash;
-      if (hash === '#galleries') {
+      if (hash === '#galerie') {
         currentPage.value = 'galleries';
       } else {
         currentPage.value = 'home';

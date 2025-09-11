@@ -2,6 +2,7 @@ import { component$, useStylesScoped$, useSignal, useTask$, useVisibleTask$, $ }
 import { loadAllGalleries, getGalleriesByCategory, mapGalleryForDisplay, getLightboxImageUrl } from "../lib/gallery";
 import type { GalleryData } from "../lib/gallery";
 import { ResponsiveImage } from "./ResponsiveImage";
+import { Footer } from "./Footer";
 
 const styles = `
   .galleries-page {
@@ -59,7 +60,7 @@ const styles = `
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-size: 0.95rem;
   }
   
@@ -105,7 +106,8 @@ const styles = `
   }
   
   .galleries-content {
-    padding: 5rem 0;
+    padding: 3rem 0;
+    min-height: calc(100vh - 300px);
   }
   
   .gallery-section {
@@ -173,8 +175,13 @@ const styles = `
   
   .gallery-preview {
     position: relative;
-    height: 280px;
+    height: 240px;
     overflow: hidden;
+    cursor: pointer;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .gallery-preview-grid {
@@ -186,10 +193,14 @@ const styles = `
   }
   
   .gallery-preview-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     transition: var(--transition);
+    /* Ensure image fits container without cropping, maintaining aspect ratio */
+    object-position: center;
+    width: auto;
+    height: auto;
   }
   
   .gallery-preview-image:first-child {
@@ -320,16 +331,40 @@ export const GalleriesPage = component$(() => {
   const galleries = useSignal<GalleryData[]>([]);
   const isLoading = useSignal(true);
 
+  // Load galleries on both server and client
   useTask$(async () => {
     try {
+      console.log('Loading galleries for GalleriesPage (SSR)...');
       const loadedGalleries = await loadAllGalleries();
       galleries.value = loadedGalleries;
+      console.log(`Loaded ${loadedGalleries.length} galleries for galleries page (SSR)`);
     } catch (error) {
-      console.error('Failed to load galleries:', error);
+      console.error('Failed to load galleries (SSR):', error);
     } finally {
       isLoading.value = false;
     }
   });
+
+  // Ensure galleries load on client-side hydration
+  useVisibleTask$(async () => {
+    // If galleries are already loaded, don't reload
+    if (galleries.value.length > 0) {
+      console.log('Galleries already loaded, skipping client-side load');
+      return;
+    }
+
+    try {
+      isLoading.value = true;
+      console.log('Loading galleries for GalleriesPage (client)...');
+      const loadedGalleries = await loadAllGalleries();
+      galleries.value = loadedGalleries;
+      console.log(`Loaded ${loadedGalleries.length} galleries for galleries page (client)`);
+    } catch (error) {
+      console.error('Failed to load galleries (client):', error);
+    } finally {
+      isLoading.value = false;
+    }
+  }, { strategy: 'intersection-observer' });
 
   const openLightbox = $((gallery: GalleryData) => {
     if (typeof window !== 'undefined') {
@@ -403,7 +438,12 @@ export const GalleriesPage = component$(() => {
         <div class="container">
           <div class="galleries-hero-content">
             <div class="breadcrumb">
-              <a href="/" onClick$={() => {window.location.hash = '';}}>Domů</a>
+              <a href="/" onClick$={(e) => {
+                e.preventDefault();
+                window.location.hash = '';
+                // Trigger hash change event manually
+                window.dispatchEvent(new HashChangeEvent('hashchange'));
+              }}>Domů</a>
               <span class="breadcrumb-separator">/</span>
               <span class="breadcrumb-current">Galerie</span>
             </div>
@@ -412,10 +452,18 @@ export const GalleriesPage = component$(() => {
             <p class="galleries-subtitle">
               Prohlédněte si kompletní galerii našich nejlepších projektů
             </p>
-            
-            <a href="#home" onClick$={() => {window.location.hash = '#home';}} class="back-button">
-              <i class="ph-duotone ph-arrow-left" style="font-size: 20px;"></i>
-              Zpět na hlavní stránku
+            <a 
+              href="/" 
+              class="back-button"
+              onClick$={(e) => {
+                e.preventDefault();
+                window.location.hash = '';
+                // Trigger hash change event manually
+                window.dispatchEvent(new HashChangeEvent('hashchange'));
+              }}
+            >
+              <i class="ph-duotone ph-arrow-left" style="font-size: 18px;"></i>
+              Zpět na úvod
             </a>
           </div>
         </div>
@@ -436,23 +484,20 @@ export const GalleriesPage = component$(() => {
             <div class="gallery-grid">
               {categorizedGalleries.kuchyne.map((gallery) => {
                 const displayGallery = mapGalleryForDisplay(gallery);
+                const coverImage = displayGallery.coverImages[0]; // Use only the first image
                 return (
                   <div key={gallery.id} class="gallery-card">
-                    <div class="gallery-preview">
-                      <div class="gallery-preview-grid">
-                        {displayGallery.coverImages.map((image, index) => (
-                          <ResponsiveImage 
-                            key={index}
-                            src={image}
-                            alt={`${displayGallery.title} - náhled ${index + 1}`}
-                            class="gallery-preview-image"
-                            width={400}
-                            height={280}
-                            loading="lazy"
-                            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                          />
-                        ))}
-                      </div>
+                    <div 
+                      class="gallery-preview"
+                      onClick$={() => openLightbox(gallery)}
+                    >
+                      <ResponsiveImage 
+                        src={coverImage}
+                        alt={`${displayGallery.title} - náhled`}
+                        class="gallery-preview-image"
+                        loading="lazy"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                      />
                       <div class="gallery-overlay">
                         <div class="gallery-count">
                           <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
@@ -505,23 +550,20 @@ export const GalleriesPage = component$(() => {
               <div class="gallery-grid">
                 {bathroomGalleries.map((gallery) => {
                   const displayGallery = mapGalleryForDisplay(gallery);
+                  const coverImage = displayGallery.coverImages[0]; // Use only the first image
                   return (
                     <div key={gallery.id} class="gallery-card">
-                      <div class="gallery-preview">
-                        <div class="gallery-preview-grid">
-                          {displayGallery.coverImages.map((image, index) => (
-                            <ResponsiveImage 
-                              key={index}
-                              src={image}
-                              alt={`${displayGallery.title} - náhled ${index + 1}`}
-                              class="gallery-preview-image"
-                              width={400}
-                              height={280}
+                      <div 
+                        class="gallery-preview"
+                        onClick$={() => openLightbox(gallery)}
+                      >
+                        <ResponsiveImage 
+                          src={coverImage}
+                          alt={`${displayGallery.title} - náhled`}
+                          class="gallery-preview-image"
                               loading="lazy"
-                              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                            />
-                          ))}
-                        </div>
+                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                        />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
                             <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
@@ -574,23 +616,20 @@ export const GalleriesPage = component$(() => {
               <div class="gallery-grid">
                 {otherGalleries.map((gallery) => {
                   const displayGallery = mapGalleryForDisplay(gallery);
+                  const coverImage = displayGallery.coverImages[0]; // Use only the first image
                   return (
                     <div key={gallery.id} class="gallery-card">
-                      <div class="gallery-preview">
-                        <div class="gallery-preview-grid">
-                          {displayGallery.coverImages.map((image, index) => (
-                            <ResponsiveImage 
-                              key={index}
-                              src={image}
-                              alt={`${displayGallery.title} - náhled ${index + 1}`}
-                              class="gallery-preview-image"
-                              width={400}
-                              height={280}
+                      <div 
+                        class="gallery-preview"
+                        onClick$={() => openLightbox(gallery)}
+                      >
+                        <ResponsiveImage 
+                          src={coverImage}
+                          alt={`${displayGallery.title} - náhled`}
+                          class="gallery-preview-image"
                               loading="lazy"
-                              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                            />
-                          ))}
-                        </div>
+                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                        />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
                             <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
@@ -632,6 +671,7 @@ export const GalleriesPage = component$(() => {
 
         </div>
       </section>
+      <Footer />
     </div>
   );
 });

@@ -159,6 +159,18 @@ const styles = `
     font-size: 1.1rem;
   }
   
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
   @media (max-width: 1024px) {
     .portfolio-item.featured,
     .portfolio-item.wide {
@@ -192,13 +204,61 @@ export const PortfolioSection = component$(() => {
   useStylesScoped$(styles);
   const galleries = useSignal<GalleryData[]>([]);
   const isLoading = useSignal(true);
+  const hasError = useSignal(false);
+  const errorMessage = useSignal('');
 
+  // Featured gallery IDs that should be shown in portfolio section
+  const FEATURED_GALLERY_IDS = ['kuchyn-cerna', 'kuchyn-bila-ostruvek', 'kuchyn-retro-bila'] as const;
+
+  // Load galleries on both server and client
   useTask$(async () => {
     try {
+      console.log('Loading galleries for PortfolioSection (SSR)...');
       const loadedGalleries = await loadAllGalleries();
+      
+      if (loadedGalleries.length === 0) {
+        hasError.value = true;
+        errorMessage.value = 'Nepodařilo se načíst galerie. Zkuste to prosím později.';
+        return;
+      }
+      
       galleries.value = loadedGalleries;
+      console.log(`Loaded ${loadedGalleries.length} galleries for portfolio (SSR)`);
     } catch (error) {
-      console.error('Failed to load galleries:', error);
+      console.error('Failed to load galleries (SSR):', error);
+      hasError.value = true;
+      errorMessage.value = 'Chyba při načítání galerií. Zkuste obnovit stránku.';
+    } finally {
+      isLoading.value = false;
+    }
+  });
+
+  // Ensure galleries load on client-side hydration
+  useVisibleTask$(async () => {
+    // If galleries are already loaded, don't reload
+    if (galleries.value.length > 0) {
+      console.log('Galleries already loaded, skipping client-side load');
+      return;
+    }
+
+    try {
+      isLoading.value = true;
+      hasError.value = false;
+      console.log('Loading galleries for PortfolioSection (client)...');
+      const loadedGalleries = await loadAllGalleries();
+      
+      if (loadedGalleries.length === 0) {
+        hasError.value = true;
+        errorMessage.value = 'Nepodařilo se načíst galerie. Zkuste to prosím později.';
+        return;
+      }
+      
+      galleries.value = loadedGalleries;
+      console.log(`Loaded ${loadedGalleries.length} galleries for portfolio (client)`);
+    } catch (error) {
+      console.error('Failed to load galleries (client):', error);
+      hasError.value = true;
+      errorMessage.value = 'Chyba při načítání galerií. Zkuste obnovit stránku.';
     } finally {
       isLoading.value = false;
     }
@@ -206,32 +266,40 @@ export const PortfolioSection = component$(() => {
 
   const openLightbox = $((gallery: GalleryData) => {
     if (typeof window !== 'undefined') {
-      import('photoswipe').then(({ default: PhotoSwipe }) => {
-        const items = gallery.images.map(img => {
-          // Use optimized images for lightbox
-          return {
-            src: getLightboxImageUrl(gallery.id, img.src),
-            width: img.width,
-            height: img.height,
-            alt: img.alt,
-            caption: img.caption
-          };
-        });
+      import('photoswipe')
+        .then(({ default: PhotoSwipe }) => {
+          if (!gallery.images || gallery.images.length === 0) {
+            console.warn(`No images found for gallery ${gallery.id}`);
+            return;
+          }
 
-        const pswp = new PhotoSwipe({
-          dataSource: items,
-          showHideAnimationType: 'zoom',
-          bgOpacity: 0.9,
-          spacing: 0.1,
-          allowPanToNext: true,
-          loop: true,
-          pinchToClose: true,
-          closeOnVerticalDrag: true,
-          index: 0
+          const items = gallery.images.map(img => ({
+            src: getLightboxImageUrl(gallery.id, img.src),
+            width: img.width || 1200,
+            height: img.height || 800,
+            alt: img.alt || gallery.title,
+            caption: img.caption || img.alt
+          }));
+
+          const pswp = new PhotoSwipe({
+            dataSource: items,
+            showHideAnimationType: 'zoom',
+            bgOpacity: 0.9,
+            spacing: 0.1,
+            allowPanToNext: true,
+            loop: true,
+            pinchToClose: true,
+            closeOnVerticalDrag: true,
+            index: 0,
+            clickToCloseNonZoomable: true
+          });
+          
+          pswp.init();
+        })
+        .catch(error => {
+          console.error('Failed to load PhotoSwipe:', error);
+          // Fallback: just log the error, user can still see the thumbnail
         });
-        
-        pswp.init();
-      });
     }
   });
 
@@ -258,53 +326,80 @@ export const PortfolioSection = component$(() => {
         </div>
         
         {isLoading.value ? (
-          <div class="portfolio-loading">
+          <div class="portfolio-loading" role="status" aria-live="polite">
             <p>Načítání galerií...</p>
+          </div>
+        ) : hasError.value ? (
+          <div class="portfolio-loading" role="alert" aria-live="assertive">
+            <p>{errorMessage.value}</p>
+            <button 
+              class="btn btn-primary"
+              onClick$={() => window.location.reload()}
+              style="margin-top: 1rem;"
+            >
+              Obnovit stránku
+            </button>
           </div>
         ) : (
           <div class="portfolio-grid">
-            {galleries.value.map((gallery) => 
-              gallery.images.slice(0, 6).map((image, imageIndex) => (
-                <div 
-                  key={`${gallery.id}-${imageIndex}`} 
-                  class={`portfolio-item ${imageIndex === 0 ? 'featured' : ''} ${imageIndex === 3 ? 'wide' : ''}`}
+            {galleries.value
+              .filter(gallery => FEATURED_GALLERY_IDS.includes(gallery.id as any))
+              .slice(0, 6) // Limit to 6 items max for performance
+              .map((gallery) => (
+                <article 
+                  key={gallery.id} 
+                  class="portfolio-item"
+                  role="article"
+                  aria-label={`Portfolio položka: ${gallery.title}`}
                 >
                   <div class="portfolio-image-container">
                     <ResponsiveImage 
-                      src={getImagePath(gallery.id, image.src)}
-                      alt={image.alt}
+                      src={getImagePath(gallery.id, gallery.coverImage || 'placeholder.jpg')}
+                      alt={`${gallery.title} - náhledový obrázek`}
                       class="portfolio-image"
                       width={400}
                       height={300}
-                      loading={imageIndex < 2 ? 'eager' : 'lazy'}
-                      priority={imageIndex === 0}
+                      loading="eager"
+                      priority={true}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    <div class="portfolio-overlay">
+                    <div class="portfolio-overlay" role="presentation">
                       <div class="portfolio-content">
-                        <span class="portfolio-category">{gallery.category}</span>
+                        <span 
+                          class="portfolio-category"
+                          aria-label={`Kategorie: ${gallery.category}`}
+                        >
+                          {gallery.category}
+                        </span>
                         <h3 class="portfolio-title">{gallery.title}</h3>
                         <button 
                           class="portfolio-view-btn"
                           onClick$={() => openLightbox(gallery)}
+                          aria-label={`Zobrazit galerii ${gallery.title} (${gallery.images?.length || 0} fotografií)`}
+                          type="button"
                         >
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
                           </svg>
                           Zobrazit galerii
+                          {gallery.images?.length > 0 && (
+                            <span class="visually-hidden">
+                              ({gallery.images.length} fotografií)
+                            </span>
+                          )}
                         </button>
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
               ))
-            ).flat()}
+            }
           </div>
         )}
         
         
         <div class="portfolio-cta">
-          <a href="#galleries" class="btn btn-accent">
+          <a href="#galerie" class="btn btn-accent">
             <i class="ph-duotone ph-images" style="font-size: 24px;"></i>
             Zobrazit celou galerii
           </a>

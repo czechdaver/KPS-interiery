@@ -24,11 +24,10 @@ export interface GalleryData {
 
 // Gallery slugs that correspond to folder names
 export const GALLERY_SLUGS = [
-  'kitchen-white-attic',
+  'kuchyn-bila-podkrovi',
   'kuchyn-bila-ostruvek',
   'kuchyn-cerna',
   'kuchyn-seda',
-  'kuchyn-bila-podkrovi-alternativa',
   'kuchyn-bila-u-tvar',
   'kuchyn-bilo-hneda-beton',
   'kuchyn-bilo-hneda-l-varianta1',
@@ -41,45 +40,82 @@ export const GALLERY_SLUGS = [
 export type GallerySlug = typeof GALLERY_SLUGS[number];
 
 /**
- * Load gallery data from JSON file
+ * Validate gallery data structure
  */
-export async function loadGalleryData(slug: GallerySlug): Promise<GalleryData | null> {
-  if (typeof window === 'undefined') {
-    // Server-side: return mock data for SSR - only for kitchen-white-attic
-    if (slug === 'kitchen-white-attic') {
-      return {
-        id: slug,
-        title: getDefaultTitle(slug),
-        category: getDefaultCategory(slug),
-        description: 'Elegantní bílá kuchyně přizpůsobená podkrovním prostorům se šikmými střechami.',
-        coverImage: 'kuchyne_0031-web.jpg',
-        images: [
-          {
-            src: 'kuchyne_0031-web.jpg',
-            alt: 'Bílá kuchyň v podkroví - celkový pohled',
-            width: 2560,
-            height: 1707,
-            caption: 'Celkový pohled na bílou kuchyni v podkroví'
-          }
-        ],
-        features: ['Přizpůsobení šikmým střechám', 'Maximální využití prostoru'],
-        materials: ['Lamino bílá mat', 'Kompaktní deska'],
-        location: 'Praha',
-        date: '2024-02',
-        imageCount: 11,
-        coverImages: ['kuchyne_0031-web.jpg', 'kuchyne_0042-web.jpg', 'kuchyne_0046-web.jpg']
-      };
+function validateGalleryData(data: any): data is GalleryData {
+  if (!data || typeof data !== 'object') return false;
+  
+  const requiredFields = ['id', 'title', 'category', 'description', 'coverImage', 'images'];
+  for (const field of requiredFields) {
+    if (!(field in data)) {
+      console.error(`Missing required field: ${field}`);
+      return false;
     }
-    return null;
   }
   
+  // Validate images array
+  if (!Array.isArray(data.images) || data.images.length === 0) {
+    console.error('Images must be a non-empty array');
+    return false;
+  }
+  
+  // Validate each image object
+  for (const image of data.images) {
+    if (!image.src || !image.alt || typeof image.width !== 'number' || typeof image.height !== 'number') {
+      console.error('Invalid image structure:', image);
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+/**
+ * Load gallery data from JSON file with enhanced error handling and validation
+ */
+export async function loadGalleryData(slug: GallerySlug): Promise<GalleryData | null> {
+  // Validate slug parameter
+  if (!slug || !GALLERY_SLUGS.includes(slug)) {
+    console.error(`Invalid gallery slug provided: ${slug}`);
+    return null;
+  }
+
+  // Load gallery data from JSON files on both server and client
+  // This ensures consistent data loading across SSR and CSR
+  
   try {
-    const response = await fetch(`${import.meta.env.BASE_URL}images/galleries/${slug}/gallery.json`);
+    // Handle URL construction for both server and client environments
+    const baseUrl = typeof window === 'undefined' 
+      ? 'http://localhost:5173/' // Server-side: use localhost for dev
+      : window.location.origin + (import.meta.env.BASE_URL || '/');
+      
+    const galleryUrl = `${baseUrl}images/galleries/${slug}/gallery.json`;
+    console.log(`Loading gallery from: ${galleryUrl}`);
+    
+    const response = await fetch(galleryUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'Cache-Control': 'no-cache'
+      }
+    });
+    
     if (!response.ok) {
-      console.warn(`Failed to load gallery data for ${slug}`);
+      if (response.status === 404) {
+        console.warn(`Gallery data not found for ${slug} (404)`);
+      } else {
+        console.warn(`Failed to load gallery data for ${slug}: HTTP ${response.status}`);
+      }
       return null;
     }
+    
     const data = await response.json();
+    
+    // Validate the loaded data structure
+    if (!validateGalleryData(data)) {
+      console.error(`Invalid gallery data structure for ${slug}`);
+      return null;
+    }
+    
     return data as GalleryData;
   } catch (error) {
     console.error(`Error loading gallery data for ${slug}:`, error);
@@ -93,7 +129,6 @@ function getDefaultTitle(slug: string): string {
     'kuchyn-bila-ostruvek': 'Bílá kuchyň s ostrůvkem',
     'kuchyn-cerna': 'Černá kuchyň',
     'kuchyn-seda': 'Šedá kuchyň',
-    'kuchyn-bila-podkrovi-alternativa': 'Bílá kuchyň v podkroví - alternativní řešení',
     'kuchyn-bila-u-tvar': 'Bílá kuchyň ve tvaru U',
     'kuchyn-bilo-hneda-beton': 'Bílo-hnědá kuchyň s betonovým designem',
     'kuchyn-bilo-hneda-l-varianta1': 'Bílo-hnědá kuchyň ve tvaru L - varianta 1',
@@ -133,7 +168,7 @@ export function validateGalleryConfiguration(): string[] {
 }
 
 /**
- * Load all gallery data
+ * Load all gallery data with enhanced error handling and timeout logic
  */
 export async function loadAllGalleries(): Promise<GalleryData[]> {
   // Validate configuration first
@@ -142,21 +177,36 @@ export async function loadAllGalleries(): Promise<GalleryData[]> {
     console.warn('Gallery configuration issues:', validationErrors);
   }
   
+  // Load galleries with timeout and retry logic
   const galleries = await Promise.allSettled(
-    GALLERY_SLUGS.map(slug => loadGalleryData(slug))
+    GALLERY_SLUGS.map(slug => 
+      Promise.race([
+        loadGalleryData(slug),
+        new Promise<null>((_, reject) => 
+          setTimeout(() => reject(new Error(`Timeout loading ${slug}`)), 10000)
+        )
+      ]).catch(error => {
+        console.error(`Failed to load gallery ${slug}:`, error);
+        return null;
+      })
+    )
   );
   
   const loadedGalleries = galleries
     .filter((result): result is PromiseFulfilledResult<GalleryData> => 
       result.status === 'fulfilled' && result.value !== null
     )
-    .map(result => result.value);
+    .map(result => result.value)
+    .filter((gallery): gallery is GalleryData => gallery !== null);
     
-  // Log any failed galleries
+  // Log detailed results
   const failedGalleries = galleries
     .map((result, index) => ({ result, slug: GALLERY_SLUGS[index] }))
     .filter(({ result }) => result.status === 'rejected' || (result.status === 'fulfilled' && result.value === null))
-    .map(({ slug }) => slug);
+    .map(({ slug, result }) => ({ 
+      slug, 
+      reason: result.status === 'rejected' ? result.reason?.message : 'No data returned' 
+    }));
     
   if (failedGalleries.length > 0) {
     console.error(`Failed to load ${failedGalleries.length} galleries:`, failedGalleries);
@@ -164,14 +214,54 @@ export async function loadAllGalleries(): Promise<GalleryData[]> {
   
   console.log(`Successfully loaded ${loadedGalleries.length} out of ${GALLERY_SLUGS.length} galleries`);
   
-  return loadedGalleries;
+  // Sort galleries by date (newest first) for consistent display
+  return loadedGalleries.sort((a, b) => {
+    const dateA = new Date(a.date || '1970-01-01');
+    const dateB = new Date(b.date || '1970-01-01');
+    return dateB.getTime() - dateA.getTime();
+  });
 }
 
 /**
- * Get full image path for gallery
+ * Get full image path for gallery with fallback handling
  */
 export function getImagePath(galleryId: string, imageSrc: string): string {
-  return `${import.meta.env.BASE_URL}images/galleries/${galleryId}/${imageSrc}`;
+  if (!galleryId || !imageSrc) {
+    console.warn('Invalid gallery ID or image source provided', { galleryId, imageSrc });
+    const baseUrl = typeof window === 'undefined' 
+      ? '/images/placeholder.jpg' 
+      : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/placeholder.jpg');
+    return baseUrl;
+  }
+  
+  // Validate gallery ID exists in our known slugs
+  if (!GALLERY_SLUGS.includes(galleryId as GallerySlug)) {
+    console.warn(`Unknown gallery ID: ${galleryId}`);
+    const baseUrl = typeof window === 'undefined' 
+      ? '/images/placeholder.jpg' 
+      : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/placeholder.jpg');
+    return baseUrl;
+  }
+  
+  // Handle URL construction for both server and client environments
+  const baseUrl = typeof window === 'undefined' 
+    ? '/images/galleries/' 
+    : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/galleries/');
+  
+  return `${baseUrl}${galleryId}/${imageSrc}`;
+}
+
+/**
+ * Create a preload link element for critical images
+ */
+export function preloadImage(src: string): void {
+  if (typeof window !== 'undefined' && src) {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = src;
+    document.head.appendChild(link);
+  }
 }
 
 /**
@@ -201,29 +291,32 @@ export function getGalleriesByCategory(galleries: GalleryData[]) {
   };
 }
 
+// Galleries with full optimization (AVIF, WebP, JPEG in multiple sizes)
+const OPTIMIZED_GALLERIES = [
+  'kuchyn-bila-podkrovi',
+  'kuchyn-bila-ostruvek',
+  'kuchyn-cerna',
+  'kuchyn-seda',
+  'kuchyn-bila-u-tvar',
+  'kuchyn-bilo-hneda-beton',
+  'kuchyn-bilo-hneda-l-varianta1',
+  'kuchyn-bilo-hneda-u-alternativa',
+  'kuchyn-hneda-l',
+  'kuchyn-mala-panel',
+  'kuchyn-retro-bila'
+] as const;
+
 /**
  * Generate optimized image sources for responsive images and lightbox
  */
 export function generateOptimizedImageSources(galleryId: string, imageSrc: string) {
-  const baseDir = `${import.meta.env.BASE_URL}images/galleries/${galleryId}`;
+  const baseUrl = typeof window === 'undefined' 
+    ? '/images/galleries/' 
+    : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/galleries/');
+  const baseDir = `${baseUrl}${galleryId}`;
   
   // Check if this gallery has full range of optimized sizes
-  const fullRangeGalleries = [
-    'kitchen-white-attic',
-    'kuchyn-bila-ostruvek',
-    'kuchyn-cerna',
-    'kuchyn-seda',
-    'kuchyn-bila-podkrovi-alternativa',
-    'kuchyn-bila-u-tvar',
-    'kuchyn-bilo-hneda-beton',
-    'kuchyn-bilo-hneda-l-varianta1',
-    'kuchyn-bilo-hneda-u-alternativa',
-    'kuchyn-hneda-l',
-    'kuchyn-mala-panel',
-    'kuchyn-retro-bila'
-  ];
-  
-  const isFullRange = fullRangeGalleries.includes(galleryId);
+  const isFullRange = OPTIMIZED_GALLERIES.includes(galleryId as any);
   
   if (!isFullRange) {
     // For galleries without full optimization, use original
@@ -232,7 +325,8 @@ export function generateOptimizedImageSources(galleryId: string, imageSrc: strin
     };
   }
   
-  // For optimized galleries, extract base name (e.g., "kuchyne_0031-web.jpg" -> "kuchyne_0031-web")
+  // For optimized galleries, extract base name but keep underscores
+  // (e.g., "kuchyne_0031-web.jpg" -> "kuchyne_0031-web")
   const fileName = imageSrc.split('/').pop() || imageSrc;
   const baseName = fileName.replace(/\.[^/.]+$/, '');
   
@@ -255,7 +349,7 @@ export function generateOptimizedImageSources(galleryId: string, imageSrc: strin
     avif: avifSrcSet,
     webp: webpSrcSet,
     jpeg: jpegSrcSet,
-    fallback: `${baseDir}/${baseName}-optimized.jpg`
+    fallback: `${baseDir}/${fileName}`
   };
 }
 
@@ -263,31 +357,20 @@ export function generateOptimizedImageSources(galleryId: string, imageSrc: strin
  * Get best quality image for lightbox
  */
 export function getLightboxImageUrl(galleryId: string, imageSrc: string) {
-  const baseDir = `${import.meta.env.BASE_URL}images/galleries/${galleryId}`;
+  const baseUrl = typeof window === 'undefined' 
+    ? '/images/galleries/' 
+    : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/galleries/');
+  const baseDir = `${baseUrl}${galleryId}`;
   
   // Check if this gallery has full range of optimized sizes
-  const fullRangeGalleries = [
-    'kitchen-white-attic',
-    'kuchyn-bila-ostruvek',
-    'kuchyn-cerna',
-    'kuchyn-seda',
-    'kuchyn-bila-podkrovi-alternativa',
-    'kuchyn-bila-u-tvar',
-    'kuchyn-bilo-hneda-beton',
-    'kuchyn-bilo-hneda-l-varianta1',
-    'kuchyn-bilo-hneda-u-alternativa',
-    'kuchyn-hneda-l',
-    'kuchyn-mala-panel',
-    'kuchyn-retro-bila'
-  ];
-  
-  const isFullRange = fullRangeGalleries.includes(galleryId);
+  const isFullRange = OPTIMIZED_GALLERIES.includes(galleryId as any);
   
   if (!isFullRange) {
     return `${baseDir}/${imageSrc}`;
   }
   
-  // For optimized galleries, extract base name (e.g., "kuchyne_0031-web.jpg" -> "kuchyne_0031-web")
+  // For optimized galleries, extract base name but keep underscores
+  // (e.g., "kuchyne_0031-web.jpg" -> "kuchyne_0031-web")
   const fileName = imageSrc.split('/').pop() || imageSrc;
   const baseName = fileName.replace(/\.[^/.]+$/, '');
   

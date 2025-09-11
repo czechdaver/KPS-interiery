@@ -27,7 +27,18 @@
     "lint:biome": "biome lint .",
     "lint:css": "stylelint \"src/**/*.{css,scss}\"",
     "images:process": "node scripts/process-images.js",
-    "images:clean": "find public/images/galleries -name '*-[0-9]*w.*' -delete"
+    "images:clean": "find public/images/galleries -name '*-[0-9]*w.*' -delete",
+    "test": "vitest --config ../tests/vitest.config.ts",
+    "test:ui": "vitest --ui --config ../tests/vitest.config.ts",
+    "test:run": "vitest run --config ../tests/vitest.config.ts",
+    "test:coverage": "vitest run --coverage --config ../tests/vitest.config.ts",
+    "test:watch": "vitest --config ../tests/vitest.config.ts",
+    "e2e": "playwright test --config ../tests/playwright.config.ts",
+    "e2e:ui": "playwright test --ui --config ../tests/playwright.config.ts",
+    "e2e:headed": "playwright test --headed --config ../tests/playwright.config.ts",
+    "e2e:debug": "playwright test --debug --config ../tests/playwright.config.ts",
+    "test:all": "npm run test:run && npm run e2e",
+    "test:ci": "npm run test:coverage && npm run e2e"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.0",
@@ -57,7 +68,15 @@
     "undici": "*",
     "vite": "5.3.5",
     "vite-imagetools": "^8.0.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "@playwright/test": "^1.40.0",
+    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@vitest/coverage-v8": "^1.0.4",
+    "@vitest/ui": "^1.0.4",
+    "jsdom": "^23.0.1",
+    "vitest": "^1.0.4"
   },
   "dependencies": {
     "@phosphor-icons/web": "^2.1.2",

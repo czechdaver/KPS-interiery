@@ -1,21 +1,20 @@
 # Gallery Structure Documentation
 
 ## Overview
-The project contains kitchen galleries showcasing interior design work - all 12 galleries are kitchens:
+The project contains kitchen galleries showcasing interior design work - all 11 galleries are kitchens:
 
-### 1. Main Kitchen Galleries (Kuchyně) - 9 galleries
+### 1. Main Kitchen Galleries (Kuchyně) - 8 galleries
 **Naming Pattern**: `kuchyn-*` (Czech) or `kitchen-*` (English)
 
 #### Kitchen Gallery List:
 1. `kitchen-white-attic` - Bílá kuchyň v podkroví (White kitchen in attic)
 2. `kuchyn-bila-ostruvek` - Bílá kuchyň s ostrůvkem (White kitchen with island)
-3. `kuchyn-bila-podkrovi-alternativa` - Bílá kuchyň podkroví alternativa (White attic kitchen alternative)
-4. `kuchyn-bila-u-tvar` - Bílá kuchyň do U (White U-shaped kitchen)
-5. `kuchyn-bilo-hneda-beton` - Bílo-hnědá kuchyň s betonem (White-brown kitchen with concrete)
-6. `kuchyn-bilo-hneda-l-varianta1` - Bílo-hnědá kuchyň do L (White-brown L-shaped kitchen)
-7. `kuchyn-bilo-hneda-u-alternativa` - Bílo-hnědá kuchyň do U alternativa (White-brown U-shaped kitchen alternative)
-8. `kuchyn-cerna` - Černá kuchyň (Black kitchen)
-9. `kuchyn-seda` - Šedá kuchyň (Grey kitchen)
+3. `kuchyn-bila-u-tvar` - Bílá kuchyň do U (White U-shaped kitchen)
+4. `kuchyn-bilo-hneda-beton` - Bílo-hnědá kuchyň s betonem (White-brown kitchen with concrete)
+5. `kuchyn-bilo-hneda-l-varianta1` - Bílo-hnědá kuchyň do L (White-brown L-shaped kitchen)
+6. `kuchyn-bilo-hneda-u-alternativa` - Bílo-hnědá kuchyň do U alternativa (White-brown U-shaped kitchen alternative)
+7. `kuchyn-cerna` - Černá kuchyň (Black kitchen)
+8. `kuchyn-seda` - Šedá kuchyň (Grey kitchen)
 
 ### 2. Additional Kitchen Galleries - 3 galleries
 **Naming Pattern**: `kuchyn-*` (Czech for kitchens)
