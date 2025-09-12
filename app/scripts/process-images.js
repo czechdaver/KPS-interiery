@@ -13,19 +13,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(__dirname, '..', 'public');
 const galleriesDir = path.join(publicDir, 'images', 'galleries');
 
-// Image processing configuration
-const FORMATS = [
-  { format: 'avif', quality: 85 },
-  { format: 'webp', quality: 85 },
-  { format: 'jpeg', quality: 85 }
-];
+// Image processing configuration - AVIF only with optimal resolution detection
+const AVIF_QUALITY = 75; // Slightly lower quality for AVIF since it's more efficient
 
-const SIZES = [
-  { width: 400, suffix: '-400w' },
-  { width: 800, suffix: '-800w' },
-  { width: 1200, suffix: '-1200w' },
-  { width: 1600, suffix: '-1600w' }
-];
+// Generate optimal sizes based on original image dimensions
+function getOptimalSizes(originalWidth) {
+  const baseSizes = [400, 800, 1200, 1600, 2400];
+  return baseSizes.filter(size => size <= originalWidth).map(width => ({
+    width,
+    suffix: `-${width}w`
+  }));
+}
 
 // Original image extensions to process
 const SOURCE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.tiff', '.tif', '.raw'];
@@ -44,13 +42,13 @@ function isSourceImage(filename) {
  * Check if file is already processed
  */
 function isProcessedImage(filename) {
-  const hasFormatSuffix = FORMATS.some(f => filename.includes(`-${f.format}`));
-  const hasSizeSuffix = SIZES.some(s => filename.includes(s.suffix));
-  return hasFormatSuffix || hasSizeSuffix;
+  const hasAvifSuffix = filename.includes('.avif');
+  const hasSizeSuffix = filename.includes('w.avif'); // e.g., -400w.avif
+  return hasAvifSuffix || hasSizeSuffix;
 }
 
 /**
- * Process a single image file
+ * Process a single image file - AVIF only with optimal resolution detection
  */
 async function processImage(inputPath, outputDir, filename) {
   console.log(`Processing: ${filename}`);
@@ -64,40 +62,47 @@ async function processImage(inputPath, outputDir, filename) {
     
     console.log(`  Original: ${metadata.width}x${metadata.height} (${metadata.format})`);
     
-    // Generate all format and size combinations with -web prefix
-    for (const { format, quality } of FORMATS) {
-      for (const { width, suffix } of SIZES) {
-        // Skip if original is smaller than target width
-        if (metadata.width < width) continue;
+    // Get optimal sizes based on original image dimensions
+    const optimalSizes = getOptimalSizes(metadata.width);
+    
+    if (optimalSizes.length === 0) {
+      console.log(`    Skipping: Original image too small (${metadata.width}px)`);
+      return;
+    }
+    
+    // Generate AVIF versions for all optimal sizes
+    for (const { width, suffix } of optimalSizes) {
+      const outputFilename = `${baseName}-web${suffix}.avif`;
+      const outputPath = path.join(outputDir, outputFilename);
+      
+      try {
+        await image
+          .clone()
+          .resize(width, null, {
+            withoutEnlargement: true,
+            fit: 'inside'
+          })
+          .avif({ quality: AVIF_QUALITY })
+          .toFile(outputPath);
         
-        const outputFilename = `${baseName}-web${suffix}.${format}`;
-        const outputPath = path.join(outputDir, outputFilename);
-        
-        try {
-          await image
-            .clone()
-            .resize(width, null, {
-              withoutEnlargement: true,
-              fit: 'inside'
-            })
-            .toFormat(format, { quality })
-            .toFile(outputPath);
-          
-          console.log(`    Generated: ${outputFilename}`);
-        } catch (error) {
-          console.warn(`    Failed to generate ${outputFilename}:`, error.message);
-        }
+        console.log(`    Generated: ${outputFilename}`);
+      } catch (error) {
+        console.warn(`    Failed to generate ${outputFilename}:`, error.message);
       }
     }
     
-    // Also keep a standard web version (fallback)
+    // Also keep a JPEG fallback for compatibility (single size)
     const webPath = path.join(outputDir, `${baseName}-web.jpg`);
     await image
       .clone()
+      .resize(1200, null, {
+        withoutEnlargement: true,
+        fit: 'inside'
+      })
       .jpeg({ quality: 90 })
       .toFile(webPath);
     
-    console.log(`    Generated: ${baseName}-web.jpg`);
+    console.log(`    Generated: ${baseName}-web.jpg (fallback)`);
     
   } catch (error) {
     console.error(`Failed to process ${filename}:`, error.message);

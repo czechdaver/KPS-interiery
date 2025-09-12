@@ -15,7 +15,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery }
       import('photoswipe').then(({ default: PhotoSwipe }) => {
 
         const items = gallery.images.map(img => ({
-          src: getLightboxImageUrl(gallery.id, img.src),
+          src: getLightboxImageUrl(gallery.id, img.src, img.width, img.height),
           width: img.width,
           height: img.height,
           alt: img.alt,
@@ -68,7 +68,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>(({ gallery }
       {gallery.images.map((image, index) => (
         <a
           key={index}
-          href={getLightboxImageUrl(gallery.id, image.src)}
+          href={getLightboxImageUrl(gallery.id, image.src, image.width, image.height)}
           data-pswp-width={image.width}
           data-pswp-height={image.height}
           target="_blank"

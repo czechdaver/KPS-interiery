@@ -2,7 +2,15 @@
 
 ## Overview
 
-This project uses a structured image optimization system for gallery management. Source images are stored as `*-original-resource.jpg` files and converted into multiple optimized formats and sizes for web use. **IMPORTANT: Never use original resource files directly in the website - always use converted variants.**
+This project uses a streamlined AVIF-only image optimization system for gallery management. Source images are stored as `*-original-resource.jpg` files and converted into optimized AVIF format with multiple responsive sizes. **IMPORTANT: Never use original resource files directly in the website - always use converted variants.**
+
+## ✨ AVIF-Only Optimization Strategy
+
+We've simplified our image optimization to use **only AVIF format** for maximum compression and quality:
+- **AVIF format only**: Best compression with excellent quality
+- **Optimal resolution detection**: Only generates sizes appropriate for source image
+- **JPEG fallback**: Single fallback file for legacy browser support
+- **Simplified workflow**: No more multiple format variants to manage
 
 ## 🚀 Quick Start
 
@@ -37,11 +45,9 @@ npm run images:process
 - **Never processes original resource files for web use**
 
 Generated variants from `image-original-resource.jpg`:
-- **Web-optimized versions** (400w, 800w, 1200w, 1600w)
-- **AVIF versions** (best compression, modern browsers)
-- **WebP versions** (excellent compression, wide support)  
-- **JPEG versions** (universal compatibility)
-- **Fallback version** (`image-optimized.jpg`)
+- **AVIF versions**: Optimal sizes (400w, 800w, 1200w, 1600w, 2400w) based on source dimensions
+- **JPEG fallback**: Single optimized fallback for legacy browser support
+- **Smart sizing**: Only generates sizes that make sense for the source image dimensions
 
 ### 3. Cleaning Generated Images
 
@@ -66,19 +72,14 @@ kuchyne_0031-original-resource.jpg  ← High-quality source
 ```
 kuchyne_0031-original-resource.jpg (SOURCE - never used on web)
 ├── kuchyne_0031-web-400w.avif     ← 400px AVIF variant
-├── kuchyne_0031-web-400w.webp     ← 400px WebP variant
-├── kuchyne_0031-web-400w.jpeg     ← 400px JPEG variant
 ├── kuchyne_0031-web-800w.avif     ← 800px AVIF variant
-├── kuchyne_0031-web-800w.webp     ← 800px WebP variant
-├── kuchyne_0031-web-800w.jpeg     ← 800px JPEG variant
 ├── kuchyne_0031-web-1200w.avif    ← 1200px AVIF variant
-├── kuchyne_0031-web-1200w.webp    ← 1200px WebP variant
-├── kuchyne_0031-web-1200w.jpeg    ← 1200px JPEG variant
 ├── kuchyne_0031-web-1600w.avif    ← 1600px AVIF variant
-├── kuchyne_0031-web-1600w.webp    ← 1600px WebP variant
-├── kuchyne_0031-web-1600w.jpeg    ← 1600px JPEG variant
-└── kuchyne_0031-web.jpg           ← Fallback optimized version
+├── kuchyne_0031-web-2400w.avif    ← 2400px AVIF variant (if source is large enough)
+└── kuchyne_0031-web.jpg           ← JPEG fallback for legacy browsers
 ```
+
+**Note**: Only AVIF sizes that make sense for the source image dimensions are generated. For example, a 1000px wide source won't generate 1200w, 1600w, or 2400w variants.
 
 ### Gallery JSON Configuration
 
@@ -102,10 +103,10 @@ In `gallery.json`, reference only the web variants:
 ### Smart Responsive Loading
 
 The `ResponsiveImage` component automatically:
-- **Serves AVIF** to browsers that support it (best compression)
-- **Falls back to WebP** for older browsers
-- **Uses JPEG** as final fallback
-- **Loads appropriate size** based on screen size
+- **Serves AVIF** for maximum compression and quality (96%+ browser support)
+- **Falls back to JPEG** for legacy browsers
+- **Loads appropriate size** based on screen size with intelligent srcset generation
+- **Uses highest quality** for lightbox (2400w AVIF when available)
 - **Lazy loads** images below the fold
 - **Prioritizes** above-the-fold images
 
@@ -114,15 +115,15 @@ The `ResponsiveImage` component automatically:
 ### Vite Plugin Configuration
 
 ```javascript
-// vite.config.ts
+// vite.config.ts - AVIF-only configuration
 imagetools({
   defaultDirectives: (url) => {
     if (url.pathname.includes('/images/galleries/')) {
       return new URLSearchParams({
-        format: 'avif;webp;jpg',
+        format: 'avif', // Only AVIF format
         as: 'picture',
-        w: '400;800;1200;1600',
-        quality: '85'
+        w: '400;800;1200;1600;2400', // Smart sizing based on source
+        quality: '75' // Optimized for AVIF
       });
     }
     return new URLSearchParams();
@@ -143,18 +144,51 @@ imagetools({
 />
 ```
 
+### 🎯 Responsive Sizing for Gallery Cards
+
+**For gallery cards and containers with fixed dimensions**, use the `responsive` prop to ensure images properly fill their container:
+
+```tsx
+<ResponsiveImage 
+  src={coverImage}
+  alt={`${gallery.title} - náhled`}
+  class="gallery-preview-image"
+  responsive={true}  // 🚨 Critical for proper card sizing
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+/>
+```
+
+**When `responsive={true}`:**
+- Removes fixed width/height attributes from `<img>` elements
+- Applies inline styles: `width: 100%; height: 100%; object-fit: cover; object-position: center`
+- Ensures image fills container while maintaining aspect ratio
+- Works with both AVIF `<picture>` elements and fallback `<img>` elements
+
+**When to use `responsive={true}`:**
+- Gallery card preview images (`.gallery-preview-image`)
+- Portfolio section images
+- Any image that should fill a container with fixed dimensions
+- Images in CSS Grid or Flexbox layouts
+
+**When to use `responsive={false}` (default):**
+- Hero images with specific dimensions
+- Content images with natural aspect ratios
+- Images where you want to preserve exact pixel dimensions
+
 ## 📊 Performance Benefits
 
 ### File Size Reduction
-- **AVIF**: Up to 50% smaller than JPEG
-- **WebP**: Up to 30% smaller than JPEG
-- **Responsive sizing**: Only load what you need
+- **AVIF**: Up to 50% smaller than JPEG with better quality
+- **Smart sizing**: Only generates and loads appropriate resolutions
+- **Optimal compression**: 75% quality setting for perfect balance
 
 ### Loading Performance
-- **Modern format support**: Better compression
+- **96%+ browser support**: AVIF works on all modern browsers
+- **Simplified delivery**: No complex format negotiation needed
 - **Lazy loading**: Faster initial page load
 - **Progressive loading**: Images appear as they're ready
 - **Priority loading**: Critical images load first
+- **Optimal lightbox**: 2400w AVIF for maximum quality viewing
 
 ## 🛠️ Advanced Usage
 
@@ -191,19 +225,12 @@ public/images/galleries/
 ├── kitchen-white-attic/
 │   ├── gallery.json                           # Gallery metadata
 │   ├── kuchyne_0031-original-resource.jpg     # Source (never used on web)
-│   ├── kuchyne_0031-web.jpg                   # Optimized fallback
-│   ├── kuchyne_0031-web-400w.avif            # Generated variants
-│   ├── kuchyne_0031-web-400w.webp            # Generated variants
-│   ├── kuchyne_0031-web-400w.jpeg            # Generated variants
-│   ├── kuchyne_0031-web-800w.avif            # Generated variants
-│   ├── kuchyne_0031-web-800w.webp            # Generated variants
-│   ├── kuchyne_0031-web-800w.jpeg            # Generated variants
-│   ├── kuchyne_0031-web-1200w.avif           # Generated variants
-│   ├── kuchyne_0031-web-1200w.webp           # Generated variants
-│   ├── kuchyne_0031-web-1200w.jpeg           # Generated variants
-│   ├── kuchyne_0031-web-1600w.avif           # Generated variants
-│   ├── kuchyne_0031-web-1600w.webp           # Generated variants
-│   ├── kuchyne_0031-web-1600w.jpeg           # Generated variants
+│   ├── kuchyne_0031-web.jpg                   # JPEG fallback for legacy browsers
+│   ├── kuchyne_0031-web-400w.avif            # Small screens
+│   ├── kuchyne_0031-web-800w.avif            # Medium screens
+│   ├── kuchyne_0031-web-1200w.avif           # Large screens
+│   ├── kuchyne_0031-web-1600w.avif           # High-resolution displays
+│   ├── kuchyne_0031-web-2400w.avif           # Lightbox/maximum quality
 │   └── ... (more images following same pattern)
 ├── bathroom-modern/
 │   └── ... (same structure)
@@ -238,6 +265,53 @@ public/images/galleries/
 - **Image dimensions**: Always specify width and height
 
 ## 🔍 Troubleshooting
+
+### 🚨 Images Not Filling Container Width (Gallery Cards)
+
+**Problem:** Images in gallery cards appear cropped, too small, or don't fill the card container properly.
+
+**Solution:** Use the `responsive={true}` prop for container-based images:
+
+```tsx
+// ❌ WRONG - Fixed dimensions won't fill container
+<ResponsiveImage 
+  src={coverImage}
+  alt="Gallery preview"
+  width={800}
+  height={600}
+/>
+
+// ✅ CORRECT - Responsive fills container properly
+<ResponsiveImage 
+  src={coverImage}
+  alt="Gallery preview"
+  class="gallery-preview-image"
+  responsive={true}  // 🚨 Critical fix
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+/>
+```
+
+**Technical Details:**
+- When `responsive={true}`, the component applies `width: 100%; height: 100%; object-fit: cover` inline styles
+- Removes fixed width/height attributes that prevent proper container filling
+- Works with both AVIF `<picture>` and fallback `<img>` elements
+- Ensures image maintains aspect ratio while covering the entire container
+
+**CSS Requirements:**
+```css
+.gallery-preview {
+  position: relative;
+  height: 240px; /* Fixed container height */
+  overflow: hidden;
+}
+
+.gallery-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+```
 
 ### Images Not Loading
 1. Check if `-original-resource.jpg` source images exist
@@ -354,9 +428,9 @@ public/images/galleries/
 | File Type | Naming Pattern | Usage |
 |-----------|----------------|--------|
 | Original Resource | `name-original-resource.jpg` | Source for conversion only |
-| Web Fallback | `name-web.jpg` | Referenced in gallery.json |
-| Responsive Variants | `name-web-400w.{avif,webp,jpeg}` | Auto-generated by system |
-| Lightbox Images | `name-web-1600w.webp` | Auto-used by getLightboxImageUrl() |
+| Web Fallback | `name-web.jpg` | Referenced in gallery.json, JPEG fallback |
+| Responsive Variants | `name-web-400w.avif` to `name-web-2400w.avif` | Auto-generated AVIF sizes |
+| Lightbox Images | `name-web-2400w.avif` | Highest quality for lightbox viewing |
 
 ### ⚠️ Critical Rules
 
@@ -370,8 +444,18 @@ public/images/galleries/
    - gallery.json `src` and `coverImage` fields
    - Manual image references
 
-3. **System handles** responsive variants automatically:
-   - generateOptimizedImageSources() creates srcsets
-   - getLightboxImageUrl() selects best quality for lightbox
+3. **System handles** AVIF variants automatically:
+   - generateOptimizedImageSources() creates AVIF-only srcsets
+   - getLightboxImageUrl() uses 2400w AVIF for maximum quality
+   - Optimal resolution detection prevents unnecessary variants
 
-This system ensures your gallery images load fast while looking great across all devices and browsers! 🎉
+## 🎯 AVIF-Only Benefits
+
+This simplified approach provides:
+- **Better Performance**: No format negotiation overhead
+- **Smaller Files**: Up to 50% reduction vs JPEG with better quality
+- **Simplified Workflow**: One format to manage instead of three
+- **Future-Proof**: 96%+ browser support and growing
+- **Optimal Quality**: 2400w AVIF for lightbox provides crisp viewing experience
+
+This streamlined system ensures your gallery images load fast while looking amazing across all devices! 🎉

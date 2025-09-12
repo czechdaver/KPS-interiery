@@ -179,9 +179,6 @@ const styles = `
     overflow: hidden;
     cursor: pointer;
     background: var(--light-gray);
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .gallery-preview-grid {
@@ -193,14 +190,11 @@ const styles = `
   }
   
   .gallery-preview-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    transition: var(--transition);
-    /* Ensure image fits container without cropping, maintaining aspect ratio */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     object-position: center;
-    width: auto;
-    height: auto;
+    transition: var(--transition);
   }
   
   .gallery-preview-image:first-child {
@@ -372,7 +366,7 @@ export const GalleriesPage = component$(() => {
         const items = gallery.images.map(img => {
           // Use optimized images for lightbox
           return {
-            src: getLightboxImageUrl(gallery.id, img.src),
+            src: getLightboxImageUrl(gallery.id, img.src, img.width, img.height),
             width: img.width,
             height: img.height,
             alt: img.alt
@@ -496,7 +490,8 @@ export const GalleriesPage = component$(() => {
                         alt={`${displayGallery.title} - náhled`}
                         class="gallery-preview-image"
                         loading="lazy"
-                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                        responsive={true}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       <div class="gallery-overlay">
                         <div class="gallery-count">
@@ -562,7 +557,8 @@ export const GalleriesPage = component$(() => {
                           alt={`${displayGallery.title} - náhled`}
                           class="gallery-preview-image"
                               loading="lazy"
-                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                          responsive={true}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
@@ -628,7 +624,8 @@ export const GalleriesPage = component$(() => {
                           alt={`${displayGallery.title} - náhled`}
                           class="gallery-preview-image"
                               loading="lazy"
-                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                          responsive={true}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                         <div class="gallery-overlay">
                           <div class="gallery-count">

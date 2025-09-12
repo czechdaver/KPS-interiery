@@ -10,17 +10,19 @@ export interface ResponsiveImageProps {
   loading?: "lazy" | "eager";
   sizes?: string;
   priority?: boolean;
+  responsive?: boolean; // When true, don't set fixed width/height attributes
 }
 
 export const ResponsiveImage = component$<ResponsiveImageProps>(({
   src,
   alt,
-  width = 800,
-  height = 600,
+  width,
+  height,
   class: className = "",
   loading = "lazy",
   sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
-  priority = false
+  priority = false,
+  responsive = false
 }) => {
   // Extract gallery info from src path
   const getGalleryInfo = (srcPath: string) => {
@@ -39,33 +41,25 @@ export const ResponsiveImage = component$<ResponsiveImageProps>(({
     ? generateOptimizedImageSources(galleryInfo.galleryId, galleryInfo.imageName)
     : { fallback: src };
 
-  // For internal gallery images with multiple formats
-  if (sources.avif && sources.webp && sources.jpeg) {
+  // For internal gallery images with AVIF optimization
+  if (sources.avif) {
     return (
-      <picture class={className}>
+      <picture>
         <source 
           srcset={sources.avif} 
           sizes={sizes} 
           type="image/avif"
         />
-        <source 
-          srcset={sources.webp} 
-          sizes={sizes} 
-          type="image/webp" 
-        />
-        <source 
-          srcset={sources.jpeg} 
-          sizes={sizes} 
-          type="image/jpeg"
-        />
         <img
           src={sources.fallback}
           alt={alt}
-          width={width}
-          height={height}
+          {...(!responsive && width !== undefined ? { width } : !responsive ? { width: 800 } : {})}
+          {...(!responsive && height !== undefined ? { height } : !responsive ? { height: 600 } : {})}
+          class={className}
           loading={priority ? "eager" : loading}
           decoding={priority ? "sync" : "async"}
           fetchPriority={priority ? "high" : "auto"}
+          style={responsive ? { width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' } : undefined}
         />
       </picture>
     );
@@ -76,48 +70,51 @@ export const ResponsiveImage = component$<ResponsiveImageProps>(({
     <img
       src={sources.fallback}
       alt={alt}
-      width={width}
-      height={height}
+      {...(!responsive && width !== undefined ? { width } : !responsive ? { width: 800 } : {})}
+      {...(!responsive && height !== undefined ? { height } : !responsive ? { height: 600 } : {})}
       class={className}
       loading={priority ? "eager" : loading}
       decoding={priority ? "sync" : "async"}
       fetchPriority={priority ? "high" : "auto"}
+      style={responsive ? { width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' } : undefined}
     />
   );
 });
 
-// Utility function for generating image URLs with optimization
+// Utility function for generating image URLs with AVIF optimization
 export function getOptimizedImageUrl(
   src: string, 
   options: {
     width?: number;
     height?: number;
-    format?: 'avif' | 'webp' | 'jpg';
+    format?: 'avif' | 'jpg';
     quality?: number;
   } = {}
 ) {
-  const { width = 800, format = 'webp', quality = 85 } = options;
+  const { width = 800, format = 'avif' } = options;
   
   if (src.includes('/images/galleries/')) {
-    const params = new URLSearchParams();
-    params.set('format', format);
-    params.set('w', width.toString());
-    params.set('quality', quality.toString());
-    if (options.height) params.set('h', options.height.toString());
+    // For gallery images, use the optimal AVIF version
+    const pathParts = src.split('/');
+    const fileName = pathParts[pathParts.length - 1];
+    const baseName = fileName.replace(/\.[^/.]+$/, '').replace('-web', '');
+    const galleryPath = pathParts.slice(0, -1).join('/');
     
-    return `${src}?${params.toString()}`;
+    if (format === 'avif') {
+      return `${galleryPath}/${baseName}-web-${width}w.avif`;
+    }
   }
   
   return src;
 }
 
-// Hook for preloading critical images
+// Hook for preloading critical images with AVIF
 export function preloadImage(src: string, priority: boolean = false) {
   if (typeof document !== 'undefined' && priority) {
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'image';
-    link.href = getOptimizedImageUrl(src, { width: 800, format: 'webp' });
+    link.href = getOptimizedImageUrl(src, { width: 800, format: 'avif' });
     document.head.appendChild(link);
   }
 }

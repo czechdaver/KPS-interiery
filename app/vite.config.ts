@@ -21,19 +21,28 @@ errorOnDuplicatesPkgDeps(devDependencies, dependencies);
  */
 export default defineConfig((): UserConfig => {
   return {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern',
+          silenceDeprecations: ['legacy-js-api'],
+          quietDeps: true
+        }
+      }
+    },
     plugins: [
       qwikCity(), 
       qwikVite(), 
       tsconfigPaths({ root: "." }),
       imagetools({
         defaultDirectives: (url) => {
-          // Only process gallery images
+          // Only process gallery images with AVIF-only optimization
           if (url.pathname.includes('/images/galleries/')) {
             return new URLSearchParams({
-              format: 'avif;webp;jpg',
+              format: 'avif',
               as: 'picture',
-              w: '400;800;1200;1600',
-              quality: '85'
+              w: '400;800;1200;1600;2400',
+              quality: '75'
             });
           }
           return new URLSearchParams();

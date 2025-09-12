@@ -307,7 +307,7 @@ const OPTIMIZED_GALLERIES = [
 ] as const;
 
 /**
- * Generate optimized image sources for responsive images and lightbox
+ * Generate AVIF-optimized image sources for responsive images and lightbox
  */
 export function generateOptimizedImageSources(galleryId: string, imageSrc: string) {
   const baseUrl = typeof window === 'undefined' 
@@ -330,33 +330,23 @@ export function generateOptimizedImageSources(galleryId: string, imageSrc: strin
   const fileName = imageSrc.split('/').pop() || imageSrc;
   const baseName = fileName.replace(/\.[^/.]+$/, '');
   
-  // Generate all size variants for full-range galleries
-  const sizes = ['400w', '800w', '1200w', '1600w'];
+  // Generate optimal AVIF sizes based on available widths
+  const availableSizes = ['400w', '800w', '1200w', '1600w', '2400w'];
   
-  const avifSrcSet = sizes
+  const avifSrcSet = availableSizes
     .map(size => `${baseDir}/${baseName}-${size}.avif ${size}`)
-    .join(', ');
-  
-  const webpSrcSet = sizes
-    .map(size => `${baseDir}/${baseName}-${size}.webp ${size}`)
-    .join(', ');
-  
-  const jpegSrcSet = sizes
-    .map(size => `${baseDir}/${baseName}-${size}.jpeg ${size}`)
     .join(', ');
   
   return {
     avif: avifSrcSet,
-    webp: webpSrcSet,
-    jpeg: jpegSrcSet,
-    fallback: `${baseDir}/${fileName}`
+    fallback: `${baseDir}/${fileName}` // JPEG fallback
   };
 }
 
 /**
- * Get best quality image for lightbox
+ * Get best available AVIF image for lightbox with intelligent fallback
  */
-export function getLightboxImageUrl(galleryId: string, imageSrc: string) {
+export function getLightboxImageUrl(galleryId: string, imageSrc: string, imageWidth?: number, imageHeight?: number) {
   const baseUrl = typeof window === 'undefined' 
     ? '/images/galleries/' 
     : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/galleries/');
@@ -374,6 +364,16 @@ export function getLightboxImageUrl(galleryId: string, imageSrc: string) {
   const fileName = imageSrc.split('/').pop() || imageSrc;
   const baseName = fileName.replace(/\.[^/.]+$/, '');
   
-  // Use highest quality WebP for lightbox (best balance of quality and compatibility)
-  return `${baseDir}/${baseName}-1600w.webp`;
+  // Determine if image is landscape (width > height) to choose optimal size
+  // For landscape images (2560x1707), use 2400w AVIF
+  // For portrait images (1707x2560), use 1600w AVIF (no 2400w available)
+  const isLandscape = imageWidth && imageHeight ? imageWidth > imageHeight : true; // Default to landscape
+  
+  if (isLandscape) {
+    // Landscape images: try 2400w first, fallback to 1600w
+    return `${baseDir}/${baseName}-2400w.avif`;
+  } else {
+    // Portrait images: use 1600w (2400w doesn't exist for 1707px wide images)
+    return `${baseDir}/${baseName}-1600w.avif`;
+  }
 }

@@ -274,7 +274,7 @@ export const PortfolioSection = component$(() => {
           }
 
           const items = gallery.images.map(img => ({
-            src: getLightboxImageUrl(gallery.id, img.src),
+            src: getLightboxImageUrl(gallery.id, img.src, img.width, img.height),
             width: img.width || 1200,
             height: img.height || 800,
             alt: img.alt || gallery.title,
@@ -357,8 +357,7 @@ export const PortfolioSection = component$(() => {
                       src={getImagePath(gallery.id, gallery.coverImage || 'placeholder.jpg')}
                       alt={`${gallery.title} - náhledový obrázek`}
                       class="portfolio-image"
-                      width={400}
-                      height={300}
+                      responsive={true}
                       loading="eager"
                       priority={true}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
