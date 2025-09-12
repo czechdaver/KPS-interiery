@@ -198,8 +198,8 @@ export const ServicesSection = component$(() => {
         <div class="services-grid">
           <div class="service-card kitchen-card">
             <img 
-              src="https://images.unsplash.com/photo-1742192757416-27d69a5d5029?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85"
-              alt="Modern luxury kitchen"
+              src="/images/galleries/kuchyn-retro-bila/kuchyne_0094-web-400w.avif"
+              alt="Modern retro kitchen design"
               class="service-background"
               width="400"
               height="320"
@@ -219,7 +219,7 @@ export const ServicesSection = component$(() => {
           
           <div class="service-card wardrobe-card">
             <img 
-              src="https://images.unsplash.com/photo-1722942116307-52f7afb38e7f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw0fHx3YXJkcm9iZSUyMGNsb3NldCUyMGJlZHJvb20lMjBzbGlkaW5nJTIwZG9vcnN8ZW58MHwxfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85"
+              src="/images/galleries/kuchyn-bila-u-tvar/skrine-0205-web-400w.avif"
               alt="Built-in wardrobe with sliding doors"
               class="service-background"
               width="400"
@@ -240,7 +240,7 @@ export const ServicesSection = component$(() => {
           
           <div class="service-card bathroom-card">
             <img 
-              src="https://images.unsplash.com/photo-1633681140152-3b8726450518?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxiYXRocm9vbSUyMHZhbml0eSUyMG1pcnJvciUyMG1vZGVybiUyMGRlc2lnbnxlbnwwfDB8fHwxNzU1MzM1NDI5fDA&ixlib=rb-4.1.0&q=85"
+              src="/images/galleries/kuchyn-retro-bila/kuchyne_0081-web-400w.avif"
               alt="Modern bathroom vanity"
               class="service-background"
               width="400"
@@ -261,8 +261,8 @@ export const ServicesSection = component$(() => {
           
           <div class="service-card office-card">
             <img 
-              src="https://images.unsplash.com/photo-1745970347652-8f22f5d7d3ba?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxvZmZpY2UlMjBkZXNrJTIwd29ya3NwYWNlJTIwcHJvZmVzc2lvbmFsfGVufDB8MHx8fDE3NTUzMzU0Mjl8MA&ixlib=rb-4.1.0&q=85"
-              alt="Contemporary office workspace"
+              src="/images/galleries/kuchyn-retro-bila/kuchyne_0066-web-400w.avif"
+              alt="Modern office workspace"
               class="service-background"
               width="400"
               height="320"
@@ -282,8 +282,8 @@ export const ServicesSection = component$(() => {
           
           <div class="service-card atypical-card">
             <img 
-              src="https://images.unsplash.com/photo-1631889993959-41b4e9c18b12?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHx3b3Jrc2hvcCUyMGN1c3RvbSUyMGZ1cm5pdHVyZSUyMGNyYWZ0c21hbnxlbnwwfDB8fHwxNzU1MzM1NDI5fDA&ixlib=rb-4.1.0&q=85"
-              alt="Custom furniture workshop"
+              src="/images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif"
+              alt="Modern kitchen with custom design"
               class="service-background"
               width="400"
               height="320"

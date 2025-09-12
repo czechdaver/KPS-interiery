@@ -1,4 +1,5 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { HeroSwiper } from "./HeroSwiper";
 
 export const HeroSection = component$(() => {
   useStylesScoped$(`
@@ -39,18 +40,29 @@ export const HeroSection = component$(() => {
             rgba(35, 25, 23, 0.45) 50%,
             rgba(200, 139, 78, 0.25) 100%
           );
+          z-index: 2;
         }
         
         .hero-content {
-          position: relative;
-          z-index: 2;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          z-index: 10;
           width: 100%;
+          pointer-events: none;
+        }
+        
+        .hero-content > * {
+          pointer-events: auto;
         }
         
         .hero-text {
           max-width: 700px;
           color: var(--white);
           text-align: left;
+          position: relative;
+          z-index: 10;
         }
         
         .hero-title {
@@ -166,18 +178,36 @@ export const HeroSection = component$(() => {
           }
         }
       `);
+  const heroImages = [
+    {
+      src: "/images/galleries/kuchyn-bila-u-tvar/skrine-0201-web-2400w.avif",
+      alt: "Bílá kuchyně v tvaru U s maximálním využitím prostoru",
+      width: 2400,
+      height: 1600
+    },
+    {
+      src: "/images/galleries/kuchyn-bila-ostruvek/kuchyne_0017-web-2400w.avif",
+      alt: "Modern bílá kuchyně s ostrůvkem a elegantním designem",
+      width: 2400,
+      height: 1600
+    },
+    {
+      src: "/images/galleries/kuchyn-cerna/kuchyne_0071-web-2400w.avif",
+      alt: "Elegantní černá kuchyně s vestavěnými spotřebiči",
+      width: 2400,
+      height: 1600
+    },
+    {
+      src: "/images/galleries/kuchyn-retro-bila/kuchyne_0074-web-2400w.avif",
+      alt: "Retro bílá kuchyně s moderními prvky a designem",
+      width: 2400,
+      height: 1600
+    }
+  ];
+
   return (
     <section class="hero-section">
-      <div class="hero-background">
-        <img 
-          src="https://images.unsplash.com/photo-1742192757416-27d69a5d5029?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85"
-          alt="Modern luxury kitchen interior with custom cabinets - Shishu Yadava on Unsplash"
-          class="hero-image"
-          width="1920"
-          height="1080"
-        />
-        <div class="hero-overlay"></div>
-      </div>
+      <HeroSwiper images={heroImages} />
       
       <div class="hero-content">
         <div class="container">

@@ -29,6 +29,7 @@ const styles = `
     background: rgba(255, 255, 255, 0.20);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.20);
+    color: var(--white);
   }
   
   .portfolio-item.featured {
@@ -46,6 +47,7 @@ const styles = `
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.60);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    color: var(--white);
   }
   
   .portfolio-image-container {

@@ -161,43 +161,43 @@ export const InstagramSection = component$(() => {
   const instagramPosts = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1742192757416-27d69a5d5029?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHwyfHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85",
-      alt: "Modern kitchen realization - Shishu Yadava on Unsplash",
+      image: "/images/galleries/kuchyn-retro-bila/kuchyne_0094-web-400w.avif",
+      alt: "Modern retro kitchen realization",
       likes: 142,
       caption: "Nová kuchyň pro spokojené zákazníky ✨ #kpsinteriery #kuchynenámíru"
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1722942116307-52f7afb38e7f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw0fHx3YXJkcm9iZSUyMGNsb3NldCUyMGJlZHJvb20lMjBzbGlkaW5nJTIwZG9vcnN8ZW58MHwxfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85",
-      alt: "Wardrobe installation - Lisa Anna on Unsplash",
+      image: "/images/galleries/kuchyn-bila-u-tvar/skrine-0205-web-400w.avif",
+      alt: "Wardrobe installation",
       likes: 89,
       caption: "Vestavěná skříň s posuvnými dveřmi 🚪 #vestaveneskrene #nabytek"
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1633681140152-3b8726450518?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxiYXRocm9vbSUyMHZhbml0eSUyMG1pcnJvciUyMG1vZGVybiUyMGRlc2lnbnxlbnwwfDB8fHwxNzU1MzM1NDI5fDA&ixlib=rb-4.1.0&q=85",
-      alt: "Bathroom furniture - Benyamin Bohlouli on Unsplash",
+      image: "/images/galleries/kuchyn-retro-bila/kuchyne_0081-web-400w.avif",
+      alt: "Bathroom furniture",
       likes: 156,
       caption: "Koupelnový nábytek na míru 🛁 #koupelna #design #kvalita"
     },
     {
       id: 4,
-      image: "https://images.unsplash.com/photo-1745970347652-8f22f5d7d3ba?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw2fHxvZmZpY2UlMjBkZXNrJTIwd29ya3NwYWNlJTIwcHJvZmVzc2lvbmFsfGVufDB8MHx8fDE3NTUzMzU0Mjl8MA&ixlib=rb-4.1.0&q=85",
-      alt: "Office furniture - Deliberate Directions on Unsplash",
+      image: "/images/galleries/kuchyn-retro-bila/kuchyne_0066-web-400w.avif",
+      alt: "Office furniture",
       likes: 73,
       caption: "Kancelářský nábytek pro moderní workspace 💼 #kancelar #office"
     },
     {
       id: 5,
-      image: "https://images.unsplash.com/photo-1742280879518-ada47b660ccd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw0fHxraXRjaGVuJTIwY2FiaW5ldHMlMjBtb2Rlcm4lMjBpbnRlcmlvciUyMGx1eHVyeSUyMGFwcGxpYW5jZXN8ZW58MHwwfHx8MTc1NTMzNTQyOXww&ixlib=rb-4.1.0&q=85",
-      alt: "Luxury kitchen - Shishu Yadava on Unsplash",
+      image: "/images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif",
+      alt: "Luxury kitchen",
       likes: 198,
       caption: "Luxusní kuchyň s mramorovými detaily 🏆 #luxus #mramor #kuchyne"
     },
     {
       id: 6,
-      image: "https://images.unsplash.com/photo-1595515769499-0f61fc8db2e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTAwNDR8MHwxfHNlYXJjaHw3fHxiYXRocm9vbSUyMHZhbml0eSUyMG1pcnJvciUyMG1vZGVybiUyMGRlc2lnbnxlbnwwfDB8fHwxNzU1MzM1NDI5fDA&ixlib=rb-4.1.0&q=85",
-      alt: "Modern bathroom - Sanibell BV on Unsplash",
+      image: "/images/galleries/kuchyn-bila-podkrovi/kuchyne_0031-web-400w.avif",
+      alt: "Modern bathroom",
       likes: 124,
       caption: "Moderní koupelna s dřevěnými prvky 🌿 #drevo #priroda #koupelna"
     }
