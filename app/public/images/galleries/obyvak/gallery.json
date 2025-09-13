@@ -1,0 +1,58 @@
+{
+  "id": "obyvak",
+  "title": "Obývací pokoj",
+  "category": "Ostatní",
+  "description": "Moderní obývací pokoj s funkčním nábytkem, elegantním designem a integrovanými úložnými prostory.",
+  "coverImage": "obyvak-0218-web.jpg",
+  "images": [
+    {
+      "src": "obyvak-0218-web.jpg",
+      "alt": "Obývací pokoj - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na moderní obývací pokoj"
+    },
+    {
+      "src": "obyvak-0219-web.jpg",
+      "alt": "Obývací pokoj - multifunkční nábytek",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Multifunkční nábytek s úložnými prostory"
+    },
+    {
+      "src": "obyvak-0221-web.jpg",
+      "alt": "Obývací pokoj - designové prvky",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Elegantní designové prvky a materiály"
+    },
+    {
+      "src": "obyvak-0222-web.jpg",
+      "alt": "Obývací pokoj - detail provedení",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail kvalitního provedení a osvětlení"
+    }
+  ],
+  "features": [
+    "Multifunkční nábytek",
+    "Moderní design",
+    "Integrované úložné prostory",
+    "Elegantní provedení",
+    "Kvalitní materiály"
+  ],
+  "materials": [
+    "Lamino v moderních dekorech",
+    "Kvalitní kování",
+    "Integrované osvětlení",
+    "Designové prvky"
+  ],
+  "location": "Zlín",
+  "date": "2025-03",
+  "imageCount": 4,
+  "coverImages": [
+    "obyvak-0218-web.jpg",
+    "obyvak-0219-web.jpg",
+    "obyvak-0221-web.jpg"
+  ]
+}

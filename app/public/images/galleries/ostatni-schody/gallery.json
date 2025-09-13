@@ -1,0 +1,72 @@
+{
+  "id": "ostatni-schody",
+  "title": "Schody",
+  "category": "Ostatní",
+  "description": "Kvalitní schodiště v různých provedeních a materiálech pro moderní interiéry s důrazem na bezpečnost a estetiku.",
+  "coverImage": "ostatni-0283-web.jpg",
+  "images": [
+    {
+      "src": "ostatni-0283-web.jpg",
+      "alt": "Schody - celkový pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Celkový pohled na moderní schodiště"
+    },
+    {
+      "src": "ostatni-0286-web.jpg",
+      "alt": "Schody - detail stupňů",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail dřevěných stupňů a konstrukce"
+    },
+    {
+      "src": "ostatni-0288-web.jpg",
+      "alt": "Schody - zábradlí",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Elegantní zábradlí s bezpečnostními prvky"
+    },
+    {
+      "src": "ostatni-0289-web.jpg",
+      "alt": "Schody - materiálové řešení",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Kombinace kvalitních materiálů"
+    },
+    {
+      "src": "ostatni-0291-web.jpg",
+      "alt": "Schody - design a funkce",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Sladění designu s funkcí a bezpečností"
+    },
+    {
+      "src": "ostatni-0293-web.jpg",
+      "alt": "Schody - kompletní realizace",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Kompletní realizace schodiště"
+    }
+  ],
+  "features": [
+    "Různá provedení schodišť",
+    "Kvalitní materiály",
+    "Bezpečnostní prvky",
+    "Estetické řešení",
+    "Moderní design"
+  ],
+  "materials": [
+    "Dřevěné stupně",
+    "Nerezové zábradlí",
+    "Kvalitní povrchové úpravy",
+    "Bezpečnostní prvky"
+  ],
+  "location": "Přerov",
+  "date": "2024-01",
+  "imageCount": 6,
+  "coverImages": [
+    "ostatni-0283-web.jpg",
+    "ostatni-0286-web.jpg",
+    "ostatni-0288-web.jpg"
+  ]
+}

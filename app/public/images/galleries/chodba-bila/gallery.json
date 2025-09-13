@@ -1,0 +1,56 @@
+{
+  "id": "chodba-bila",
+  "title": "Bílá chodba",
+  "category": "Ostatní",
+  "description": "Světlé řešení chodby v bílém provedení s maximálním využitím prostoru a čistými liniemi.",
+  "coverImage": "chodba_0024-web.jpg",
+  "images": [
+    {
+      "src": "chodba_0024-web.jpg",
+      "alt": "Bílá chodba - celkový pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Celkový pohled na bílou chodbu s úložnými prostory"
+    },
+    {
+      "src": "chodba_0027-web.jpg",
+      "alt": "Bílá chodba - detail úložných systémů",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail funkčních úložných systémů"
+    },
+    {
+      "src": "chodba_0028-web.jpg",
+      "alt": "Bílá chodba - boční pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Boční pohled na chodbové řešení"
+    },
+    {
+      "src": "chodba_0030-web.jpg",
+      "alt": "Bílá chodba - detailní záběr",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detailní záběr bílých povrchů a úchytů"
+    }
+  ],
+  "features": [
+    "Bílé provedení pro optické zvětšení",
+    "Funkční úložné prostory",
+    "Čisté linie a minimalistický design",
+    "Maximální využití prostoru"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Minimalistické úchyty",
+    "Kování Blum"
+  ],
+  "location": "Hodonín",
+  "date": "2024-04",
+  "imageCount": 4,
+  "coverImages": [
+    "chodba_0024-web.jpg",
+    "chodba_0027-web.jpg",
+    "chodba_0028-web.jpg"
+  ]
+}

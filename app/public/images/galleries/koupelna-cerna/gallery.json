@@ -1,0 +1,58 @@
+{
+  "id": "koupelna-cerna",
+  "title": "Černá koupelna",
+  "category": "Koupelny",
+  "description": "Sofistikovaná černá koupelna s dramatickým vzhledem, luxusními detaily a kontrastními prvky.",
+  "coverImage": "koupelna_0118-web.jpg",
+  "images": [
+    {
+      "src": "koupelna_0118-web.jpg",
+      "alt": "Černá koupelna - celkový pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Celkový pohled na sofistikovanou černou koupelnu"
+    },
+    {
+      "src": "koupelna_0119-web.jpg",
+      "alt": "Černá koupelna - umyvadlová část",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Dramatická umyvadlová část s kontrastními prvky"
+    },
+    {
+      "src": "koupelna_0120-web.jpg",
+      "alt": "Černá koupelna - luxusní detaily",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Luxusní detaily a kvalitní materiály"
+    },
+    {
+      "src": "koupelna_0121-web.jpg",
+      "alt": "Černá koupelna - atmosférické osvětlení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Atmosférické osvětlení podtrhující černý design"
+    }
+  ],
+  "features": [
+    "Dramatický černý design",
+    "Kontrastní materiály",
+    "Luxusní vybavení",
+    "Atmosférické osvětlení",
+    "Sofistikovaný vzhled"
+  ],
+  "materials": [
+    "Černé keramické obklady",
+    "Kontrastní sanitární keramika",
+    "Koupelnový nábytek v černé barvě",
+    "Kvalitní kování"
+  ],
+  "location": "Olomouc",
+  "date": "2025-04",
+  "imageCount": 4,
+  "coverImages": [
+    "koupelna_0118-web.jpg",
+    "koupelna_0119-web.jpg",
+    "koupelna_0120-web.jpg"
+  ]
+}

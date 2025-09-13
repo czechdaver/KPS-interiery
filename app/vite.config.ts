@@ -31,23 +31,10 @@ export default defineConfig((): UserConfig => {
       }
     },
     plugins: [
-      qwikCity(), 
-      qwikVite(), 
+      qwikCity(),
+      qwikVite(),
       tsconfigPaths({ root: "." }),
-      imagetools({
-        defaultDirectives: (url) => {
-          // Only process gallery images with AVIF-only optimization
-          if (url.pathname.includes('/images/galleries/')) {
-            return new URLSearchParams({
-              format: 'avif',
-              as: 'picture',
-              w: '400;800;1200;1600;2400',
-              quality: '75'
-            });
-          }
-          return new URLSearchParams();
-        }
-      })
+      imagetools()
     ],
     // Ensure correct asset base when hosted under a repo subpath (e.g., GitHub Pages)
     base: process.env.NODE_ENV === "production"

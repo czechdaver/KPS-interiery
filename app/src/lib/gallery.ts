@@ -24,17 +24,41 @@ export interface GalleryData {
 
 // Gallery slugs that correspond to folder names
 export const GALLERY_SLUGS = [
+  // Featured kitchen galleries (moved to top)
+  'kuchyn-bila-ostruvek',     // Bílá kuchyň s ostrůvkem
+  'kuchyn-cerna',             // Černá kuchyň
+  'kuchyn-bila-u-tvar',       // Bílá kuchyň do U
+
+  // Remaining kitchen galleries
   'kuchyn-bila-podkrovi',
-  'kuchyn-bila-ostruvek',
-  'kuchyn-cerna',
   'kuchyn-seda',
-  'kuchyn-bila-u-tvar',
   'kuchyn-bilo-hneda-beton',
   'kuchyn-bilo-hneda-l-varianta1',
   'kuchyn-bilo-hneda-u-alternativa',
   'kuchyn-hneda-l',
   'kuchyn-mala-panel',
-  'kuchyn-retro-bila'
+  'kuchyn-retro-bila',
+  'kuchyn-svetla-rohova',
+  'kuchyn-uzka-bila-l',
+
+  // Bedroom galleries (Ložnice category)
+  'loznice-bilo-hneda',
+  'loznice-hneda',
+  'loznice-hneda-zkosene',
+
+  // Other galleries
+  'chodba-bila',
+  'chodba-sedo-hneda',
+  'koupelna-1',
+  'koupelna-2',
+  'koupelna-cerna',
+  'obyvak',
+  'ostatni-dvere',
+  'ostatni-live-edge-masiv',
+  'ostatni-schody',
+  'skrin-a-dvere',
+  'skrin-dvere-botnik',
+  'skrin-posuv-vstup'
 ] as const;
 
 export type GallerySlug = typeof GALLERY_SLUGS[number];
@@ -142,6 +166,7 @@ function getDefaultTitle(slug: string): string {
 
 function getDefaultCategory(slug: string): string {
   if (slug.includes('kitchen') || slug.includes('kuchyn')) return 'Kuchyně';
+  if (slug.includes('bedroom') || slug.includes('loznice')) return 'Ložnice';
   if (slug.includes('wardrobe') || slug.includes('skrin')) return 'Skříně';
   if (slug.includes('bathroom') || slug.includes('koupeln')) return 'Koupelny';
   if (slug.includes('office') || slug.includes('kancelář')) return 'Kanceláře';
@@ -213,12 +238,12 @@ export async function loadAllGalleries(): Promise<GalleryData[]> {
   }
   
   console.log(`Successfully loaded ${loadedGalleries.length} out of ${GALLERY_SLUGS.length} galleries`);
-  
-  // Sort galleries by date (newest first) for consistent display
+
+  // Sort galleries by GALLERY_SLUGS order to preserve featured galleries first
   return loadedGalleries.sort((a, b) => {
-    const dateA = new Date(a.date || '1970-01-01');
-    const dateB = new Date(b.date || '1970-01-01');
-    return dateB.getTime() - dateA.getTime();
+    const indexA = GALLERY_SLUGS.indexOf(a.id as GallerySlug);
+    const indexB = GALLERY_SLUGS.indexOf(b.id as GallerySlug);
+    return indexA - indexB;
   });
 }
 
@@ -285,25 +310,50 @@ export function mapGalleryForDisplay(gallery: GalleryData) {
 export function getGalleriesByCategory(galleries: GalleryData[]) {
   return {
     kuchyne: galleries.filter(g => g.category === 'Kuchyně'),
-    koupelny: galleries.filter(g => g.category === 'Koupelny'), 
+    loznice: galleries.filter(g => g.category === 'Ložnice'),
+    koupelny: galleries.filter(g => g.category === 'Koupelny'),
     skrine: galleries.filter(g => g.category === 'Skříně'),
-    ostatni: galleries.filter(g => !['Kuchyně', 'Koupelny', 'Skříně'].includes(g.category))
+    ostatni: galleries.filter(g => !['Kuchyně', 'Ložnice', 'Koupelny', 'Skříně'].includes(g.category))
   };
 }
 
 // Galleries with full optimization (AVIF, WebP, JPEG in multiple sizes)
 const OPTIMIZED_GALLERIES = [
-  'kuchyn-bila-podkrovi',
+  // Featured kitchen galleries
   'kuchyn-bila-ostruvek',
   'kuchyn-cerna',
-  'kuchyn-seda',
   'kuchyn-bila-u-tvar',
+
+  // Remaining kitchen galleries
+  'kuchyn-bila-podkrovi',
+  'kuchyn-seda',
   'kuchyn-bilo-hneda-beton',
   'kuchyn-bilo-hneda-l-varianta1',
   'kuchyn-bilo-hneda-u-alternativa',
   'kuchyn-hneda-l',
   'kuchyn-mala-panel',
-  'kuchyn-retro-bila'
+  'kuchyn-retro-bila',
+  'kuchyn-svetla-rohova',
+  'kuchyn-uzka-bila-l',
+
+  // Bedroom galleries (Ložnice category)
+  'loznice-bilo-hneda',
+  'loznice-hneda',
+  'loznice-hneda-zkosene',
+
+  // Other galleries
+  'chodba-bila',
+  'chodba-sedo-hneda',
+  'koupelna-1',
+  'koupelna-2',
+  'koupelna-cerna',
+  'obyvak',
+  'ostatni-dvere',
+  'ostatni-live-edge-masiv',
+  'ostatni-schody',
+  'skrin-a-dvere',
+  'skrin-dvere-botnik',
+  'skrin-posuv-vstup'
 ] as const;
 
 /**

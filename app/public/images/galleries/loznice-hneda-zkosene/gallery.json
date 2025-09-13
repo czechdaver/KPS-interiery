@@ -1,0 +1,72 @@
+{
+  "id": "loznice-hneda-zkosene",
+  "title": "Hnědá ložnice se zkosenou střechou",
+  "category": "Ložnice",
+  "description": "Hnědá ložnice navržená pro podkrovní prostor se zkosenou střechou a maximálním využitím atypického prostoru.",
+  "coverImage": "loznice-0184-web.jpg",
+  "images": [
+    {
+      "src": "loznice-0184-web.jpg",
+      "alt": "Hnědá ložnice zkosená - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na ložnici se zkosenou střechou"
+    },
+    {
+      "src": "loznice-0187-web.jpg",
+      "alt": "Hnědá ložnice zkosená - atypické skříně",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Atypické skříně přizpůsobené zkosené střeše"
+    },
+    {
+      "src": "loznice-0191-web.jpg",
+      "alt": "Hnědá ložnice zkosená - ložní část",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Ložní část optimalizovaná pro podkrovní prostor"
+    },
+    {
+      "src": "loznice-0192-web.jpg",
+      "alt": "Hnědá ložnice zkosená - úložné řešení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Chytré úložné řešení pod zkosenou střechou"
+    },
+    {
+      "src": "loznice-0195-web.jpg",
+      "alt": "Hnědá ložnice zkosená - detail provedení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitního provedení atypických rozměrů"
+    },
+    {
+      "src": "loznice-0196-web.jpg",
+      "alt": "Hnědá ložnice zkosená - kompletní pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní pohled na podkrovní ložnici"
+    }
+  ],
+  "features": [
+    "Řešení pro zkosené prostory",
+    "Maximální využití podkrovního prostoru",
+    "Hnědé dekory pro teplou atmosféru",
+    "Atypické rozměry skříní",
+    "Chytrá úložná řešení"
+  ],
+  "materials": [
+    "Lamino hnědá mat",
+    "Atypické rozměry",
+    "Kvalitní kování",
+    "Dřevěné akcenty"
+  ],
+  "location": "Přerov",
+  "date": "2025-06",
+  "imageCount": 6,
+  "coverImages": [
+    "loznice-0184-web.jpg",
+    "loznice-0187-web.jpg",
+    "loznice-0191-web.jpg"
+  ]
+}

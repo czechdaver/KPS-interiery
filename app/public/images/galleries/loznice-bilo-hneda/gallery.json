@@ -1,0 +1,114 @@
+{
+  "id": "loznice-bilo-hneda",
+  "title": "Bílo-hnědá ložnice",
+  "category": "Ložnice",
+  "description": "Útulná ložnice v harmonické bílo-hnědé barevné kombinaci s kompletním vybavením a rozsáhlými úložnými prostory.",
+  "coverImage": "loznice-0001-web.jpg",
+  "images": [
+    {
+      "src": "loznice-0001-web.jpg",
+      "alt": "Bílo-hnědá ložnice - celkový pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Celkový pohled na útulnou bílo-hnědou ložnici"
+    },
+    {
+      "src": "loznice-0002-web.jpg",
+      "alt": "Bílo-hnědá ložnice - vestavěné skříně",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Rozsáhlé vestavěné skříně s harmonickou kombinací barev"
+    },
+    {
+      "src": "loznice-0003-web.jpg",
+      "alt": "Bílo-hnědá ložnice - ložní část",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Ložní část s integrovaným nočním stolkem"
+    },
+    {
+      "src": "loznice-0005-web.jpg",
+      "alt": "Bílo-hnědá ložnice - úložné systémy",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detailní pohled na úložné systémy a organizaci"
+    },
+    {
+      "src": "loznice-0006-web.jpg",
+      "alt": "Bílo-hnědá ložnice - pracovní kout",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Integrovaný pracovní kout s úložnými prostory"
+    },
+    {
+      "src": "loznice-0009-web.jpg",
+      "alt": "Bílo-hnědá ložnice - detail materiálů",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitních materiálů a povrchových úprav"
+    },
+    {
+      "src": "loznice-0011-web.jpg",
+      "alt": "Bílo-hnědá ložnice - osvětlení",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Integrované osvětlení pro útulnou atmosféru"
+    },
+    {
+      "src": "loznice-0013-web.jpg",
+      "alt": "Bílo-hnědá ložnice - šatní prostor",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Šatní prostor s organizačními systémy"
+    },
+    {
+      "src": "loznice-0018-web.jpg",
+      "alt": "Bílo-hnědá ložnice - kompletní vybavení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Pohled na kompletní vybavení ložnice"
+    },
+    {
+      "src": "loznice-0020-web.jpg",
+      "alt": "Bílo-hnědá ložnice - druhý pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Alternativní pohled na ložnicové vybavení"
+    },
+    {
+      "src": "loznice-0024-web.jpg",
+      "alt": "Bílo-hnědá ložnice - úložné detaily",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detaily úložných řešení a organizace prostoru"
+    },
+    {
+      "src": "loznice-0035-web.jpg",
+      "alt": "Bílo-hnědá ložnice - finální pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Finální pohled na dokončenou ložnici"
+    }
+  ],
+  "features": [
+    "Harmonická barevná kombinace",
+    "Kompletní ložnicové vybavení",
+    "Rozsáhlé úložné prostory",
+    "Útulná atmosféra",
+    "Integrované osvětlení"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Lamino hnědá mat",
+    "Kvalitní kování",
+    "Integrované LED osvětlení"
+  ],
+  "location": "Zlín",
+  "date": "2024-03",
+  "imageCount": 12,
+  "coverImages": [
+    "loznice-0001-web.jpg",
+    "loznice-0002-web.jpg",
+    "loznice-0003-web.jpg"
+  ]
+}

@@ -81,6 +81,20 @@
       "width": 2560,
       "height": 1707,
       "caption": "Dokončená realizace bílé kuchyně"
+    },
+    {
+      "src": "kuchyne_0039-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail kuchyňského ostrůvku",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kuchyňského ostrůvku s pracovní plochou"
+    },
+    {
+      "src": "kuchyne_0041-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - vertikální pohled na úložné systémy",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Vertikální pohled ukazující maximální využití výšky prostoru"
     }
   ],
   "features": [
@@ -98,9 +112,9 @@
     "Nerezové úchyty",
     "Kování Blum"
   ],
-  "location": "Praha",
-  "date": "2024-02",
-  "imageCount": 11,
+  "location": "Ostrava",
+  "date": "2024-11",
+  "imageCount": 13,
   "coverImages": [
     "kuchyne_0031-web.jpg",
     "kuchyne_0042-web.jpg",

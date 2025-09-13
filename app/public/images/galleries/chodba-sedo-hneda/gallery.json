@@ -1,0 +1,71 @@
+{
+  "id": "chodba-sedo-hneda",
+  "title": "Šedo-hnědá chodba",
+  "category": "Ostatní",
+  "description": "Elegantní chodba v šedo-hnědé barevné kombinaci s moderním vzhledem a praktickým řešením.",
+  "coverImage": "chodba-0237-web.jpg",
+  "images": [
+    {
+      "src": "chodba-0237-web.jpg",
+      "alt": "Šedo-hnědá chodba - celkový pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Celkový pohled na chodbu v šedo-hnědé kombinaci"
+    },
+    {
+      "src": "chodba-0238-web.jpg",
+      "alt": "Šedo-hnědá chodba - detail skříněk",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail vysokých skříněk s elegantními úchyty"
+    },
+    {
+      "src": "chodba-0243-web.jpg",
+      "alt": "Šedo-hnědá chodba - úložné řešení",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Praktické úložné řešení pro chodbové prostory"
+    },
+    {
+      "src": "chodba-0245-web.jpg",
+      "alt": "Šedo-hnědá chodba - barevné řešení",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Harmonická barevná kombinace šedé a hnědé"
+    },
+    {
+      "src": "chodba-0246-web.jpg",
+      "alt": "Šedo-hnědá chodba - detail provedení",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail kvalitního provedení a materiálů"
+    },
+    {
+      "src": "chodba-0250-web.jpg",
+      "alt": "Šedo-hnědá chodba - kompletní realizace",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Kompletní realizace chodbového prostoru"
+    }
+  ],
+  "features": [
+    "Harmonická barevná kombinace",
+    "Praktické úložné řešení",
+    "Moderní design",
+    "Elegantní úchyty"
+  ],
+  "materials": [
+    "Lamino šedá mat",
+    "Lamino hnědá mat",
+    "Kontrastní prvky",
+    "Kování Blum"
+  ],
+  "location": "Vyškov",
+  "date": "2024-08",
+  "imageCount": 6,
+  "coverImages": [
+    "chodba-0237-web.jpg",
+    "chodba-0238-web.jpg",
+    "chodba-0243-web.jpg"
+  ]
+}

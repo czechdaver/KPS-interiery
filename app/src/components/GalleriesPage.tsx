@@ -158,6 +158,12 @@ const styles = `
     gap: 2rem;
     margin-top: 3rem;
   }
+
+  @media (min-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
   
   .gallery-card {
     background: var(--white);
@@ -307,7 +313,7 @@ const styles = `
     .galleries-hero {
       padding: 3rem 0 2rem;
     }
-    
+
     .gallery-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
@@ -415,9 +421,12 @@ export const GalleriesPage = component$(() => {
 
   // Get categorized galleries
   const categorizedGalleries = getGalleriesByCategory(galleries.value);
-  
+
   // Map galleries for display
+  const kitchenGalleries = categorizedGalleries.kuchyne;
+  const bedroomGalleries = categorizedGalleries.loznice;
   const bathroomGalleries = categorizedGalleries.koupelny;
+  const cabinetGalleries = categorizedGalleries.skrine;
   const otherGalleries = categorizedGalleries.ostatni;
 
   if (isLoading.value) {
@@ -482,9 +491,9 @@ export const GalleriesPage = component$(() => {
                 Moderní a funkční kuchyně navržené podle vašich potřeb a stylu života
               </p>
             </div>
-            
+
             <div class="gallery-grid">
-              {categorizedGalleries.kuchyne.map((gallery) => {
+              {kitchenGalleries.map((gallery) => {
                 const displayGallery = mapGalleryForDisplay(gallery);
                 const coverImage = displayGallery.coverImages[0]; // Use only the first image
                 return (
@@ -539,6 +548,72 @@ export const GalleriesPage = component$(() => {
             </div>
           </div>
 
+          {/* Ložnice Section */}
+          {bedroomGalleries.length > 0 && (
+            <div class="gallery-section">
+              <div class="gallery-section-header">
+                <h2 class="gallery-section-title">Ložnice</h2>
+                <p class="gallery-section-description">
+                  Útulné a funkční ložnice s maximálním komfortem a praktickým úložným prostorem
+                </p>
+              </div>
+
+              <div class="gallery-grid">
+                {bedroomGalleries.map((gallery) => {
+                  const displayGallery = mapGalleryForDisplay(gallery);
+                  const coverImage = displayGallery.coverImages[0]; // Use only the first image
+                  return (
+                    <div key={gallery.id} class="gallery-card">
+                      <div
+                        class="gallery-preview"
+                        onClick$={() => openLightbox(gallery)}
+                      >
+                        <ResponsiveImage
+                          src={coverImage}
+                          alt={`${displayGallery.title} - náhled`}
+                          class="gallery-preview-image"
+                          loading="lazy"
+                          responsive={true}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                        <div class="gallery-overlay">
+                          <div class="gallery-count">
+                            <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                            {displayGallery.imageCount} fotografií
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="gallery-info">
+                        <h3 class="gallery-title">{displayGallery.title}</h3>
+                        <p class="gallery-description">{displayGallery.description}</p>
+
+                        <div class="gallery-meta">
+                          <div class="gallery-date">
+                            <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                            {displayGallery.date}
+                          </div>
+                          <div class="gallery-location">
+                            <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                            {displayGallery.location}
+                          </div>
+                        </div>
+
+                        <button
+                          class="view-gallery-btn"
+                          onClick$={() => openLightbox(gallery)}
+                          style="border: none; cursor: pointer;"
+                        >
+                          <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                          Zobrazit galerii
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Koupelny Section */}
           {bathroomGalleries.length > 0 && (
@@ -546,7 +621,7 @@ export const GalleriesPage = component$(() => {
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Koupelny</h2>
                 <p class="gallery-section-description">
-                  Elegantní koupelnové prostory s důrazem na funkčnost a wellness
+                  Elegantní koupelnové prostory s důrazem na funkčnost a design
                 </p>
               </div>
               
@@ -592,6 +667,73 @@ export const GalleriesPage = component$(() => {
                         </div>
                         
                         <button 
+                          class="view-gallery-btn"
+                          onClick$={() => openLightbox(gallery)}
+                          style="border: none; cursor: pointer;"
+                        >
+                          <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                          Zobrazit galerii
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Skříně Section */}
+          {cabinetGalleries.length > 0 && (
+            <div class="gallery-section">
+              <div class="gallery-section-header">
+                <h2 class="gallery-section-title">Skříně a vestavěný nábytek</h2>
+                <p class="gallery-section-description">
+                  Vestavěné skříně, šatníky a nábytek na míru s důrazem na maximální využití prostoru
+                </p>
+              </div>
+
+              <div class="gallery-grid">
+                {cabinetGalleries.map((gallery) => {
+                  const displayGallery = mapGalleryForDisplay(gallery);
+                  const coverImage = displayGallery.coverImages[0]; // Use only the first image
+                  return (
+                    <div key={gallery.id} class="gallery-card">
+                      <div
+                        class="gallery-preview"
+                        onClick$={() => openLightbox(gallery)}
+                      >
+                        <ResponsiveImage
+                          src={coverImage}
+                          alt={`${displayGallery.title} - náhled`}
+                          class="gallery-preview-image"
+                          loading="lazy"
+                          responsive={true}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                        <div class="gallery-overlay">
+                          <div class="gallery-count">
+                            <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                            {displayGallery.imageCount} fotografií
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="gallery-info">
+                        <h3 class="gallery-title">{displayGallery.title}</h3>
+                        <p class="gallery-description">{displayGallery.description}</p>
+
+                        <div class="gallery-meta">
+                          <div class="gallery-date">
+                            <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                            {displayGallery.date}
+                          </div>
+                          <div class="gallery-location">
+                            <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                            {displayGallery.location}
+                          </div>
+                        </div>
+
+                        <button
                           class="view-gallery-btn"
                           onClick$={() => openLightbox(gallery)}
                           style="border: none; cursor: pointer;"

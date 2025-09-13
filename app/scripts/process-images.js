@@ -17,10 +17,13 @@ const galleriesDir = path.join(publicDir, 'images', 'galleries');
 const AVIF_QUALITY = 75; // Slightly lower quality for AVIF since it's more efficient
 
 // Generate optimal sizes based on original image dimensions
-function getOptimalSizes(originalWidth) {
+function getOptimalSizes(originalWidth, originalHeight) {
   const baseSizes = [400, 800, 1200, 1600, 2400];
+  const aspectRatio = originalWidth / originalHeight;
+
   return baseSizes.filter(size => size <= originalWidth).map(width => ({
     width,
+    height: Math.round(width / aspectRatio),
     suffix: `-${width}w`
   }));
 }
@@ -63,7 +66,7 @@ async function processImage(inputPath, outputDir, filename) {
     console.log(`  Original: ${metadata.width}x${metadata.height} (${metadata.format})`);
     
     // Get optimal sizes based on original image dimensions
-    const optimalSizes = getOptimalSizes(metadata.width);
+    const optimalSizes = getOptimalSizes(metadata.width, metadata.height);
     
     if (optimalSizes.length === 0) {
       console.log(`    Skipping: Original image too small (${metadata.width}px)`);
@@ -71,20 +74,20 @@ async function processImage(inputPath, outputDir, filename) {
     }
     
     // Generate AVIF versions for all optimal sizes
-    for (const { width, suffix } of optimalSizes) {
+    for (const { width, height, suffix } of optimalSizes) {
       const outputFilename = `${baseName}-web${suffix}.avif`;
       const outputPath = path.join(outputDir, outputFilename);
-      
+
       try {
         await image
           .clone()
-          .resize(width, null, {
+          .resize(width, height, {
             withoutEnlargement: true,
-            fit: 'inside'
+            fit: 'cover'
           })
           .avif({ quality: AVIF_QUALITY })
           .toFile(outputPath);
-        
+
         console.log(`    Generated: ${outputFilename}`);
       } catch (error) {
         console.warn(`    Failed to generate ${outputFilename}:`, error.message);
@@ -93,11 +96,12 @@ async function processImage(inputPath, outputDir, filename) {
     
     // Also keep a JPEG fallback for compatibility (single size)
     const webPath = path.join(outputDir, `${baseName}-web.jpg`);
+    const jpegHeight = Math.round(1200 / (metadata.width / metadata.height));
     await image
       .clone()
-      .resize(1200, null, {
+      .resize(1200, jpegHeight, {
         withoutEnlargement: true,
-        fit: 'inside'
+        fit: 'cover'
       })
       .jpeg({ quality: 90 })
       .toFile(webPath);

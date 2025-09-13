@@ -1,0 +1,58 @@
+{
+  "id": "koupelna-1",
+  "title": "Moderní koupelna 1",
+  "category": "Koupelny",
+  "description": "Elegantní moderní koupelna s čistými liniemi, kvalitními materiály a funkčním uspořádáním.",
+  "coverImage": "koupelna-0018-web.jpg",
+  "images": [
+    {
+      "src": "koupelna-0018-web.jpg",
+      "alt": "Moderní koupelna 1 - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na moderní koupelnu s umyvadlem"
+    },
+    {
+      "src": "koupelna-0019-web.jpg",
+      "alt": "Moderní koupelna 1 - sprchový kout",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Sprchový kout s kvalitními obklady"
+    },
+    {
+      "src": "koupelna-0024-web.jpg",
+      "alt": "Moderní koupelna 1 - úložné prostory",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Funkční úložné prostory a koupelnový nábytek"
+    },
+    {
+      "src": "koupelna-0028-web.jpg",
+      "alt": "Moderní koupelna 1 - detaily materiálů",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitních materiálů a obkladů"
+    }
+  ],
+  "features": [
+    "Moderní sanitární keramika",
+    "Kvalitní obklady a dlažby",
+    "Funkční úložné prostory",
+    "LED osvětlení",
+    "Sprchový kout"
+  ],
+  "materials": [
+    "Keramické obklady",
+    "Sanitární keramika",
+    "Koupelnový nábytek na míru",
+    "Skleněné sprchové dveře"
+  ],
+  "location": "Ostrava",
+  "date": "2024-03",
+  "imageCount": 4,
+  "coverImages": [
+    "koupelna-0018-web.jpg",
+    "koupelna-0019-web.jpg",
+    "koupelna-0024-web.jpg"
+  ]
+}

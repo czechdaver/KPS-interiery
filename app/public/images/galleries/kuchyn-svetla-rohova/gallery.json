@@ -1,0 +1,93 @@
+{
+  "id": "kuchyn-svetla-rohova",
+  "title": "Světlá rohová kuchyň",
+  "category": "Kuchyně",
+  "description": "Moderní světlá rohová kuchyň s maximálním využitím prostoru a ergonomickým řešením rohových prvků.",
+  "coverImage": "kuchyn-0046-web.jpg",
+  "images": [
+    {
+      "src": "kuchyn-0046-web.jpg",
+      "alt": "Světlá rohová kuchyň - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na světlou rohovou kuchyň"
+    },
+    {
+      "src": "kuchyn-0049-web.jpg",
+      "alt": "Světlá rohová kuchyň - rohové řešení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail rohového řešení s otočnými mechanismy"
+    },
+    {
+      "src": "kuchyn-0052-web.jpg",
+      "alt": "Světlá rohová kuchyň - pracovní plocha",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Ergonomická pracovní plocha s kvalitními spotřebiči"
+    },
+    {
+      "src": "kuchyn-0053-web.jpg",
+      "alt": "Světlá rohová kuchyň - úložné systémy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Optimalizované úložné systémy v rozích"
+    },
+    {
+      "src": "kuchyn-0055-web.jpg",
+      "alt": "Světlá rohová kuchyň - horní skříňky",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Světlé horní skříňky s moderními úchyty"
+    },
+    {
+      "src": "kuchyn-0058-web.jpg",
+      "alt": "Světlá rohová kuchyň - spotřebiče",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Vestavěné spotřebiče a jejich integrace"
+    },
+    {
+      "src": "kuchyn-0060-web.jpg",
+      "alt": "Světlá rohová kuchyň - detail provedení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitního provedení a materiálů"
+    },
+    {
+      "src": "kuchyn-0061-web.jpg",
+      "alt": "Světlá rohová kuchyň - osvětlení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "LED osvětlení podtrhující design"
+    },
+    {
+      "src": "kuchyn-0062-web.jpg",
+      "alt": "Světlá rohová kuchyň - kompletní realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní realizace světlé rohové kuchyně"
+    }
+  ],
+  "features": [
+    "Rohové řešení s otočnými mechanismy",
+    "Světlé materiály pro vizuální zvětšení",
+    "Ergonomické rozmístění spotřebičů",
+    "Maximální využití rohového prostoru",
+    "LED osvětlení"
+  ],
+  "materials": [
+    "Lamino světlá mat",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "location": "Prostějov",
+  "date": "2025-09",
+  "imageCount": 9,
+  "coverImages": [
+    "kuchyn-0046-web.jpg",
+    "kuchyn-0049-web.jpg",
+    "kuchyn-0052-web.jpg"
+  ]
+}

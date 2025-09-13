@@ -1,0 +1,64 @@
+{
+  "id": "loznice-hneda",
+  "title": "Hnědá ložnice",
+  "category": "Ložnice",
+  "description": "Teplá ložnice v hnědých tónech s přirozenou atmosférou a funkčními úložnými systémy.",
+  "coverImage": "loznice-0163-web.jpg",
+  "images": [
+    {
+      "src": "loznice-0163-web.jpg",
+      "alt": "Hnědá ložnice - celkový pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Celkový pohled na teplou hnědou ložnici"
+    },
+    {
+      "src": "loznice-0164-web.jpg",
+      "alt": "Hnědá ložnice - úložné systémy",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Funkční úložné systémy v hnědých tónech"
+    },
+    {
+      "src": "loznice-0166-web.jpg",
+      "alt": "Hnědá ložnice - ložní část",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Útulná ložní část s teplou atmosférou"
+    },
+    {
+      "src": "loznice-0167-web.jpg",
+      "alt": "Hnědá ložnice - detail materiálů",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail hnědých materiálů a textury"
+    },
+    {
+      "src": "loznice-0174-web.jpg",
+      "alt": "Hnědá ložnice - kompletní realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní realizace ložnice v hnědých tónech"
+    }
+  ],
+  "features": [
+    "Teplé hnědé tony",
+    "Přirozená atmosféra",
+    "Funkční úložné systémy",
+    "Kvalitní materiály"
+  ],
+  "materials": [
+    "Lamino hnědá mat",
+    "Dřevěné dekory",
+    "Kvalitní kování",
+    "Textilní prvky"
+  ],
+  "location": "Jihlava",
+  "date": "2025-09",
+  "imageCount": 5,
+  "coverImages": [
+    "loznice-0163-web.jpg",
+    "loznice-0164-web.jpg",
+    "loznice-0166-web.jpg"
+  ]
+}

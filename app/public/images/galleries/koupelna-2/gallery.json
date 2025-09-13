@@ -1,0 +1,72 @@
+{
+  "id": "koupelna-2",
+  "title": "Moderní koupelna 2",
+  "category": "Koupelny",
+  "description": "Prostorná moderní koupelna s luxusním vybavením, promyšleným designem a kvalitními materiály.",
+  "coverImage": "koupelna-0063-web.jpg",
+  "images": [
+    {
+      "src": "koupelna-0063-web.jpg",
+      "alt": "Moderní koupelna 2 - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na prostornou moderní koupelnu"
+    },
+    {
+      "src": "koupelna-0065-web.jpg",
+      "alt": "Moderní koupelna 2 - umyvadlová část",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Luxusní umyvadlová část s velkým zrcadlem"
+    },
+    {
+      "src": "koupelna-0067-web.jpg",
+      "alt": "Moderní koupelna 2 - sprchový prostor",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Sprchový prostor s kvalitními obklady"
+    },
+    {
+      "src": "koupelna-0068-web.jpg",
+      "alt": "Moderní koupelna 2 - úložné systémy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Rozsáhlé úložné systémy a koupelnový nábytek"
+    },
+    {
+      "src": "koupelna-0073-web.jpg",
+      "alt": "Moderní koupelna 2 - detaily",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail luxusního vybavení a materiálů"
+    },
+    {
+      "src": "koupelna-0074-web.jpg",
+      "alt": "Moderní koupelna 2 - osvětlení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Atmosférické osvětlení a závěrečný vzhled"
+    }
+  ],
+  "features": [
+    "Luxusní sanitární vybavení",
+    "Rozsáhlé úložné prostory",
+    "Kvalitní materiály premium",
+    "Atmosférické osvětlení",
+    "Prostorný design"
+  ],
+  "materials": [
+    "Keramické obklady premium",
+    "Sanitární keramika luxusní",
+    "Koupelnový nábytek na míru",
+    "Skleněné prvky"
+  ],
+  "location": "Vsetín",
+  "date": "2025-06",
+  "imageCount": 6,
+  "coverImages": [
+    "koupelna-0063-web.jpg",
+    "koupelna-0065-web.jpg",
+    "koupelna-0067-web.jpg"
+  ]
+}

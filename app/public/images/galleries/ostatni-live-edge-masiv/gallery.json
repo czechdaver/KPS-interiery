@@ -1,0 +1,72 @@
+{
+  "id": "ostatni-live-edge-masiv",
+  "title": "Live Edge masiv",
+  "category": "Ostatní",
+  "description": "Jedinečné prvky z masivního dřeva s přirozenými hranami pro autentický vzhled a přírodní charakter.",
+  "coverImage": "ostatni-0092_1-web.jpg",
+  "images": [
+    {
+      "src": "ostatni-0092_1-web.jpg",
+      "alt": "Live Edge masiv - přírodní hrany",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Masivní dřevo s přirozenými hranami"
+    },
+    {
+      "src": "ostatni-0094_1-web.jpg",
+      "alt": "Live Edge masiv - textura dřeva",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Jedinečná textura a kresba dřeva"
+    },
+    {
+      "src": "ostatni-0095_1-web.jpg",
+      "alt": "Live Edge masiv - autentický vzhled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Autentický vzhled přírodního materiálu"
+    },
+    {
+      "src": "ostatni-0096_1-web.jpg",
+      "alt": "Live Edge masiv - jedinečné kusy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Každý kus je jedinečný a neopakovatelný"
+    },
+    {
+      "src": "ostatni-0100-web.jpg",
+      "alt": "Live Edge masiv - přírodní povrch",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Přírodní povrchová úprava s oleji"
+    },
+    {
+      "src": "ostatni-0110-web.jpg",
+      "alt": "Live Edge masiv - kompletní realizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní realizace s live edge prvky"
+    }
+  ],
+  "features": [
+    "Masivní dřevo s přirozenými hranami",
+    "Jedinečné kusy",
+    "Přírodní textura a kresba",
+    "Autentický charakter",
+    "Ekologický materiál"
+  ],
+  "materials": [
+    "Masivní dřevo",
+    "Přírodní povrchová úprava",
+    "Oleje a vosky",
+    "Originální live edge hrany"
+  ],
+  "location": "Olomouc",
+  "date": "2025-09",
+  "imageCount": 6,
+  "coverImages": [
+    "ostatni-0092_1-web.jpg",
+    "ostatni-0094_1-web.jpg",
+    "ostatni-0095_1-web.jpg"
+  ]
+}

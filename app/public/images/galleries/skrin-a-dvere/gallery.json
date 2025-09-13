@@ -1,0 +1,93 @@
+{
+  "id": "skrin-a-dvere",
+  "title": "Skříně a dveře",
+  "category": "Skříně",
+  "description": "Kompletní řešení skříní a dveří s jednotným designem, kvalitním zpracováním a funkční organizací.",
+  "coverImage": "skrine-0031-web.jpg",
+  "images": [
+    {
+      "src": "skrine-0031-web.jpg",
+      "alt": "Skříně a dveře - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na sestavu skříní a dveří"
+    },
+    {
+      "src": "skrine-0032-web.jpg",
+      "alt": "Skříně a dveře - detail dveří",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitních dveří s elegantními úchyty"
+    },
+    {
+      "src": "skrine-0033-web.jpg",
+      "alt": "Skříně a dveře - vnitřní organizace",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Funkční vnitřní organizace skříní"
+    },
+    {
+      "src": "skrine-0034-web.jpg",
+      "alt": "Skříně a dveře - různé velikosti",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Různé velikosti a konfigurace skříní"
+    },
+    {
+      "src": "skrine-0036-web.jpg",
+      "alt": "Skříně a dveře - materiály",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail kvalitních materiálů a povrchů"
+    },
+    {
+      "src": "skrine-0037-web.jpg",
+      "alt": "Skříně a dveře - kování",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kvalitní kování a mechanismy"
+    },
+    {
+      "src": "skrine-0039-web.jpg",
+      "alt": "Skříně a dveře - jednotný design",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Jednotný design v celém prostoru"
+    },
+    {
+      "src": "skrine-0041-web.jpg",
+      "alt": "Skříně a dveře - detailní zpracování",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detailní zpracování hran a spojů"
+    },
+    {
+      "src": "skrine-0043-web.jpg",
+      "alt": "Skříně a dveře - kompletní sestava",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní sestava s jednotným vzhledem"
+    }
+  ],
+  "features": [
+    "Jednotný design skříní a dveří",
+    "Kvalitní materiály a kování",
+    "Funkční vnitřní organizace",
+    "Různé velikosti a konfigurace",
+    "Precizní zpracování"
+  ],
+  "materials": [
+    "Lamino v různých dekorech",
+    "Kvalitní kování Blum",
+    "Interiérové vybavení",
+    "Elegantní úchyty"
+  ],
+  "location": "Praha",
+  "date": "2024-10",
+  "imageCount": 9,
+  "coverImages": [
+    "skrine-0031-web.jpg",
+    "skrine-0032-web.jpg",
+    "skrine-0033-web.jpg"
+  ]
+}

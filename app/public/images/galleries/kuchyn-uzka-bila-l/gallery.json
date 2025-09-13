@@ -1,0 +1,72 @@
+{
+  "id": "kuchyn-uzka-bila-l",
+  "title": "Bílá kuchyň do L - úzký prostor",
+  "category": "Kuchyně",
+  "description": "Funkční bílá kuchyň ve tvaru L navržená pro úzké prostory s maximálním využitím plochy a inteligentními řešeními.",
+  "coverImage": "kuchyn-0225-web.jpg",
+  "images": [
+    {
+      "src": "kuchyn-0225-web.jpg",
+      "alt": "Bílá L-kuchyň - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na bílou L-kuchyň v úzkém prostoru"
+    },
+    {
+      "src": "kuchyn-0227-web.jpg",
+      "alt": "Bílá L-kuchyň - pracovní plocha",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Optimalizovaná pracovní plocha s vestavěnými spotřebiči"
+    },
+    {
+      "src": "kuchyn-0229-web.jpg",
+      "alt": "Bílá L-kuchyň - úložné systémy",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Inteligentní úložné systémy pro úzké prostory"
+    },
+    {
+      "src": "kuchyn-0231-web.jpg",
+      "alt": "Bílá L-kuchyň - rohové řešení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail rohového řešení L-tvaru"
+    },
+    {
+      "src": "kuchyn-0232-web.jpg",
+      "alt": "Bílá L-kuchyň - horní skříňky",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Bílé horní skříňky pro optické zvětšení"
+    },
+    {
+      "src": "kuchyn-0233-web.jpg",
+      "alt": "Bílá L-kuchyň - kompletní pohled",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Kompletní pohled na funkční řešení úzkého prostoru"
+    }
+  ],
+  "features": [
+    "L-shaped layout pro úzké prostory",
+    "Bílé fronty pro optické zvětšení",
+    "Inteligentní úložné systémy",
+    "Kompaktní řešení spotřebičů",
+    "Maximální využití plochy"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Kompaktní deska",
+    "Minimalistické úchyty",
+    "Kování Blum"
+  ],
+  "location": "Přerov",
+  "date": "2025-09",
+  "imageCount": 6,
+  "coverImages": [
+    "kuchyn-0225-web.jpg",
+    "kuchyn-0227-web.jpg",
+    "kuchyn-0229-web.jpg"
+  ]
+}

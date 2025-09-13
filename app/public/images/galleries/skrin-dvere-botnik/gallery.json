@@ -1,0 +1,93 @@
+{
+  "id": "skrin-dvere-botnik",
+  "title": "Skříně, dveře a botník",
+  "category": "Skříně",
+  "description": "Komplexní řešení vstupní haly se skříněmi, dveřmi a praktickým botníkem s jednotným designem.",
+  "coverImage": "skrine-0103-web.jpg",
+  "images": [
+    {
+      "src": "skrine-0103-web.jpg",
+      "alt": "Skříně, dveře a botník - celkový pohled",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Celkový pohled na vstupní sestavu"
+    },
+    {
+      "src": "skrine-0105-web.jpg",
+      "alt": "Skříně, dveře a botník - botník detail",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Detail praktického botníku s větrací mezerami"
+    },
+    {
+      "src": "skrine-0107-web.jpg",
+      "alt": "Skříně, dveře a botník - skříňové prostory",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Integrované skříňové prostory pro vstupní halu"
+    },
+    {
+      "src": "skrine-0112-web.jpg",
+      "alt": "Skříně, dveře a botník - jednotný design",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Jednotný design všech prvků"
+    },
+    {
+      "src": "skrine-0115-web.jpg",
+      "alt": "Skříně, dveře a botník - funkční řešení",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Funkční řešení pro maximální využití prostoru"
+    },
+    {
+      "src": "skrine-0116-web.jpg",
+      "alt": "Skříně, dveře a botník - materiály",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail kvalitních materiálů a povrchů"
+    },
+    {
+      "src": "skrine-0119-web.jpg",
+      "alt": "Skříně, dveře a botník - organizace",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Organizace prostoru vstupní haly"
+    },
+    {
+      "src": "skrine-0122-web.jpg",
+      "alt": "Skříně, dveře a botník - detail kování",
+      "width": 1707,
+      "height": 2560,
+      "caption": "Detail kvalitního kování a mechanismů"
+    },
+    {
+      "src": "skrine-0125-web.jpg",
+      "alt": "Skříně, dveře a botník - kompletní sestava",
+      "width": 2560,
+      "height": 1707,
+      "caption": "Kompletní sestava vstupní haly"
+    }
+  ],
+  "features": [
+    "Kompletní vstupní sestava",
+    "Praktický botník s větrací mezerami",
+    "Integrované skříňové prostory",
+    "Jednotný design",
+    "Maximální využití prostoru"
+  ],
+  "materials": [
+    "Lamino v jednotném dekoru",
+    "Perforované police botníku",
+    "Kvalitní kování Blum",
+    "Elegantní úchyty"
+  ],
+  "location": "Ostrava",
+  "date": "2025-09",
+  "imageCount": 9,
+  "coverImages": [
+    "skrine-0103-web.jpg",
+    "skrine-0105-web.jpg",
+    "skrine-0107-web.jpg"
+  ]
+}
