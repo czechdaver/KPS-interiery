@@ -166,6 +166,9 @@ const styles = `
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: var(--transition);
     border: 1px solid rgba(200, 139, 78, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
   .gallery-card:hover {
@@ -236,6 +239,9 @@ const styles = `
   
   .gallery-info {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
   
   .gallery-title {
@@ -259,6 +265,8 @@ const styles = `
     align-items: center;
     font-size: 0.9rem;
     color: var(--gray);
+    margin-top: auto;
+    margin-bottom: 1rem;
   }
   
   .gallery-date {
@@ -284,7 +292,7 @@ const styles = `
     align-items: center;
     gap: 0.5rem;
     transition: var(--transition);
-    margin-top: 1rem;
+    margin-top: 0;
     width: 100%;
     justify-content: center;
   }
