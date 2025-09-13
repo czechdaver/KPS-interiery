@@ -5,6 +5,7 @@
   /* KPS Interiéry Brand Colors - Mocha Sophistication Palette */
   --primary: #322624;        /* Primary (logo) - Desaturated mocha brown */
   --primary-light: #3E2F2B;  /* Lighter mocha for hover states */
+  --primary-rgb: 50, 38, 36; /* RGB values for rgba usage */
   --secondary: #C88B4E;      /* Secondary - Saturated warm caramel */
   --secondary-light: #D4A373; /* Light secondary for backgrounds */
   --accent: #8D6E63;         /* Accent - Muted brown */

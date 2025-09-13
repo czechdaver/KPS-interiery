@@ -43,6 +43,47 @@ jobs:
         run: |
           npm install @rollup/rollup-linux-x64-gnu --save-dev --no-save || true
 
+      - name: Verify QwikCity configuration
+        working-directory: app
+        run: |
+          echo "🔍 Verifying QwikCity configuration..."
+          
+          # Check that React files don't exist (they would conflict)
+          if [ -f "index.html" ]; then
+            echo "❌ ERROR: index.html found - this conflicts with QwikCity SSR"
+            echo "📝 Solution: mv index.html index.html.backup"
+            exit 1
+          fi
+          
+          if [ -f "main.tsx" ]; then
+            echo "❌ ERROR: main.tsx found - this conflicts with QwikCity SSR"
+            echo "📝 Solution: mv main.tsx main.tsx.backup"
+            exit 1
+          fi
+          
+          # Verify QwikCity entry points exist
+          if [ ! -f "src/entry.ssr.tsx" ]; then
+            echo "❌ ERROR: src/entry.ssr.tsx not found"
+            exit 1
+          fi
+          
+          if [ ! -f "src/entry.dev.tsx" ]; then
+            echo "❌ ERROR: src/entry.dev.tsx not found"
+            exit 1
+          fi
+          
+          echo "✅ QwikCity configuration verified"
+          echo "✅ No conflicting React files found"
+          echo "✅ All required entry points present"
+
+      - name: Type check
+        working-directory: app
+        run: npm run typecheck
+
+      - name: Lint
+        working-directory: app
+        run: npm run lint
+
       - name: Build client bundle
         working-directory: app
         run: |

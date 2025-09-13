@@ -19,6 +19,35 @@
    ```
 2. Otevřete: http://localhost:5173/
 
+## ⚠️ Důležité: Řešení problémů se spuštěním
+
+### Problém: Server se nespustí nebo hlásí "connection refused"
+**Příčina:** Konflikt mezi React a QwikCity entry points.
+
+**Řešení:** 
+```sh
+# Zálohujte konfliktní soubory
+mv index.html index.html.backup
+mv main.tsx main.tsx.backup
+
+# Spusťte server znovu
+npm run dev
+```
+
+### Proč k tomu dochází:
+- Projekt používá QwikCity SSR, ale obsahuje i React soubory (`index.html`, `main.tsx`)
+- Tyto soubory konkurují s QwikCity entry points (`entry.ssr.tsx`, `entry.dev.tsx`)
+- Vite je nakonfigurován pro QwikCity, ale React soubory mají přednost
+
+### Ověření správného nastavení:
+```sh
+# Měly by existovat jen QwikCity entry points:
+ls -la src/entry.*  # měly by být: entry.dev.tsx, entry.preview.tsx, entry.ssr.tsx
+
+# Neměly by existovat v kořeni app/:
+ls index.html main.tsx 2>/dev/null || echo "✅ Správně nastaveno"
+```
+
 ## Skripty (v `app/package.json`)
 - `dev` — Dev server (SSR)
 - `build` — Qwik build (generuje plan)
