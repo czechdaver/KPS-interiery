@@ -71,7 +71,7 @@ export const HeroSection = component$(() => {
         
         .hero-values {
           display: block;
-          font-size: clamp(2rem, 5vw, 3.5rem);
+          font-size: clamp(1.8rem, 5vw, 3.5rem);
           font-weight: 900;
           line-height: 1.1;
           margin-bottom: 1rem;
@@ -83,7 +83,7 @@ export const HeroSection = component$(() => {
         
         .hero-subtitle {
           display: block;
-          font-size: clamp(1.02rem, 2.125vw, 1.7rem);
+          font-size: clamp(1.1rem, 2.125vw, 1.7rem);
           font-weight: 500;
           line-height: 1.3;
           color: var(--white);
@@ -95,11 +95,11 @@ export const HeroSection = component$(() => {
         
         .hero-subtitle::before {
           content: '"';
-          font-size: 2em;
+          font-size: clamp(1.8em, 2.2em, 2.4em);
           color: var(--secondary);
           position: absolute;
-          left: -0.4em;
-          top: -0.15em;
+          left: clamp(-0.5em, -0.4em, -0.3em);
+          top: clamp(-0.2em, -0.15em, -0.1em);
           font-family: "Georgia", serif;
           font-weight: 400;
           line-height: 1;
@@ -108,11 +108,11 @@ export const HeroSection = component$(() => {
         
         .hero-subtitle::after {
           content: '"';
-          font-size: 2em;
+          font-size: clamp(1.8em, 2.2em, 2.4em);
           color: var(--secondary);
           position: absolute;
-          right: -0.25em;
-          bottom: -0.3em;
+          right: clamp(-0.35em, -0.25em, -0.15em);
+          bottom: clamp(-0.4em, -0.3em, -0.2em);
           font-family: "Georgia", serif;
           font-weight: 400;
           line-height: 1;
@@ -120,7 +120,7 @@ export const HeroSection = component$(() => {
         }
         
         .hero-description {
-          font-size: 1.25rem;
+          font-size: clamp(1.1rem, 2.5vw, 1.35rem);
           line-height: 1.6;
           margin-bottom: 3rem;
           opacity: 0.95;
@@ -142,28 +142,8 @@ export const HeroSection = component$(() => {
             text-align: center;
           }
           
-          .hero-values {
-            font-size: 2rem;
-          }
-          
-          .hero-subtitle {
-            font-size: 1.2rem;
-          }
-          
-          .hero-subtitle::before {
-            font-size: 1.8em;
-            left: -0.25em;
-            top: -0.1em;
-          }
-          
-          .hero-subtitle::after {
-            font-size: 1.8em;
-            right: -0.15em;
-            bottom: -0.25em;
-          }
-          
           .hero-description {
-            font-size: 1.1rem;
+            font-size: clamp(1.05rem, 2.5vw, 1.25rem);
           }
           
           .hero-buttons {
