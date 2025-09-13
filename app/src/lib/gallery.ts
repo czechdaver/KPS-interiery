@@ -85,10 +85,10 @@ export async function loadGalleryData(slug: GallerySlug): Promise<GalleryData | 
   
   try {
     // Handle URL construction for both server and client environments
-    const baseUrl = typeof window === 'undefined' 
+    const baseUrl = typeof window === 'undefined'
       ? 'http://localhost:5173/' // Server-side: use localhost for dev
       : window.location.origin + (import.meta.env.BASE_URL || '/');
-      
+
     const galleryUrl = `${baseUrl}images/galleries/${slug}/gallery.json`;
     console.log(`Loading gallery from: ${galleryUrl}`);
     
@@ -228,26 +228,26 @@ export async function loadAllGalleries(): Promise<GalleryData[]> {
 export function getImagePath(galleryId: string, imageSrc: string): string {
   if (!galleryId || !imageSrc) {
     console.warn('Invalid gallery ID or image source provided', { galleryId, imageSrc });
-    const baseUrl = typeof window === 'undefined' 
-      ? '/images/placeholder.jpg' 
-      : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/placeholder.jpg');
+    const baseUrl = typeof window === 'undefined'
+      ? '/images/placeholder.jpg'
+      : (import.meta.env.BASE_URL || '/') + 'images/placeholder.jpg';
     return baseUrl;
   }
-  
+
   // Validate gallery ID exists in our known slugs
   if (!GALLERY_SLUGS.includes(galleryId as GallerySlug)) {
     console.warn(`Unknown gallery ID: ${galleryId}`);
-    const baseUrl = typeof window === 'undefined' 
-      ? '/images/placeholder.jpg' 
-      : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/placeholder.jpg');
+    const baseUrl = typeof window === 'undefined'
+      ? '/images/placeholder.jpg'
+      : (import.meta.env.BASE_URL || '/') + 'images/placeholder.jpg';
     return baseUrl;
   }
   
   // Handle URL construction for both server and client environments
-  const baseUrl = typeof window === 'undefined' 
-    ? '/images/galleries/' 
-    : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/galleries/');
-  
+  const baseUrl = typeof window === 'undefined'
+    ? '/images/galleries/'
+    : (import.meta.env.BASE_URL || '/') + 'images/galleries/';
+
   return `${baseUrl}${galleryId}/${imageSrc}`;
 }
 
@@ -310,9 +310,9 @@ const OPTIMIZED_GALLERIES = [
  * Generate AVIF-optimized image sources for responsive images and lightbox
  */
 export function generateOptimizedImageSources(galleryId: string, imageSrc: string) {
-  const baseUrl = typeof window === 'undefined' 
-    ? '/images/galleries/' 
-    : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/galleries/');
+  const baseUrl = typeof window === 'undefined'
+    ? '/images/galleries/'
+    : (import.meta.env.BASE_URL || '/') + 'images/galleries/';
   const baseDir = `${baseUrl}${galleryId}`;
   
   // Check if this gallery has full range of optimized sizes
@@ -347,9 +347,9 @@ export function generateOptimizedImageSources(galleryId: string, imageSrc: strin
  * Get best available AVIF image for lightbox with intelligent fallback
  */
 export function getLightboxImageUrl(galleryId: string, imageSrc: string, imageWidth?: number, imageHeight?: number) {
-  const baseUrl = typeof window === 'undefined' 
-    ? '/images/galleries/' 
-    : (window.location.origin + (import.meta.env.BASE_URL || '/') + 'images/galleries/');
+  const baseUrl = typeof window === 'undefined'
+    ? '/images/galleries/'
+    : (import.meta.env.BASE_URL || '/') + 'images/galleries/';
   const baseDir = `${baseUrl}${galleryId}`;
   
   // Check if this gallery has full range of optimized sizes

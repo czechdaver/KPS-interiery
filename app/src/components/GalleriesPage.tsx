@@ -432,7 +432,7 @@ export const GalleriesPage = component$(() => {
         <div class="container">
           <div class="galleries-hero-content">
             <div class="breadcrumb">
-              <a href="/" onClick$={(e) => {
+              <a href={import.meta.env.BASE_URL || "/"} onClick$={(e) => {
                 e.preventDefault();
                 window.location.hash = '';
                 // Trigger hash change event manually
@@ -446,8 +446,8 @@ export const GalleriesPage = component$(() => {
             <p class="galleries-subtitle">
               Prohlédněte si kompletní galerii našich nejlepších projektů
             </p>
-            <a 
-              href="/" 
+            <a
+              href={import.meta.env.BASE_URL || "/"}
               class="back-button"
               onClick$={(e) => {
                 e.preventDefault();

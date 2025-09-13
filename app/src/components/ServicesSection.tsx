@@ -197,8 +197,8 @@ export const ServicesSection = component$(() => {
         
         <div class="services-grid">
           <div class="service-card kitchen-card">
-            <img 
-              src="/images/galleries/kuchyn-retro-bila/kuchyne_0094-web-400w.avif"
+            <img
+              src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0094-web-400w.avif"}
               alt="Modern retro kitchen design"
               class="service-background"
               width="400"
@@ -219,7 +219,7 @@ export const ServicesSection = component$(() => {
           
           <div class="service-card wardrobe-card">
             <img 
-              src="/images/galleries/kuchyn-bila-u-tvar/skrine-0205-web-400w.avif"
+              src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bila-u-tvar/skrine-0205-web-400w.avif"}
               alt="Built-in wardrobe with sliding doors"
               class="service-background"
               width="400"
@@ -240,7 +240,7 @@ export const ServicesSection = component$(() => {
           
           <div class="service-card bathroom-card">
             <img 
-              src="/images/galleries/kuchyn-retro-bila/kuchyne_0081-web-400w.avif"
+              src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0081-web-400w.avif"}
               alt="Modern bathroom vanity"
               class="service-background"
               width="400"
@@ -261,7 +261,7 @@ export const ServicesSection = component$(() => {
           
           <div class="service-card office-card">
             <img 
-              src="/images/galleries/kuchyn-retro-bila/kuchyne_0066-web-400w.avif"
+              src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0066-web-400w.avif"}
               alt="Modern office workspace"
               class="service-background"
               width="400"
@@ -282,7 +282,7 @@ export const ServicesSection = component$(() => {
           
           <div class="service-card atypical-card">
             <img 
-              src="/images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif"
+              src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif"}
               alt="Modern kitchen with custom design"
               class="service-background"
               width="400"

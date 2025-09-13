@@ -161,42 +161,42 @@ export const InstagramSection = component$(() => {
   const instagramPosts = [
     {
       id: 1,
-      image: "/images/galleries/kuchyn-retro-bila/kuchyne_0094-web-400w.avif",
+      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0094-web-400w.avif",
       alt: "Modern retro kitchen realization",
       likes: 142,
       caption: "Nová kuchyň pro spokojené zákazníky ✨ #kpsinteriery #kuchynenámíru"
     },
     {
       id: 2,
-      image: "/images/galleries/kuchyn-bila-u-tvar/skrine-0205-web-400w.avif",
+      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bila-u-tvar/skrine-0205-web-400w.avif",
       alt: "Wardrobe installation",
       likes: 89,
       caption: "Vestavěná skříň s posuvnými dveřmi 🚪 #vestaveneskrene #nabytek"
     },
     {
       id: 3,
-      image: "/images/galleries/kuchyn-retro-bila/kuchyne_0081-web-400w.avif",
+      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0081-web-400w.avif",
       alt: "Bathroom furniture",
       likes: 156,
       caption: "Koupelnový nábytek na míru 🛁 #koupelna #design #kvalita"
     },
     {
       id: 4,
-      image: "/images/galleries/kuchyn-retro-bila/kuchyne_0066-web-400w.avif",
+      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0066-web-400w.avif",
       alt: "Office furniture",
       likes: 73,
       caption: "Kancelářský nábytek pro moderní workspace 💼 #kancelar #office"
     },
     {
       id: 5,
-      image: "/images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif",
+      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif",
       alt: "Luxury kitchen",
       likes: 198,
       caption: "Luxusní kuchyň s mramorovými detaily 🏆 #luxus #mramor #kuchyne"
     },
     {
       id: 6,
-      image: "/images/galleries/kuchyn-bila-podkrovi/kuchyne_0031-web-400w.avif",
+      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bila-podkrovi/kuchyne_0031-web-400w.avif",
       alt: "Modern bathroom",
       likes: 124,
       caption: "Moderní koupelna s dřevěnými prvky 🌿 #drevo #priroda #koupelna"

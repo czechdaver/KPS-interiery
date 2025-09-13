@@ -160,25 +160,25 @@ export const HeroSection = component$(() => {
       `);
   const heroImages = [
     {
-      src: "/images/galleries/kuchyn-bila-u-tvar/skrine-0201-web-2400w.avif",
+      src: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bila-u-tvar/skrine-0201-web-2400w.avif",
       alt: "Bílá kuchyně v tvaru U s maximálním využitím prostoru",
       width: 2400,
       height: 1600
     },
     {
-      src: "/images/galleries/kuchyn-bila-ostruvek/kuchyne_0017-web-2400w.avif",
+      src: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bila-ostruvek/kuchyne_0017-web-2400w.avif",
       alt: "Modern bílá kuchyně s ostrůvkem a elegantním designem",
       width: 2400,
       height: 1600
     },
     {
-      src: "/images/galleries/kuchyn-cerna/kuchyne_0071-web-2400w.avif",
+      src: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-cerna/kuchyne_0071-web-2400w.avif",
       alt: "Elegantní černá kuchyně s vestavěnými spotřebiči",
       width: 2400,
       height: 1600
     },
     {
-      src: "/images/galleries/kuchyn-retro-bila/kuchyne_0074-web-2400w.avif",
+      src: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0074-web-2400w.avif",
       alt: "Retro bílá kuchyně s moderními prvky a designem",
       width: 2400,
       height: 1600
