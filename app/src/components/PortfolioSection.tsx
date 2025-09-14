@@ -1,6 +1,7 @@
 import { component$, useStylesScoped$, useTask$, useSignal, useVisibleTask$, $ } from "@builder.io/qwik";
 import { loadAllGalleries, type GalleryData, getImagePath, getLightboxImageUrl } from '../lib/gallery';
 import { ResponsiveImage } from "./ResponsiveImage";
+import { PhImages } from "~/components/icons";
 
 const styles = `
   .portfolio-section {
@@ -401,7 +402,7 @@ export const PortfolioSection = component$(() => {
         
         <div class="portfolio-cta">
           <a href="#galerie" class="btn btn-accent">
-            <i class="ph-duotone ph-images" style="font-size: 24px;"></i>
+            <PhImages size={24} />
             Zobrazit celou galerii
           </a>
         </div>

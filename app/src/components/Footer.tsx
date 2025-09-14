@@ -1,4 +1,5 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { PhInstagramLogo, PhFacebookLogo, PhPhone, PhEnvelopeSimple, PhMapPin } from "~/components/icons";
 
 export const Footer = component$(() => {
   useStylesScoped$(`
@@ -89,14 +90,15 @@ export const Footer = component$(() => {
           transform: translateY(-1px) scale(1.02);
         }
         
-        .social-link i {
-          font-size: 22px;
+        .social-link svg {
+          width: 22px;
+          height: 22px;
           z-index: 1;
           position: relative;
           transition: var(--transition);
         }
-        
-        .social-link:hover i {
+
+        .social-link:hover svg {
           transform: scale(1.1);
         }
         
@@ -226,7 +228,7 @@ export const Footer = component$(() => {
                 class="social-link"
                 aria-label="Sledujte nás na Instagramu"
               >
-                <i class="ph-duotone ph-instagram-logo"></i>
+                <PhInstagramLogo size={22} />
               </a>
               <a 
                 href="https://facebook.com/kpsinteriery" 
@@ -235,7 +237,7 @@ export const Footer = component$(() => {
                 class="social-link"
                 aria-label="Sledujte nás na Facebooku"
               >
-                <i class="ph-duotone ph-facebook-logo"></i>
+                <PhFacebookLogo size={22} />
               </a>
             </div>
           </div>
@@ -267,15 +269,15 @@ export const Footer = component$(() => {
               <h3>Kontakt</h3>
               <ul>
                 <li>
-                  <i class="ph-duotone ph-phone icon-duotone-reverse" style="font-size: 16px;"></i>
+                  <PhPhone size={16} class="icon-duotone-reverse" />
                   <a href="tel:+420728657413">+420 728 657 413</a>
                 </li>
                 <li>
-                  <i class="ph-duotone ph-envelope-simple icon-duotone-reverse" style="font-size: 16px;"></i>
+                  <PhEnvelopeSimple size={16} class="icon-duotone-reverse" />
                   <a href="mailto:info@kpsinteriery.cz">info@kpsinteriery.cz</a>
                 </li>
                 <li>
-                  <i class="ph-duotone ph-map-pin icon-duotone-reverse" style="font-size: 16px;"></i>
+                  <PhMapPin size={16} class="icon-duotone-reverse" />
                   <a href="https://maps.google.com/?q=Stará+cesta+32,+Zlín-Štípa+763+14,+Česká+republika" target="_blank" rel="noopener noreferrer">
                     Stará cesta 32, Zlín-Štípa 763 14
                   </a>

@@ -1,4 +1,5 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { PhHeart, PhInstagramLogo } from "~/components/icons";
 
 const styles = `
   .instagram-section {
@@ -227,11 +228,11 @@ export const InstagramSection = component$(() => {
                 <div class="instagram-overlay">
                   <div class="instagram-stats">
                     <div class="instagram-likes">
-                      <i class="ph-duotone ph-heart icon-duotone-reverse" style="font-size: 24px;"></i>
+                      <PhHeart size={24} class="icon-duotone-reverse" />
                       {post.likes}
                     </div>
                     <div class="instagram-icon">
-                      <i class="ph-duotone ph-instagram-logo icon-duotone" style="font-size: 32px;"></i>
+                      <PhInstagramLogo size={32} class="icon-duotone" />
                     </div>
                   </div>
                 </div>
@@ -244,13 +245,13 @@ export const InstagramSection = component$(() => {
         </div>
         
         <div class="instagram-cta">
-          <a 
-            href="https://instagram.com/kpsinteriery" 
-            target="_blank" 
+          <a
+            href="https://instagram.com/kpsinteriery"
+            target="_blank"
             rel="noopener noreferrer"
             class="btn btn-accent"
           >
-            <i class="ph-duotone ph-instagram-logo" style="font-size: 24px; margin-right: 0.5rem;"></i>
+            <PhInstagramLogo size={24} style="margin-right: 0.5rem;" />
             Sledovat na Instagramu
           </a>
         </div>

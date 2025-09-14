@@ -5,7 +5,6 @@ import { RouterHead } from "./components/router-head/router-head";
 import "./global.css";
 import "./styles/tailwind.css";
 import "./styles/example.scss";
-import "@phosphor-icons/web/duotone";
 
 export default component$(() => {
   /**

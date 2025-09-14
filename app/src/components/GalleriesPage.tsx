@@ -3,6 +3,7 @@ import { loadAllGalleries, getGalleriesByCategory, mapGalleryForDisplay, getLigh
 import type { GalleryData } from "../lib/gallery";
 import { ResponsiveImage } from "./ResponsiveImage";
 import { Footer } from "./Footer";
+import { PhArrowLeft, PhImages, PhCalendar, PhMapPin, PhEye } from "~/components/icons";
 
 const styles = `
   .galleries-page {
@@ -473,7 +474,7 @@ export const GalleriesPage = component$(() => {
                 window.dispatchEvent(new HashChangeEvent('hashchange'));
               }}
             >
-              <i class="ph-duotone ph-arrow-left" style="font-size: 18px;"></i>
+              <PhArrowLeft size={18} />
               Zpět na úvod
             </a>
           </div>
@@ -512,7 +513,7 @@ export const GalleriesPage = component$(() => {
                       />
                       <div class="gallery-overlay">
                         <div class="gallery-count">
-                          <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                          <PhImages size={20} />
                           {displayGallery.imageCount} fotografií
                         </div>
                       </div>
@@ -524,21 +525,21 @@ export const GalleriesPage = component$(() => {
                       
                       <div class="gallery-meta">
                         <div class="gallery-date">
-                          <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                          <PhCalendar size={16} />
                           {displayGallery.date}
                         </div>
                         <div class="gallery-location">
-                          <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                          <PhMapPin size={16} />
                           {displayGallery.location}
                         </div>
                       </div>
                       
-                      <button 
+                      <button
                         class="view-gallery-btn"
                         onClick$={() => openLightbox(gallery)}
                         style="border: none; cursor: pointer;"
                       >
-                        <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                        <PhEye size={18} />
                         Zobrazit galerii
                       </button>
                     </div>
@@ -578,7 +579,7 @@ export const GalleriesPage = component$(() => {
                         />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
-                            <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                            <PhImages size={20} />
                             {displayGallery.imageCount} fotografií
                           </div>
                         </div>
@@ -590,11 +591,11 @@ export const GalleriesPage = component$(() => {
 
                         <div class="gallery-meta">
                           <div class="gallery-date">
-                            <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                            <PhCalendar size={16} />
                             {displayGallery.date}
                           </div>
                           <div class="gallery-location">
-                            <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                            <PhMapPin size={16} />
                             {displayGallery.location}
                           </div>
                         </div>
@@ -604,7 +605,7 @@ export const GalleriesPage = component$(() => {
                           onClick$={() => openLightbox(gallery)}
                           style="border: none; cursor: pointer;"
                         >
-                          <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                          <PhEye size={18} />
                           Zobrazit galerii
                         </button>
                       </div>
@@ -645,7 +646,7 @@ export const GalleriesPage = component$(() => {
                         />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
-                            <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                            <PhImages size={20} />
                             {displayGallery.imageCount} fotografií
                           </div>
                         </div>
@@ -657,11 +658,11 @@ export const GalleriesPage = component$(() => {
                         
                         <div class="gallery-meta">
                           <div class="gallery-date">
-                            <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                            <PhCalendar size={16} />
                             {displayGallery.date}
                           </div>
                           <div class="gallery-location">
-                            <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                            <PhMapPin size={16} />
                             {displayGallery.location}
                           </div>
                         </div>
@@ -671,7 +672,7 @@ export const GalleriesPage = component$(() => {
                           onClick$={() => openLightbox(gallery)}
                           style="border: none; cursor: pointer;"
                         >
-                          <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                          <PhEye size={18} />
                           Zobrazit galerii
                         </button>
                       </div>
@@ -712,7 +713,7 @@ export const GalleriesPage = component$(() => {
                         />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
-                            <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                            <PhImages size={20} />
                             {displayGallery.imageCount} fotografií
                           </div>
                         </div>
@@ -724,11 +725,11 @@ export const GalleriesPage = component$(() => {
 
                         <div class="gallery-meta">
                           <div class="gallery-date">
-                            <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                            <PhCalendar size={16} />
                             {displayGallery.date}
                           </div>
                           <div class="gallery-location">
-                            <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                            <PhMapPin size={16} />
                             {displayGallery.location}
                           </div>
                         </div>
@@ -738,7 +739,7 @@ export const GalleriesPage = component$(() => {
                           onClick$={() => openLightbox(gallery)}
                           style="border: none; cursor: pointer;"
                         >
-                          <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                          <PhEye size={18} />
                           Zobrazit galerii
                         </button>
                       </div>
@@ -779,7 +780,7 @@ export const GalleriesPage = component$(() => {
                         />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
-                            <i class="ph-duotone ph-images" style="font-size: 20px;"></i>
+                            <PhImages size={20} />
                             {displayGallery.imageCount} fotografií
                           </div>
                         </div>
@@ -791,11 +792,11 @@ export const GalleriesPage = component$(() => {
                         
                         <div class="gallery-meta">
                           <div class="gallery-date">
-                            <i class="ph-duotone ph-calendar" style="font-size: 16px;"></i>
+                            <PhCalendar size={16} />
                             {displayGallery.date}
                           </div>
                           <div class="gallery-location">
-                            <i class="ph-duotone ph-map-pin" style="font-size: 16px;"></i>
+                            <PhMapPin size={16} />
                             {displayGallery.location}
                           </div>
                         </div>
@@ -805,7 +806,7 @@ export const GalleriesPage = component$(() => {
                           onClick$={() => openLightbox(gallery)}
                           style="border: none; cursor: pointer;"
                         >
-                          <i class="ph-duotone ph-eye" style="font-size: 18px;"></i>
+                          <PhEye size={18} />
                           Zobrazit galerii
                         </button>
                       </div>

@@ -1,4 +1,5 @@
 import { component$, useStylesScoped$, useSignal, useVisibleTask$, $ } from "@builder.io/qwik";
+import { PhCookie, PhCheckCircle, PhGear, PhFloppyDisk } from "~/components/icons";
 
 const styles = `
   .cookie-bar {
@@ -412,7 +413,7 @@ export const CookieBar = component$(() => {
         <div class="cookie-content">
           <div class="cookie-text">
             <h3>
-              <i class="ph-duotone ph-cookie" style="font-size: 18px;"></i>
+              <PhCookie size={18} />
               Používáme cookies
             </h3>
             <p>
@@ -423,11 +424,11 @@ export const CookieBar = component$(() => {
           </div>
           <div class="cookie-actions">
             <button class="cookie-btn cookie-btn-primary" onClick$={acceptAll}>
-              <i class="ph-duotone ph-check-circle" style="font-size: 16px;"></i>
+              <PhCheckCircle size={16} />
               Přijmout vše
             </button>
             <button class="cookie-btn cookie-btn-secondary" onClick$={() => showSettings.value = true}>
-              <i class="ph-duotone ph-gear" style="font-size: 16px;"></i>
+              <PhGear size={16} />
               Nastavení
             </button>
             <button class="cookie-btn cookie-btn-minimal" onClick$={acceptNecessary}>
@@ -441,7 +442,7 @@ export const CookieBar = component$(() => {
         <div class="cookie-modal">
           <div class="cookie-modal-header">
             <h3>
-              <i class="ph-duotone ph-gear" style="font-size: 20px;"></i>
+              <PhGear size={20} />
               Nastavení cookies
             </h3>
             <p>
@@ -525,7 +526,7 @@ export const CookieBar = component$(() => {
               Pouze nezbytné
             </button>
             <button class="cookie-btn cookie-btn-primary" onClick$={saveCustomSettings}>
-              <i class="ph-duotone ph-floppy-disk" style="font-size: 16px;"></i>
+              <PhFloppyDisk size={16} />
               Uložit nastavení
             </button>
           </div>

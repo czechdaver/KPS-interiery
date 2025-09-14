@@ -80,7 +80,7 @@
     "vitest": "^1.0.4"
   },
   "dependencies": {
-    "@phosphor-icons/web": "^2.1.2",
+    "@phosphor-icons/core": "^2.1.1",
     "@types/swiper": "^5.4.3",
     "photoswipe": "^5.4.4",
     "resend": "^6.0.2",

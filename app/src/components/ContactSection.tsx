@@ -1,4 +1,5 @@
 import { component$, useStylesScoped$, useStore, $ } from "@builder.io/qwik";
+import { PhMapPin, PhPhone, PhEnvelopeSimple, PhClock } from "~/components/icons";
 
 const styles = `
   .contact-section {
@@ -530,7 +531,7 @@ export const ContactSection = component$(() => {
           <div class="contact-info">
             <div class="contact-item">
               <div class="contact-icon">
-                <i class="ph-duotone ph-map-pin" style="font-size: 28px;"></i>
+                <PhMapPin size={28} />
               </div>
               <div class="contact-details">
                 <h3>Adresa</h3>
@@ -544,7 +545,7 @@ export const ContactSection = component$(() => {
             
             <div class="contact-item">
               <div class="contact-icon">
-                <i class="ph-duotone ph-phone" style="font-size: 28px;"></i>
+                <PhPhone size={28} />
               </div>
               <div class="contact-details">
                 <h3>Telefon</h3>
@@ -554,7 +555,7 @@ export const ContactSection = component$(() => {
             
             <div class="contact-item">
               <div class="contact-icon">
-                <i class="ph-duotone ph-envelope-simple" style="font-size: 28px;"></i>
+                <PhEnvelopeSimple size={28} />
               </div>
               <div class="contact-details">
                 <h3>Email</h3>
@@ -564,7 +565,7 @@ export const ContactSection = component$(() => {
             
             <div class="contact-item">
               <div class="contact-icon">
-                <i class="ph-duotone ph-clock" style="font-size: 28px;"></i>
+                <PhClock size={28} />
               </div>
               <div class="contact-details">
                 <h3>Otevírací doba</h3>

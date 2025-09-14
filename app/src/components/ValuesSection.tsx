@@ -1,4 +1,5 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { PhMedal, PhCrosshair, PhHeart } from "~/components/icons";
 
 export const ValuesSection = component$(() => {
   useStylesScoped$(`
@@ -119,7 +120,7 @@ export const ValuesSection = component$(() => {
         <div class="values-grid">
           <div class="value-card quality-card">
             <div class="value-icon">
-              <i class="ph-duotone ph-medal icon-duotone-accent" style="font-size: 64px;"></i>
+              <PhMedal size={64} class="icon-duotone-accent" />
             </div>
             <h3 class="value-title">KVALITA</h3>
             <p class="value-description">
@@ -129,7 +130,7 @@ export const ValuesSection = component$(() => {
           
           <div class="value-card precision-card">
             <div class="value-icon">
-              <i class="ph-duotone ph-crosshair icon-duotone-accent" style="font-size: 64px;"></i>
+              <PhCrosshair size={64} class="icon-duotone-accent" />
             </div>
             <h3 class="value-title">PRECIZNOST</h3>
             <p class="value-description">
@@ -139,7 +140,7 @@ export const ValuesSection = component$(() => {
           
           <div class="value-card satisfaction-card">
             <div class="value-icon">
-              <i class="ph-duotone ph-heart icon-duotone-accent" style="font-size: 64px;"></i>
+              <PhHeart size={64} class="icon-duotone-accent" />
             </div>
             <h3 class="value-title">SPOKOJENOST</h3>
             <p class="value-description">
