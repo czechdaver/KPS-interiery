@@ -13,8 +13,8 @@ export interface PhMagicWandProps {
  * Usage: <PhMagicWand size={24} class="icon-duotone-reverse" />
  *
  * Supports:
- * - size prop (converts to font-size in style)
- * - style prop (merged with size)
+ * - size prop (converts to width/height attributes)
+ * - style prop (additional styles)
  * - class prop for CSS class names
  * - CSS custom properties: --ph-duotone-primary, --ph-duotone-secondary
  */
@@ -26,17 +26,13 @@ export const PhMagicWand = component$<PhMagicWandProps>(({
 }) => {
   const sizeValue = typeof size === 'number' ? `${size}px` : (size || '1em');
 
-  const mergedStyle = {
-    fontSize: sizeValue,
-    ...style
-  };
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      width={sizeValue}
+      height={sizeValue}
       viewBox="0 0 256 256"
-      fill="currentColor"
-      style={mergedStyle}
+      style={style}
       class={className}
       {...props}
     >
