@@ -266,8 +266,11 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
             loadPrevNext: true,
             loadPrevNextAmount: 2,
             preloadImages: false,
-            loadOnTransitionStart: true
+            loadOnTransitionStart: true,
+            checkInView: true,
+            enabled: true
           },
+          preloadImages: false,
           watchSlidesProgress: true,
           watchSlidesVisibility: true,
           threshold: 10,
@@ -355,20 +358,26 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
     <div class="hero-swiper-container">
       <div class="swiper hero-swiper">
         <div class="swiper-wrapper">
-          {images.map((image, index) => (
-            <div key={index} class="swiper-slide hero-swiper-slide">
-              <img
-                src={image.src}
-                alt={image.alt}
-                class="hero-slide-image swiper-lazy"
-                data-src={image.src}
-                width={image.width}
-                height={image.height}
-                loading="lazy"
-              />
-              <div class="swiper-lazy-preloader"></div>
-            </div>
-          ))}
+          {images.map((image, index) => {
+            // First image should be LCP optimized - no lazy loading
+            const isFirst = index === 0;
+            
+            return (
+              <div key={index} class="swiper-slide hero-swiper-slide">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  class={isFirst ? "hero-slide-image" : "hero-slide-image swiper-lazy"}
+                  data-src={isFirst ? undefined : image.src}
+                  width={image.width}
+                  height={image.height}
+                  loading={isFirst ? "eager" : "lazy"}
+                  fetchPriority={isFirst ? "high" : "auto"}
+                />
+                {!isFirst && <div class="swiper-lazy-preloader"></div>}
+              </div>
+            );
+          })}
         </div>
         
         {/* Navigation - DISABLED */}
