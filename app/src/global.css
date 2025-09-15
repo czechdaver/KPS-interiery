@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+/* Fonts are now loaded optimally in root.tsx to prevent render-blocking */
 
 :root {
   /* KPS Interiéry Brand Colors - Mocha Sophistication Palette */
@@ -19,9 +18,9 @@
   --warm-light: #F5ECE6;     /* Neutral base for warm light */
   --warm-dark: #2A1A17;      /* Darker version of primary */
   
-  /* Typography */
-  --font-family: 'Cabin', sans-serif;
-  --font-family-headings: 'Montserrat', sans-serif;
+  /* Typography with fallbacks to prevent layout shift */
+  --font-family: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-family-headings: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   
   /* Spacing */
   --section-padding: 5rem 0;

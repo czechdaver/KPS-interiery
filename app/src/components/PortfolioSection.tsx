@@ -152,6 +152,13 @@ const styles = `
     margin: 0 !important; /* No margins - using flexbox gap */
     line-height: 1.3;
     color: white;
+    /* Limit to 2 lines with ellipsis truncation */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1.3em * 2); /* 2 lines based on line-height */
   }
   
   .portfolio-view-btn {
@@ -226,8 +233,8 @@ const styles = `
     
     .portfolio-title {
       font-size: 1.2rem;
-      margin-bottom: 1rem;
       line-height: 1.2;
+      max-height: calc(1.2em * 2); /* Update max-height for smaller font */
     }
     
     .portfolio-view-btn {
@@ -385,8 +392,8 @@ const styles = `
     
     .portfolio-title {
       font-size: 1rem;
-      margin-bottom: 0.8rem;
       line-height: 1.1;
+      max-height: calc(1.1em * 2); /* Update max-height for mobile font */
     }
     
     .portfolio-view-btn {
