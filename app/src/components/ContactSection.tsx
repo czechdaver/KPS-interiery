@@ -409,8 +409,22 @@ const styles = `
   
   @media (max-width: 1024px) {
     .contact-content {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 3rem;
+    }
+    
+    /* Rearrange: form first, then contact-info */
+    .contact-form-container {
+      order: 1;
+    }
+    
+    .contact-info {
+      order: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1.5rem;
     }
   }
   
@@ -421,6 +435,15 @@ const styles = `
     
     .form-row {
       grid-template-columns: 1fr;
+    }
+    
+    /* Mobile: contact-info as 1x4 vertical stack */
+    .contact-info {
+      display: flex !important;
+      flex-direction: column;
+      gap: 1.5rem;
+      grid-template-columns: unset;
+      grid-template-rows: unset;
     }
     
     .contact-item {

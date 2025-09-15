@@ -76,12 +76,7 @@ const styles = `
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 250px;
-  }
-  
-  .portfolio-item.mosaic-large .portfolio-image-container,
-  .portfolio-item.mosaic-medium .portfolio-image-container {
-    min-height: 100%;
+    /* Remove problematic min-height that was affecting small/wide tiles */
   }
   
   .portfolio-image {
@@ -108,9 +103,10 @@ const styles = `
     );
     opacity: 0;
     transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem;
   }
 
   .portfolio-item:hover .portfolio-overlay {
@@ -122,6 +118,15 @@ const styles = `
     color: var(--white);
     transform: translateY(20px);
     transition: var(--transition);
+    width: 100%;
+    max-width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1rem; /* Control spacing between elements */
+    margin: 0 !important;
+    padding: 0 !important;
   }
   
   .portfolio-item:hover .portfolio-content {
@@ -135,7 +140,7 @@ const styles = `
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin: 0 !important; /* No margins - using flexbox gap */
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: white;
@@ -144,7 +149,7 @@ const styles = `
   .portfolio-title {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin: 0 !important; /* No margins - using flexbox gap */
     line-height: 1.3;
     color: white;
   }
@@ -161,6 +166,7 @@ const styles = `
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
+    margin: 0 !important; /* Reset all button margins */
   }
   
   .portfolio-view-btn:hover {
@@ -198,45 +204,214 @@ const styles = `
     border: 0;
   }
   
-  @media (max-width: 1024px) {
+  /* Tablet screens (769px to 1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
     .portfolio-grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 180px;
+    }
+    
+    .portfolio-overlay {
+      padding: 0.8rem !important;
+    }
+    
+    .portfolio-content {
+      gap: 0.8rem !important; /* Smaller gap for medium screens */
+    }
+    
+    .portfolio-category {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+    }
+    
+    .portfolio-title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .portfolio-view-btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      gap: 0.4rem;
+    }
+    
+    .portfolio-view-btn svg {
+      width: 20px;
+      height: 20px;
     }
 
-    .portfolio-item.mosaic-large {
-      grid-column: span 2;
-      grid-row: span 2;
+    /* Disharmonic rearrangement - create asymmetrical, gap-free layout */
+    /* Using !important to override original mosaic classes */
+    
+    /* First item: Small square (top-left) */
+    .portfolio-item:nth-child(1) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
     }
-
-    .portfolio-item.mosaic-medium {
-      grid-column: span 2;
-      grid-row: span 2;
+    
+    /* Second item: Wide rectangle (top-center+right) */
+    .portfolio-item:nth-child(2) {
+      grid-column: span 2 !important;
+      grid-row: span 1 !important;
     }
-
-    .portfolio-item.mosaic-wide {
-      grid-column: span 2;
-      grid-row: span 1;
+    
+    /* Third item: Tall rectangle (left side, rows 2-3) */
+    .portfolio-item:nth-child(3) {
+      grid-column: span 1 !important;
+      grid-row: span 2 !important;
     }
-
-    .portfolio-item.mosaic-tall {
-      grid-column: span 1;
-      grid-row: span 2;
+    
+    /* Fourth item: Small square (middle-right, row 2) */
+    .portfolio-item:nth-child(4) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    /* Fifth item: Small square (far-right, row 2) */
+    .portfolio-item:nth-child(5) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    /* Sixth item: Wide rectangle (center+right, row 3) */
+    .portfolio-item:nth-child(6) {
+      grid-column: span 2 !important;
+      grid-row: span 1 !important;
+    }
+    
+    /* Seventh item: Large square (left+center, rows 4-5) */
+    .portfolio-item:nth-child(7) {
+      grid-column: span 2 !important;
+      grid-row: span 2 !important;
+    }
+    
+    /* Eighth item: Tall rectangle (right side, rows 4-5) */
+    .portfolio-item:nth-child(8) {
+      grid-column: span 1 !important;
+      grid-row: span 2 !important;
+    }
+    
+    /* Ninth item: Small square (left, row 6) */
+    .portfolio-item:nth-child(9) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    /* Tenth item: Wide rectangle (center+right, row 6) */
+    .portfolio-item:nth-child(10) {
+      grid-column: span 2 !important;
+      grid-row: span 1 !important;
     }
   }
 
   @media (max-width: 768px) {
     .portfolio-grid {
       grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 160px;
       gap: 0.75rem;
     }
 
-    .portfolio-item {
+    /* Mobile layout - gap-free pattern with one big square */
+    
+    /* Row 1-2: Big square (2×2) - focal point */
+    .portfolio-item:nth-child(1) {
+      grid-column: span 2 !important;
+      grid-row: span 2 !important;
+    }
+    
+    /* Row 3: Two small squares side by side */
+    .portfolio-item:nth-child(2) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    .portfolio-item:nth-child(3) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    /* Row 4-5: Tall rectangle + two small squares */
+    .portfolio-item:nth-child(4) {
+      grid-column: span 1 !important;
+      grid-row: span 2 !important;
+    }
+    
+    .portfolio-item:nth-child(5) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    .portfolio-item:nth-child(6) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    /* Row 6-7: Two small squares + tall rectangle */
+    .portfolio-item:nth-child(7) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    .portfolio-item:nth-child(8) {
+      grid-column: span 1 !important;
+      grid-row: span 2 !important;
+    }
+    
+    .portfolio-item:nth-child(9) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+    
+    /* Row 8: Two small squares */
+    .portfolio-item:nth-child(10) {
       grid-column: span 1 !important;
       grid-row: span 1 !important;
     }
 
+    /* Responsive overlay content for mobile screens */
+    .portfolio-overlay {
+      padding: 0.6rem !important;
+    }
+    
+    .portfolio-content {
+      gap: 0.6rem !important; /* Smaller gap for mobile screens */
+    }
+    
+    .portfolio-category {
+      font-size: 0.7rem;
+      padding: 0.3rem 0.6rem;
+    }
+    
+    .portfolio-title {
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.1;
+    }
+    
+    .portfolio-view-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      gap: 0.3rem;
+    }
+    
+    .portfolio-view-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    /* Make overlay slightly more visible on mobile for better UX */
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 0.95;
+    }
+    
+    /* Reduce hover transform on mobile for better touch experience */
+    .portfolio-item:hover {
+      transform: translateY(-4px);
+    }
+
     .portfolio-image-container {
-      min-height: 200px;
+      min-height: 100%;
     }
   }
 `;

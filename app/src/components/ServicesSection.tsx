@@ -128,23 +128,27 @@ export const ServicesSection = component$(() => {
           transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
+        .service-icon {
+          color: white;
+        }
+        
         .service-icon svg {
           filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
           transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-          color: white;
-          --ph-duotone-primary: white;
+          color: inherit;
+          --ph-duotone-primary: currentColor;
           --ph-duotone-secondary: rgba(255, 255, 255, 0.6);
         }
         
         .service-card:hover .service-icon {
           transform: scale(1.15) rotate(3deg);
+          color: var(--primary);
         }
         
         .service-card:hover .service-icon svg {
           filter: none;
-          color: var(--secondary);
-          --ph-duotone-primary: var(--secondary);
-          --ph-duotone-secondary: var(--secondary-light);
+          --ph-duotone-primary: currentColor;
+          --ph-duotone-secondary: var(--accent);
         }
         
         .service-title {
@@ -238,7 +242,7 @@ export const ServicesSection = component$(() => {
             <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <PhCookingPot size={48} class="icon-duotone-reverse" />
+                <PhCookingPot size={48} />
               </div>
               <h3 class="service-title">Kuchyně na míru</h3>
               <p class="service-description">
@@ -259,7 +263,7 @@ export const ServicesSection = component$(() => {
             <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <PhDoorOpen size={48} class="icon-duotone-reverse" />
+                <PhDoorOpen size={48} />
               </div>
               <h3 class="service-title">Vestavěné skříně</h3>
               <p class="service-description">
@@ -280,7 +284,7 @@ export const ServicesSection = component$(() => {
             <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <PhBathtub size={48} class="icon-duotone-reverse" />
+                <PhBathtub size={48} />
               </div>
               <h3 class="service-title">Koupelnový nábytek</h3>
               <p class="service-description">
@@ -301,7 +305,7 @@ export const ServicesSection = component$(() => {
             <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <PhDesk size={48} class="icon-duotone-reverse" />
+                <PhDesk size={48} />
               </div>
               <h3 class="service-title">Kancelářský nábytek</h3>
               <p class="service-description">
@@ -322,7 +326,7 @@ export const ServicesSection = component$(() => {
             <div class="service-glassmorphism"></div>
             <div class="service-content">
               <div class="service-icon">
-                <PhMagicWand size={48} class="icon-duotone-reverse" />
+                <PhMagicWand size={48} />
               </div>
               <h3 class="service-title">Atypické řešení</h3>
               <p class="service-description">
