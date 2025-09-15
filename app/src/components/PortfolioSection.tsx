@@ -11,14 +11,18 @@ const styles = `
   .portfolio-header {
     text-align: center;
     max-width: 600px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 2.5rem;
   }
   
   .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 4rem;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 200px;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .portfolio-item {
@@ -33,13 +37,30 @@ const styles = `
     color: var(--white);
   }
   
-  .portfolio-item.featured {
-    grid-column: span 2;
+  /* Mosaic layout patterns - max 3 pictures per row */
+  .portfolio-item.mosaic-large {
+    grid-column: span 3;
     grid-row: span 2;
   }
-  
-  .portfolio-item.wide {
+
+  .portfolio-item.mosaic-wide {
     grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .portfolio-item.mosaic-tall {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+
+  .portfolio-item.mosaic-small {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .portfolio-item.mosaic-medium {
+    grid-column: span 2;
+    grid-row: span 2;
   }
   
   .portfolio-item:hover {
@@ -58,8 +79,9 @@ const styles = `
     min-height: 250px;
   }
   
-  .portfolio-item.featured .portfolio-image-container {
-    min-height: 400px;
+  .portfolio-item.mosaic-large .portfolio-image-container,
+  .portfolio-item.mosaic-medium .portfolio-image-container {
+    min-height: 100%;
   }
   
   .portfolio-image {
@@ -90,7 +112,7 @@ const styles = `
     align-items: center;
     justify-content: center;
   }
-  
+
   .portfolio-item:hover .portfolio-overlay {
     opacity: 1;
   }
@@ -116,6 +138,7 @@ const styles = `
     margin-bottom: 1rem;
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
   }
   
   .portfolio-title {
@@ -123,6 +146,7 @@ const styles = `
     font-weight: 700;
     margin-bottom: 1.5rem;
     line-height: 1.3;
+    color: white;
   }
   
   .portfolio-view-btn {
@@ -175,28 +199,42 @@ const styles = `
   }
   
   @media (max-width: 1024px) {
-    .portfolio-item.featured,
-    .portfolio-item.wide {
-      grid-column: span 1;
+    .portfolio-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .portfolio-item.mosaic-large {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .portfolio-item.mosaic-medium {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .portfolio-item.mosaic-wide {
+      grid-column: span 2;
       grid-row: span 1;
     }
-    
-    .portfolio-item.featured .portfolio-image-container {
-      min-height: 250px;
+
+    .portfolio-item.mosaic-tall {
+      grid-column: span 1;
+      grid-row: span 2;
     }
   }
-  
+
   @media (max-width: 768px) {
     .portfolio-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
     }
-    
+
     .portfolio-item {
       grid-column: span 1 !important;
       grid-row: span 1 !important;
     }
-    
+
     .portfolio-image-container {
       min-height: 200px;
     }
@@ -210,8 +248,43 @@ export const PortfolioSection = component$(() => {
   const hasError = useSignal(false);
   const errorMessage = useSignal('');
 
+  // Utility function for shuffling arrays randomly
+  const shuffleArray = (array: any[]): any[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   // Featured gallery IDs that should be shown in portfolio section
-  const FEATURED_GALLERY_IDS = ['kuchyn-cerna', 'kuchyn-bila-ostruvek', 'kuchyn-retro-bila'] as const;
+  const FEATURED_GALLERY_IDS = [
+    'kuchyn-cerna',
+    'kuchyn-bila-ostruvek',
+    'kuchyn-retro-bila',
+    'kuchyn-bilo-hneda-l-varianta1', // Bílo-hnědá kuchyň do L - varianta 1
+    'kuchyn-bila-u-tvar', // Bílá kuchyň do U
+    'loznice-bilo-hneda', // Bílo-hnědá ložnice
+    'loznice-hneda-zkosene', // Hnědá ložnice se zkosenou střechou
+    'koupelna-cerna', // Černá koupelna
+    'koupelna-2', // Moderní koupelna 2
+    'obyvak' // Obývací pokoj
+  ] as const;
+
+  // Optimized mosaic layout patterns - filling all spaces in 6-column grid
+  const MOSAIC_PATTERNS = [
+    { size: 'large', gridClass: 'mosaic-large' }, // 3x2 (covers half row) - positions 1-3, rows 1-2
+    { size: 'tall', gridClass: 'mosaic-tall' }, // 1x2 - position 4, rows 1-2
+    { size: 'wide', gridClass: 'mosaic-wide' }, // 2x1 - positions 5-6, row 1
+    { size: 'wide', gridClass: 'mosaic-wide' }, // 2x1 - positions 5-6, row 2
+    { size: 'wide', gridClass: 'mosaic-wide' }, // 2x1 - positions 1-2, row 3 (bottom left expanded)
+    { size: 'small', gridClass: 'mosaic-small' }, // 1x1 - position 3, row 3
+    { size: 'medium', gridClass: 'mosaic-medium' }, // 2x2 - positions 4-5, rows 3-4
+    { size: 'tall', gridClass: 'mosaic-tall' }, // 1x2 - position 6, rows 3-4
+    { size: 'wide', gridClass: 'mosaic-wide' }, // 2x1 - positions 1-2, row 4
+    { size: 'small', gridClass: 'mosaic-small' }, // 1x1 - position 3, row 4
+  ];
 
   // Load galleries on both server and client
   useTask$(async () => {
@@ -345,18 +418,28 @@ export const PortfolioSection = component$(() => {
           </div>
         ) : (
           <div class="portfolio-grid">
-            {galleries.value
-              .filter(gallery => FEATURED_GALLERY_IDS.includes(gallery.id as any))
-              .slice(0, 6) // Limit to 6 items max for performance
-              .map((gallery) => (
-                <article 
-                  key={gallery.id} 
-                  class="portfolio-item"
-                  role="article"
-                  aria-label={`Portfolio položka: ${gallery.title}`}
-                >
+            {(() => {
+              // Filter featured galleries and shuffle them randomly
+              const featuredGalleries = shuffleArray(
+                galleries.value.filter(gallery =>
+                  FEATURED_GALLERY_IDS.includes(gallery.id as any)
+                )
+              );
+
+              // Apply mosaic layout patterns
+              return featuredGalleries
+                .slice(0, 10) // Show all 10 items to fill the optimized mosaic pattern
+                .map((gallery, index) => {
+                  const mosaicPattern = MOSAIC_PATTERNS[index % MOSAIC_PATTERNS.length];
+                  return (
+                    <article
+                      key={gallery.id}
+                      class={`portfolio-item ${mosaicPattern.gridClass}`}
+                      role="article"
+                      aria-label={`Portfolio položka: ${gallery.title}`}
+                    >
                   <div class="portfolio-image-container">
-                    <ResponsiveImage 
+                    <ResponsiveImage
                       src={getImagePath(gallery.id, gallery.coverImage || 'placeholder.jpg')}
                       alt={`${gallery.title} - náhledový obrázek`}
                       class="portfolio-image"
@@ -367,14 +450,14 @@ export const PortfolioSection = component$(() => {
                     />
                     <div class="portfolio-overlay" role="presentation">
                       <div class="portfolio-content">
-                        <span 
+                        <span
                           class="portfolio-category"
                           aria-label={`Kategorie: ${gallery.category}`}
                         >
                           {gallery.category}
                         </span>
                         <h3 class="portfolio-title">{gallery.title}</h3>
-                        <button 
+                        <button
                           class="portfolio-view-btn"
                           onClick$={() => openLightbox(gallery)}
                           aria-label={`Zobrazit galerii ${gallery.title} (${gallery.images?.length || 0} fotografií)`}
@@ -394,8 +477,9 @@ export const PortfolioSection = component$(() => {
                     </div>
                   </div>
                 </article>
-              ))
-            }
+                  );
+                });
+            })()}
           </div>
         )}
         

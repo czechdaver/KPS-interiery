@@ -183,9 +183,38 @@ export const ServicesSection = component$(() => {
             grid-template-columns: 1fr;
             gap: 1.5rem;
           }
-          
+
           .service-card {
-            padding: 2.5rem 2rem;
+            padding: 2.5rem 1.5rem;
+            min-height: 280px;
+          }
+
+          .service-title {
+            font-size: 1.4rem;
+          }
+
+          .service-description {
+            font-size: 1rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .services-grid {
+            gap: 1rem;
+          }
+
+          .service-card {
+            padding: 2rem 1rem;
+            min-height: 240px;
+          }
+
+          .service-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+          }
+
+          .service-description {
+            font-size: 0.95rem;
           }
         }
       `);

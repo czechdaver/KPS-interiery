@@ -134,27 +134,77 @@ export const HeroSection = component$(() => {
         
         @media (max-width: 768px) {
           .hero-section {
-            height: 80vh;
-            min-height: 500px;
+            height: 100vh;
+            min-height: 600px;
           }
-          
+
           .hero-text {
             text-align: center;
+            max-width: 100%;
+            padding: 0 1rem;
           }
-          
+
+          .hero-values {
+            font-size: clamp(1.5rem, 8vw, 2.5rem);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+          }
+
+          .hero-subtitle {
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+          }
+
           .hero-description {
-            font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            margin-bottom: 2rem;
+            padding: 0 0.5rem;
           }
-          
+
           .hero-buttons {
             justify-content: center;
             flex-direction: column;
             align-items: center;
+            gap: 1rem;
           }
-          
+
           .btn {
             width: 100%;
             max-width: 280px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .hero-section {
+            height: 100vh;
+            min-height: 500px;
+          }
+
+          .hero-text {
+            padding: 0 0.5rem;
+          }
+
+          .hero-values {
+            font-size: clamp(1.3rem, 10vw, 2rem);
+            margin-bottom: 1rem;
+          }
+
+          .hero-subtitle {
+            font-size: clamp(0.9rem, 5vw, 1.1rem);
+            margin-top: 1rem;
+          }
+
+          .hero-description {
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
+            margin-bottom: 1.5rem;
+          }
+
+          .btn {
+            padding: 0.875rem 1.5rem;
+            font-size: 0.95rem;
           }
         }
       `);
