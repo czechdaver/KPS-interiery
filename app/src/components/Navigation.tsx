@@ -25,6 +25,13 @@ export const Navigation = component$(() => {
           border-bottom: 1px solid rgba(255, 255, 255, 0.39);
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
+
+        .navigation-menu-open {
+          background: var(--white) !important;
+          backdrop-filter: none !important;
+          border-bottom: 1px solid transparent !important;
+          box-shadow: none !important;
+        }
         
         .nav-content {
           display: flex;
@@ -50,6 +57,12 @@ export const Navigation = component$(() => {
           opacity: 0.8;
         }
         
+        .nav-right {
+          display: flex;
+          align-items: center;
+          position: relative;
+        }
+
         .nav-menu {
           display: flex;
           align-items: center;
@@ -89,7 +102,14 @@ export const Navigation = component$(() => {
           padding: 0.75rem 1.5rem;
           font-size: 0.95rem;
         }
-        
+
+        .nav-cta-mobile {
+          display: none;
+          padding: 0.5rem 1rem;
+          font-size: 0.85rem;
+          margin-right: 1rem;
+        }
+
         .nav-toggle {
           display: none;
           flex-direction: column;
@@ -99,6 +119,12 @@ export const Navigation = component$(() => {
           cursor: pointer;
           padding: 0.5rem;
         }
+
+        .nav-mobile-controls {
+          visibility: hidden;
+          opacity: 0;
+          pointer-events: none;
+        }
         
         .nav-toggle-line {
           width: 24px;
@@ -107,54 +133,92 @@ export const Navigation = component$(() => {
           transition: var(--transition);
         }
         
+        /* Tablet screens (769px to 1024px) - Keep desktop layout but ensure proper spacing */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .nav-menu {
+            gap: 1.5rem;
+          }
+
+          .nav-link {
+            font-size: 0.95rem;
+          }
+
+          .nav-cta {
+            margin-left: 0.75rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+          }
+        }
+
+        /* Mobile screens (≤768px) */
         @media (max-width: 768px) {
+          .nav-mobile-controls {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+          }
+
           .nav-toggle {
             display: flex;
           }
-          
+
+          .nav-cta {
+            display: none;
+          }
+
+          .nav-cta-mobile {
+            display: inline-flex;
+          }
+
           .nav-menu {
             position: fixed;
-            top: 100%;
+            top: 70px;
             left: 0;
-            width: 100%;
+            right: 0;
+            width: 100vw;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.39);
+            border: none;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             padding: 2rem;
             gap: 1.5rem;
             box-shadow: var(--shadow-lg);
             transform: translateY(-100%);
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition);
+            transition: all 0.3s ease-in-out;
+            z-index: 9999;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
           }
-          
+
           .nav-menu-open {
             transform: translateY(0);
             opacity: 1;
             visibility: visible;
           }
-          
+
           .nav-link {
             font-size: 1.1rem;
             padding: 0.5rem 0;
           }
-          
+
           .nav-cta {
             margin-left: 0;
             width: 100%;
             text-align: center;
           }
-          
+
           .nav-menu-open ~ .nav-toggle .nav-toggle-line:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
           }
-          
+
           .nav-menu-open ~ .nav-toggle .nav-toggle-line:nth-child(2) {
             opacity: 0;
           }
-          
+
           .nav-menu-open ~ .nav-toggle .nav-toggle-line:nth-child(3) {
             transform: rotate(-45deg) translate(7px, -6px);
           }
@@ -162,8 +226,8 @@ export const Navigation = component$(() => {
       `);
 
   return (
-    <nav 
-      class={`navigation ${scrollState.isScrolled ? 'navigation-scrolled' : ''}`}
+    <nav
+      class={`navigation ${scrollState.isScrolled ? 'navigation-scrolled' : ''} ${isMenuOpen.value ? 'navigation-menu-open' : ''}`}
       window:onScroll$={$(() => {
         scrollState.isScrolled = window.scrollY > 50;
       })}
@@ -175,25 +239,30 @@ export const Navigation = component$(() => {
               <img src={`${import.meta.env.BASE_URL}branding/kps-compact-logo.svg`} alt="KPS Interiéry" width="120" height="40" />
             </a>
           </div>
-          
-          <div class={`nav-menu ${isMenuOpen.value ? 'nav-menu-open' : ''}`}>
-            <a href="#home" class="nav-link">Úvod</a>
-            <a href="#services" class="nav-link">Služby</a>
-            <a href="#portfolio" class="nav-link">Realizace</a>
-            <a href="#galerie" class="nav-link">Galerie</a>
-            <a href="#contact" class="nav-link">Kontakt</a>
-            <a href="#contact" class="btn btn-accent nav-cta">Poptávka</a>
+
+          <div class="nav-right">
+            <div class={`nav-menu ${isMenuOpen.value ? 'nav-menu-open' : ''}`}>
+              <a href="#home" class="nav-link">Úvod</a>
+              <a href="#services" class="nav-link">Služby</a>
+              <a href="#portfolio" class="nav-link">Realizace</a>
+              <a href="#galerie" class="nav-link">Galerie</a>
+              <a href="#contact" class="nav-link">Kontakt</a>
+              <a href="#contact" class="btn btn-accent nav-cta">Poptávka</a>
+            </div>
+
+            <div class="nav-mobile-controls" style="display: flex; align-items: center;">
+              <a href="#contact" class="btn btn-accent nav-cta-mobile">Poptávka</a>
+              <button
+                class="nav-toggle"
+                onClick$={() => { isMenuOpen.value = !isMenuOpen.value; }}
+                aria-label="Toggle menu"
+              >
+                <span class="nav-toggle-line"></span>
+                <span class="nav-toggle-line"></span>
+                <span class="nav-toggle-line"></span>
+              </button>
+            </div>
           </div>
-          
-          <button 
-            class="nav-toggle"
-            onClick$={() => { isMenuOpen.value = !isMenuOpen.value; }}
-            aria-label="Toggle menu"
-          >
-            <span class="nav-toggle-line"></span>
-            <span class="nav-toggle-line"></span>
-            <span class="nav-toggle-line"></span>
-          </button>
         </div>
       </div>
       

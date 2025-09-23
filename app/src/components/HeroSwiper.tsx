@@ -20,6 +20,9 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
     .hero-swiper {
       width: 100%;
       height: 100%;
+      --swiper-pagination-color: #C88B4E;
+      --swiper-theme-color: #C88B4E;
+      --swiper-pagination-bullet-opacity: 1;
     }
     
     .hero-swiper-slide {
@@ -52,6 +55,7 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
         rgba(200, 139, 78, 0.25) 100%
       );
       z-index: 2;
+      pointer-events: none;
     }
     
     /* Swiper pagination styles */
@@ -61,33 +65,82 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
       left: 50% !important;
       transform: translateX(-50%) !important;
       z-index: 15;
-      display: flex;
+      display: flex !important;
       gap: 12px;
       align-items: center;
       justify-content: center;
       width: auto !important;
       margin: 0 auto;
+      pointer-events: auto;
     }
-    
-    .hero-swiper .swiper-pagination-bullet {
-      width: 14px;
-      height: 14px;
-      background: rgba(255, 255, 255, 0.4);
-      border: 2px solid rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      opacity: 1;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      flex-shrink: 0;
+
+    .hero-swiper .swiper-pagination .swiper-pagination-bullet,
+    .hero-swiper .swiper-pagination-bullet,
+    .swiper.hero-swiper .swiper-pagination-bullet {
+      --swiper-pagination-color: #C88B4E !important;
+      --swiper-theme-color: #C88B4E !important;
+      --swiper-pagination-bullet-opacity: 1 !important;
+      width: 16px !important;
+      height: 16px !important;
+      background: rgba(255, 255, 255, 0.5) !important;
+      border: 2px solid rgba(255, 255, 255, 0.8) !important;
+      border-radius: 50% !important;
+      opacity: 1 !important;
+      transition: all 0.3s ease !important;
+      cursor: pointer !important;
+      flex-shrink: 0 !important;
+      margin: 0 !important;
+      outline: none !important;
+      pointer-events: auto !important;
+      box-shadow:
+        0 0 8px rgba(200, 139, 78, 0.4) !important,
+        0 0 16px rgba(200, 139, 78, 0.2) !important,
+        inset 0 0 4px rgba(255, 255, 255, 0.3) !important;
+
+      /* Button reset styles */
+      padding: 0 !important;
+      font: inherit !important;
+      color: inherit !important;
+      text-decoration: none !important;
+      background-color: rgba(255, 255, 255, 0.5) !important;
+      position: relative !important;
+      display: inline-block !important;
     }
-    
-    .hero-swiper .swiper-pagination-bullet-active {
-      background: var(--primary);
-      border-color: var(--primary);
-      width: 36px;
-      border-radius: 7px;
-      transform: scale(1.1);
-      box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.4);
+
+    .hero-swiper .swiper-pagination .swiper-pagination-bullet:hover,
+    .hero-swiper .swiper-pagination-bullet:hover,
+    .swiper.hero-swiper .swiper-pagination-bullet:hover {
+      background: rgba(255, 255, 255, 0.7) !important;
+      border-color: #C88B4E !important;
+      transform: scale(1.1) !important;
+      box-shadow:
+        0 0 12px rgba(200, 139, 78, 0.6) !important,
+        0 0 20px rgba(200, 139, 78, 0.3) !important,
+        inset 0 0 6px rgba(255, 255, 255, 0.4) !important;
+    }
+
+    .hero-swiper .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active,
+    .hero-swiper .swiper-pagination .swiper-pagination-bullet-active,
+    .hero-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active,
+    .hero-swiper .swiper-pagination-bullet-active,
+    .swiper.hero-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active,
+    .swiper.hero-swiper .swiper-pagination-bullet-active {
+      --swiper-pagination-color: #C88B4E !important;
+      --swiper-theme-color: #C88B4E !important;
+      background: #C88B4E !important;
+      background-color: #C88B4E !important;
+      border: 3px solid #ffffff !important;
+      width: 40px !important;
+      height: 16px !important;
+      border-radius: 8px !important;
+      transform: scale(1.15) !important;
+      box-shadow:
+        0 0 16px rgba(200, 139, 78, 0.8) !important,
+        0 0 32px rgba(200, 139, 78, 0.4) !important,
+        inset 0 0 8px rgba(255, 255, 255, 0.3) !important;
+      opacity: 1 !important;
+      outline: 2px solid rgba(255, 255, 255, 0.6) !important;
+      outline-offset: 2px !important;
     }
     
     /* Swiper navigation styles - DISABLED */
@@ -149,16 +202,19 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
         bottom: 30px;
         gap: 8px;
       }
-      
+
       .hero-swiper .swiper-pagination-bullet {
-        width: 10px;
-        height: 10px;
-        transition: all 0.2s ease;
-        border-width: 1px;
+        width: 12px !important;
+        height: 12px !important;
+        transition: all 0.2s ease !important;
+        border-width: 1px !important;
       }
-      
+
+      .hero-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active,
       .hero-swiper .swiper-pagination-bullet-active {
-        width: 28px;
+        width: 32px !important;
+        background: #C88B4E !important;
+        border-color: #C88B4E !important;
       }
     }
     
@@ -175,12 +231,15 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
       }
       
       .hero-swiper .swiper-pagination-bullet {
-        width: 8px;
-        height: 8px;
+        width: 10px !important;
+        height: 10px !important;
       }
-      
+
+      .hero-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active,
       .hero-swiper .swiper-pagination-bullet-active {
-        width: 20px;
+        width: 24px !important;
+        background: #C88B4E !important;
+        border-color: #C88B4E !important;
       }
     }
     
@@ -193,12 +252,15 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
       }
       
       .hero-swiper .swiper-pagination-bullet {
-        width: 14px;
-        height: 14px;
+        width: 16px !important;
+        height: 16px !important;
       }
-      
+
+      .hero-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active,
       .hero-swiper .swiper-pagination-bullet-active {
-        width: 36px;
+        width: 40px !important;
+        background: #C88B4E !important;
+        border-color: #C88B4E !important;
       }
     }
   `);
@@ -229,6 +291,47 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
         // Detect touch device for better mobile experience
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         
+        // Ensure container is ready
+        const swiperContainer = document.querySelector('.hero-swiper') as HTMLElement;
+        if (!swiperContainer) {
+          console.error('Swiper container not found');
+          return;
+        }
+
+        // Add custom CSS after Swiper CSS loads
+        const customStyles = document.createElement('style');
+        customStyles.innerHTML = `
+          .hero-swiper .swiper-pagination-bullet {
+            width: 16px !important;
+            height: 16px !important;
+            background: rgba(255, 255, 255, 0.5) !important;
+            border: 2px solid rgba(255, 255, 255, 0.8) !important;
+            border-radius: 50% !important;
+            opacity: 1 !important;
+            margin: 0 6px !important;
+            box-shadow: 0 0 8px rgba(200, 139, 78, 0.4), 0 0 16px rgba(200, 139, 78, 0.2), inset 0 0 4px rgba(255, 255, 255, 0.3) !important;
+            transition: all 0.3s ease !important;
+          }
+          .hero-swiper .swiper-pagination-bullet:hover {
+            background: rgba(255, 255, 255, 0.7) !important;
+            border-color: #C88B4E !important;
+            transform: scale(1.1) !important;
+            box-shadow: 0 0 12px rgba(200, 139, 78, 0.6), 0 0 20px rgba(200, 139, 78, 0.3), inset 0 0 6px rgba(255, 255, 255, 0.4) !important;
+          }
+          .hero-swiper .swiper-pagination-bullet-active {
+            background: #C88B4E !important;
+            border: 3px solid #ffffff !important;
+            width: 40px !important;
+            height: 16px !important;
+            border-radius: 8px !important;
+            transform: scale(1.15) !important;
+            box-shadow: 0 0 16px rgba(200, 139, 78, 0.8), 0 0 32px rgba(200, 139, 78, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.3) !important;
+            outline: 2px solid rgba(255, 255, 255, 0.6) !important;
+            outline-offset: 2px !important;
+          }
+        `;
+        document.head.appendChild(customStyles);
+
         // Initialize Swiper
         const swiper = new (window as any).Swiper('.hero-swiper', {
           effect: 'fade',
@@ -247,7 +350,11 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
             clickable: true,
             dynamicBullets: false,
             dynamicMainBullets: 3,
-            bulletActiveClass: 'swiper-pagination-bullet-active'
+            bulletActiveClass: 'swiper-pagination-bullet-active',
+            bulletClass: 'swiper-pagination-bullet',
+            renderBullet: function (index: number, className: string) {
+              return '<button type="button" class="' + className + '" data-slide="' + index + '" aria-label="Go to slide ' + (index + 1) + '"></button>';
+            }
           },
           navigation: false,
           keyboard: {
@@ -332,18 +439,77 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
           }
         });
 
+        // Enhanced click handlers for pagination bullets
+        const handlePaginationClick = (e: Event) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const target = e.target as HTMLElement;
+          console.log('Pagination click detected:', target);
+
+          if (target.classList.contains('swiper-pagination-bullet')) {
+            const slideIndex = parseInt(target.getAttribute('data-slide') || '0');
+            console.log('Navigating to slide:', slideIndex);
+
+            if (swiper && swiper.slideTo) {
+              swiper.slideTo(slideIndex, 600);
+
+              // Force visual update
+              setTimeout(() => {
+                swiper.update();
+                swiper.updateProgress();
+                swiper.updateSlidesClasses();
+              }, 50);
+            }
+          }
+        };
+
+        // Wait for pagination to be rendered
+        setTimeout(() => {
+          const paginationEl = document.querySelector('.swiper-pagination');
+          if (paginationEl) {
+            paginationEl.addEventListener('click', handlePaginationClick, true);
+            console.log('Pagination click handler attached');
+
+            // Also add individual bullet listeners
+            const bullets = document.querySelectorAll('.swiper-pagination-bullet');
+            bullets.forEach((bullet, index) => {
+              bullet.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Direct bullet click:', index);
+                if (swiper && swiper.slideTo) {
+                  swiper.slideTo(index, 600);
+                }
+              }, true);
+            });
+          }
+        }, 500);
+
         // Pause autoplay when user interacts
-        const swiperContainer = document.querySelector('.hero-swiper') as HTMLElement;
         swiperContainer.addEventListener('mouseenter', () => {
           swiper.autoplay.stop();
         });
-        
+
         swiperContainer.addEventListener('mouseleave', () => {
           swiper.autoplay.start();
         });
 
         return () => {
           window.removeEventListener('resize', handleResize);
+
+          // Clean up pagination event listeners
+          const paginationEl = document.querySelector('.swiper-pagination');
+          if (paginationEl) {
+            paginationEl.removeEventListener('click', handlePaginationClick, true);
+          }
+
+          // Clean up individual bullet listeners
+          const bullets = document.querySelectorAll('.swiper-pagination-bullet');
+          bullets.forEach((bullet) => {
+            bullet.removeEventListener('click', handlePaginationClick, true);
+          });
+
           if (swiper && swiper.destroy) {
             swiper.destroy(true, true);
           }
