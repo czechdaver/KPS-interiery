@@ -223,7 +223,7 @@ export const ServicesSection = component$(() => {
         }
       `);
   return (
-    <section class="services-section section" id="services">
+    <section class="services-section section" id="sluzby">
       <div class="container">
         <div class="services-header">
           <h2 class="section-title">Co pro vás můžeme vyrobit?</h2>

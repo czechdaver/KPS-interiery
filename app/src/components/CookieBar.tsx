@@ -13,11 +13,25 @@ const styles = `
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
     z-index: 10000;
     transform: translateY(100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.4s;
   }
-  
+
+  /* Hide cookie bar completely if consent already exists */
+  html[data-cookie-consent="true"] .cookie-bar,
+  html[data-cookie-consent="true"] .cookie-settings {
+    display: none !important;
+  }
+
   .cookie-bar.visible {
     transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
   
   .cookie-content {
@@ -221,6 +235,11 @@ const styles = `
     cursor: pointer;
     transition: var(--transition);
     border: none;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+    display: block;
   }
   
   .cookie-toggle.active {
@@ -242,6 +261,7 @@ const styles = `
     background: var(--white);
     border-radius: 50%;
     transition: var(--transition);
+    box-sizing: border-box;
   }
   
   .cookie-toggle.active::after {
@@ -309,6 +329,7 @@ export const CookieBar = component$(() => {
   
   const isVisible = useSignal(false);
   const showSettings = useSignal(false);
+  const hasCheckedConsent = useSignal(false); // Track if we've checked localStorage
   const consent = useSignal<CookieConsent>({
     necessary: true, // Always required
     analytics: false,
@@ -341,18 +362,40 @@ export const CookieBar = component$(() => {
   });
 
   useVisibleTask$(() => {
-    // Check if user has already made a choice
+    // Check if consent was already detected by inline script
+    const hasConsentAttribute = document.documentElement.getAttribute('data-cookie-consent') === 'true';
+
+    if (hasConsentAttribute) {
+      // Consent exists - load preferences but don't show bar
+      const savedConsent = localStorage.getItem('cookie-consent');
+      if (savedConsent) {
+        const parsed = JSON.parse(savedConsent);
+        consent.value = { ...consent.value, ...parsed };
+        hasCheckedConsent.value = true;
+
+        // Initialize analytics if consented
+        if (parsed.analytics) {
+          initializeAnalytics();
+        }
+      }
+      return;
+    }
+
+    // No consent found - check localStorage again just to be sure
     const savedConsent = localStorage.getItem('cookie-consent');
+
     if (!savedConsent) {
-      // Show cookie bar after a short delay
+      // Show cookie bar after a short delay only if no consent exists
       setTimeout(() => {
+        hasCheckedConsent.value = true;
         isVisible.value = true;
       }, 1000);
     } else {
-      // Load saved preferences
+      // Load saved preferences - don't show bar
       const parsed = JSON.parse(savedConsent);
       consent.value = { ...consent.value, ...parsed };
-      
+      hasCheckedConsent.value = true;
+
       // Initialize analytics if consented
       if (parsed.analytics) {
         initializeAnalytics();
@@ -363,11 +406,14 @@ export const CookieBar = component$(() => {
   const saveConsent = $((consentData: CookieConsent) => {
     localStorage.setItem('cookie-consent', JSON.stringify(consentData));
     localStorage.setItem('cookie-consent-date', new Date().toISOString());
-    
+
+    // Set the data attribute to hide cookie bar immediately
+    document.documentElement.setAttribute('data-cookie-consent', 'true');
+
     if (consentData.analytics) {
       initializeAnalytics();
     }
-    
+
     isVisible.value = false;
     showSettings.value = false;
   });
@@ -407,9 +453,16 @@ export const CookieBar = component$(() => {
     }
   });
 
+  // Don't render the bar at all until we've checked localStorage
+  // This prevents the flash during SSR/hydration
+  if (!hasCheckedConsent.value && typeof window === 'undefined') {
+    return null;
+  }
+
   return (
     <>
-      <div class={`cookie-bar ${isVisible.value ? 'visible' : ''}`}>
+      {hasCheckedConsent.value && (
+        <div class={`cookie-bar ${isVisible.value ? 'visible' : ''}`}>
         <div class="cookie-content">
           <div class="cookie-text">
             <h3>
@@ -437,7 +490,9 @@ export const CookieBar = component$(() => {
           </div>
         </div>
       </div>
+      )}
 
+      {hasCheckedConsent.value && (
       <div class={`cookie-settings ${showSettings.value ? 'visible' : ''}`}>
         <div class="cookie-modal">
           <div class="cookie-modal-header">
@@ -461,7 +516,7 @@ export const CookieBar = component$(() => {
                     a nelze je vypnout.
                   </p>
                 </div>
-                <button class="cookie-toggle active disabled">
+                <button type="button" class="cookie-toggle active disabled">
                 </button>
               </div>
             </div>
@@ -475,7 +530,8 @@ export const CookieBar = component$(() => {
                     Data jsou anonymní a slouží ke zlepšení uživatelského zážitku.
                   </p>
                 </div>
-                <button 
+                <button
+                  type="button"
                   class={`cookie-toggle ${consent.value.analytics ? 'active' : ''}`}
                   onClick$={() => toggleConsent('analytics')}
                 >
@@ -492,7 +548,8 @@ export const CookieBar = component$(() => {
                     a měření účinnosti reklamních kampaní.
                   </p>
                 </div>
-                <button 
+                <button
+                  type="button"
                   class={`cookie-toggle ${consent.value.marketing ? 'active' : ''}`}
                   onClick$={() => toggleConsent('marketing')}
                 >
@@ -509,7 +566,8 @@ export const CookieBar = component$(() => {
                     personalizaci webu.
                   </p>
                 </div>
-                <button 
+                <button
+                  type="button"
                   class={`cookie-toggle ${consent.value.preferences ? 'active' : ''}`}
                   onClick$={() => toggleConsent('preferences')}
                 >
@@ -532,6 +590,7 @@ export const CookieBar = component$(() => {
           </div>
         </div>
       </div>
+      )}
     </>
   );
 });

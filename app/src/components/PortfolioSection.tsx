@@ -471,17 +471,15 @@ export const PortfolioSection = component$(() => {
   // Load galleries on both server and client
   useTask$(async () => {
     try {
-      console.log('Loading galleries for PortfolioSection (SSR)...');
       const loadedGalleries = await loadAllGalleries();
-      
+
       if (loadedGalleries.length === 0) {
         hasError.value = true;
         errorMessage.value = 'Nepodařilo se načíst galerie. Zkuste to prosím později.';
         return;
       }
-      
+
       galleries.value = loadedGalleries;
-      console.log(`Loaded ${loadedGalleries.length} galleries for portfolio (SSR)`);
     } catch (error) {
       console.error('Failed to load galleries (SSR):', error);
       hasError.value = true;
@@ -495,24 +493,21 @@ export const PortfolioSection = component$(() => {
   useVisibleTask$(async () => {
     // If galleries are already loaded, don't reload
     if (galleries.value.length > 0) {
-      console.log('Galleries already loaded, skipping client-side load');
       return;
     }
 
     try {
       isLoading.value = true;
       hasError.value = false;
-      console.log('Loading galleries for PortfolioSection (client)...');
       const loadedGalleries = await loadAllGalleries();
-      
+
       if (loadedGalleries.length === 0) {
         hasError.value = true;
         errorMessage.value = 'Nepodařilo se načíst galerie. Zkuste to prosím později.';
         return;
       }
-      
+
       galleries.value = loadedGalleries;
-      console.log(`Loaded ${loadedGalleries.length} galleries for portfolio (client)`);
     } catch (error) {
       console.error('Failed to load galleries (client):', error);
       hasError.value = true;
@@ -574,7 +569,7 @@ export const PortfolioSection = component$(() => {
   });
 
   return (
-    <section class="portfolio-section section" id="portfolio">
+    <section class="portfolio-section section" id="realizace">
       <div class="container">
         <div class="portfolio-header">
           <h2 class="section-title">Nejnovější realizace</h2>
@@ -613,6 +608,10 @@ export const PortfolioSection = component$(() => {
                 .slice(0, 10) // Show all 10 items to fill the optimized mosaic pattern
                 .map((gallery, index) => {
                   const mosaicPattern = MOSAIC_PATTERNS[index % MOSAIC_PATTERNS.length];
+                  const coverImageData = gallery.images.find(img =>
+                    img.src === gallery.coverImage ||
+                    img.src === (gallery.coverImages && gallery.coverImages[0])
+                  ) || gallery.images[0];
                   return (
                     <article
                       key={gallery.id}
@@ -629,6 +628,8 @@ export const PortfolioSection = component$(() => {
                       loading="eager"
                       priority={true}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      width={coverImageData?.width}
+                      height={coverImageData?.height}
                     />
                     <div class="portfolio-overlay" role="presentation">
                       <div class="portfolio-content">

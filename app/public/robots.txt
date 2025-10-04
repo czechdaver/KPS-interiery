@@ -1,0 +1,55 @@
+# Robots.txt for KPS Interiéry - Czech Furniture Business
+# Website: https://www.kpsinteriery.cz
+# Last updated: 2025-09-23
+
+User-agent: *
+Allow: /
+
+# Allow indexing of all important content
+Allow: /images/
+Allow: /branding/
+Allow: /manifest.json
+
+# Disallow crawling of unnecessary files
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?*
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.env
+Disallow: /.git/
+
+# Sitemap location
+Sitemap: https://kps-interiery.cz/sitemap.xml
+
+# Crawl delay for polite crawling (optional)
+Crawl-delay: 1
+
+# Special instructions for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Seznambot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Block problematic or irrelevant bots (optional - uncomment if needed)
+# User-agent: AhrefsBot
+# Disallow: /
+
+# User-agent: MJ12bot
+# Disallow: /
+
+# User-agent: DotBot
+# Disallow: /

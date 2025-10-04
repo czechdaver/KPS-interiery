@@ -37,8 +37,8 @@ export const ResponsiveImage = component$<ResponsiveImageProps>(({
   };
 
   const galleryInfo = getGalleryInfo(src);
-  const sources = galleryInfo 
-    ? generateOptimizedImageSources(galleryInfo.galleryId, galleryInfo.imageName)
+  const sources = galleryInfo
+    ? generateOptimizedImageSources(galleryInfo.galleryId, galleryInfo.imageName, width, height)
     : { fallback: src };
 
   // For internal gallery images with AVIF optimization
@@ -83,7 +83,7 @@ export const ResponsiveImage = component$<ResponsiveImageProps>(({
 
 // Utility function for generating image URLs with AVIF optimization
 export function getOptimizedImageUrl(
-  src: string, 
+  src: string,
   options: {
     width?: number;
     height?: number;
@@ -92,19 +92,26 @@ export function getOptimizedImageUrl(
   } = {}
 ) {
   const { width = 800, format = 'avif' } = options;
-  
+
   if (src.includes('/images/galleries/')) {
+    // Check if the path is already processed (contains -web-{width}w pattern)
+    const alreadyProcessed = /-web-\d+w\.avif$/.test(src);
+    if (alreadyProcessed) {
+      return src; // Return as-is if already processed
+    }
+
     // For gallery images, use the optimal AVIF version
     const pathParts = src.split('/');
     const fileName = pathParts[pathParts.length - 1];
     const baseName = fileName.replace(/\.[^/.]+$/, '').replace('-web', '');
     const galleryPath = pathParts.slice(0, -1).join('/');
-    
+
     if (format === 'avif') {
+      // Use correct format with "-web-" to match actual files
       return `${galleryPath}/${baseName}-web-${width}w.avif`;
     }
   }
-  
+
   return src;
 }
 

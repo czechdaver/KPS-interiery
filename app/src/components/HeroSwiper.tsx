@@ -15,11 +15,13 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
       position: relative;
       width: 100%;
       height: 100%;
+      max-height: 100vh;
     }
-    
+
     .hero-swiper {
       width: 100%;
       height: 100%;
+      max-height: 100vh;
       --swiper-pagination-color: #C88B4E;
       --swiper-theme-color: #C88B4E;
       --swiper-pagination-bullet-opacity: 1;
@@ -433,9 +435,13 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
         // Pause autoplay on visibility change
         document.addEventListener('visibilitychange', () => {
           if (document.hidden) {
-            swiper.autoplay.stop();
+            if (swiper && swiper.autoplay) {
+              swiper.autoplay.stop();
+            }
           } else {
-            swiper.autoplay.start();
+            if (swiper && swiper.autoplay) {
+              swiper.autoplay.start();
+            }
           }
         });
 
@@ -488,11 +494,15 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
 
         // Pause autoplay when user interacts
         swiperContainer.addEventListener('mouseenter', () => {
-          swiper.autoplay.stop();
+          if (swiper && swiper.autoplay) {
+            swiper.autoplay.stop();
+          }
         });
 
         swiperContainer.addEventListener('mouseleave', () => {
-          swiper.autoplay.start();
+          if (swiper && swiper.autoplay) {
+            swiper.autoplay.start();
+          }
         });
 
         return () => {

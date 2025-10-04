@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Main Pages -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Gallery Main Page -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Gallery Category Pages -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/loznice</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/koupelny</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/skrine</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/ostatni</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Featured Kitchen Galleries (High Priority) -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-bila-ostruvek</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-bila-ostruvek/kuchyne_0002-web.jpg</image:loc>
+      <image:title>Bílá kuchyň s ostrůvkem</image:title>
+      <image:caption>Moderní bílá kuchyň s centrálním ostrůvkem - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-cerna</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-cerna/cover.jpg</image:loc>
+      <image:title>Černá kuchyň</image:title>
+      <image:caption>Elegantní černá kuchyň - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-bila-u-tvar</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-bila-u-tvar/cover.jpg</image:loc>
+      <image:title>Bílá kuchyň ve tvaru U</image:title>
+      <image:caption>Praktická bílá kuchyň ve tvaru U - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Kitchen Galleries -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-bila-podkrovi</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-bila-podkrovi/cover.jpg</image:loc>
+      <image:title>Bílá kuchyň v podkroví</image:title>
+      <image:caption>Bílá kuchyň v podkroví - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-seda</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-seda/cover.jpg</image:loc>
+      <image:title>Šedá kuchyň</image:title>
+      <image:caption>Moderní šedá kuchyň - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-bilo-hneda-beton</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-bilo-hneda-beton/cover.jpg</image:loc>
+      <image:title>Bílo-hnědá kuchyň s betonovým designem</image:title>
+      <image:caption>Bílo-hnědá kuchyň s betonovým designem - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-bilo-hneda-l-varianta1</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-bilo-hneda-l-varianta1/cover.jpg</image:loc>
+      <image:title>Bílo-hnědá kuchyň ve tvaru L - varianta 1</image:title>
+      <image:caption>Bílo-hnědá kuchyň ve tvaru L - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-bilo-hneda-u-alternativa</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-bilo-hneda-u-alternativa/cover.jpg</image:loc>
+      <image:title>Bílo-hnědá kuchyň ve tvaru U - alternativní návrh</image:title>
+      <image:caption>Bílo-hnědá kuchyň ve tvaru U - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-hneda-l</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-hneda-l/cover.jpg</image:loc>
+      <image:title>Hnědá kuchyň do L</image:title>
+      <image:caption>Hnědá kuchyň do L - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-mala-panel</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-mala-panel/cover.jpg</image:loc>
+      <image:title>Malá panelová kuchyň</image:title>
+      <image:caption>Malá panelová kuchyň - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-retro-bila</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-retro-bila/cover.jpg</image:loc>
+      <image:title>Retro bílá kuchyň</image:title>
+      <image:caption>Retro bílá kuchyň - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-svetla-rohova</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-svetla-rohova/cover.jpg</image:loc>
+      <image:title>Světlá rohová kuchyň</image:title>
+      <image:caption>Světlá rohová kuchyň - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/kuchyne/kuchyn-uzka-bila-l</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/kuchyn-uzka-bila-l/cover.jpg</image:loc>
+      <image:title>Úzká bílá kuchyň do L</image:title>
+      <image:caption>Úzká bílá kuchyň do L - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Bedroom Galleries (Ložnice) -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/loznice/loznice-bilo-hneda</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/loznice-bilo-hneda/cover.jpg</image:loc>
+      <image:title>Bílo-hnědá ložnice</image:title>
+      <image:caption>Bílo-hnědá ložnice - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/loznice/loznice-hneda</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/loznice-hneda/cover.jpg</image:loc>
+      <image:title>Hnědá ložnice</image:title>
+      <image:caption>Hnědá ložnice - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/loznice/loznice-hneda-zkosene</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/loznice-hneda-zkosene/cover.jpg</image:loc>
+      <image:title>Hnědá ložnice se zkoseným stropem</image:title>
+      <image:caption>Hnědá ložnice se zkoseným stropem - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Bathroom Galleries (Koupelny) -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/koupelny/koupelna-1</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/koupelna-1/cover.jpg</image:loc>
+      <image:title>Koupelna 1</image:title>
+      <image:caption>Moderní koupelna - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/koupelny/koupelna-2</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/koupelna-2/cover.jpg</image:loc>
+      <image:title>Koupelna 2</image:title>
+      <image:caption>Elegantní koupelna - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/koupelny/koupelna-cerna</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/koupelna-cerna/cover.jpg</image:loc>
+      <image:title>Černá koupelna</image:title>
+      <image:caption>Černá koupelna - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Wardrobe & Storage Galleries (Skříně) -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/skrine/skrin-a-dvere</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/skrin-a-dvere/cover.jpg</image:loc>
+      <image:title>Skříň a dveře</image:title>
+      <image:caption>Vestavěná skříň a dveře - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/skrine/skrin-dvere-botnik</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/skrin-dvere-botnik/cover.jpg</image:loc>
+      <image:title>Skříň, dveře a botník</image:title>
+      <image:caption>Skříň, dveře a botník - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/skrine/skrin-posuv-vstup</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/skrin-posuv-vstup/cover.jpg</image:loc>
+      <image:title>Skříň s posuvnými dveřmi ve vstupu</image:title>
+      <image:caption>Skříň s posuvnými dveřmi ve vstupu - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Other Galleries (Ostatní) -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/ostatni/chodba-bila</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/chodba-bila/cover.jpg</image:loc>
+      <image:title>Bílá chodba</image:title>
+      <image:caption>Bílá chodba - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/ostatni/chodba-sedo-hneda</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/chodba-sedo-hneda/cover.jpg</image:loc>
+      <image:title>Šedo-hnědá chodba</image:title>
+      <image:caption>Šedo-hnědá chodba - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/ostatni/obyvak</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/obyvak/cover.jpg</image:loc>
+      <image:title>Obývák</image:title>
+      <image:caption>Obývací pokoj - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/ostatni/ostatni-dvere</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/ostatni-dvere/cover.jpg</image:loc>
+      <image:title>Ostatní - Dveře</image:title>
+      <image:caption>Zakázkové dveře - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/ostatni/ostatni-live-edge-masiv</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/ostatni-live-edge-masiv/cover.jpg</image:loc>
+      <image:title>Ostatní - Live Edge masivní dřevo</image:title>
+      <image:caption>Live Edge masivní dřevo - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/galerie/ostatni/ostatni-schody</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image>
+      <image:loc>https://kps-interiery.github.io/KPS-interiery/images/galleries/ostatni-schody/cover.jpg</image:loc>
+      <image:title>Ostatní - Schody</image:title>
+      <image:caption>Zakázkové schody - KPS Interiéry</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Legacy redirects for backward compatibility -->
+  <url>
+    <loc>https://kps-interiery.github.io/KPS-interiery/#galerie</loc>
+    <lastmod>2024-09-25</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
+  </url>
+
+</urlset>

@@ -246,22 +246,22 @@ export const Footer = component$(() => {
             <div class="footer-column">
               <h3>Služby</h3>
               <ul>
-                <li><a href="#services">Kuchyně na míru</a></li>
-                <li><a href="#services">Vestavěné skříně</a></li>
-                <li><a href="#services">Koupelnový nábytek</a></li>
-                <li><a href="#services">Kancelářský nábytek</a></li>
-                <li><a href="#services">Atypické řešení</a></li>
+                <li><a href="#sluzby">Kuchyně na míru</a></li>
+                <li><a href="#sluzby">Vestavěné skříně</a></li>
+                <li><a href="#sluzby">Koupelnový nábytek</a></li>
+                <li><a href="#sluzby">Kancelářský nábytek</a></li>
+                <li><a href="#sluzby">Atypické řešení</a></li>
               </ul>
             </div>
             
             <div class="footer-column">
               <h3>Společnost</h3>
               <ul>
-                <li><a href="#home">Úvod</a></li>
-                <li><a href="#portfolio">Naše realizace</a></li>
+                <li><a href="#uvod">Úvod</a></li>
+                <li><a href="#realizace">Naše realizace</a></li>
                 <li><a href="#galerie">Galerie</a></li>
                 <li><a href="#partners">Naši partneři</a></li>
-                <li><a href="#contact">Kontakt</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
               </ul>
             </div>
             
@@ -270,7 +270,7 @@ export const Footer = component$(() => {
               <ul>
                 <li>
                   <PhPhone size={16} class="icon-duotone-reverse" />
-                  <a href="tel:+420728657413">+420 728 657 413</a>
+                  <a href="tel:+420774127133">+420 774 127 133</a>
                 </li>
                 <li>
                   <PhEnvelopeSimple size={16} class="icon-duotone-reverse" />

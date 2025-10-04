@@ -6,6 +6,7 @@ export const HeroSection = component$(() => {
         .hero-section {
           position: relative;
           height: 100vh;
+          max-height: 100vh;
           min-height: 600px;
           display: flex;
           align-items: center;
@@ -253,10 +254,10 @@ export const HeroSection = component$(() => {
             </p>
             
             <div class="hero-buttons">
-              <a href="#contact" class="btn btn-primary">
+              <a href="#kontakt" class="btn btn-primary">
                 Nezávazná poptávka
               </a>
-              <a href="#portfolio" class="btn btn-secondary">
+              <a href="#realizace" class="btn btn-secondary">
                 Naše realizace
               </a>
             </div>

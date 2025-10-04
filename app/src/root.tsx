@@ -1,11 +1,11 @@
-import { component$, isDev } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
 import { RouterHead } from "./components/router-head/router-head";
-import { FontLoader } from "./components/FontLoader";
+import { LocalBusinessSchema } from "./components/LocalBusinessSchema";
+import { OrganizationSchema } from "./components/OrganizationSchema";
+import { FurnitureServiceSchema } from "./components/FurnitureServiceSchema";
 
 import "./global.css";
-import "./styles/tailwind.css";
-import "./styles/example.scss";
 
 export default component$(() => {
   /**
@@ -19,23 +19,49 @@ export default component$(() => {
     <QwikCityProvider>
       <head>
         <meta charset="utf-8" />
-        
-        {/* Optimize font loading to prevent render blocking */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {/* Optimize font loading with preload and font-display: swap */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Fonts loaded asynchronously via FontLoader component */}
-        
-        {!isDev && (
+
+        {/* Preload critical fonts to prevent FOUT (Flash of Unstyled Text) */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=swap"
+          media="print"
+          onLoad="this.media='all'"
+        />
+        <noscript>
           <link
-            rel="manifest"
-            href={`${import.meta.env.BASE_URL}manifest.json`}
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=swap"
           />
-        )}
+        </noscript>
+
+        {/* Favicon */}
+        <link rel="icon" type="image/svg+xml" href="/branding/fav.svg" />
+
         <RouterHead />
+        <LocalBusinessSchema />
+        <OrganizationSchema />
+        <FurnitureServiceSchema />
+
+        {/* Check cookie consent before hydration to prevent flash */}
+        <script dangerouslySetInnerHTML={`
+          (function() {
+            try {
+              var consent = localStorage.getItem('cookie-consent');
+              if (consent) {
+                document.documentElement.setAttribute('data-cookie-consent', 'true');
+              }
+            } catch (e) {
+              // localStorage not available
+            }
+          })();
+        `} />
       </head>
-      <body lang="en">
-        <FontLoader />
+      <body lang="cs">
         <RouterOutlet />
       </body>
     </QwikCityProvider>

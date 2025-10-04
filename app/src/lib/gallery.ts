@@ -114,8 +114,7 @@ export async function loadGalleryData(slug: GallerySlug): Promise<GalleryData | 
       : window.location.origin + (import.meta.env.BASE_URL || '/');
 
     const galleryUrl = `${baseUrl}images/galleries/${slug}/gallery.json`;
-    console.log(`Loading gallery from: ${galleryUrl}`);
-    
+
     const response = await fetch(galleryUrl, {
       headers: {
         'Accept': 'application/json',
@@ -230,14 +229,12 @@ export async function loadAllGalleries(): Promise<GalleryData[]> {
     .filter(({ result }) => result.status === 'rejected' || (result.status === 'fulfilled' && result.value === null))
     .map(({ slug, result }) => ({ 
       slug, 
-      reason: result.status === 'rejected' ? result.reason?.message : 'No data returned' 
+      reason: result.status === 'rejected' ? result.reason?.message : 'No data returned'
     }));
-    
+
   if (failedGalleries.length > 0) {
     console.error(`Failed to load ${failedGalleries.length} galleries:`, failedGalleries);
   }
-  
-  console.log(`Successfully loaded ${loadedGalleries.length} out of ${GALLERY_SLUGS.length} galleries`);
 
   // Sort galleries by GALLERY_SLUGS order to preserve featured galleries first
   return loadedGalleries.sort((a, b) => {
@@ -290,6 +287,37 @@ export function preloadImage(src: string): void {
 }
 
 /**
+ * Get cover image path with intelligent fallback chain for maximum compatibility
+ */
+export function getCoverImagePath(galleryId: string, imageSrc: string): string {
+  // Validate inputs
+  if (!galleryId || !imageSrc) {
+    console.warn('Invalid galleryId or imageSrc provided to getCoverImagePath', { galleryId, imageSrc });
+    return getImagePath(galleryId, imageSrc);
+  }
+
+  const isOptimized = OPTIMIZED_GALLERIES.includes(galleryId as any);
+
+  if (!isOptimized) {
+    return getImagePath(galleryId, imageSrc);
+  }
+
+  // For optimized galleries, create intelligent fallback chain
+  const baseUrl = typeof window === 'undefined'
+    ? '/images/galleries/'
+    : (import.meta.env.BASE_URL || '/') + 'images/galleries/';
+  const baseDir = `${baseUrl}${galleryId}`;
+
+  const fileName = imageSrc.split('/').pop() || imageSrc;
+  const baseName = fileName.replace(/\.[^/.]+$/, '').replace('-web', '');
+
+  // Intelligent fallback chain for cover images:
+  // 1. Try 1600w AVIF (most compatible for both portrait/landscape)
+  // 2. If that fails, the ResponsiveImage component will handle JPEG fallback
+  return `${baseDir}/${baseName}-web-1600w.avif`;
+}
+
+/**
  * Map gallery data for galleries page display
  */
 export function mapGalleryForDisplay(gallery: GalleryData) {
@@ -300,8 +328,86 @@ export function mapGalleryForDisplay(gallery: GalleryData) {
     location: gallery.location,
     date: gallery.date,
     imageCount: gallery.imageCount,
-    coverImages: gallery.coverImages.map(img => getImagePath(gallery.id, img))
+    coverImages: gallery.coverImages.map(imgSrc => {
+      // Find the image data to preserve dimensions
+      const imageData = gallery.images.find(img => img.src === imgSrc) || gallery.images[0];
+      return {
+        src: getCoverImagePath(gallery.id, imgSrc),
+        width: imageData?.width,
+        height: imageData?.height,
+        alt: imageData?.alt || gallery.title
+      };
+    })
   };
+}
+
+/**
+ * Convert category name to URL slug
+ */
+export function getCategorySlug(category: string): string {
+  const categoryMap: Record<string, string> = {
+    'Kuchyně': 'kuchyne',
+    'Ložnice': 'loznice',
+    'Koupelny': 'koupelny',
+    'Skříně': 'skrine',
+    'Ostatní': 'ostatni'
+  };
+  return categoryMap[category] || 'ostatni';
+}
+
+/**
+ * Convert category slug back to display name
+ */
+export function getCategoryName(categorySlug: string): string {
+  const categoryMap: Record<string, string> = {
+    'kuchyne': 'Kuchyně',
+    'loznice': 'Ložnice',
+    'koupelny': 'Koupelny',
+    'skrine': 'Skříně',
+    'ostatni': 'Ostatní'
+  };
+  return categoryMap[categorySlug] || 'Ostatní';
+}
+
+/**
+ * Create SEO-friendly slug from gallery title
+ */
+export function createGallerySlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[áàâäãåā]/g, 'a')
+    .replace(/[éèêëēė]/g, 'e')
+    .replace(/[íìîïīį]/g, 'i')
+    .replace(/[óòôöõøō]/g, 'o')
+    .replace(/[úùûüūů]/g, 'u')
+    .replace(/[ýÿ]/g, 'y')
+    .replace(/[ñń]/g, 'n')
+    .replace(/[çć]/g, 'c')
+    .replace(/[šś]/g, 's')
+    .replace(/[žź]/g, 'z')
+    .replace(/[ď]/g, 'd')
+    .replace(/[ť]/g, 't')
+    .replace(/[ř]/g, 'r')
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
+ * Generate gallery URL from gallery data
+ */
+export function getGalleryUrl(gallery: GalleryData): string {
+  return `/galerie/${gallery.id}`;
+}
+
+/**
+ * Get all gallery URLs for sitemap generation
+ */
+export function getAllGalleryUrls(galleries: GalleryData[]): string[] {
+  return galleries.map(gallery => {
+    return `https://kps-interiery.github.io/KPS-interiery/galerie/${gallery.id}`;
+  });
 }
 
 /**
@@ -357,36 +463,58 @@ const OPTIMIZED_GALLERIES = [
 ] as const;
 
 /**
- * Generate AVIF-optimized image sources for responsive images and lightbox
+ * Generate AVIF-optimized image sources for responsive images with intelligent size selection
  */
-export function generateOptimizedImageSources(galleryId: string, imageSrc: string) {
+export function generateOptimizedImageSources(galleryId: string, imageSrc: string, imageWidth?: number, imageHeight?: number) {
+  // Validate inputs
+  if (!galleryId || !imageSrc) {
+    console.warn('Invalid galleryId or imageSrc provided to generateOptimizedImageSources', { galleryId, imageSrc });
+    return { fallback: '/images/placeholder.jpg' };
+  }
+
   const baseUrl = typeof window === 'undefined'
     ? '/images/galleries/'
     : (import.meta.env.BASE_URL || '/') + 'images/galleries/';
   const baseDir = `${baseUrl}${galleryId}`;
-  
+
   // Check if this gallery has full range of optimized sizes
   const isFullRange = OPTIMIZED_GALLERIES.includes(galleryId as any);
-  
+
   if (!isFullRange) {
     // For galleries without full optimization, use original
     return {
       fallback: `${baseDir}/${imageSrc}`
     };
   }
-  
-  // For optimized galleries, extract base name but keep underscores
-  // (e.g., "kuchyne_0031-web.jpg" -> "kuchyne_0031-web")
+
+  // For optimized galleries, extract base name and clean it
   const fileName = imageSrc.split('/').pop() || imageSrc;
-  const baseName = fileName.replace(/\.[^/.]+$/, '');
-  
-  // Generate optimal AVIF sizes based on available widths
-  const availableSizes = ['400w', '800w', '1200w', '1600w', '2400w'];
-  
+  // Clean the filename: remove extension, -web suffix, and any -XXXXw width suffixes
+  const baseName = fileName
+    .replace(/\.[^/.]+$/, '')  // Remove extension
+    .replace(/-web-\d+w$/, '') // Remove -web-1600w pattern
+    .replace(/-web$/, '')      // Remove trailing -web
+    .replace(/-\d+w$/, '');    // Remove trailing -1600w pattern
+
+  // Improved portrait/landscape detection with fallback logic
+  // Default to landscape (safer assumption) if dimensions are missing
+  let isLandscape = true;
+
+  if (imageWidth && imageHeight) {
+    isLandscape = imageWidth > imageHeight;
+  }
+  // Removed verbose logging for missing dimensions - this is expected behavior
+
+  // Generate optimal AVIF sizes based on actual available files
+  // Portrait images (1707px): 400w, 800w, 1200w, 1600w only
+  // Landscape images (2560px): All sizes including 2400w
+  const allSizes = ['400w', '800w', '1200w', '1600w', '2400w'];
+  const availableSizes = isLandscape ? allSizes : allSizes.slice(0, 4); // Remove 2400w for portrait
+
   const avifSrcSet = availableSizes
-    .map(size => `${baseDir}/${baseName}-${size}.avif ${size}`)
+    .map(size => `${baseDir}/${baseName}-web-${size}.avif ${size}`)
     .join(', ');
-  
+
   return {
     avif: avifSrcSet,
     fallback: `${baseDir}/${fileName}` // JPEG fallback
@@ -394,36 +522,51 @@ export function generateOptimizedImageSources(galleryId: string, imageSrc: strin
 }
 
 /**
- * Get best available AVIF image for lightbox with intelligent fallback
+ * Get best available AVIF image for lightbox with smart fallback chain
  */
 export function getLightboxImageUrl(galleryId: string, imageSrc: string, imageWidth?: number, imageHeight?: number) {
+  // Validate inputs
+  if (!galleryId || !imageSrc) {
+    console.warn('Invalid galleryId or imageSrc provided to getLightboxImageUrl', { galleryId, imageSrc });
+    return '/images/placeholder.jpg';
+  }
+
   const baseUrl = typeof window === 'undefined'
     ? '/images/galleries/'
     : (import.meta.env.BASE_URL || '/') + 'images/galleries/';
   const baseDir = `${baseUrl}${galleryId}`;
-  
+
   // Check if this gallery has full range of optimized sizes
   const isFullRange = OPTIMIZED_GALLERIES.includes(galleryId as any);
-  
+
   if (!isFullRange) {
     return `${baseDir}/${imageSrc}`;
   }
-  
-  // For optimized galleries, extract base name but keep underscores
-  // (e.g., "kuchyne_0031-web.jpg" -> "kuchyne_0031-web")
+
+  // For optimized galleries, extract base name and clean it
   const fileName = imageSrc.split('/').pop() || imageSrc;
-  const baseName = fileName.replace(/\.[^/.]+$/, '');
-  
-  // Determine if image is landscape (width > height) to choose optimal size
-  // For landscape images (2560x1707), use 2400w AVIF
-  // For portrait images (1707x2560), use 1600w AVIF (no 2400w available)
-  const isLandscape = imageWidth && imageHeight ? imageWidth > imageHeight : true; // Default to landscape
-  
+  // Clean the filename: remove extension, -web suffix, and any -XXXXw width suffixes
+  const baseName = fileName
+    .replace(/\.[^/.]+$/, '')  // Remove extension
+    .replace(/-web-\d+w$/, '') // Remove -web-1600w pattern
+    .replace(/-web$/, '')      // Remove trailing -web
+    .replace(/-\d+w$/, '');    // Remove trailing -1600w pattern
+
+  // Smart portrait/landscape detection with graceful defaults
+  let isLandscape = true; // Default to landscape for safety
+
+  if (imageWidth && imageHeight) {
+    isLandscape = imageWidth > imageHeight;
+  }
+  // Removed verbose logging for missing dimensions - fallback behavior is intentional
+
+  // Smart size selection for lightbox (highest quality available)
   if (isLandscape) {
-    // Landscape images: try 2400w first, fallback to 1600w
-    return `${baseDir}/${baseName}-2400w.avif`;
+    // Landscape images: use 2400w for maximum quality
+    // ResponsiveImage component will handle fallback if 2400w doesn't exist
+    return `${baseDir}/${baseName}-web-2400w.avif`;
   } else {
-    // Portrait images: use 1600w (2400w doesn't exist for 1707px wide images)
-    return `${baseDir}/${baseName}-1600w.avif`;
+    // Portrait images: use 1600w (safe option, always available)
+    return `${baseDir}/${baseName}-web-1600w.avif`;
   }
 }

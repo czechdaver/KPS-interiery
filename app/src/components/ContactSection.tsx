@@ -541,7 +541,7 @@ export const ContactSection = component$(() => {
   });
   
   return (
-    <section class="contact-section section" id="contact">
+    <section class="contact-section section" id="kontakt">
       <div class="container contact-container">
         <div class="contact-header">
           <h2 class="section-title">Pojďme si promluvit o vašem projektu</h2>
@@ -572,7 +572,7 @@ export const ContactSection = component$(() => {
               </div>
               <div class="contact-details">
                 <h3>Telefon</h3>
-                <p><a href="tel:+420728657413">+420 728 657 413</a></p>
+                <p><a href="tel:+420774127133">+420 774 127 133</a></p>
               </div>
             </div>
             
@@ -622,8 +622,8 @@ export const ContactSection = component$(() => {
                     class="form-input"
                     value={formData.phone}
                     onInput$={(event) => formData.phone = (event.target as HTMLInputElement).value}
-                    required 
-                    placeholder="+420 728 657 413"
+                    required
+                    placeholder="+420 774 127 133"
                   />
                 </div>
               </div>
@@ -743,6 +743,7 @@ export const ContactSection = component$(() => {
           <div class="service-regions">
             <span class="region">Zlín</span>
             <span class="region">Brno</span>
+            <span class="region">Uherské Hradiště</span>
             <span class="region">Ostrava</span>
             <span class="region">Olomouc</span>
             <span class="region">Jihlava</span>

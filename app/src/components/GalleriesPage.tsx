@@ -1,9 +1,10 @@
 import { component$, useStylesScoped$, useSignal, useTask$, useVisibleTask$, $ } from "@builder.io/qwik";
+import { Link, useNavigate } from "@builder.io/qwik-city";
 import { loadAllGalleries, getGalleriesByCategory, mapGalleryForDisplay, getLightboxImageUrl } from "../lib/gallery";
 import type { GalleryData } from "../lib/gallery";
 import { ResponsiveImage } from "./ResponsiveImage";
-import { Footer } from "./Footer";
-import { PhArrowLeft, PhImages, PhCalendar, PhMapPin, PhEye } from "~/components/icons";
+import { Navigation } from "./Navigation";
+import { PhArrowLeft, PhImages, PhCalendar, PhMapPin, PhEye, PhMagicWand } from "~/components/icons";
 
 const styles = `
   .galleries-page {
@@ -33,9 +34,6 @@ const styles = `
   .galleries-hero-content {
     position: relative;
     z-index: 1;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
   }
   
   .galleries-title {
@@ -48,6 +46,7 @@ const styles = `
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-align: center;
   }
   
   .galleries-subtitle {
@@ -55,6 +54,7 @@ const styles = `
     opacity: 0.9;
     margin-bottom: 2rem;
     font-weight: 400;
+    text-align: center;
   }
   
   .breadcrumb {
@@ -73,6 +73,18 @@ const styles = `
   
   .breadcrumb a:hover {
     color: var(--secondary-light);
+  }
+
+  /* Ensure breadcrumb Link components work correctly */
+  .breadcrumb > a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none !important;
+    transition: var(--transition) !important;
+  }
+
+  .breadcrumb > a:hover {
+    color: var(--secondary-light) !important;
+    text-decoration: none !important;
   }
   
   .breadcrumb-separator {
@@ -98,6 +110,10 @@ const styles = `
     font-weight: 600;
     transition: var(--transition);
     margin-top: 1rem;
+  }
+
+  .back-button-wrapper {
+    text-align: center;
   }
   
   .back-button:hover {
@@ -288,6 +304,13 @@ const styles = `
     gap: 0.3rem;
   }
   
+  .gallery-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
   .view-gallery-btn {
     background: var(--secondary);
     color: var(--white);
@@ -299,15 +322,43 @@ const styles = `
     align-items: center;
     gap: 0.5rem;
     transition: var(--transition);
-    margin-top: 0;
+    margin: 0;
     width: 100%;
     justify-content: center;
+    border: none;
+    cursor: pointer;
   }
-  
+
   .view-gallery-btn:hover {
     background: var(--secondary-light);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(200, 139, 78, 0.3);
+  }
+
+  /* Link button styles removed - now handled globally in global.css */
+  /* This allows Link components from @builder.io/qwik-city to inherit proper styling */
+
+  .detail-gallery-btn {
+    background: var(--primary);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+    border: none;
+  }
+
+  .detail-gallery-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(50, 38, 36, 0.3);
   }
   
   @media (max-width: 768px) {
@@ -336,17 +387,16 @@ const styles = `
 
 export const GalleriesPage = component$(() => {
   useStylesScoped$(styles);
-  
+
   const galleries = useSignal<GalleryData[]>([]);
   const isLoading = useSignal(true);
+  const navigate = useNavigate();
 
   // Load galleries on both server and client
   useTask$(async () => {
     try {
-      console.log('Loading galleries for GalleriesPage (SSR)...');
       const loadedGalleries = await loadAllGalleries();
       galleries.value = loadedGalleries;
-      console.log(`Loaded ${loadedGalleries.length} galleries for galleries page (SSR)`);
     } catch (error) {
       console.error('Failed to load galleries (SSR):', error);
     } finally {
@@ -358,16 +408,13 @@ export const GalleriesPage = component$(() => {
   useVisibleTask$(async () => {
     // If galleries are already loaded, don't reload
     if (galleries.value.length > 0) {
-      console.log('Galleries already loaded, skipping client-side load');
       return;
     }
 
     try {
       isLoading.value = true;
-      console.log('Loading galleries for GalleriesPage (client)...');
       const loadedGalleries = await loadAllGalleries();
       galleries.value = loadedGalleries;
-      console.log(`Loaded ${loadedGalleries.length} galleries for galleries page (client)`);
     } catch (error) {
       console.error('Failed to load galleries (client):', error);
     } finally {
@@ -407,7 +454,7 @@ export const GalleriesPage = component$(() => {
 
   useVisibleTask$(() => {
     window.scrollTo(0, 0);
-    
+
     // Preload PhotoSwipe styles
     if (typeof window !== 'undefined') {
       const existingLink = document.querySelector('link[href*="photoswipe.css"]');
@@ -418,6 +465,28 @@ export const GalleriesPage = component$(() => {
         document.head.appendChild(link);
       }
     }
+
+    // Handle hash navigation for gallery sections
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1); // Remove the # symbol
+      if (hash) {
+        const targetSection = document.getElementById(hash);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    // Handle initial hash on page load
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   });
 
   // Get categorized galleries
@@ -445,17 +514,12 @@ export const GalleriesPage = component$(() => {
   }
 
   return (
-    <div class="galleries-page">
+    <div class="galleries-page section-after-nav">
       <section class="galleries-hero">
         <div class="container">
           <div class="galleries-hero-content">
             <div class="breadcrumb">
-              <a href={import.meta.env.BASE_URL || "/"} onClick$={(e) => {
-                e.preventDefault();
-                window.location.hash = '';
-                // Trigger hash change event manually
-                window.dispatchEvent(new HashChangeEvent('hashchange'));
-              }}>Domů</a>
+              <Link href="/">Domů</Link>
               <span class="breadcrumb-separator">/</span>
               <span class="breadcrumb-current">Galerie</span>
             </div>
@@ -464,19 +528,12 @@ export const GalleriesPage = component$(() => {
             <p class="galleries-subtitle">
               Prohlédněte si kompletní galerii našich nejlepších projektů
             </p>
-            <a
-              href={import.meta.env.BASE_URL || "/"}
-              class="back-button"
-              onClick$={(e) => {
-                e.preventDefault();
-                window.location.hash = '';
-                // Trigger hash change event manually
-                window.dispatchEvent(new HashChangeEvent('hashchange'));
-              }}
-            >
-              <PhArrowLeft size={18} />
-              Zpět na úvod
-            </a>
+            <div class="back-button-wrapper">
+              <Link href="/" class="back-button">
+                <PhArrowLeft size={18} />
+                Zpět na úvod
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -485,7 +542,7 @@ export const GalleriesPage = component$(() => {
         <div class="container">
           
           {/* Kuchyně Section */}
-          <div class="gallery-section">
+          <div id="kuchyne" class="gallery-section">
             <div class="gallery-section-header">
               <h2 class="gallery-section-title">Kuchyně</h2>
               <p class="gallery-section-description">
@@ -499,13 +556,15 @@ export const GalleriesPage = component$(() => {
                 const coverImage = displayGallery.coverImages[0]; // Use only the first image
                 return (
                   <div key={gallery.id} class="gallery-card">
-                    <div 
+                    <div
                       class="gallery-preview"
                       onClick$={() => openLightbox(gallery)}
                     >
-                      <ResponsiveImage 
-                        src={coverImage}
-                        alt={`${displayGallery.title} - náhled`}
+                      <ResponsiveImage
+                        src={coverImage.src}
+                        alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                        width={coverImage.width}
+                        height={coverImage.height}
                         class="gallery-preview-image"
                         loading="lazy"
                         responsive={true}
@@ -533,15 +592,16 @@ export const GalleriesPage = component$(() => {
                           {displayGallery.location}
                         </div>
                       </div>
-                      
-                      <button
-                        class="view-gallery-btn"
-                        onClick$={() => openLightbox(gallery)}
-                        style="border: none; cursor: pointer;"
-                      >
-                        <PhEye size={18} />
-                        Zobrazit galerii
-                      </button>
+
+                      <div class="gallery-actions">
+                        <Link
+                          href={`/galerie/${gallery.id}`}
+                          class="view-gallery-btn"
+                        >
+                          <PhImages size={18} />
+                          Detail galerie
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 );
@@ -551,7 +611,7 @@ export const GalleriesPage = component$(() => {
 
           {/* Ložnice Section */}
           {bedroomGalleries.length > 0 && (
-            <div class="gallery-section">
+            <div id="loznice" class="gallery-section">
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Ložnice</h2>
                 <p class="gallery-section-description">
@@ -570,8 +630,10 @@ export const GalleriesPage = component$(() => {
                         onClick$={() => openLightbox(gallery)}
                       >
                         <ResponsiveImage
-                          src={coverImage}
-                          alt={`${displayGallery.title} - náhled`}
+                          src={coverImage.src}
+                          alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                          width={coverImage.width}
+                          height={coverImage.height}
                           class="gallery-preview-image"
                           loading="lazy"
                           responsive={true}
@@ -600,14 +662,15 @@ export const GalleriesPage = component$(() => {
                           </div>
                         </div>
 
-                        <button
-                          class="view-gallery-btn"
-                          onClick$={() => openLightbox(gallery)}
-                          style="border: none; cursor: pointer;"
-                        >
-                          <PhEye size={18} />
-                          Zobrazit galerii
-                        </button>
+                        <div class="gallery-actions">
+                          <Link
+                            href={`/galerie/${gallery.id}`}
+                            class="view-gallery-btn"
+                          >
+                            <PhImages size={18} />
+                            Detail galerie
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   );
@@ -618,7 +681,7 @@ export const GalleriesPage = component$(() => {
 
           {/* Koupelny Section */}
           {bathroomGalleries.length > 0 && (
-            <div class="gallery-section">
+            <div id="koupelny" class="gallery-section">
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Koupelny</h2>
                 <p class="gallery-section-description">
@@ -632,17 +695,19 @@ export const GalleriesPage = component$(() => {
                   const coverImage = displayGallery.coverImages[0]; // Use only the first image
                   return (
                     <div key={gallery.id} class="gallery-card">
-                      <div 
+                      <div
                         class="gallery-preview"
                         onClick$={() => openLightbox(gallery)}
                       >
-                        <ResponsiveImage 
-                          src={coverImage}
-                          alt={`${displayGallery.title} - náhled`}
+                        <ResponsiveImage
+                          src={coverImage.src}
+                          alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                          width={coverImage.width}
+                          height={coverImage.height}
                           class="gallery-preview-image"
-                              loading="lazy"
+                          loading="lazy"
                           responsive={true}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
@@ -666,15 +731,16 @@ export const GalleriesPage = component$(() => {
                             {displayGallery.location}
                           </div>
                         </div>
-                        
-                        <button 
-                          class="view-gallery-btn"
-                          onClick$={() => openLightbox(gallery)}
-                          style="border: none; cursor: pointer;"
-                        >
-                          <PhEye size={18} />
-                          Zobrazit galerii
-                        </button>
+
+                        <div class="gallery-actions">
+                          <Link
+                            href={`/galerie/${gallery.id}`}
+                            class="view-gallery-btn"
+                          >
+                            <PhImages size={18} />
+                            Detail galerie
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   );
@@ -685,7 +751,7 @@ export const GalleriesPage = component$(() => {
 
           {/* Skříně Section */}
           {cabinetGalleries.length > 0 && (
-            <div class="gallery-section">
+            <div id="skrine" class="gallery-section">
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Skříně a vestavěný nábytek</h2>
                 <p class="gallery-section-description">
@@ -704,8 +770,10 @@ export const GalleriesPage = component$(() => {
                         onClick$={() => openLightbox(gallery)}
                       >
                         <ResponsiveImage
-                          src={coverImage}
-                          alt={`${displayGallery.title} - náhled`}
+                          src={coverImage.src}
+                          alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                          width={coverImage.width}
+                          height={coverImage.height}
                           class="gallery-preview-image"
                           loading="lazy"
                           responsive={true}
@@ -734,14 +802,15 @@ export const GalleriesPage = component$(() => {
                           </div>
                         </div>
 
-                        <button
-                          class="view-gallery-btn"
-                          onClick$={() => openLightbox(gallery)}
-                          style="border: none; cursor: pointer;"
-                        >
-                          <PhEye size={18} />
-                          Zobrazit galerii
-                        </button>
+                        <div class="gallery-actions">
+                          <Link
+                            href={`/galerie/${gallery.id}`}
+                            class="view-gallery-btn"
+                          >
+                            <PhImages size={18} />
+                            Detail galerie
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   );
@@ -752,7 +821,7 @@ export const GalleriesPage = component$(() => {
 
           {/* Ostatní Section */}
           {otherGalleries.length > 0 && (
-            <div class="gallery-section">
+            <div id="ostatni" class="gallery-section">
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Ostatní projekty</h2>
                 <p class="gallery-section-description">
@@ -766,17 +835,19 @@ export const GalleriesPage = component$(() => {
                   const coverImage = displayGallery.coverImages[0]; // Use only the first image
                   return (
                     <div key={gallery.id} class="gallery-card">
-                      <div 
+                      <div
                         class="gallery-preview"
                         onClick$={() => openLightbox(gallery)}
                       >
-                        <ResponsiveImage 
-                          src={coverImage}
-                          alt={`${displayGallery.title} - náhled`}
+                        <ResponsiveImage
+                          src={coverImage.src}
+                          alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                          width={coverImage.width}
+                          height={coverImage.height}
                           class="gallery-preview-image"
-                              loading="lazy"
+                          loading="lazy"
                           responsive={true}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                         <div class="gallery-overlay">
                           <div class="gallery-count">
@@ -800,15 +871,16 @@ export const GalleriesPage = component$(() => {
                             {displayGallery.location}
                           </div>
                         </div>
-                        
-                        <button 
-                          class="view-gallery-btn"
-                          onClick$={() => openLightbox(gallery)}
-                          style="border: none; cursor: pointer;"
-                        >
-                          <PhEye size={18} />
-                          Zobrazit galerii
-                        </button>
+
+                        <div class="gallery-actions">
+                          <Link
+                            href={`/galerie/${gallery.id}`}
+                            class="view-gallery-btn"
+                          >
+                            <PhImages size={18} />
+                            Detail galerie
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   );
@@ -819,7 +891,6 @@ export const GalleriesPage = component$(() => {
 
         </div>
       </section>
-      <Footer />
     </div>
   );
 });

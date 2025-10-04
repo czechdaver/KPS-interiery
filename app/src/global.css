@@ -149,6 +149,83 @@ html {
   box-shadow: var(--shadow-md);
 }
 
+/* Link Component Button Overrides - Global styles for qwik-city Link components */
+/* These must be global because useStylesScoped$ cannot override Link component defaults */
+
+a.btn-accent,
+a.view-gallery-btn {
+  background: var(--secondary);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  margin: 0;
+  width: 100%;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+a.btn-accent:hover,
+a.view-gallery-btn:hover {
+  background: var(--secondary-light);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(200, 139, 78, 0.3);
+  text-decoration: none;
+}
+
+a.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+a.back-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+/* Breadcrumb Link Overrides - Global styles for navigation breadcrumbs */
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: var(--transition);
+  font-weight: normal;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+
+.breadcrumb a:hover {
+  color: var(--secondary-light);
+  text-decoration: none;
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
 /* Typography utilities */
 .text-center {
   text-align: center;

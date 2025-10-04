@@ -1,13 +1,24 @@
 # Gallery System Maintenance Guide
 
+## 🚨 UPDATED: Current Gallery System Status (2024-12)
+
+**The gallery system has been FULLY RESTORED and OPTIMIZED. This documentation reflects the current working state.**
+
+### Current System Architecture:
+- **Gallery Categories**: 5 main categories (Kuchyně, Ložnice, Koupelny, Skříně, Ostatní projekty)
+- **SEO-Optimized URLs**: `/galerie` → `/galerie/[slug]` structure
+- **Image Format**: `-web-` naming convention for AVIF optimization
+- **UI**: Single "Detail galerie" button per gallery card with PhImages icon
+
 ## 🚨 Critical Checklist for Gallery Changes
 
 **ALWAYS follow this checklist when adding, renaming, or modifying galleries:**
 
 ### 1. Directory and File Operations
 - [ ] **Directory names** must match `GALLERY_SLUGS` in `app/src/lib/gallery.ts`
-- [ ] **Image filenames** must follow `kuchyne_XXXX-web.jpg` pattern for kitchens
+- [ ] **Image filenames** must follow `-web-` naming convention (e.g., `filename-web-1600w.avif`)
 - [ ] **JSON files** must be named `gallery.json` in each gallery directory
+- [ ] **CRITICAL**: NEVER remove `-web-` from image paths - this is required for AVIF optimization
 
 ### 2. Code Updates Required After Gallery Changes
 
@@ -110,6 +121,59 @@ find app/public/images/galleries -name "gallery.json" | wc -l
 - Lightbox uses highest quality WebP images (1600w variant)
 - Responsive images automatically select best format (AVIF → WebP → JPEG)
 
+## 🚨 Recent Changes and UI Updates (December 2024)
+
+### Gallery Button Changes
+**IMPORTANT**: The gallery UI has been updated to simplify the user experience:
+
+#### OLD UI (Before December 2024):
+- Two buttons per gallery: "Zobrazit galerii" + "Detail galerie"
+- "Zobrazit galerii" opened lightbox directly from gallery page
+- "Detail galerie" navigated to individual gallery detail page
+
+#### NEW UI (Current - December 2024):
+- **Single button per gallery**: "Detail galerie" only
+- Uses `view-gallery-btn` CSS class (golden/brown theme color)
+- Uses `PhImages` icon (matches landing page "Zobrazit celou galerii" button)
+- Simplified workflow: Gallery page → Detail page → Lightbox
+
+### Technical Implementation
+- **File Modified**: `/src/components/GalleriesPage.tsx`
+- **Button Class**: `view-gallery-btn` (uses `var(--secondary)` color)
+- **Icon**: `PhImages` size 18px
+- **Navigation**: Direct link to `/galerie/[slug]` pages
+
+### Why This Change?
+1. **Simplified UX**: One clear action per gallery
+2. **SEO Benefits**: Drives traffic to individual gallery pages
+3. **Consistent Design**: Matches landing page button style
+4. **Better Analytics**: Track which galleries get the most detail views
+
+### Code Changes Made:
+```typescript
+// OLD CODE (removed):
+<button class="view-gallery-btn" onClick$={() => openLightbox(gallery)}>
+  <PhEye size={18} />
+  Zobrazit galerii
+</button>
+<a href={`/galerie/${gallery.id}`} class="detail-gallery-btn">
+  <PhMagicWand size={18} />
+  Detail galerie
+</a>
+
+// NEW CODE (current):
+<a href={`/galerie/${gallery.id}`} class="view-gallery-btn">
+  <PhImages size={18} />
+  Detail galerie
+</a>
+```
+
+### Critical Warning for Future Development
+**NEVER REVERT TO DOUBLE BUTTONS WITHOUT USER APPROVAL**
+- The double-button system caused user confusion
+- Single button approach improves conversion to detail pages
+- Any UI changes should be discussed with stakeholders first
+
 ## Emergency Recovery
 
 If galleries stop working:
@@ -128,3 +192,78 @@ Before deploying gallery changes:
 - [ ] Responsive images load correctly on different screen sizes
 - [ ] Gallery categories display correctly
 - [ ] Image optimization working (check Network tab)
+
+## 🔧 Common Issues & Critical Fixes
+
+### Issue 1: "Massive Gallery Outage" - Image 404 Errors
+
+**Symptoms:**
+- Images showing 404 errors with malformed filenames like `filename-1600w-web-1200w.avif`
+- Gallery cards showing broken images
+- Lightbox not loading images
+
+**Root Cause:**
+Double-processing of already-optimized image paths in ResponsiveImage component
+
+**Critical Fix Applied:**
+```typescript
+// In ResponsiveImage.tsx - getOptimizedImageUrl function
+export function getOptimizedImageUrl(src: string, options = {}) {
+  if (src.includes('/images/galleries/')) {
+    // CRITICAL: Check if already processed to prevent double-processing
+    const alreadyProcessed = /-web-\d+w\.avif$/.test(src);
+    if (alreadyProcessed) {
+      return src; // Return as-is if already processed
+    }
+    // Process normally only if not already processed...
+  }
+}
+```
+
+**Prevention:**
+- NEVER remove `-web-` from working image paths
+- Always check for existing optimization before applying new optimization
+- Test image loading after any path changes
+
+### Issue 2: Missing Gallery Detail Pages
+
+**Symptoms:**
+- Gallery cards display correctly but missing "Detail galerie" buttons
+- Some gallery categories don't have detail page access
+
+**Root Cause:**
+UI buttons were removed from certain gallery sections during development
+
+**Fix Applied:**
+Added consistent button structure to ALL gallery sections:
+```typescript
+<div class="gallery-actions">
+  <a href={`/galerie/${gallery.id}`} class="view-gallery-btn">
+    <PhImages size={18} />
+    Detail galerie
+  </a>
+</div>
+```
+
+### Issue 3: Double-Width Concatenation Error
+
+**Historical Issue - FIXED:**
+Original misdiagnosis led to incorrect removal of `-web-` format from working paths.
+
+**Lesson Learned:**
+- Always investigate actual file structure before making path changes
+- The `-web-` format IS CORRECT and required for AVIF optimization
+- Test all changes thoroughly before assuming path format issues
+
+### Issue 4: ResponsiveImage Double-Processing
+
+**Technical Details:**
+The ResponsiveImage component was applying optimization to already-optimized paths, creating malformed URLs.
+
+**Solution:**
+Added regex detection to prevent re-processing: `/-web-\d+w\.avif$/`
+
+**Files Fixed:**
+1. `/src/components/ResponsiveImage.tsx` - Added already-processed detection
+2. `/src/lib/gallery.ts` - Fixed double-processing in generateOptimizedImageSources
+3. `/src/components/GalleriesPage.tsx` - Added missing Detail buttons
