@@ -526,7 +526,7 @@ export const PortfolioSection = component$(() => {
             return;
           }
 
-          const items = gallery.images.map(img => ({
+          const items = gallery.images.map((img: { src: string; width?: number; height?: number; alt?: string; caption?: string }) => ({
             src: getLightboxImageUrl(gallery.id, img.src, img.width, img.height),
             width: img.width || 1200,
             height: img.height || 800,
@@ -608,7 +608,7 @@ export const PortfolioSection = component$(() => {
                 .slice(0, 10) // Show all 10 items to fill the optimized mosaic pattern
                 .map((gallery, index) => {
                   const mosaicPattern = MOSAIC_PATTERNS[index % MOSAIC_PATTERNS.length];
-                  const coverImageData = gallery.images.find(img =>
+                  const coverImageData = gallery.images.find((img: { src: string }) =>
                     img.src === gallery.coverImage ||
                     img.src === (gallery.coverImages && gallery.coverImages[0])
                   ) || gallery.images[0];

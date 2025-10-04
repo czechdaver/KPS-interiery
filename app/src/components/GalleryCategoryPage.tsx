@@ -373,29 +373,6 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
     }
   });
 
-  // Helper function to create SEO-friendly slug
-  const createSlug = (title: string): string => {
-    return title
-      .toLowerCase()
-      .replace(/[áàâäãåā]/g, 'a')
-      .replace(/[éèêëēė]/g, 'e')
-      .replace(/[íìîïīį]/g, 'i')
-      .replace(/[óòôöõøō]/g, 'o')
-      .replace(/[úùûüūů]/g, 'u')
-      .replace(/[ýÿ]/g, 'y')
-      .replace(/[ñń]/g, 'n')
-      .replace(/[çć]/g, 'c')
-      .replace(/[šś]/g, 's')
-      .replace(/[žź]/g, 'z')
-      .replace(/[ď]/g, 'd')
-      .replace(/[ť]/g, 't')
-      .replace(/[ř]/g, 'r')
-      .replace(/\s+/g, '-')
-      .replace(/[^\w-]+/g, '')
-      .replace(/--+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  };
-
   return (
     <div class="category-page">
       <Navigation />
@@ -436,7 +413,6 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
               {props.galleries.map((gallery) => {
                 const displayGallery = mapGalleryForDisplay(gallery);
                 const coverImage = displayGallery.coverImages[0];
-                const gallerySlug = createSlug(gallery.title);
                 const galleryUrl = `/galerie/${gallery.id}`;
 
                 return (
@@ -446,7 +422,7 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
                       onClick$={() => openLightbox(gallery)}
                     >
                       <ResponsiveImage
-                        src={coverImage}
+                        src={typeof coverImage === 'string' ? coverImage : coverImage.src}
                         alt={`${displayGallery.title} - náhled`}
                         class="gallery-preview-image"
                         loading="lazy"

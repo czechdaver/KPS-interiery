@@ -29,15 +29,7 @@ export default component$(() => {
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=swap"
-          media="print"
-          onLoad="this.media='all'"
         />
-        <noscript>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=swap"
-          />
-        </noscript>
 
         {/* Favicon */}
         <link rel="icon" type="image/svg+xml" href="/branding/fav.svg" />

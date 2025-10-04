@@ -301,30 +301,6 @@ export const useGalleryData = routeLoader$(async ({ params, error }) => {
   return galleryData;
 });
 
-// Helper function to convert category name to URL slug
-function getCategorySlug(category: string): string {
-  const categoryMap: Record<string, string> = {
-    'Kuchyně': 'kuchyne',
-    'Ložnice': 'loznice',
-    'Koupelny': 'koupelny',
-    'Skříně': 'skrine',
-    'Ostatní': 'ostatni'
-  };
-  return categoryMap[category] || 'ostatni';
-}
-
-// Helper function to convert category slug back to display name
-function getCategoryName(categorySlug: string): string {
-  const categoryMap: Record<string, string> = {
-    'kuchyne': 'Kuchyně',
-    'loznice': 'Ložnice',
-    'koupelny': 'Koupelny',
-    'skrine': 'Skříně',
-    'ostatni': 'Ostatní'
-  };
-  return categoryMap[categorySlug] || 'Ostatní';
-}
-
 export default component$(() => {
   useStylesScoped$(styles);
 

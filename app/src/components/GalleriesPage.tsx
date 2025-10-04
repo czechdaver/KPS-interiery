@@ -1,10 +1,9 @@
 import { component$, useStylesScoped$, useSignal, useTask$, useVisibleTask$, $ } from "@builder.io/qwik";
-import { Link, useNavigate } from "@builder.io/qwik-city";
+import { Link } from "@builder.io/qwik-city";
 import { loadAllGalleries, getGalleriesByCategory, mapGalleryForDisplay, getLightboxImageUrl } from "../lib/gallery";
 import type { GalleryData } from "../lib/gallery";
 import { ResponsiveImage } from "./ResponsiveImage";
-import { Navigation } from "./Navigation";
-import { PhArrowLeft, PhImages, PhCalendar, PhMapPin, PhEye, PhMagicWand } from "~/components/icons";
+import { PhArrowLeft, PhImages, PhCalendar, PhMapPin } from "~/components/icons";
 
 const styles = `
   .galleries-page {
@@ -390,7 +389,6 @@ export const GalleriesPage = component$(() => {
 
   const galleries = useSignal<GalleryData[]>([]);
   const isLoading = useSignal(true);
-  const navigate = useNavigate();
 
   // Load galleries on both server and client
   useTask$(async () => {

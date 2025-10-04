@@ -1,4 +1,4 @@
-import { component$, useSignal, useStylesScoped$, useStore, $, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, useSignal, useStylesScoped$, useStore, $ } from "@builder.io/qwik";
 import { useNavigate, useLocation, Link } from "@builder.io/qwik-city";
 
 export const Navigation = component$(() => {
