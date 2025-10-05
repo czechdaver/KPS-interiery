@@ -1,0 +1,60 @@
+# Cache-Control headers for optimal performance
+# Static assets can be cached for 1 year since they have content-based hashes
+
+# JavaScript bundles - immutable with hash
+/build/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS files - immutable with hash
+/build/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images - long cache since filenames include dimensions/format
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Branding assets (logos, icons) - long cache
+/branding/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# AVIF/WebP images - long cache
+/*.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+# SVG files
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+# Font files
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages - no cache, always revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Root index page
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Sitemap and robots - moderate cache (1 day)
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400

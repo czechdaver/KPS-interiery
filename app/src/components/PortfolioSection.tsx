@@ -1,4 +1,5 @@
 import { component$, useStylesScoped$, useTask$, useSignal, useVisibleTask$, $ } from "@builder.io/qwik";
+import { useNavigate } from "@builder.io/qwik-city";
 import { loadAllGalleries, type GalleryData, getImagePath, getLightboxImageUrl } from '../lib/gallery';
 import { ResponsiveImage } from "./ResponsiveImage";
 import { PhImages } from "~/components/icons";
@@ -185,11 +186,13 @@ const styles = `
   .portfolio-cta {
     text-align: center;
   }
-  
+
   .portfolio-cta .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
+    padding: 0.875rem 1.5rem;
+    width: auto;
   }
   
   .portfolio-loading {
@@ -425,6 +428,7 @@ const styles = `
 
 export const PortfolioSection = component$(() => {
   useStylesScoped$(styles);
+  const navigate = useNavigate();
   const galleries = useSignal<GalleryData[]>([]);
   const isLoading = useSignal(true);
   const hasError = useSignal(false);
@@ -665,10 +669,17 @@ export const PortfolioSection = component$(() => {
             })()}
           </div>
         )}
-        
-        
+
+
         <div class="portfolio-cta">
-          <a href="#galerie" class="btn btn-accent">
+          <a
+            href="/galerie/"
+            class="btn btn-accent"
+            onClick$={(e) => {
+              e.preventDefault();
+              navigate('/galerie/');
+            }}
+          >
             <PhImages size={24} />
             Zobrazit celou galerii
           </a>

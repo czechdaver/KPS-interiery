@@ -119,11 +119,13 @@ const styles = `
   .instagram-cta {
     text-align: center;
   }
-  
+
   .instagram-cta .btn {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
+    padding: 0.875rem 1.5rem;
+    width: auto;
   }
   
   @media (max-width: 768px) {

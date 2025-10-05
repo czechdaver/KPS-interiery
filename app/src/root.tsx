@@ -31,6 +31,14 @@ export default component$(() => {
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=swap"
         />
 
+        {/* Preload LCP (Largest Contentful Paint) image for faster hero section */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/galleries/kuchyn-bila-u-tvar/skrine-0201-web-2400w.avif"
+          type="image/avif"
+        />
+
         {/* Favicon */}
         <link rel="icon" type="image/svg+xml" href="/branding/fav.svg" />
 
@@ -53,7 +61,7 @@ export default component$(() => {
           })();
         `} />
 
-        {/* hCaptcha Script */}
+        {/* hCaptcha Script - loaded with async and defer for better performance */}
         <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
         <script dangerouslySetInnerHTML={`
           window.onHCaptchaSuccess = function(token) {

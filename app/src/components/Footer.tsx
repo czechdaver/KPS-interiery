@@ -259,7 +259,7 @@ export const Footer = component$(() => {
               <ul>
                 <li><a href="#uvod">Úvod</a></li>
                 <li><a href="#realizace">Naše realizace</a></li>
-                <li><a href="#galerie">Galerie</a></li>
+                <li><a href="/galerie/">Galerie</a></li>
                 <li><a href="#partners">Naši partneři</a></li>
                 <li><a href="#kontakt">Kontakt</a></li>
               </ul>
