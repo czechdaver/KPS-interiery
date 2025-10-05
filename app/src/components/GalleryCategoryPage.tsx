@@ -384,7 +384,7 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
                 🏠 Domů
               </a>
               <span class="breadcrumb-separator">/</span>
-              <a href="/galerie">Galerie</a>
+              <a href="/galerie/">Galerie</a>
               <span class="breadcrumb-separator">/</span>
               <span class="breadcrumb-current">{props.categoryName}</span>
             </nav>
@@ -398,7 +398,7 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
                props.galleries.length < 5 ? 'realizace' : 'realizací'}
             </div>
 
-            <a href="/galerie" class="back-button">
+            <a href="/galerie/" class="back-button">
               <PhArrowLeft size={18} />
               Zpět na všechny galerie
             </a>

@@ -466,7 +466,7 @@ export const Navigation = component$(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       // Navigate to gallery page
-      navigate('/galerie');
+      navigate('/galerie/');
     }
   });
 
@@ -504,19 +504,19 @@ export const Navigation = component$(() => {
                   <span class="dropdown-arrow">▼</span>
                 </a>
                 <div class="dropdown-menu">
-                  <a href="/galerie#kuchyne" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#kuchyne')}>
+                  <a href="/galerie/#kuchyne" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#kuchyne')}>
                     Kuchyně
                   </a>
-                  <a href="/galerie#loznice" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#loznice')}>
+                  <a href="/galerie/#loznice" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#loznice')}>
                     Ložnice
                   </a>
-                  <a href="/galerie#koupelny" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#koupelny')}>
+                  <a href="/galerie/#koupelny" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#koupelny')}>
                     Koupelny
                   </a>
-                  <a href="/galerie#skrine" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#skrine')}>
+                  <a href="/galerie/#skrine" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#skrine')}>
                     Skříně
                   </a>
-                  <a href="/galerie#ostatni" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#ostatni')}>
+                  <a href="/galerie/#ostatni" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#ostatni')}>
                     Ostatní
                   </a>
                 </div>
@@ -529,22 +529,22 @@ export const Navigation = component$(() => {
                   <span class="dropdown-arrow">▼</span>
                 </button>
                 <div class="mobile-dropdown-content">
-                  <a href="/galerie" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie')}>
+                  <a href="/galerie/" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/')}>
                     Všechny galerie
                   </a>
-                  <a href="/galerie#kuchyne" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#kuchyne')}>
+                  <a href="/galerie/#kuchyne" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#kuchyne')}>
                     Kuchyně
                   </a>
-                  <a href="/galerie#loznice" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#loznice')}>
+                  <a href="/galerie/#loznice" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#loznice')}>
                     Ložnice
                   </a>
-                  <a href="/galerie#koupelny" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#koupelny')}>
+                  <a href="/galerie/#koupelny" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#koupelny')}>
                     Koupelny
                   </a>
-                  <a href="/galerie#skrine" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#skrine')}>
+                  <a href="/galerie/#skrine" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#skrine')}>
                     Skříně
                   </a>
-                  <a href="/galerie#ostatni" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie#ostatni')}>
+                  <a href="/galerie/#ostatni" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#ostatni')}>
                     Ostatní
                   </a>
                 </div>

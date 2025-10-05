@@ -387,7 +387,7 @@ export default component$(() => {
             <nav class="breadcrumb">
               <Link href="/">Domů</Link>
               <span class="breadcrumb-separator">/</span>
-              <Link href="/galerie">Galerie</Link>
+              <Link href="/galerie/">Galerie</Link>
               <span class="breadcrumb-separator">/</span>
               <span class="breadcrumb-current">{gallery.title}</span>
             </nav>
@@ -414,7 +414,7 @@ export default component$(() => {
               </div>
             </div>
 
-            <Link href="/galerie" class="back-button">
+            <Link href="/galerie/" class="back-button">
               <PhArrowLeft size={18} />
               Zpět na galerie
             </Link>

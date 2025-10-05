@@ -593,7 +593,7 @@ export const GalleriesPage = component$(() => {
 
                       <div class="gallery-actions">
                         <Link
-                          href={`/galerie/${gallery.id}`}
+                          href={`/galerie/${gallery.id}/`}
                           class="view-gallery-btn"
                         >
                           <PhImages size={18} />
@@ -662,7 +662,7 @@ export const GalleriesPage = component$(() => {
 
                         <div class="gallery-actions">
                           <Link
-                            href={`/galerie/${gallery.id}`}
+                            href={`/galerie/${gallery.id}/`}
                             class="view-gallery-btn"
                           >
                             <PhImages size={18} />
@@ -732,7 +732,7 @@ export const GalleriesPage = component$(() => {
 
                         <div class="gallery-actions">
                           <Link
-                            href={`/galerie/${gallery.id}`}
+                            href={`/galerie/${gallery.id}/`}
                             class="view-gallery-btn"
                           >
                             <PhImages size={18} />
@@ -802,7 +802,7 @@ export const GalleriesPage = component$(() => {
 
                         <div class="gallery-actions">
                           <Link
-                            href={`/galerie/${gallery.id}`}
+                            href={`/galerie/${gallery.id}/`}
                             class="view-gallery-btn"
                           >
                             <PhImages size={18} />
@@ -872,7 +872,7 @@ export const GalleriesPage = component$(() => {
 
                         <div class="gallery-actions">
                           <Link
-                            href={`/galerie/${gallery.id}`}
+                            href={`/galerie/${gallery.id}/`}
                             class="view-gallery-btn"
                           >
                             <PhImages size={18} />
