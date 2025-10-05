@@ -461,7 +461,7 @@ export const Navigation = component$(() => {
 
   const handleGalleryClick = $((e: Event) => {
     e.preventDefault();
-    if (location.url.pathname.startsWith('/galerie')) {
+    if (location.url.pathname === '/galerie' || location.url.pathname === '/galerie/') {
       // Already on gallery page, scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {

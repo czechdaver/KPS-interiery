@@ -540,7 +540,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
       },
       {
         name: 'robots',
-        content: 'index, follow, max-image-preview:large, max-snippet:-1'
+        content: 'index, follow'
       },
       {
         name: 'geo.region',
