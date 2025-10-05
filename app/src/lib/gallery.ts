@@ -109,8 +109,9 @@ export async function loadGalleryData(slug: GallerySlug): Promise<GalleryData | 
   
   try {
     // Handle URL construction for both server and client environments
+    // During static generation, use the configured origin from staticAdapter
     const baseUrl = typeof window === 'undefined'
-      ? 'http://localhost:5173/' // Server-side: use localhost for dev
+      ? 'https://kps-interiery.cz/' // Static generation: use production origin
       : window.location.origin + (import.meta.env.BASE_URL || '/');
 
     const galleryUrl = `${baseUrl}images/galleries/${slug}/gallery.json`;
