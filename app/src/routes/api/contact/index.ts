@@ -1,5 +1,4 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
-import { Resend } from 'resend';
 
 interface ContactFormData {
   name: string;
@@ -10,6 +9,7 @@ interface ContactFormData {
   budget: string;
   timeline: string;
   consent: boolean;
+  'h-captcha-response'?: string;
 }
 
 const validateEmail = (email: string): boolean => {
@@ -58,170 +58,56 @@ const formatTimelineForEmail = (timeline: string): string => {
   return timelines[timeline] || 'Nespecifikováno';
 };
 
-const createEmailContent = (data: ContactFormData): string => {
-  const currentDate = new Date().toLocaleDateString('cs-CZ');
-  const currentTime = new Date().toLocaleTimeString('cs-CZ');
-
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #322624, #C88B4E); color: white; padding: 20px; border-radius: 8px 8px 0 0; }
-        .content { background: #F5ECE6; padding: 30px; border: 1px solid #C88B4E; }
-        .field { margin-bottom: 15px; }
-        .label { font-weight: bold; color: #322624; }
-        .value { margin-left: 10px; }
-        .footer { background: #322624; color: white; padding: 15px; border-radius: 0 0 8px 8px; font-size: 12px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🛠️ Nová poptávka z webu KPS Interiéry</h1>
-            <p>Datum: ${currentDate} v ${currentTime}</p>
-        </div>
-        
-        <div class="content">
-            <div class="field">
-                <span class="label">👤 Jméno a příjmení:</span>
-                <span class="value">${data.name}</span>
-            </div>
-            
-            <div class="field">
-                <span class="label">📧 Email:</span>
-                <span class="value"><a href="mailto:${data.email}">${data.email}</a></span>
-            </div>
-            
-            <div class="field">
-                <span class="label">📱 Telefon:</span>
-                <span class="value"><a href="tel:${data.phone}">${data.phone}</a></span>
-            </div>
-            
-            <div class="field">
-                <span class="label">🏠 Typ projektu:</span>
-                <span class="value">${formatProjectTypeForEmail(data.projectType)}</span>
-            </div>
-            
-            <div class="field">
-                <span class="label">💰 Rozpočet:</span>
-                <span class="value">${formatBudgetForEmail(data.budget)}</span>
-            </div>
-            
-            <div class="field">
-                <span class="label">⏰ Termín realizace:</span>
-                <span class="value">${formatTimelineForEmail(data.timeline)}</span>
-            </div>
-            
-            <div class="field">
-                <span class="label">📝 Popis projektu:</span>
-                <div style="margin-top: 10px; padding: 15px; background: white; border-left: 4px solid #3b82f6; border-radius: 4px;">
-                    ${data.description.replace(/\n/g, '<br>')}
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p>💡 Tato zpráva byla odeslána z kontaktního formuláře na webu KPS Interiéry</p>
-            <p>🔒 Zákazník souhlasil se zpracováním osobních údajů</p>
-        </div>
-    </div>
-</body>
-</html>
-  `.trim();
-};
-
-// Initialize Resend with API key from environment variables
-const getResendClient = () => {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.warn('RESEND_API_KEY not found in environment variables. Emails will be mocked.');
-    return null;
-  }
-  return new Resend(apiKey);
-};
-
-const sendEmail = async (to: string, subject: string, htmlContent: string, formData: ContactFormData): Promise<boolean> => {
-  const resend = getResendClient();
-  
-  if (!resend) {
-    // Mock mode - log email content instead of sending
-    console.log('📧 EMAIL MOCK MODE - EMAIL WOULD BE SENT TO:', to);
-    console.log('📧 SUBJECT:', subject);
-    console.log('📧 FORM DATA:', JSON.stringify(formData, null, 2));
-    console.log('📧 HTML CONTENT:', htmlContent);
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return true;
-  }
-  
-  try {
-    const result = await resend.emails.send({
-      from: 'KPS Interiéry <noreply@kpsinteriery.cz>', // You'll need to verify this domain with Resend
-      to: [to],
-      subject: subject,
-      html: htmlContent,
-      replyTo: formData.email, // Allow David to reply directly to the customer
-    });
-    
-    if (result.error) {
-      console.error('Resend API error:', result.error);
-      return false;
-    }
-    
-    console.log('✅ Email sent successfully:', result.data?.id);
-    return true;
-  } catch (error) {
-    console.error('❌ Email sending failed:', error);
-    return false;
-  }
-};
-
 export const onPost: RequestHandler = async ({ json, request }) => {
   try {
     const body = await request.json();
     const data = body as ContactFormData;
-    
+
     // Validate required fields
     if (!data.name || !data.email || !data.phone || !data.description) {
-      json(400, { 
-        success: false, 
-        message: 'Všechna povinná pole musí být vyplněna' 
+      json(400, {
+        success: false,
+        message: 'Všechna povinná pole musí být vyplněna'
       });
       return;
     }
-    
+
     // Validate consent
     if (!data.consent) {
-      json(400, { 
-        success: false, 
-        message: 'Musíte souhlasit se zpracováním osobních údajů' 
+      json(400, {
+        success: false,
+        message: 'Musíte souhlasit se zpracováním osobních údajů'
       });
       return;
     }
-    
+
+    // Validate hCaptcha
+    if (!data['h-captcha-response']) {
+      json(400, {
+        success: false,
+        message: 'Prosím dokončete captcha ověření'
+      });
+      return;
+    }
+
     // Validate email format
     if (!validateEmail(data.email)) {
-      json(400, { 
-        success: false, 
-        message: 'Neplatný formát emailové adresy' 
+      json(400, {
+        success: false,
+        message: 'Neplatný formát emailové adresy'
       });
       return;
     }
-    
+
     // Validate phone format
     if (!validatePhone(data.phone)) {
-      json(400, { 
-        success: false, 
-        message: 'Neplatný formát telefonního čísla' 
+      json(400, {
+        success: false,
+        message: 'Neplatný formát telefonního čísla'
       });
       return;
     }
-    
+
     // Sanitize inputs
     const sanitizedData: ContactFormData = {
       name: sanitizeInput(data.name),
@@ -231,33 +117,69 @@ export const onPost: RequestHandler = async ({ json, request }) => {
       description: sanitizeInput(data.description),
       budget: data.budget,
       timeline: data.timeline,
-      consent: data.consent
+      consent: data.consent,
+      'h-captcha-response': data['h-captcha-response']
     };
-    
-    // Create email content
-    const subject = `🛠️ Nová poptávka od ${sanitizedData.name} - KPS Interiéry`;
-    const htmlContent = createEmailContent(sanitizedData);
-    
-    // Send email
-    const emailSent = await sendEmail('david@motalik.cz', subject, htmlContent, sanitizedData);
-    
-    if (emailSent) {
-      json(200, { 
-        success: true, 
-        message: 'Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme!' 
+
+    // Prepare Web3Forms data
+    const currentDate = new Date().toLocaleDateString('cs-CZ');
+    const currentTime = new Date().toLocaleTimeString('cs-CZ');
+
+    const formData = new FormData();
+    formData.append('access_key', 'edcf39c8-1047-4c9f-909f-509672a1ce9a');
+    formData.append('subject', `🛠️ Nová poptávka od ${sanitizedData.name} - KPS Interiéry`);
+    formData.append('from_name', sanitizedData.name);
+    formData.append('from_email', sanitizedData.email);
+    formData.append('reply_to', sanitizedData.email);
+    formData.append('to_email', 'info@kps-interiery.cz');
+    formData.append('h-captcha-response', sanitizedData['h-captcha-response'] || '');
+
+    // Add form fields to message
+    const messageContent = `
+📅 Datum: ${currentDate} v ${currentTime}
+
+👤 Jméno a příjmení: ${sanitizedData.name}
+📧 Email: ${sanitizedData.email}
+📱 Telefon: ${sanitizedData.phone}
+
+🏠 Typ projektu: ${formatProjectTypeForEmail(sanitizedData.projectType)}
+💰 Rozpočet: ${formatBudgetForEmail(sanitizedData.budget)}
+⏰ Termín realizace: ${formatTimelineForEmail(sanitizedData.timeline)}
+
+📝 Popis projektu:
+${sanitizedData.description}
+
+🔒 Zákazník souhlasil se zpracováním osobních údajů
+    `.trim();
+
+    formData.append('message', messageContent);
+
+    // Send to Web3Forms
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      json(200, {
+        success: true,
+        message: 'Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme!'
       });
     } else {
-      json(500, { 
-        success: false, 
-        message: 'Nastala chyba při odesílání zprávy. Zkuste to prosím znovu.' 
+      console.error('Web3Forms error:', result);
+      json(500, {
+        success: false,
+        message: 'Nastala chyba při odesílání zprávy. Zkuste to prosím znovu.'
       });
     }
-    
+
   } catch (error) {
     console.error('Contact form error:', error);
-    json(500, { 
-      success: false, 
-      message: 'Nastala neočekávaná chyba. Zkuste to prosím znovu.' 
+    json(500, {
+      success: false,
+      message: 'Nastala neočekávaná chyba. Zkuste to prosím znovu.'
     });
   }
 };

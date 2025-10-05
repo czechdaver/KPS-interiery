@@ -63,7 +63,6 @@
     "@phosphor-icons/core": "^2.1.1",
     "@types/swiper": "^5.4.3",
     "photoswipe": "^5.4.4",
-    "resend": "^6.0.2",
     "tailwind-variants": "^2.1.0"
   }
 }

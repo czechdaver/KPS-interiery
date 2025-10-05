@@ -1,4 +1,4 @@
-import { component$, useStylesScoped$, useStore, $ } from "@builder.io/qwik";
+import { component$, useStylesScoped$, useStore, $, useVisibleTask$ } from "@builder.io/qwik";
 import { PhMapPin, PhPhone, PhEnvelopeSimple, PhClock } from "~/components/icons";
 
 const styles = `
@@ -475,11 +475,12 @@ interface FormData {
   budget: string;
   timeline: string;
   consent: boolean;
+  'h-captcha-response': string;
 }
 
 export const ContactSection = component$(() => {
   useStylesScoped$(styles);
-  
+
   const formData = useStore<FormData>({
     name: '',
     phone: '',
@@ -488,13 +489,33 @@ export const ContactSection = component$(() => {
     description: '',
     budget: '',
     timeline: '',
-    consent: false
+    consent: false,
+    'h-captcha-response': ''
   });
-  
+
   const formState = useStore({
     isSubmitting: false,
     message: '',
     messageType: '' as 'success' | 'error' | ''
+  });
+
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    const handleHCaptchaSuccess = (event: CustomEvent) => {
+      formData['h-captcha-response'] = event.detail;
+    };
+
+    const handleHCaptchaExpired = () => {
+      formData['h-captcha-response'] = '';
+    };
+
+    window.addEventListener('hcaptcha-success', handleHCaptchaSuccess as EventListener);
+    window.addEventListener('hcaptcha-expired', handleHCaptchaExpired as EventListener);
+
+    return () => {
+      window.removeEventListener('hcaptcha-success', handleHCaptchaSuccess as EventListener);
+      window.removeEventListener('hcaptcha-expired', handleHCaptchaExpired as EventListener);
+    };
   });
   
   const submitForm = $(async () => {
@@ -503,7 +524,13 @@ export const ContactSection = component$(() => {
       formState.messageType = 'error';
       return;
     }
-    
+
+    if (!formData['h-captcha-response']) {
+      formState.message = 'Prosím dokončete captcha ověření';
+      formState.messageType = 'error';
+      return;
+    }
+
     formState.isSubmitting = true;
     formState.message = '';
     
@@ -529,6 +556,12 @@ export const ContactSection = component$(() => {
         formData.budget = '';
         formData.timeline = '';
         formData.consent = false;
+        formData['h-captcha-response'] = '';
+
+        // Reset hCaptcha widget
+        if (typeof (window as any).hcaptcha !== 'undefined') {
+          (window as any).hcaptcha.reset();
+        }
       } else {
         throw new Error('Failed to send message');
       }
@@ -706,22 +739,32 @@ export const ContactSection = component$(() => {
               
               <div class="form-group checkbox-group">
                 <div class="checkbox-wrapper">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     id="consent"
                     class="checkbox-input"
                     checked={formData.consent}
                     onChange$={(event) => formData.consent = (event.target as HTMLInputElement).checked}
-                    required 
+                    required
                   />
                   <label for="consent" class="checkbox-label">
                     Souhlasím se zpracováním osobních údajů pro účely kontaktování a zpracování poptávky
                   </label>
                 </div>
               </div>
-              
-              <button 
-                type="submit" 
+
+              <div class="form-group" style="margin-bottom: 1.5rem;">
+                <div
+                  class="h-captcha"
+                  data-captcha="true"
+                  data-callback="onHCaptchaSuccess"
+                  data-expired-callback="onHCaptchaExpired"
+                  data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                ></div>
+              </div>
+
+              <button
+                type="submit"
                 class="submit-btn"
                 disabled={formState.isSubmitting}
               >

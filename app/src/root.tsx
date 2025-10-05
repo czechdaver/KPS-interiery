@@ -52,6 +52,33 @@ export default component$(() => {
             }
           })();
         `} />
+
+        {/* hCaptcha Script */}
+        <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+        <script dangerouslySetInnerHTML={`
+          window.onHCaptchaSuccess = function(token) {
+            var input = document.querySelector('input[name="h-captcha-response"]');
+            if (!input) {
+              input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'h-captcha-response';
+              var form = document.querySelector('form');
+              if (form) form.appendChild(input);
+            }
+            input.value = token;
+
+            // Dispatch custom event for Qwik component
+            window.dispatchEvent(new CustomEvent('hcaptcha-success', { detail: token }));
+          };
+
+          window.onHCaptchaExpired = function() {
+            var input = document.querySelector('input[name="h-captcha-response"]');
+            if (input) input.value = '';
+
+            // Dispatch custom event for Qwik component
+            window.dispatchEvent(new CustomEvent('hcaptcha-expired'));
+          };
+        `} />
       </head>
       <body lang="cs">
         <RouterOutlet />

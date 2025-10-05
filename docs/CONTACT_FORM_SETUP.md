@@ -2,12 +2,12 @@
 
 ## Overview
 
-The contact form has been completely modernized with:
-- **Modern glassmorphism design** matching the rest of the website
-- **Working email functionality** that sends messages to david@motalik.cz
-- **Comprehensive form validation** with user feedback
-- **Responsive design** optimized for all devices
-- **Professional email templates** with proper formatting
+The contact form uses **Web3Forms** for email delivery with **hCaptcha** spam protection:
+- **Free email service** via Web3Forms
+- **Built-in spam protection** with hCaptcha
+- **No backend email configuration needed**
+- **Professional email delivery** to info@kps-interiery.cz
+- **Responsive design** matching website aesthetics
 
 ## Features
 
@@ -18,12 +18,18 @@ The contact form has been completely modernized with:
 - **Floating background elements** with subtle animations
 - **Consistent styling** with the rest of the website
 
-### 📧 Email Integration
-- **Resend API integration** for reliable email delivery
-- **Professional HTML email templates** with proper formatting
+### 📧 Email Integration (Web3Forms)
+- **Web3Forms API** for reliable email delivery
+- **Professional email formatting** with complete form data
 - **Email validation** and sanitization
 - **Error handling** with user-friendly messages
-- **Fallback mode** when API key is not configured (logs to console)
+- **Reply-to** set to customer's email for easy responses
+
+### 🛡️ Spam Protection
+- **hCaptcha integration** for bot protection
+- **Client-side validation** before submission
+- **Server-side validation** for security
+- **Input sanitization** to prevent XSS attacks
 
 ### ✅ Form Validation
 - **Client-side validation** for immediate feedback
@@ -32,39 +38,25 @@ The contact form has been completely modernized with:
 - **Email format validation**
 - **Phone number format validation**
 - **Consent checkbox requirement**
-- **Input sanitization** to prevent XSS attacks
+- **Captcha completion check**
 
-## Email Setup Instructions
+## Configuration
 
-### 1. Get Resend API Key
-1. Go to [Resend.com](https://resend.com)
-2. Sign up for a free account
-3. Go to API Keys section
-4. Create a new API key
-5. Copy the API key
+### Web3Forms Setup
+- **Access Key**: `edcf39c8-1047-4c9f-909f-509672a1ce9a`
+- **Recipient Email**: info@kps-interiery.cz
+- **From Email**: Customer's email (for direct replies)
+- **Reply-to**: Customer's email
 
-### 2. Configure Environment Variables
-1. Create a `.env` file in the root directory:
-```bash
-cp .env.example .env
-```
-
-2. Add your Resend API key:
-```env
-RESEND_API_KEY=re_your_actual_api_key_here
-EMAIL_TO=david@motalik.cz
-EMAIL_FROM_DOMAIN=kpsinteriery.cz
-```
-
-### 3. Domain Verification (for production)
-1. In Resend dashboard, go to Domains
-2. Add your domain (kpsinteriery.cz)
-3. Follow DNS verification steps
-4. Update the `from` field in the API to use your verified domain
+### hCaptcha Configuration
+- **Site Key**: `50b2fe65-b00b-4b9e-ad62-3ba471098be2`
+- **Free tier** with basic spam protection
+- **Automatic validation** via Web3Forms
+- **Widget auto-reset** after successful submission
 
 ## Form Fields
 
-The contact form includes these fields:
+The contact form includes:
 - **Name** (required) - Customer's full name
 - **Phone** (required) - Contact phone number
 - **Email** (required) - Customer's email address
@@ -73,73 +65,124 @@ The contact form includes these fields:
 - **Budget** (optional) - Price range selection
 - **Timeline** (optional) - When they want the project completed
 - **Consent** (required) - GDPR compliance checkbox
+- **hCaptcha** (required) - Spam protection verification
 
-## Email Template
+## Email Format
 
-The system sends a professionally formatted HTML email with:
-- **Branded header** with KPS Interiéry styling
-- **Complete form data** in an easy-to-read format
-- **Customer contact details** with clickable links
-- **Project details** with formatted description
-- **Timestamp** of when the form was submitted
-- **Reply-to** set to customer's email for easy response
+Emails sent to info@kps-interiery.cz include:
+- **Subject**: 🛠️ Nová poptávka od [Customer Name] - KPS Interiéry
+- **From**: Customer's email address
+- **Reply-to**: Customer's email (for easy responses)
+- **Message Content**:
+  - Date and time of submission
+  - Customer name, email, and phone
+  - Project type, budget, and timeline
+  - Full project description
+  - GDPR consent confirmation
 
-## Development Mode
+## How It Works
 
-Without a Resend API key, the form will:
-- ✅ Still work and validate properly
-- 📝 Log email content to the console
-- ✅ Show success message to users
-- 🔧 Perfect for development and testing
+1. **User fills out form** with project details
+2. **Completes hCaptcha** verification
+3. **Form validates** all fields client-side
+4. **Submits to API** endpoint `/api/contact`
+5. **Server validates** data and captcha token
+6. **Sends to Web3Forms** API with all form data
+7. **Web3Forms delivers** email to info@kps-interiery.cz
+8. **User receives** success confirmation
 
-## Production Deployment
+## Technical Implementation
 
-For live deployment:
-1. Set the `RESEND_API_KEY` environment variable
-2. Verify your domain with Resend
-3. Update the `from` email address to use your domain
-4. Test the form to ensure emails are delivered
+### Frontend (`app/src/components/ContactSection.tsx`)
+- Qwik reactive form with state management
+- hCaptcha widget integration
+- Event listeners for captcha success/expiry
+- Client-side validation before submission
+- Form reset after successful submission
 
-## Styling Customization
+### Backend (`app/src/routes/api/contact/index.ts`)
+- Validates all form fields
+- Sanitizes user input
+- Checks hCaptcha token presence
+- Formats data for Web3Forms
+- Sends via Web3Forms API
 
-The form uses CSS custom properties for easy theming:
-- `--primary` - Primary brand color
-- `--accent` - Accent/orange color
-- `--white` - White color
-- `--gray` - Text gray color
-- `--radius-*` - Border radius values
-- `--transition` - Standard transition timing
+### Global Scripts (`app/src/root.tsx`)
+- hCaptcha library loaded globally
+- Callback functions for captcha events
+- Hidden input management for token
+- Custom events for Qwik integration
 
 ## Security Features
 
-- ✅ **Input sanitization** to prevent XSS
+- ✅ **hCaptcha verification** prevents bot submissions
+- ✅ **Input sanitization** prevents XSS attacks
+- ✅ **Server-side validation** ensures data integrity
 - ✅ **CSRF protection** through Qwik's built-in security
-- ✅ **Rate limiting** can be added at server level
-- ✅ **Email validation** prevents spam
 - ✅ **Required consent** for GDPR compliance
+- ✅ **Email validation** prevents invalid addresses
+- ✅ **Phone validation** ensures proper format
 
 ## Testing
 
-The form can be tested by:
-1. Filling out all required fields
-2. Submitting the form
-3. Checking console logs (development mode)
-4. Verifying email delivery (with API key configured)
+### Local Testing
+1. Navigate to the contact section on the homepage
+2. Fill out all required fields
+3. Complete the hCaptcha challenge
+4. Submit the form
+5. Check for success message
+6. Verify email arrives at info@kps-interiery.cz
+
+### Production Testing
+- Form works immediately after deployment
+- No environment variables needed
+- No API keys to configure
+- Web3Forms handles all email delivery
 
 ## Troubleshooting
 
 ### Form not submitting
-- Check browser console for JavaScript errors
-- Ensure all required fields are filled
+- Check that all required fields are filled
+- Ensure hCaptcha is completed
+- Check browser console for errors
 - Verify consent checkbox is checked
 
-### Emails not being sent
-- Check that `RESEND_API_KEY` is set correctly
-- Verify domain is verified with Resend
-- Check server logs for error messages
-- Ensure the API endpoint is accessible
+### hCaptcha not loading
+- Check internet connection
+- Ensure hCaptcha script is loaded in root.tsx
+- Check browser console for script errors
+- Verify site key is correct
+
+### Emails not arriving
+- Check spam/junk folder
+- Verify recipient email in Web3Forms dashboard
+- Check server logs for API errors
+- Ensure Web3Forms access key is valid
 
 ### Styling issues
-- Check that CSS custom properties are defined
-- Verify backdrop-filter support in browser
+- Verify CSS custom properties are defined
+- Check backdrop-filter browser support
 - Test on different screen sizes
+- Clear browser cache
+
+## Advantages Over Previous Setup
+
+✅ **Simpler**: No API keys or environment variables needed
+✅ **Cheaper**: Web3Forms free tier vs Resend paid
+✅ **More Secure**: Built-in hCaptcha spam protection
+✅ **Better UX**: Clear captcha widget for users
+✅ **Easier Maintenance**: No email service to manage
+✅ **Reliable**: Web3Forms handles email delivery
+
+## Support
+
+For issues with:
+- **Web3Forms**: https://web3forms.com/
+- **hCaptcha**: https://www.hcaptcha.com/
+- **Contact form functionality**: Check application logs
+
+---
+
+**Last Updated**: 2025-10-05
+**Service**: Web3Forms + hCaptcha
+**Email Destination**: info@kps-interiery.cz
