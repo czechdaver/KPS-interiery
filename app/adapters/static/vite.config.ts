@@ -21,7 +21,7 @@ export default defineConfig((): UserConfig => {
     plugins: [
       ...(base.plugins || []),
       staticAdapter({
-        origin: '',
+        origin: 'https://kps-interiery.cz',
         // Copy all client build files to the static output
         // This ensures JS/CSS assets are included in the final build
         copyClientBuildFiles: true,

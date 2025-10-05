@@ -43,7 +43,7 @@ export const head: DocumentHead = {
     },
     {
       property: "og:url",
-      content: "https://kps-interiery.github.io/KPS-interiery/galerie",
+      content: "https://kps-interiery.cz/galerie",
     },
     {
       property: "og:locale",
@@ -61,7 +61,7 @@ export const head: DocumentHead = {
   links: [
     {
       rel: "canonical",
-      href: "https://kps-interiery.github.io/KPS-interiery/galerie",
+      href: "https://kps-interiery.cz/galerie",
     }
   ]
 };

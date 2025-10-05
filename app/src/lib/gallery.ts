@@ -406,7 +406,7 @@ export function getGalleryUrl(gallery: GalleryData): string {
  */
 export function getAllGalleryUrls(galleries: GalleryData[]): string[] {
   return galleries.map(gallery => {
-    return `https://kps-interiery.github.io/KPS-interiery/galerie/${gallery.id}`;
+    return `https://kps-interiery.cz/galerie/${gallery.id}`;
   });
 }
 

@@ -1,6 +1,6 @@
 import { component$, useStylesScoped$, useVisibleTask$, useSignal } from '@builder.io/qwik';
-import { routeLoader$, type DocumentHead, Link } from '@builder.io/qwik-city';
-import { loadGalleryData, getCoverImagePath } from '../../../lib/gallery';
+import { routeLoader$, type DocumentHead, Link, type StaticGenerateHandler } from '@builder.io/qwik-city';
+import { loadGalleryData, getCoverImagePath, GALLERY_SLUGS } from '../../../lib/gallery';
 import { PhotoSwipeGallery } from '../../../components/PhotoSwipeGallery';
 import { Navigation } from '../../../components/Navigation';
 import { Footer } from '../../../components/Footer';
@@ -476,7 +476,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
     };
   }
 
-  const canonicalUrl = `https://kps-interiery.github.io/KPS-interiery/galerie/${gallery.id}`;
+  const canonicalUrl = `https://kps-interiery.cz/galerie/${gallery.id}`;
 
   // Create structured description for SEO
   const seoDescription = `${gallery.description} Realizace KPS Interiéry v lokaci ${gallery.location}, ${gallery.date}. Prohlédněte si ${gallery.imageCount} fotografií z této realizace.`;
@@ -562,5 +562,12 @@ export const head: DocumentHead = ({ resolveValue }) => {
         href: `${canonicalUrl}/structured-data`
       }
     ]
+  };
+};
+
+// Static generation configuration - tell Qwik which gallery pages to pre-render
+export const onStaticGenerate: StaticGenerateHandler = async () => {
+  return {
+    params: GALLERY_SLUGS.map(slug => ({ slug }))
   };
 };
