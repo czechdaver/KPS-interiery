@@ -36,10 +36,8 @@ export default defineConfig((): UserConfig => {
       tsconfigPaths({ root: "." }),
       imagetools()
     ],
-    // Ensure correct asset base when hosted under a repo subpath (e.g., GitHub Pages)
-    base: process.env.NODE_ENV === "production"
-      ? "/KPS-interiery/"
-      : "/",
+    // Custom domain uses root path
+    base: "/",
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.

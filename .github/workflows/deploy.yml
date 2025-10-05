@@ -86,49 +86,46 @@ jobs:
 
       - name: Build client bundle
         working-directory: app
-        run: |
-          export PAGES_BASE_PATH="KPS-interiery"
-          npm run build
+        run: npm run build
 
       - name: Save client build artifacts
         working-directory: app
         run: |
           # Save the client build artifacts before they're overwritten by static generation
           mkdir -p ../temp-build
-          cp -r dist/KPS-interiery/build ../temp-build/ 2>/dev/null || echo "No build directory found"
-          cp -r dist/KPS-interiery/assets ../temp-build/ 2>/dev/null || echo "No assets directory found"
-          cp -r dist/KPS-interiery/*.json ../temp-build/ 2>/dev/null || echo "No JSON files found"
+          cp -r dist/build ../temp-build/ 2>/dev/null || echo "No build directory found"
+          cp -r dist/assets ../temp-build/ 2>/dev/null || echo "No assets directory found"
+          cp -r dist/*.json ../temp-build/ 2>/dev/null || echo "No JSON files found"
 
       - name: Generate static pages
         working-directory: app
-        run: |
-          export PAGES_BASE_PATH="KPS-interiery"
-          npx vite build -c adapters/static/vite.config.ts
+        run: npx vite build -c adapters/static/vite.config.ts
 
       - name: Restore client build artifacts
         working-directory: app
         run: |
           # Restore the client build artifacts to the static output
-          cp -r ../temp-build/build dist/KPS-interiery/ 2>/dev/null || echo "No build directory to restore"
-          cp -r ../temp-build/assets dist/KPS-interiery/ 2>/dev/null || echo "No assets directory to restore"
-          cp ../temp-build/*.json dist/KPS-interiery/ 2>/dev/null || echo "No JSON files to restore" 
-          
+          cp -r ../temp-build/build dist/ 2>/dev/null || echo "No build directory to restore"
+          cp -r ../temp-build/assets dist/ 2>/dev/null || echo "No assets directory to restore"
+          cp ../temp-build/*.json dist/ 2>/dev/null || echo "No JSON files to restore"
+
           # Copy static assets from public (directories and key files)
-          cp -r public/branding dist/KPS-interiery/ || true
-          cp -r public/images dist/KPS-interiery/ || true
-          cp -f public/manifest.json dist/KPS-interiery/manifest.json || true
-          cp -f public/robots.txt dist/KPS-interiery/robots.txt || true
-          
+          cp -r public/branding dist/ || true
+          cp -r public/images dist/ || true
+          cp -f public/CNAME dist/CNAME || true
+          cp -f public/robots.txt dist/robots.txt || true
+          cp -f public/sitemap.xml dist/sitemap.xml || true
+
           # Add .nojekyll to prevent Jekyll processing
-          touch dist/KPS-interiery/.nojekyll
-          
+          touch dist/.nojekyll
+
           echo "Final deployment directory contents:"
-          ls -la dist/KPS-interiery/
+          ls -la dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'app/dist/KPS-interiery'
+          path: 'app/dist'
 
   deploy:
     needs: build
