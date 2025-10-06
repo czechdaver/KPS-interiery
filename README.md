@@ -2,6 +2,19 @@
 
 This repository hosts the KPS Interiéry website built with Qwik + Qwik City and deployed to GitHub Pages. The web app lives under `app/` and is built as a fully static site using the Qwik City static adapter.
 
+## ⚠️ IMPORTANT: Fully Static Site
+
+**This is a FULLY STATIC site hosted on GitHub Pages.**
+
+- ❌ NO backend/server-side code is possible
+- ❌ NO API routes (Next.js API routes, Express endpoints, etc.)
+- ❌ NO server-side environment variables
+- ❌ NO database or server-side services
+- ✅ ONLY static HTML/CSS/JS files
+- ✅ ONLY client-side JavaScript (fetch to external APIs)
+
+**Contact Form**: Uses external Web3Forms API (client-side submission). See `form-info.md` for details.
+
 ## Project Structure
 
 - `app/` — Qwik app root

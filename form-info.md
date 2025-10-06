@@ -1,242 +1,282 @@
-# Kontaktní formulář - Implementace a nastavení
+# ⚠️ DŮLEŽITÉ: Tento web je PLNĚ STATICKÝ (GitHub Pages)
+
+**GitHub Pages = pouze statické HTML/CSS/JS = ŽÁDNÝ backend/server-side kód není možný!**
+
+Kontaktní formulář funguje výhradně na **client-side** pomocí externího API **Web3Forms**.
+
+---
+
+# Kontaktní formulář - Web3Forms implementace
 
 ## ✅ Aktuální stav
 
-Kontaktní formulář je **plně implementován a funkční**. Formulář pracuje ve dvou režimech:
+Kontaktní formulář je **plně implementován a funkční** pomocí Web3Forms API:
 
-- **Vývojový režim** (bez API klíče): Zprávy se logují do konzole
-- **Produkční režim** (s API klíčem): Zprávy se odesílají skutečnými emaily přes Resend API
+- ✅ Client-side odesílání přes Web3Forms API
+- ✅ hCaptcha spam ochrana (automatická integrace přes Web3Forms)
+- ✅ Validace na straně klienta
+- ✅ Profesionální HTML email šablona
+- ✅ Automatické zpětné vazby uživateli
+
+## 🏗️ Architektura (STATIC ONLY)
+
+### ❌ Co NELZE použít na statickém webu:
+- Backend API routes (Next.js API routes, Express endpoints, atd.)
+- Server-side validace
+- Environment variables na serveru
+- Databáze
+- Server-side email služby (Resend, SendGrid, atd.)
+- Node.js knihovny na serveru
+
+### ✅ Co funguje na statickém webu:
+- Client-side JavaScript (fetch API)
+- Externí API volání (Web3Forms, atd.)
+- Client-side validace
+- Static file hosting
+- Client-side knihovny
 
 ## 🔧 Jak formulář funguje
 
 ### Frontend (ContactSection.tsx)
-- Kompletní formulář s validací
-- Povinná pole: jméno, telefon, email, popis projektu, souhlas s GDPR
-- Volitelná pole: typ projektu, rozpočet, termín realizace
-- Validace na straně klienta
-- Loading stavy a zpětná vazba uživateli
+
+**Umístění**: `app/src/components/ContactSection.tsx`
+
+- Plný formulář s validací polí
+- **Povinná pole**: jméno, telefon, email, popis projektu, GDPR souhlas
+- **Volitelná pole**: typ projektu, rozpočet, termín realizace
+- Loading stavy a error handling
 - Automatický reset po úspěšném odeslání
 
-### Backend (src/routes/api/contact/index.ts)
-- API endpoint: `POST /api/contact`
-- Validace emailu a telefonu
-- Sanitizace vstupů (ochrana proti XSS)
-- Ověření souhlasu s GDPR
-- Integrace s Resend API pro odesílání emailů
-- Profesionální HTML šablona emailu
-- Graceful fallback (logování do konzole bez API klíče)
+### Web3Forms API Integration
 
-### Email služba
-- **Knihovna**: Resend API (v6.0.2)
-- **Příjemce**: david@motalik.cz (hardcoded v `src/routes/api/contact/index.ts:242`)
-- **Odesílatel**: `KPS Interiéry <noreply@kpsinteriery.cz>`
-- **Reply-To**: Email zákazníka (umožňuje přímou odpověď)
+**Endpoint**: `POST https://api.web3forms.com/submit`
 
-## 🚀 Nastavení pro produkci
+**Access Key**: `720d65a7-bfb4-4a2c-9059-8c7182decfdd`
 
-### 1. Založení účtu na Resend
+**Příjemce**: `info@kps-interiery.cz`
+
+**Form Data** odesílaná na Web3Forms:
+```typescript
+formData.append('access_key', '720d65a7-bfb4-4a2c-9059-8c7182decfdd');
+formData.append('subject', `🛠️ Nová poptávka od ${formData.name} - KPS Interiéry`);
+formData.append('from_name', formData.name);
+formData.append('from_email', formData.email);
+formData.append('reply_to', formData.email);
+formData.append('to_email', 'info@kps-interiery.cz');
+formData.append('message', messageContent);
+```
+
+### hCaptcha Spam Ochrana
+
+**Implementace**: Automatická přes Web3Forms Client Script
+
+**Script v root.tsx**:
+```tsx
+<script src="https://web3forms.com/client/script.js" async defer></script>
+```
+
+**HTML v ContactSection.tsx**:
+```tsx
+<div class="h-captcha" data-captcha="true"></div>
+```
+
+**Jak to funguje**:
+1. Web3Forms script detekuje `data-captcha="true"`
+2. Automaticky načte hCaptcha widget
+3. Automaticky validuje captcha před odesláním
+4. Automaticky přidá captcha token do FormData
+
+**ŽÁDNÉ manuální handlery nejsou potřeba!**
+
+## 🚀 Nastavení Web3Forms
+
+### 1. Web3Forms účet
 
 ```
-1. Jdi na https://resend.com
+1. Jdi na https://web3forms.com
 2. Zaregistruj se / Přihlaš se
-3. Přejdi do sekce "API Keys"
-4. Vytvoř nový API klíč
-5. Zkopíruj klíč (začíná na "re_")
+3. Vytvoř nový Access Key
+4. Zkopíruj klíč a použij v ContactSection.tsx
 ```
 
-### 2. Ověření domény v Resend
+**Aktuální Access Key**: `720d65a7-bfb4-4a2c-9059-8c7182decfdd`
 
-**DŮLEŽITÉ**: Bez ověření domény nebudou emaily fungovat!
+### 2. Konfigurace příjemce
 
-```
-1. V Resend dashboard jdi do "Domains"
-2. Klikni "Add Domain"
-3. Zadej: kpsinteriery.cz
-4. Resend ti zobrazí DNS záznamy k přidání
-```
+Email příjemce je hardcoded v `ContactSection.tsx:596`:
 
-### 3. Konfigurace DNS záznamů
-
-Musíš přidat následující DNS záznamy na doméně `kpsinteriery.cz`:
-
-#### SPF záznam (autentizace emailů)
-```
-Type: TXT
-Name: @ (nebo kpsinteriery.cz)
-Value: v=spf1 include:_spf.resend.com ~all
+```typescript
+formDataToSend.append('to_email', 'info@kps-interiery.cz');
 ```
 
-#### DKIM záznam (podpis emailů)
-```
-Type: TXT
-Name: resend._domainkey
-Value: [hodnota z Resend dashboard]
-```
+Pro změnu příjemce:
+1. Otevři `app/src/components/ContactSection.tsx`
+2. Najdi `formDataToSend.append('to_email', ...)`
+3. Změň email adresu
 
-#### DMARC záznam (politika emailů)
-```
-Type: TXT
-Name: _dmarc
-Value: v=DMARC1; p=none; rua=mailto:dmarc@kpsinteriery.cz
-```
+### 3. Web3Forms Dashboard
 
-**Čekací doba**: DNS propagace trvá 24-48 hodin
-
-### 4. Přidání environment variables
-
-#### Pro lokální vývoj:
-Vytvoř soubor `app/.env.local`:
-```bash
-RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxx
-```
-
-#### Pro produkci (Vercel/Netlify/GitHub Pages):
-V nastavení deployment platformy přidej:
-```
-Key: RESEND_API_KEY
-Value: re_xxxxxxxxxxxxxxxxxxxxx
-```
-
-**DŮLEŽITÉ**: Soubor `.env.local` je v `.gitignore` - nikdy ho necommituj!
+V dashboard můžeš:
+- Sledovat počet odeslaných formulářů
+- Zobrazit submission historii
+- Upravit nastavení (captcha, notifications, atd.)
+- Stáhnout CSV export všech submissions
 
 ## 🧪 Testování
 
-### Testování ve vývoji (bez API klíče)
+### Lokální testování
+
 ```bash
 cd app
 npm run dev
+# open http://localhost:5173
 
 # Vyplň a odešli formulář
-# Email se zobrazí v konzoli terminálu
-```
-
-### Testování s API klíčem
-```bash
-cd app
-# Vytvoř .env.local s RESEND_API_KEY
-npm run dev
-
-# Vyplň a odešli formulář
-# Skutečný email se odešle na david@motalik.cz
+# Email se pošle na info@kps-interiery.cz přes Web3Forms
 ```
 
 ### Testování v produkci
-1. Deploy aplikace s `RESEND_API_KEY`
-2. Ověř že doména je verifikovaná v Resend
-3. Odešli testovací formulář
-4. Zkontroluj email na david@motalik.cz
-5. Zkontroluj Resend dashboard pro statistiky doručení
 
-## 🔍 Ověření nastavení
+1. Deploy na GitHub Pages
+2. Otevři https://kps-interiery.cz
+3. Vyplň kontaktní formulář
+4. Zkontroluj email na info@kps-interiery.cz
+5. Zkontroluj Web3Forms dashboard pro submission log
 
-### Kontrola DNS záznamů
-```bash
-# SPF záznam
-dig TXT kpsinteriery.cz
+### Testování hCaptcha
 
-# DKIM záznam
-dig TXT resend._domainkey.kpsinteriery.cz
-
-# DMARC záznam
-dig TXT _dmarc.kpsinteriery.cz
-```
-
-### Kontrola v Resend Dashboard
-1. Přejdi do "Domains" sekce
-2. Klikni na `kpsinteriery.cz`
-3. Ověř že všechny záznamy jsou zelené (verified)
-4. Status by měl být "Active"
+1. Otevři DevTools (F12)
+2. Přejdi na kontaktní formulář
+3. Ověř že hCaptcha widget je viditelný
+4. Vyplň formulář a zkus odeslat bez vyřešení captcha
+5. Mělo by se zobrazit: "Please solve the captcha"
 
 ## ⚠️ Řešení problémů
 
-### Email se neodesílá
-```
-✓ Ověř že RESEND_API_KEY je správně nastavený
-✓ Zkontroluj že doména je verifikovaná
-✓ Zkontroluj DNS záznamy
-✓ Počkej 24-48h na DNS propagaci
-✓ Zkontroluj Resend dashboard pro chybové zprávy
-✓ Zkontroluj spam složku
-```
+### Formulář se neodesílá
 
-### Formulář hlásí chybu
 ```
-✓ Zkontroluj konzoli browseru (F12)
-✓ Zkontroluj server logs
+✓ Zkontroluj browser console (F12) pro chybové zprávy
 ✓ Ověř že všechna povinná pole jsou vyplněná
 ✓ Zkontroluj formát emailu a telefonu
-✓ Ověř že checkbox GDPR souhlasu je zaškrtnutý
+✓ Ověř že GDPR checkbox je zaškrtnutý
+✓ Ověř že hCaptcha je vyřešená
+✓ Zkontroluj Web3Forms dashboard pro error logs
 ```
 
-### Email dorazí do spamu
+### hCaptcha widget se nezobrazuje
+
 ```
-✓ Ověř že máš správně nastavené SPF, DKIM, DMARC
-✓ Počkej na větší email reputation (pošli více emailů)
-✓ Použij doménu s dobrým skóre (ne nový)
-✓ Vyhni se spam klíčovým slovům v obsahu
+✓ Ověř že Web3Forms script je načtený v root.tsx
+✓ Zkontroluj browser console pro chyby
+✓ Ověř že div má atribut data-captcha="true"
+✓ Zkontroluj network tab - měl by se načíst web3forms/client/script.js
+✓ Vypni AdBlock (může blokovat captcha)
+```
+
+### Email nedorazí
+
+```
+✓ Zkontroluj spam složku
+✓ Ověř access key v ContactSection.tsx
+✓ Zkontroluj Web3Forms dashboard - submissions
+✓ Ověř že to_email je správně nastavený
+✓ Zkontroluj Web3Forms email quota (free tier limit)
+```
+
+### Build failuje
+
+```
+✓ Zkontroluj GitHub Actions logs
+✓ Ověř že všechny importy jsou použité
+✓ Spusť npm run build:static lokálně
+✓ Zkontroluj TypeScript errory
 ```
 
 ## 💡 Volitelná vylepšení
 
-### 1. Rate limiting (ochrana proti spamu)
-Přidej omezení počtu requestů z jedné IP adresy.
+### 1. Rate limiting
 
-### 2. Honeypot pole (anti-bot)
-Přidej skryté pole, které vyplní jen boti.
+Web3Forms má built-in rate limiting, ale můžeš přidat i client-side:
+- LocalStorage tracking počtu submissí
+- Časový delay mezi odesláními
 
-### 3. reCAPTCHA
-Přidej Google reCAPTCHA pro ochranu proti botům.
+### 2. Auto-reply zákazníkovi
 
-### 4. Auto-reply zákazníkovi
-Pošli potvrzovací email zákazníkovi po odeslání formuláře.
+V Web3Forms dashboard můžeš nastavit:
+- Automatickou odpověď zákazníkovi
+- Custom email template
+- Redirect po úspěšném odeslání
 
-### 5. Více příjemců
-Upravit `src/routes/api/contact/index.ts:242` na:
+### 3. Více příjemců
+
 ```typescript
-const recipients = ['david@motalik.cz', 'info@kps-interiery.cz'];
-await sendEmail(recipients, subject, htmlContent, sanitizedData);
+formDataToSend.append('to_email', 'info@kps-interiery.cz,admin@kps-interiery.cz');
 ```
 
-### 6. Database logging
-Ukládej všechny formuláře do databáze jako backup.
+### 4. Webhook notifications
 
-### 7. Email notifikace přes webhook
-Přidej webhook pro okamžité notifikace (Slack, Discord, atd.).
+Web3Forms podporuje webhooks:
+- Slack notifications
+- Discord notifications
+- Custom webhook endpoints
+
+### 5. Database logging
+
+Pro backup můžeš přidat:
+- Google Sheets integration (Web3Forms feature)
+- Airtable integration
+- Zapier automation
+
+### 6. Custom success page
+
+Redirect po úspěšném odeslání:
+```typescript
+if (result.success) {
+  window.location.href = '/dekujeme';
+}
+```
 
 ## 📊 Monitoring
 
-### Resend Dashboard
-- **Emails sent**: Počet odeslaných emailů
-- **Delivery rate**: Procento doručených emailů
-- **Bounce rate**: Procento vrácených emailů
-- **Spam complaints**: Stížnosti na spam
+### Web3Forms Dashboard
+
+- **Total Submissions**: Celkový počet odeslaných formulářů
+- **Success Rate**: Procento úspěšně doručených emailů
+- **Last 30 days**: Statistiky za posledních 30 dní
+- **Submission Log**: Historie všech submissions s detaily
 
 ### Doporučené metriky
-- Sleduj delivery rate (mělo by být >95%)
-- Sleduj bounce rate (mělo by být <5%)
-- Kontroluj spam complaints (mělo by být 0%)
+
+- Sleduj success rate (mělo být ~100%)
+- Kontroluj spam submissions (mělo být 0 díky captcha)
+- Sleduj bounce rate emailů
+- Monitoruj quota usage (free tier má limit)
 
 ## 📝 Aktuální konfigurace
 
 ```javascript
-// Email příjemce (hardcoded)
-const EMAIL_TO = 'david@motalik.cz';
+// Access Key
+const ACCESS_KEY = '720d65a7-bfb4-4a2c-9059-8c7182decfdd';
 
-// Email odesílatel
-const EMAIL_FROM = 'KPS Interiéry <noreply@kpsinteriery.cz>';
+// Email příjemce
+const TO_EMAIL = 'info@kps-interiery.cz';
 
-// Doména pro verifikaci
-const DOMAIN = 'kpsinteriery.cz';
+// hCaptcha
+const CAPTCHA_ENABLED = true; // automaticky přes Web3Forms
+
+// Form validation
+const REQUIRED_FIELDS = ['name', 'email', 'phone', 'description', 'gdprConsent'];
 ```
 
 ## 🔗 Užitečné odkazy
 
-- **Resend Dashboard**: https://resend.com/
-- **Resend Dokumentace**: https://resend.com/docs
-- **DNS Checker**: https://dnschecker.org/
-- **Email Tester**: https://www.mail-tester.com/
+- **Web3Forms Dashboard**: https://web3forms.com/
+- **Web3Forms Documentation**: https://docs.web3forms.com/
+- **hCaptcha**: https://www.hcaptcha.com/
+- **GitHub Pages**: https://pages.github.com/
 
 ---
 
-**Poslední aktualizace**: 2025-10-03
-**Stav**: ✅ Implementováno, čeká na produkční nastavení
+**Poslední aktualizace**: 2025-10-06
+**Stav**: ✅ Plně funkční - statická implementace přes Web3Forms

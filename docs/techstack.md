@@ -40,4 +40,40 @@
 - Pro stabilitu Rollupu na Linux CI nastavuje:
   - `ROLLUP_SKIP_NODE_NATIVE=1`
   - `ROLLUP_DISABLE_NATIVE=1`
-  
+
+## ⚠️ Statická architektura
+
+**Web je plně statický (GitHub Pages) = ŽÁDNÝ backend není možný!**
+
+### Co NEFUNGUJE:
+- ❌ Backend API routes
+- ❌ Server-side environment variables
+- ❌ Databáze
+- ❌ Server-side služby (Resend, SendGrid, atd.)
+- ❌ Node.js knihovny na serveru
+
+### Co FUNGUJE:
+- ✅ Static HTML/CSS/JS
+- ✅ Client-side JavaScript
+- ✅ Externí API volání (fetch)
+- ✅ routeLoader$ (pre-renderuje se při buildu)
+
+## Kontaktní formulář
+
+**Technologie**: Web3Forms (externí API)
+**Implementace**: Client-side (fetch API)
+**Spam ochrana**: hCaptcha (automatická integrace)
+
+### Závislosti:
+- **Web3Forms Client Script**: `https://web3forms.com/client/script.js`
+  - Načítá se v `app/src/root.tsx`
+  - Automaticky integruje hCaptcha widget
+  - Validuje captcha před odesláním
+- **Access Key**: `720d65a7-bfb4-4a2c-9059-8c7182decfdd`
+- **Příjemce**: `info@kps-interiery.cz`
+
+### Soubory:
+- `app/src/components/ContactSection.tsx` — Kontaktní formulář komponenta
+- `app/src/root.tsx` — Web3Forms script tag (řádek 65)
+- `form-info.md` — Podrobná dokumentace implementace
+
