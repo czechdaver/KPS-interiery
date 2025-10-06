@@ -533,20 +533,82 @@ export const ContactSection = component$(() => {
 
     formState.isSubmitting = true;
     formState.message = '';
-    
+
     try {
-      const response = await fetch('/api/contact', {
+      // Format data for Web3Forms API
+      const currentDate = new Date().toLocaleDateString('cs-CZ');
+      const currentTime = new Date().toLocaleTimeString('cs-CZ');
+
+      const formatProjectType = (type: string) => {
+        const types: Record<string, string> = {
+          kitchen: 'Kuchyň',
+          wardrobe: 'Skříně',
+          bathroom: 'Koupelna',
+          office: 'Kancelář',
+          other: 'Jiné'
+        };
+        return types[type] || 'Nespecifikováno';
+      };
+
+      const formatBudget = (budget: string) => {
+        const budgets: Record<string, string> = {
+          '50000': 'Do 50 000 Kč',
+          '100000': '50 000 - 100 000 Kč',
+          '200000': '100 000 - 200 000 Kč',
+          '500000': '200 000 - 500 000 Kč',
+          '500000+': 'Nad 500 000 Kč'
+        };
+        return budgets[budget] || 'Nespecifikováno';
+      };
+
+      const formatTimeline = (timeline: string) => {
+        const timelines: Record<string, string> = {
+          asap: 'Co nejdříve',
+          '1-3months': '1-3 měsíce',
+          '3-6months': '3-6 měsíců',
+          '6months+': 'Nad 6 měsíců'
+        };
+        return timelines[timeline] || 'Nespecifikováno';
+      };
+
+      const messageContent = `
+📅 Datum: ${currentDate} v ${currentTime}
+
+👤 Jméno a příjmení: ${formData.name}
+📧 Email: ${formData.email}
+📱 Telefon: ${formData.phone}
+
+🏠 Typ projektu: ${formatProjectType(formData.projectType)}
+💰 Rozpočet: ${formatBudget(formData.budget)}
+⏰ Termín realizace: ${formatTimeline(formData.timeline)}
+
+📝 Popis projektu:
+${formData.description}
+
+🔒 Zákazník souhlasil se zpracováním osobních údajů
+      `.trim();
+
+      const formDataToSend = new FormData();
+      formDataToSend.append('access_key', 'edcf39c8-1047-4c9f-909f-509672a1ce9a');
+      formDataToSend.append('subject', `🛠️ Nová poptávka od ${formData.name} - KPS Interiéry`);
+      formDataToSend.append('from_name', formData.name);
+      formDataToSend.append('from_email', formData.email);
+      formDataToSend.append('reply_to', formData.email);
+      formDataToSend.append('to_email', 'info@kps-interiery.cz');
+      formDataToSend.append('h-captcha-response', formData['h-captcha-response']);
+      formDataToSend.append('message', messageContent);
+
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       });
-      
-      if (response.ok) {
+
+      const result = await response.json();
+
+      if (result.success) {
         formState.message = 'Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme!';
         formState.messageType = 'success';
-        
+
         // Reset form
         formData.name = '';
         formData.phone = '';
