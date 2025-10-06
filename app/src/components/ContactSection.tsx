@@ -593,7 +593,7 @@ ${formData.description}
       `.trim();
 
       const formDataToSend = new FormData();
-      formDataToSend.append('access_key', 'edcf39c8-1047-4c9f-909f-509672a1ce9a');
+      formDataToSend.append('access_key', '720d65a7-bfb4-4a2c-9059-8c7182decfdd');
       formDataToSend.append('subject', `🛠️ Nová poptávka od ${formData.name} - KPS Interiéry`);
       formDataToSend.append('from_name', formData.name);
       formDataToSend.append('from_email', formData.email);
