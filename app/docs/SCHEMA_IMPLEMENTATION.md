@@ -35,7 +35,7 @@ This document describes the comprehensive LocalBusiness schema markup implementa
     "longitude": 17.6662
   },
   "telephone": "+420728657413",
-  "email": "info@kpsinteriery.cz"
+  "email": "info@kps-interiery.cz"
 }
 ```
 

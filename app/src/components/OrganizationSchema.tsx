@@ -18,7 +18,7 @@ export const OrganizationSchema = component$(() => {
       "@type": "ContactPoint",
       "telephone": "+420774127133",
       "contactType": "customer service",
-      "email": "info@kpsinteriery.cz",
+      "email": "info@kps-interiery.cz",
       "availableLanguage": "Czech",
       "areaServed": "CZ"
     },

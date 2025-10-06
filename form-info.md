@@ -193,7 +193,7 @@ Pošli potvrzovací email zákazníkovi po odeslání formuláře.
 ### 5. Více příjemců
 Upravit `src/routes/api/contact/index.ts:242` na:
 ```typescript
-const recipients = ['david@motalik.cz', 'info@kpsinteriery.cz'];
+const recipients = ['david@motalik.cz', 'info@kps-interiery.cz'];
 await sendEmail(recipients, subject, htmlContent, sanitizedData);
 ```
 

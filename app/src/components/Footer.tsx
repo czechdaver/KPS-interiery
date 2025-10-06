@@ -274,7 +274,7 @@ export const Footer = component$(() => {
                 </li>
                 <li>
                   <PhEnvelopeSimple size={16} class="icon-duotone-reverse" />
-                  <a href="mailto:info@kpsinteriery.cz">info@kpsinteriery.cz</a>
+                  <a href="mailto:info@kps-interiery.cz">info@kps-interiery.cz</a>
                 </li>
                 <li>
                   <PhMapPin size={16} class="icon-duotone-reverse" />

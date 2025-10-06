@@ -42,14 +42,14 @@ export const LocalBusinessSchema = component$(() => {
       },
       {
         "@type": "ContactPoint",
-        "email": "info@kpsinteriery.cz",
+        "email": "info@kps-interiery.cz",
         "contactType": "customer service",
         "availableLanguage": ["Czech", "cs"],
         "areaServed": "CZ"
       }
     ],
     "telephone": "+420774127133",
-    "email": "info@kpsinteriery.cz",
+    "email": "info@kps-interiery.cz",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",

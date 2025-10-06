@@ -242,7 +242,11 @@ const styles = `
     box-shadow: 0 0 0 4px rgba(199, 122, 90, 0.1);
     transform: translateY(-2px);
   }
-  
+
+  select.form-input:focus {
+    transform: none;
+  }
+
   .form-input::placeholder {
     color: rgba(60, 46, 38, 0.6);
   }
@@ -677,7 +681,7 @@ ${formData.description}
               </div>
               <div class="contact-details">
                 <h3>Email</h3>
-                <p><a href="mailto:info@kpsinteriery.cz">info@kpsinteriery.cz</a></p>
+                <p><a href="mailto:info@kps-interiery.cz">info@kps-interiery.cz</a></p>
               </div>
             </div>
             

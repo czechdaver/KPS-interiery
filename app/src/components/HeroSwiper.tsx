@@ -451,11 +451,9 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
           e.stopPropagation();
 
           const target = e.target as HTMLElement;
-          console.log('Pagination click detected:', target);
 
           if (target.classList.contains('swiper-pagination-bullet')) {
             const slideIndex = parseInt(target.getAttribute('data-slide') || '0');
-            console.log('Navigating to slide:', slideIndex);
 
             if (swiper && swiper.slideTo) {
               swiper.slideTo(slideIndex, 600);
@@ -475,7 +473,6 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
           const paginationEl = document.querySelector('.swiper-pagination');
           if (paginationEl) {
             paginationEl.addEventListener('click', handlePaginationClick, true);
-            console.log('Pagination click handler attached');
 
             // Also add individual bullet listeners
             const bullets = document.querySelectorAll('.swiper-pagination-bullet');
@@ -483,7 +480,6 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
               bullet.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Direct bullet click:', index);
                 if (swiper && swiper.slideTo) {
                   swiper.slideTo(index, 600);
                 }
