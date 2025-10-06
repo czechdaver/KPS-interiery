@@ -61,32 +61,8 @@ export default component$(() => {
           })();
         `} />
 
-        {/* hCaptcha Script - loaded with async and defer for better performance */}
-        <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-        <script dangerouslySetInnerHTML={`
-          function onHCaptchaSuccess(token) {
-            var input = document.querySelector('input[name="h-captcha-response"]');
-            if (!input) {
-              input = document.createElement('input');
-              input.type = 'hidden';
-              input.name = 'h-captcha-response';
-              var form = document.querySelector('form');
-              if (form) form.appendChild(input);
-            }
-            input.value = token;
-
-            // Dispatch custom event for Qwik component
-            window.dispatchEvent(new CustomEvent('hcaptcha-success', { detail: token }));
-          }
-
-          function onHCaptchaExpired() {
-            var input = document.querySelector('input[name="h-captcha-response"]');
-            if (input) input.value = '';
-
-            // Dispatch custom event for Qwik component
-            window.dispatchEvent(new CustomEvent('hcaptcha-expired'));
-          }
-        `} />
+        {/* Web3Forms Client Script - handles hCaptcha automatically */}
+        <script src="https://web3forms.com/client/script.js" async defer></script>
       </head>
       <body lang="cs">
         <RouterOutlet />

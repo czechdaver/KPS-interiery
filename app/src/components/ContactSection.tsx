@@ -479,7 +479,6 @@ interface FormData {
   budget: string;
   timeline: string;
   consent: boolean;
-  'h-captcha-response': string;
 }
 
 export const ContactSection = component$(() => {
@@ -493,8 +492,7 @@ export const ContactSection = component$(() => {
     description: '',
     budget: '',
     timeline: '',
-    consent: false,
-    'h-captcha-response': ''
+    consent: false
   });
 
   const formState = useStore({
@@ -503,34 +501,9 @@ export const ContactSection = component$(() => {
     messageType: '' as 'success' | 'error' | ''
   });
 
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    const handleHCaptchaSuccess = (event: CustomEvent) => {
-      formData['h-captcha-response'] = event.detail;
-    };
-
-    const handleHCaptchaExpired = () => {
-      formData['h-captcha-response'] = '';
-    };
-
-    window.addEventListener('hcaptcha-success', handleHCaptchaSuccess as EventListener);
-    window.addEventListener('hcaptcha-expired', handleHCaptchaExpired as EventListener);
-
-    return () => {
-      window.removeEventListener('hcaptcha-success', handleHCaptchaSuccess as EventListener);
-      window.removeEventListener('hcaptcha-expired', handleHCaptchaExpired as EventListener);
-    };
-  });
-  
   const submitForm = $(async () => {
     if (!formData.consent) {
       formState.message = 'Musíte souhlasit se zpracováním osobních údajů';
-      formState.messageType = 'error';
-      return;
-    }
-
-    if (!formData['h-captcha-response']) {
-      formState.message = 'Prosím dokončete captcha ověření';
       formState.messageType = 'error';
       return;
     }
@@ -599,7 +572,6 @@ ${formData.description}
       formDataToSend.append('from_email', formData.email);
       formDataToSend.append('reply_to', formData.email);
       formDataToSend.append('to_email', 'info@kps-interiery.cz');
-      formDataToSend.append('h-captcha-response', formData['h-captcha-response']);
       formDataToSend.append('message', messageContent);
 
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -622,12 +594,6 @@ ${formData.description}
         formData.budget = '';
         formData.timeline = '';
         formData.consent = false;
-        formData['h-captcha-response'] = '';
-
-        // Reset hCaptcha widget
-        if (typeof (window as any).hcaptcha !== 'undefined') {
-          (window as any).hcaptcha.reset();
-        }
       } else {
         throw new Error('Failed to send message');
       }
@@ -823,9 +789,6 @@ ${formData.description}
                 <div
                   class="h-captcha"
                   data-captcha="true"
-                  data-callback="onHCaptchaSuccess"
-                  data-expired-callback="onHCaptchaExpired"
-                  data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
                 ></div>
               </div>
 
