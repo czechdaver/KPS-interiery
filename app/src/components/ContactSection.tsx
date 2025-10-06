@@ -1,4 +1,4 @@
-import { component$, useStylesScoped$, useStore, $, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, useStylesScoped$, useStore, $ } from "@builder.io/qwik";
 import { PhMapPin, PhPhone, PhEnvelopeSimple, PhClock } from "~/components/icons";
 
 const styles = `
