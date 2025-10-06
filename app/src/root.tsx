@@ -64,7 +64,7 @@ export default component$(() => {
         {/* hCaptcha Script - loaded with async and defer for better performance */}
         <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
         <script dangerouslySetInnerHTML={`
-          window.onHCaptchaSuccess = function(token) {
+          function onHCaptchaSuccess(token) {
             var input = document.querySelector('input[name="h-captcha-response"]');
             if (!input) {
               input = document.createElement('input');
@@ -77,15 +77,15 @@ export default component$(() => {
 
             // Dispatch custom event for Qwik component
             window.dispatchEvent(new CustomEvent('hcaptcha-success', { detail: token }));
-          };
+          }
 
-          window.onHCaptchaExpired = function() {
+          function onHCaptchaExpired() {
             var input = document.querySelector('input[name="h-captcha-response"]');
             if (input) input.value = '';
 
             // Dispatch custom event for Qwik component
             window.dispatchEvent(new CustomEvent('hcaptcha-expired'));
-          };
+          }
         `} />
       </head>
       <body lang="cs">
