@@ -570,7 +570,7 @@ ${formData.description}
       formDataToSend.append('subject', `🛠️ Nová poptávka od ${formData.name} - KPS Interiéry`);
       formDataToSend.append('from_name', formData.name);
       formDataToSend.append('from_email', formData.email);
-      formDataToSend.append('reply_to', formData.email);
+      formDataToSend.append('replyto', formData.email);
       formDataToSend.append('to_email', 'info@kps-interiery.cz');
       formDataToSend.append('message', messageContent);
 
