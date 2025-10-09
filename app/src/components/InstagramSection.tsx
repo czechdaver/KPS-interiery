@@ -151,6 +151,7 @@ export const InstagramSection = component$(() => {
     }
 
     // Dynamically import and initialize Fouita widget
+    // @ts-expect-error - External CDN module without TypeScript definitions
     import("https://cdn.fouita.com/public/instagram-feed.js?11")
       .then((module) => {
         const App = module.default;
