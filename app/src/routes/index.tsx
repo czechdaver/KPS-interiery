@@ -124,7 +124,7 @@ export const head: DocumentHead = {
     },
     {
       name: "robots",
-      content: "index, follow",
+      content: "index,follow",
     },
     {
       name: "viewport",
