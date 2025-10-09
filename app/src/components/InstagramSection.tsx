@@ -1,4 +1,4 @@
-import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { component$, useStylesScoped$, useVisibleTask$ } from "@builder.io/qwik";
 import { PhInstagramLogo } from "~/components/icons";
 
 const styles = `
@@ -134,6 +134,58 @@ const styles = `
 
 export const InstagramSection = component$(() => {
   useStylesScoped$(styles);
+
+  // Initialize Fouita widget when component mounts (SPA-compatible)
+  useVisibleTask$(() => {
+    const target = document.getElementById("ft-insta-app");
+
+    if (!target) {
+      console.warn("Fouita: Instagram feed container not ready");
+      return;
+    }
+
+    // Prevent duplicate initialization
+    if (target.hasAttribute('data-fouita-initialized')) {
+      console.log("Fouita: Already initialized, skipping");
+      return;
+    }
+
+    // Dynamically import and initialize Fouita widget
+    import("https://cdn.fouita.com/public/instagram-feed.js?11")
+      .then((module) => {
+        const App = module.default;
+
+        new App({
+          target: target,
+          props: {
+            settings: {
+              layout: "masonry",
+              source: "insta",
+              selected: "uname",
+              header: true,
+              autoplay: true,
+              zigzag: false,
+              cols: 4,
+              cardHeight: 300,
+              gap: 12,
+              direction: "down",
+              height: "auto",
+              bgColor: "transparent",
+              txtColor: "#FFFFFF",
+              ukey: "209ecfca-44b8-4203-8dec-8b3d1c772d67",
+              headerWidth: null
+            }
+          }
+        });
+
+        // Mark as initialized to prevent duplicates
+        target.setAttribute('data-fouita-initialized', 'true');
+        console.log("Fouita: Instagram widget initialized successfully");
+      })
+      .catch((err) => {
+        console.error("Fouita: Failed to load Instagram widget:", err);
+      });
+  });
 
   return (
     <section class="instagram-section section">
