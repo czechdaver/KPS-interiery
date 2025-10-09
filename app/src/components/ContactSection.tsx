@@ -569,9 +569,7 @@ ${formData.description}
       formDataToSend.append('access_key', '720d65a7-bfb4-4a2c-9059-8c7182decfdd');
       formDataToSend.append('subject', `🛠️ Nová poptávka od ${formData.name} - KPS Interiéry`);
       formDataToSend.append('from_name', formData.name);
-      formDataToSend.append('from_email', formData.email);
       formDataToSend.append('replyto', formData.email);
-      formDataToSend.append('to_email', 'info@kps-interiery.cz');
       formDataToSend.append('message', messageContent);
 
       const response = await fetch('https://api.web3forms.com/submit', {

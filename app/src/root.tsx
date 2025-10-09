@@ -63,6 +63,33 @@ export default component$(() => {
 
         {/* Web3Forms Client Script - handles hCaptcha automatically */}
         <script src="https://web3forms.com/client/script.js" async defer></script>
+
+        {/* Fouita Instagram Feed Widget Script */}
+        <script type="module" dangerouslySetInnerHTML={`
+          import App from "https://cdn.fouita.com/public/instagram-feed.js?11";
+          new App({
+            target: document.getElementById("ft-insta-app"),
+            props: {
+              "settings": {
+                "layout": "masonry",
+                "source": "insta",
+                "selected": "uname",
+                "header": true,
+                "autoplay": true,
+                "zigzag": false,
+                "cols": 4,
+                "cardHeight": 300,
+                "gap": 12,
+                "direction": "down",
+                "height": "auto",
+                "bgColor": "transparent",
+                "txtColor": "#FFFFFF",
+                "ukey": "209ecfca-44b8-4203-8dec-8b3d1c772d67",
+                "headerWidth": null
+              }
+            }
+          });
+        `} />
       </head>
       <body lang="cs">
         <RouterOutlet />

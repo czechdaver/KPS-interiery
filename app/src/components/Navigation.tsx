@@ -110,9 +110,14 @@ export const Navigation = component$(() => {
         }
 
         .dropdown-arrow {
-          transition: var(--transition);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           font-size: 0.75rem;
           transform: rotate(0deg);
+          transform-origin: center;
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          will-change: transform;
         }
 
         .nav-dropdown:hover .dropdown-arrow,
@@ -127,14 +132,14 @@ export const Navigation = component$(() => {
         .dropdown-menu {
           position: absolute;
           top: calc(100% + 10px);
-          left: 0;
+          left: 50%;
           background: var(--white);
           border: 1px solid rgba(200, 139, 78, 0.1);
           border-radius: var(--radius-sm);
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
           opacity: 0;
           visibility: hidden;
-          transform: translateY(-10px);
+          transform: translateX(-50%) translateY(-10px);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           min-width: 220px;
           z-index: 1001;
@@ -144,7 +149,7 @@ export const Navigation = component$(() => {
         .nav-dropdown.dropdown-open .dropdown-menu {
           opacity: 1;
           visibility: visible;
-          transform: translateY(0);
+          transform: translateX(-50%) translateY(0);
         }
 
         .dropdown-item {

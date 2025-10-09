@@ -1,5 +1,5 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
-import { PhHeart, PhInstagramLogo } from "~/components/icons";
+import { PhInstagramLogo } from "~/components/icons";
 
 const styles = `
   .instagram-section {
@@ -8,114 +8,87 @@ const styles = `
     border-top: 1px solid rgba(200, 139, 78, 0.2);
     border-bottom: 1px solid rgba(200, 139, 78, 0.2);
   }
-  
+
   .instagram-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
-  
-  .instagram-header .section-title {
-    /* Uses global gradient from .section-title */
-  }
-  
+
   .instagram-header .section-description {
     color: rgba(255, 255, 255, 0.8);
   }
-  
-  .instagram-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 4rem;
+
+  /* Fouita Widget Container */
+  .instagram-feed-wrapper {
+    margin-bottom: 3rem;
+    width: 100%;
   }
-  
-  .instagram-post {
-    background: rgba(255, 255, 255, 0.8);
+
+  /* Style Fouita widget to match brand */
+  #ft-insta-app {
+    background: transparent !important;
+    padding: 0;
     border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: var(--transition);
+  }
+
+  /* Override Fouita's default styles for dark background */
+  #ft-insta-app * {
+    color: var(--white) !important;
+  }
+
+  /* Style individual post cards if Fouita exposes them */
+  #ft-insta-app [class*="card"],
+  #ft-insta-app [class*="item"],
+  #ft-insta-app [class*="post"] {
+    background: rgba(255, 255, 255, 0.1) !important;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(200, 139, 78, 0.2);
-  }
-  
-  .instagram-post:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(200, 139, 78, 0.4);
-  }
-  
-  .instagram-image-container {
-    position: relative;
-    width: 100%;
-    height: 280px;
-    overflow: hidden;
-  }
-  
-  .instagram-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: var(--radius-md) !important;
     transition: var(--transition);
   }
-  
-  .instagram-post:hover .instagram-image {
-    transform: scale(1.05);
+
+  #ft-insta-app [class*="card"]:hover,
+  #ft-insta-app [class*="item"]:hover,
+  #ft-insta-app [class*="post"]:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(200, 139, 78, 0.3) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
-  
-  .instagram-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: var(--transition);
+
+  /* Style images */
+  #ft-insta-app img {
+    border-radius: var(--radius-md);
   }
-  
-  .instagram-post:hover .instagram-overlay {
-    opacity: 1;
+
+  /* Attribution footer styling */
+  #ft-insta-brd {
+    text-align: center;
+    padding: 1.5rem 0 0.5rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
   }
-  
-  .instagram-stats {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    color: var(--white);
-  }
-  
-  .instagram-likes {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-  }
-  
-  .instagram-icon {
+
+  #ft-insta-brd:hover {
     opacity: 0.8;
+  }
+
+  #ft-insta-brd a {
+    color: var(--secondary-light);
+    text-decoration: none;
+    margin: 0 0.5rem;
     transition: var(--transition);
   }
-  
-  .instagram-post:hover .instagram-icon {
-    opacity: 1;
-    transform: scale(1.1);
+
+  #ft-insta-brd a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
   }
-  
-  .instagram-caption {
-    padding: 1.5rem;
-  }
-  
-  .instagram-caption p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin: 0;
-    color: var(--dark-gray);
-  }
-  
+
   .instagram-cta {
     text-align: center;
   }
@@ -127,84 +100,40 @@ const styles = `
     padding: 0.875rem 1.5rem;
     width: auto;
   }
-  
+
   @media (max-width: 768px) {
-    .instagram-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+    .instagram-header {
+      margin-bottom: 2rem;
     }
-    
-    .instagram-image-container {
-      height: 200px;
+
+    .instagram-feed-wrapper {
+      margin-bottom: 2rem;
     }
-    
-    .instagram-caption {
-      padding: 1rem;
-    }
-    
-    .instagram-caption p {
-      font-size: 0.85rem;
+
+    #ft-insta-brd {
+      font-size: 0.8rem;
+      padding: 1rem 0 0.5rem;
     }
   }
-  
+
   @media (max-width: 480px) {
-    .instagram-grid {
-      grid-template-columns: 1fr;
+    .instagram-header {
+      margin-bottom: 1.5rem;
     }
-    
-    .instagram-image-container {
-      height: 250px;
+
+    #ft-insta-brd {
+      font-size: 0.75rem;
+    }
+
+    #ft-insta-brd a {
+      display: block;
+      margin: 0.25rem 0;
     }
   }
 `;
 
 export const InstagramSection = component$(() => {
   useStylesScoped$(styles);
-  // Mock Instagram posts data
-  const instagramPosts = [
-    {
-      id: 1,
-      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0094-web-400w.avif",
-      alt: "Modern retro kitchen realization",
-      likes: 142,
-      caption: "Nová kuchyň pro spokojené zákazníky ✨ #kpsinteriery #kuchynenámíru"
-    },
-    {
-      id: 2,
-      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bila-u-tvar/skrine-0205-web-400w.avif",
-      alt: "Wardrobe installation",
-      likes: 89,
-      caption: "Vestavěná skříň s posuvnými dveřmi 🚪 #vestaveneskrene #nabytek"
-    },
-    {
-      id: 3,
-      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0081-web-400w.avif",
-      alt: "Bathroom furniture",
-      likes: 156,
-      caption: "Koupelnový nábytek na míru 🛁 #koupelna #design #kvalita"
-    },
-    {
-      id: 4,
-      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0066-web-400w.avif",
-      alt: "Office furniture",
-      likes: 73,
-      caption: "Kancelářský nábytek pro moderní workspace 💼 #kancelar #office"
-    },
-    {
-      id: 5,
-      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif",
-      alt: "Luxury kitchen",
-      likes: 198,
-      caption: "Luxusní kuchyň s mramorovými detaily 🏆 #luxus #mramor #kuchyne"
-    },
-    {
-      id: 6,
-      image: (import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bila-podkrovi/kuchyne_0031-web-400w.avif",
-      alt: "Modern bathroom",
-      likes: 124,
-      caption: "Moderní koupelna s dřevěnými prvky 🌿 #drevo #priroda #koupelna"
-    }
-  ];
 
   return (
     <section class="instagram-section section">
@@ -215,37 +144,20 @@ export const InstagramSection = component$(() => {
             Nejnovější realizace a zákulisí naší práce najdete na našem Instagram profilu
           </p>
         </div>
-        
-        <div class="instagram-grid">
-          {instagramPosts.map((post) => (
-            <div key={post.id} class="instagram-post">
-              <div class="instagram-image-container">
-                <img 
-                  src={post.image}
-                  alt={post.alt}
-                  class="instagram-image"
-                  width="300"
-                  height="300"
-                />
-                <div class="instagram-overlay">
-                  <div class="instagram-stats">
-                    <div class="instagram-likes">
-                      <PhHeart size={24} class="icon-duotone-reverse" />
-                      {post.likes}
-                    </div>
-                    <div class="instagram-icon">
-                      <PhInstagramLogo size={32} class="icon-duotone" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="instagram-caption">
-                <p>{post.caption}</p>
-              </div>
-            </div>
-          ))}
+
+        <div class="instagram-feed-wrapper">
+          {/* Fouita Instagram Feed Widget */}
+          <div id="ft-insta-app"></div>
+          <div id="ft-insta-brd">
+            <a href="https://fouita.com/website-widgets/instagram-feed" target="_blank" rel="noopener noreferrer">
+              Embed Instagram Feed
+            </a>
+            <a href="https://fouita.com" target="_blank" rel="noopener noreferrer">
+              with Fouita
+            </a>
+          </div>
         </div>
-        
+
         <div class="instagram-cta">
           <a
             href="https://instagram.com/kpsinteriery"
@@ -253,12 +165,11 @@ export const InstagramSection = component$(() => {
             rel="noopener noreferrer"
             class="btn btn-accent"
           >
-            <PhInstagramLogo size={24} style="margin-right: 0.5rem;" />
+            <PhInstagramLogo size={24} />
             Sledovat na Instagramu
           </a>
         </div>
       </div>
-      
     </section>
   );
 });
