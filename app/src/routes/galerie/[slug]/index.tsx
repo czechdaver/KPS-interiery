@@ -1,6 +1,7 @@
 import { component$, useStylesScoped$, useVisibleTask$, useSignal } from '@builder.io/qwik';
 import { routeLoader$, type DocumentHead, Link, type StaticGenerateHandler } from '@builder.io/qwik-city';
 import { loadGalleryData, getCoverImagePath, GALLERY_SLUGS } from '../../../lib/gallery';
+import { generateOgImageMetaTags } from '../../../lib/og-image-utils';
 import { PhotoSwipeGallery } from '../../../components/PhotoSwipeGallery';
 import { Navigation } from '../../../components/Navigation';
 import { Footer } from '../../../components/Footer';
@@ -491,6 +492,18 @@ export const head: DocumentHead = ({ resolveValue }) => {
     ...gallery.materials.slice(0, 2).map(m => m.toLowerCase())
   ].join(', ');
 
+  // Get cover image data for OG tags
+  const coverImageData = gallery.images.find(img => img.src === gallery.coverImage) || gallery.images[0];
+
+  // Generate OG image meta tags with gallery cover photo
+  const ogImageTags = generateOgImageMetaTags(
+    gallery.id,
+    gallery.coverImage,
+    gallery.title,
+    coverImageData?.width,
+    coverImageData?.height
+  );
+
   return {
     title: `${gallery.title} - ${gallery.category} - KPS Interiéry`,
     meta: [
@@ -526,6 +539,8 @@ export const head: DocumentHead = ({ resolveValue }) => {
         property: 'og:locale',
         content: 'cs_CZ'
       },
+      // Add gallery-specific OG image tags
+      ...ogImageTags,
       {
         property: 'article:published_time',
         content: gallery.date
