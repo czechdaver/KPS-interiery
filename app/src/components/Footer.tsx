@@ -104,7 +104,7 @@ export const Footer = component$(() => {
         
         .footer-links {
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr !important;
+          grid-template-columns: 1.75fr 1fr 1.25fr !important;
           gap: 2rem;
         }
         
@@ -183,7 +183,7 @@ export const Footer = component$(() => {
         
         @media (min-width: 769px) and (max-width: 1200px) {
           .footer-links {
-            grid-template-columns: 1.8fr 1fr 1fr;
+            grid-template-columns: 1.55fr 1fr 1.25fr;
           }
         }
         
