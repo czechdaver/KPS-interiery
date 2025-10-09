@@ -44,6 +44,7 @@ const styles = `
     display: flex;
     animation: scroll 60s linear infinite;
     width: calc(200px * 54); /* 27 partners * 2 sets * 200px width */
+    will-change: transform; /* GPU acceleration hint for smooth animation */
   }
   
   .partner-item {
@@ -67,7 +68,6 @@ const styles = `
     justify-content: center;
     min-width: 140px;
     min-height: 80px;
-    backdrop-filter: blur(10px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   }
   
@@ -87,7 +87,6 @@ const styles = `
     border-color: var(--gold);
     transform: translateY(-6px) scale(1.05);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(20px);
   }
   
   .partner-item:hover .partner-logo img {
