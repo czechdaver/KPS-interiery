@@ -135,7 +135,7 @@ const styles = `
 export const InstagramSection = component$(() => {
   useStylesScoped$(styles);
 
-  // Initialize Fouita widget when component mounts (SPA-compatible)
+  // Initialize Fouita widget once per browser session (optimized for free tier)
   useVisibleTask$(() => {
     const target = document.getElementById("ft-insta-app");
 
@@ -144,7 +144,14 @@ export const InstagramSection = component$(() => {
       return;
     }
 
-    // Prevent duplicate initialization
+    // Check if widget is already initialized in current browser session
+    // This prevents counting multiple "views" in Fouita's free tier (1k views/month)
+    if ((window as any).__FOUITA_WIDGET_INITIALIZED__) {
+      console.log("Fouita: Widget already initialized in this session, reusing existing instance");
+      return;
+    }
+
+    // Prevent duplicate initialization attempts
     if (target.hasAttribute('data-fouita-initialized')) {
       console.log("Fouita: Already initialized, skipping");
       return;
@@ -181,6 +188,11 @@ export const InstagramSection = component$(() => {
 
         // Mark as initialized to prevent duplicates
         target.setAttribute('data-fouita-initialized', 'true');
+
+        // Set global flag to prevent reinitialization across SPA navigations
+        // This ensures 1 visitor = 1 Fouita "view" per session, not per navigation
+        (window as any).__FOUITA_WIDGET_INITIALIZED__ = true;
+
         console.log("Fouita: Instagram widget initialized successfully");
       })
       .catch((err) => {
