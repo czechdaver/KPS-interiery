@@ -55,6 +55,15 @@ export default component$(() => {
 
         {/* Web3Forms Client Script - handles hCaptcha automatically */}
         <script src="https://web3forms.com/client/script.js" async defer></script>
+
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FH0FWZW41"></script>
+        <script dangerouslySetInnerHTML={`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-0FH0FWZW41');
+        `} />
       </head>
       <body lang="cs">
         <RouterOutlet />
