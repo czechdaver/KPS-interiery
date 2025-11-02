@@ -1,5 +1,6 @@
 import { component$, useStylesScoped$, useStore, $ } from "@builder.io/qwik";
 import { PhMapPin, PhPhone, PhEnvelopeSimple, PhClock } from "~/components/icons";
+import { ObfuscatedEmail } from "~/components/ObfuscatedEmail";
 
 const styles = `
   .contact-section {
@@ -645,7 +646,7 @@ ${formData.description}
               </div>
               <div class="contact-details">
                 <h3>Email</h3>
-                <p><a href="mailto:info@kps-interiery.cz">info@kps-interiery.cz</a></p>
+                <p><ObfuscatedEmail user="info" domain="kps-interiery.cz" /></p>
               </div>
             </div>
             

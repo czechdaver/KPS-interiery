@@ -1,5 +1,6 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
 import { PhInstagramLogo, PhFacebookLogo, PhPhone, PhEnvelopeSimple, PhMapPin } from "~/components/icons";
+import { ObfuscatedEmail } from "~/components/ObfuscatedEmail";
 
 export const Footer = component$(() => {
   useStylesScoped$(`
@@ -274,7 +275,7 @@ export const Footer = component$(() => {
                 </li>
                 <li>
                   <PhEnvelopeSimple size={16} class="icon-duotone-reverse" />
-                  <a href="mailto:info@kps-interiery.cz">info@kps-interiery.cz</a>
+                  <ObfuscatedEmail user="info" domain="kps-interiery.cz" />
                 </li>
                 <li>
                   <PhMapPin size={16} class="icon-duotone-reverse" />

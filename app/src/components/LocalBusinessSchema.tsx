@@ -232,8 +232,7 @@ export const LocalBusinessSchema = component$(() => {
         "jobTitle": "Jednatel a hlavní designer",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+420774127133",
-          "email": "petr@kpsinteriery.cz"
+          "telephone": "+420774127133"
         }
       }
     ],
