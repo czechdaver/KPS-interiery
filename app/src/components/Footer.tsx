@@ -129,14 +129,14 @@ export const Footer = component$(() => {
           gap: 0.5rem;
         }
         
-        .footer-column a {
+        .footer-column :global(a) {
           color: rgba(255, 255, 255, 0.8);
           text-decoration: none;
           transition: var(--transition);
           font-size: 0.95rem;
         }
-        
-        .footer-column a:hover {
+
+        .footer-column :global(a:hover) {
           color: var(--secondary-light);
         }
         

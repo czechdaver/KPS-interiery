@@ -1,4 +1,5 @@
 # Logs
+lighthouse  
 logs
 *.log
 npm-debug.log*

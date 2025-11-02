@@ -141,15 +141,15 @@ const styles = `
     margin: 0;
   }
   
-  .contact-details a {
+  .contact-details :global(a) {
     color: var(--accent);
     text-decoration: none;
     font-weight: 600;
     transition: var(--transition);
     position: relative;
   }
-  
-  .contact-details a::after {
+
+  .contact-details :global(a::after) {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -159,8 +159,8 @@ const styles = `
     background: var(--accent);
     transition: width 0.3s ease;
   }
-  
-  .contact-details a:hover::after {
+
+  .contact-details :global(a:hover::after) {
     width: 100%;
   }
   
