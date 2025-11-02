@@ -21,23 +21,40 @@ export default component$(() => {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {/* Optimize font loading - font-display:optional prevents FOUT/layout shift */}
+        {/* Resource hints for performance optimization */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://web3forms.com" />
+        <link rel="dns-prefetch" href="https://js.hcaptcha.com" />
 
-        {/* Non-blocking font loading with fallback protection */}
+        {/* Non-blocking font loading - media trick for TypeScript compatibility */}
         <link
-          rel="preload"
-          as="style"
+          rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=optional"
-          onLoad="this.onload=null;this.rel='stylesheet'"
+          media="print"
         />
-        <noscript>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=optional"
-          />
-        </noscript>
+        <script dangerouslySetInnerHTML={`
+          (function() {
+            var fontLink = document.querySelector('link[href*="fonts.googleapis.com"]');
+            if (fontLink) fontLink.media = 'all';
+          })();
+        `} />
+
+        {/* Preload Swiper for hero section - critical for LCP */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+          media="print"
+        />
+        <script dangerouslySetInnerHTML={`
+          (function() {
+            var swiperLink = document.querySelector('link[href*="swiper-bundle"]');
+            if (swiperLink) swiperLink.media = 'all';
+          })();
+        `} />
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 
         {/* Favicon */}
         <link rel="icon" type="image/svg+xml" href="/branding/fav.svg" />
@@ -61,16 +78,74 @@ export default component$(() => {
           })();
         `} />
 
-        {/* Web3Forms Client Script - handles hCaptcha automatically */}
-        <script src="https://web3forms.com/client/script.js" async defer></script>
+        {/* Web3Forms Client Script - lazy loaded when contact section is visible */}
+        <script dangerouslySetInnerHTML={`
+          (function() {
+            var loaded = false;
 
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FH0FWZW41"></script>
+            function loadWeb3Forms() {
+              if (loaded) return;
+              loaded = true;
+
+              var script = document.createElement('script');
+              script.src = 'https://web3forms.com/client/script.js';
+              script.async = true;
+              script.defer = true;
+              document.head.appendChild(script);
+            }
+
+            // Load when contact section is near viewport
+            function initObserver() {
+              var contactSection = document.getElementById('kontakt');
+              if (!contactSection) {
+                // Retry after a delay if section not found
+                setTimeout(initObserver, 1000);
+                return;
+              }
+
+              var observer = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
+                  loadWeb3Forms();
+                  observer.disconnect();
+                }
+              }, { rootMargin: '400px' });
+
+              observer.observe(contactSection);
+            }
+
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', initObserver);
+            } else {
+              initObserver();
+            }
+          })();
+        `} />
+
+        {/* Google Analytics - deferred for better performance */}
         <script dangerouslySetInnerHTML={`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-0FH0FWZW41');
+
+          // Defer GA loading until page is interactive (3s after load)
+          function loadGA() {
+            var script = document.createElement('script');
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FH0FWZW41';
+            script.async = true;
+            document.head.appendChild(script);
+
+            script.onload = function() {
+              gtag('js', new Date());
+              gtag('config', 'G-0FH0FWZW41');
+            };
+          }
+
+          if (document.readyState === 'complete') {
+            setTimeout(loadGA, 3000);
+          } else {
+            window.addEventListener('load', function() {
+              setTimeout(loadGA, 3000);
+            });
+          }
         `} />
       </head>
       <body lang="cs">

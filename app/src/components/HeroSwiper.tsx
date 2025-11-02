@@ -268,25 +268,25 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
   `);
 
   useVisibleTask$(async () => {
-    // Dynamically import Swiper CSS and JS
+    // Swiper CSS and JS are preloaded in root.tsx for better performance
     if (typeof window !== 'undefined') {
       try {
-        // Import Swiper CSS
-        const swiperCssLink = document.createElement('link');
-        swiperCssLink.rel = 'stylesheet';
-        swiperCssLink.href = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
-        document.head.appendChild(swiperCssLink);
-
-        // Import Swiper JS from CDN
+        // Wait for Swiper to be available (preloaded with defer)
         if (!(window as any).Swiper) {
-          const swiperScript = document.createElement('script');
-          swiperScript.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-          swiperScript.async = true;
-          
-          await new Promise((resolve, reject) => {
-            swiperScript.onload = resolve;
-            swiperScript.onerror = reject;
-            document.head.appendChild(swiperScript);
+          // Swiper script is deferred, wait for it to load
+          await new Promise((resolve) => {
+            const checkSwiper = setInterval(() => {
+              if ((window as any).Swiper) {
+                clearInterval(checkSwiper);
+                resolve(true);
+              }
+            }, 50);
+
+            // Timeout after 5 seconds
+            setTimeout(() => {
+              clearInterval(checkSwiper);
+              resolve(false);
+            }, 5000);
           });
         }
         
