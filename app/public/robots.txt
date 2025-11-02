@@ -1,6 +1,6 @@
 # Robots.txt for KPS Interiéry - Czech Furniture Business
-# Website: https://www.kpsinteriery.cz
-# Last updated: 2025-09-23
+# Website: https://kps-interiery.cz
+# Last updated: 2025-11-02
 
 User-agent: *
 Allow: /

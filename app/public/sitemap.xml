@@ -5,7 +5,7 @@
   <!-- Main Pages -->
   <url>
     <loc>https://kps-interiery.cz/</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,7 +13,7 @@
   <!-- Gallery Main Page -->
   <url>
     <loc>https://kps-interiery.cz/galerie</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -21,7 +21,7 @@
   <!-- Featured Kitchen Galleries (High Priority) -->
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-bila-ostruvek</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -33,7 +33,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-cerna</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -45,7 +45,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-bila-u-tvar</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -58,7 +58,7 @@
   <!-- Kitchen Galleries -->
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-bila-podkrovi</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -70,7 +70,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-seda</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -82,7 +82,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-bilo-hneda-beton</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -94,7 +94,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-bilo-hneda-l-varianta1</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -106,7 +106,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-bilo-hneda-u-alternativa</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -118,7 +118,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-hneda-l</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -130,7 +130,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-mala-panel</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -142,7 +142,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-retro-bila</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -154,7 +154,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-svetla-rohova</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -166,7 +166,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/kuchyn-uzka-bila-l</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -179,7 +179,7 @@
   <!-- Bedroom Galleries (Ložnice) -->
   <url>
     <loc>https://kps-interiery.cz/galerie/loznice-bilo-hneda</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -191,7 +191,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/loznice-hneda</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -203,7 +203,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/loznice-hneda-zkosene</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -216,7 +216,7 @@
   <!-- Bathroom Galleries (Koupelny) -->
   <url>
     <loc>https://kps-interiery.cz/galerie/koupelna-1</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -228,7 +228,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/koupelna-2</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -240,7 +240,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/koupelna-cerna</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -253,7 +253,7 @@
   <!-- Wardrobe & Storage Galleries (Skříně) -->
   <url>
     <loc>https://kps-interiery.cz/galerie/skrin-a-dvere</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -265,7 +265,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/skrin-dvere-botnik</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -277,7 +277,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/skrin-posuv-vstup</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
@@ -290,7 +290,7 @@
   <!-- Other Galleries (Ostatní) -->
   <url>
     <loc>https://kps-interiery.cz/galerie/chodba-bila</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -302,7 +302,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/chodba-sedo-hneda</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -314,7 +314,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/obyvak</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -326,7 +326,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/ostatni-dvere</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -338,7 +338,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/ostatni-live-edge-masiv</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -350,7 +350,7 @@
 
   <url>
     <loc>https://kps-interiery.cz/galerie/ostatni-schody</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image>
@@ -363,7 +363,7 @@
   <!-- Legacy redirects for backward compatibility -->
   <url>
     <loc>https://kps-interiery.cz/#galerie</loc>
-    <lastmod>2024-09-25</lastmod>
+    <lastmod>2025-10-01</lastmod>
     <changefreq>never</changefreq>
     <priority>0.1</priority>
   </url>
