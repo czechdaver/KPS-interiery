@@ -21,15 +21,23 @@ export default component$(() => {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {/* Optimize font loading with preload and font-display: swap */}
+        {/* Optimize font loading - font-display:optional prevents FOUT/layout shift */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Preload critical fonts to prevent FOUT (Flash of Unstyled Text) */}
+        {/* Non-blocking font loading with fallback protection */}
         <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=swap"
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=optional"
+          onLoad="this.onload=null;this.rel='stylesheet'"
         />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=optional"
+          />
+        </noscript>
 
         {/* Favicon */}
         <link rel="icon" type="image/svg+xml" href="/branding/fav.svg" />

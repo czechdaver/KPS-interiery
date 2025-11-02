@@ -533,14 +533,27 @@ export const HeroSwiper = component$<HeroSwiperProps>(({ images }) => {
           {images.map((image, index) => {
             // First image should be LCP optimized - no lazy loading
             const isFirst = index === 0;
-            
+
+            // Generate responsive srcset for different viewport sizes
+            // Images are available in 800w, 1200w, and 2400w sizes
+            const generateSrcset = (src: string) => {
+              const base = src.replace('-2400w.avif', '');
+              return `${base}-800w.avif 800w, ${base}-1200w.avif 1200w, ${base}-2400w.avif 2400w`;
+            };
+
+            // Use 1200w as default (good balance for most screens)
+            const defaultSrc = image.src.replace('-2400w.avif', '-1200w.avif');
+
             return (
               <div key={index} class="swiper-slide hero-swiper-slide">
                 <img
-                  src={image.src}
+                  src={defaultSrc}
+                  srcset={generateSrcset(image.src)}
+                  sizes="100vw"
                   alt={image.alt}
                   class={isFirst ? "hero-slide-image" : "hero-slide-image swiper-lazy"}
-                  data-src={isFirst ? undefined : image.src}
+                  data-src={isFirst ? undefined : defaultSrc}
+                  data-srcset={isFirst ? undefined : generateSrcset(image.src)}
                   width={image.width}
                   height={image.height}
                   loading={isFirst ? "eager" : "lazy"}

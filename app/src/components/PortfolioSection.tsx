@@ -629,8 +629,8 @@ export const PortfolioSection = component$(() => {
                       alt={`${gallery.title} - náhledový obrázek`}
                       class="portfolio-image"
                       responsive={true}
-                      loading="eager"
-                      priority={true}
+                      loading={index < 3 ? "eager" : "lazy"}
+                      priority={index < 3}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       width={coverImageData?.width}
                       height={coverImageData?.height}
