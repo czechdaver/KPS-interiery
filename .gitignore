@@ -40,6 +40,7 @@ coordination/
 .roo/
 .roomodes
 CLAUDE.md
+.playwright-mcp
 
 # Gallery files should NOT be ignored - removing any gallery ignore rules
 # All gallery JSON and image files should be tracked
