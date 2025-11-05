@@ -43,6 +43,22 @@ export const RouterHead = component$(() => {
       {/* Additional favicon references for better browser support */}
       <link rel="shortcut icon" href={`${import.meta.env.BASE_URL}branding/fav.svg`} />
 
+      {/* Apple Touch Icons for iPhone and iPad */}
+      <link rel="apple-touch-icon" sizes="180x180" href="/branding/apple-touch-icon.png" />
+      <link rel="apple-touch-icon" sizes="152x152" href="/branding/apple-touch-icon-152x152.png" />
+      <link rel="apple-touch-icon" sizes="120x120" href="/branding/apple-touch-icon-120x120.png" />
+      <link rel="apple-touch-icon" sizes="76x76" href="/branding/apple-touch-icon-76x76.png" />
+
+      {/* Standard PNG Favicons for broader browser support */}
+      <link rel="icon" type="image/png" sizes="32x32" href="/branding/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/branding/favicon-16x16.png" />
+      <link rel="icon" type="image/png" sizes="192x192" href="/branding/favicon-192x192.png" />
+      <link rel="icon" type="image/png" sizes="512x512" href="/branding/favicon-512x512.png" />
+
+      {/* Theme color for iOS Safari and Chrome */}
+      <meta name="theme-color" content="#C88B4E" />
+      <meta name="msapplication-TileColor" content="#C88B4E" />
+
       {/* Open Graph Tags */}
       <meta property="og:site_name" content="KPS Interiéry" />
       <meta property="og:type" content="website" />
