@@ -157,7 +157,7 @@ export const Navigation = component$(() => {
           padding: 0.75rem 1.25rem;
           color: var(--primary);
           text-decoration: none;
-          font-weight: 500;
+          font-weight: 600;
           font-size: 0.95rem;
           transition: var(--transition);
           border-bottom: 1px solid rgba(200, 139, 78, 0.05);
@@ -358,7 +358,7 @@ export const Navigation = component$(() => {
             padding: 0.6rem 1rem;
             color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 1rem;
             background: var(--white);
             border-radius: var(--radius-xs);

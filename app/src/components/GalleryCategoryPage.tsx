@@ -73,7 +73,7 @@ const styles = `
 
   .category-title {
     font-family: "Montserrat", sans-serif;
-    font-weight: 900;
+    font-weight: 800;
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 1.1;
     margin-bottom: 1rem;

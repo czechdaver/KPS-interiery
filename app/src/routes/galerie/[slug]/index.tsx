@@ -228,7 +228,7 @@ const styles = `
     padding: 0.4rem 0.8rem;
     border-radius: var(--radius-sm);
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     transition: var(--transition);
     border: none;
     display: inline-flex;
@@ -259,12 +259,12 @@ const styles = `
     padding: 0.25rem 0.75rem;
     border-radius: var(--radius-sm);
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .section-title {
     font-family: "Montserrat", sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.5rem;
     color: var(--primary);
     margin-bottom: 1rem;
@@ -336,20 +336,24 @@ export default component$(() => {
 
   if (!galleryData.value) {
     return (
-      <div class="gallery-page">
-        <Navigation />
-        <section class="gallery-hero">
-          <div class="container">
-            <div class="gallery-hero-content">
-              <h1 class="gallery-title">Galerie nenalezena</h1>
-              <p class="gallery-description">
-                Požadovaná galerie nebyla nalezena.
-              </p>
+      <>
+        <header role="banner">
+          <Navigation />
+        </header>
+        <main role="main" id="main-content" class="gallery-page">
+          <section class="gallery-hero">
+            <div class="container">
+              <div class="gallery-hero-content">
+                <h1 class="gallery-title">Galerie nenalezena</h1>
+                <p class="gallery-description">
+                  Požadovaná galerie nebyla nalezena.
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </main>
         <Footer />
-      </div>
+      </>
     );
   }
 
@@ -360,11 +364,13 @@ export default component$(() => {
   const coverImagePath = getCoverImagePath(gallery.id, gallery.coverImage);
 
   return (
-    <div class="gallery-page">
-      <Navigation />
-      <div class="section-after-nav">
+    <>
+      <header role="banner">
+        <Navigation />
+      </header>
 
-      <section class="gallery-hero">
+      <main role="main" id="main-content" class="gallery-page section-after-nav">
+        <section class="gallery-hero">
         {/* Background Image with Parallax */}
         <div
           class="gallery-hero-background"
@@ -455,10 +461,10 @@ export default component$(() => {
           />
         </div>
       </section>
+      </main>
 
       <Footer />
-      </div>
-    </div>
+    </>
   );
 });
 

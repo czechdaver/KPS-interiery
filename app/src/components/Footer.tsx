@@ -111,7 +111,7 @@ export const Footer = component$(() => {
         
         .footer-column h3 {
           font-size: 1.3rem;
-          font-weight: 700;
+          font-weight: 600;
           margin-bottom: 1.5rem;
           color: var(--secondary-light);
         }

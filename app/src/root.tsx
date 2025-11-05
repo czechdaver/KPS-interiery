@@ -7,6 +7,16 @@ import { FurnitureServiceSchema } from "./components/FurnitureServiceSchema";
 
 import "./global.css";
 
+// Self-hosted fonts via Fontsource - optimized subsets (latin + latin-ext for Czech)
+import "@fontsource/montserrat/latin-600.css";
+import "@fontsource/montserrat/latin-ext-600.css";
+import "@fontsource/montserrat/latin-800.css";
+import "@fontsource/montserrat/latin-ext-800.css";
+import "@fontsource/cabin/latin-400.css";
+import "@fontsource/cabin/latin-ext-400.css";
+import "@fontsource/cabin/latin-600.css";
+import "@fontsource/cabin/latin-ext-600.css";
+
 export default component$(() => {
   /**
    * The root of a QwikCity site always start with the <QwikCityProvider> component,
@@ -22,25 +32,10 @@ export default component$(() => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         {/* Resource hints for performance optimization */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://web3forms.com" />
         <link rel="dns-prefetch" href="https://js.hcaptcha.com" />
-
-        {/* Non-blocking font loading - media trick for TypeScript compatibility */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Cabin:wght@400;600&display=optional"
-          media="print"
-        />
-        <script dangerouslySetInnerHTML={`
-          (function() {
-            var fontLink = document.querySelector('link[href*="fonts.googleapis.com"]');
-            if (fontLink) fontLink.media = 'all';
-          })();
-        `} />
 
         {/* Preload Swiper for hero section - critical for LCP */}
         <link

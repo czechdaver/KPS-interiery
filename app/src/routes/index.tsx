@@ -72,19 +72,23 @@ export default component$(() => {
       {currentPage.value === 'galleries' ? (
         <GalleriesPage />
       ) : (
-        <div id="uvod">
-          <Navigation />
-          <HeroSection />
-          <div class="section-after-nav home-content">
-            <ValuesSection />
-            <ServicesSection />
-            <PortfolioSection />
-            <PartnersSection />
-            <InstagramSection />
-            <ContactSection />
-            <Footer />
-          </div>
-        </div>
+        <>
+          <header role="banner">
+            <Navigation />
+          </header>
+          <main role="main" id="main-content">
+            <HeroSection />
+            <div class="section-after-nav home-content">
+              <ValuesSection />
+              <ServicesSection />
+              <PortfolioSection />
+              <PartnersSection />
+              <InstagramSection />
+              <ContactSection />
+            </div>
+          </main>
+          <Footer />
+        </>
       )}
       <CookieBar />
     </>
@@ -92,11 +96,11 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "KPS Interiéry - Kvalitní nábytek na míru | Kuchyně, Skříně, Koupelny | Zlínský kraj",
+  title: "KPS Interiéry - Kvalitní nábytek na míru | Kuchyně, Skříně, Koupelny",
   meta: [
     {
       name: "description",
-      content: "Specializujeme se na zakázkovou výrobu nábytku na míru ve Zlínském kraji. Kuchyně, vestavěné skříně, koupelnový a kancelářský nábytek. 20+ let zkušeností. Kvalita, preciznost, spokojenost zákazníků.",
+      content: "Specializujeme se na zakázkovou výrobu nábytku na míru ve Zlínském kraji. Kuchyně, vestavěné skříně, koupelnový a kancelářský nábytek.",
     },
     {
       name: "keywords",
@@ -108,7 +112,7 @@ export const head: DocumentHead = {
     },
     {
       property: "og:title",
-      content: "KPS Interiéry - Kvalitní nábytek na míru | Zlínský kraj",
+      content: "KPS Interiéry - Kvalitní nábytek na míru",
     },
     {
       property: "og:description",

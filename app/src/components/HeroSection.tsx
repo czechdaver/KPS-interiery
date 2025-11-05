@@ -73,7 +73,7 @@ export const HeroSection = component$(() => {
         .hero-values {
           display: block;
           font-size: clamp(1.8rem, 5vw, 3.5rem);
-          font-weight: 900;
+          font-weight: 800;
           line-height: 1.1;
           margin-bottom: 1rem;
           background: linear-gradient(135deg, var(--white) 0%, var(--secondary) 100%);
@@ -85,7 +85,7 @@ export const HeroSection = component$(() => {
         .hero-subtitle {
           display: block;
           font-size: clamp(1.1rem, 2.125vw, 1.7rem);
-          font-weight: 500;
+          font-weight: 600;
           line-height: 1.3;
           color: var(--white);
           position: relative;

@@ -180,7 +180,7 @@ const styles = `
   .cookie-modal-header h3 {
     font-family: "Montserrat", sans-serif;
     font-size: 1.4rem;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--primary);
     margin: 0 0 1rem 0;
     display: flex;

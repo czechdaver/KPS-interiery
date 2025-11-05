@@ -102,7 +102,7 @@ const styles = `
   
   .partners-text h3 {
     font-size: 1.8rem;
-    font-weight: 700;
+    font-weight: 600;
     color: rgb(200, 139, 78);
     margin-bottom: 1.5rem;
   }

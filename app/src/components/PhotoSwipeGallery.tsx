@@ -391,7 +391,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>((props) => {
   return (
     <div class="gallery-container" ref={pswpRef}>
       {props.showTitle !== false && (
-        <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 2rem; margin-bottom: 2rem; text-align: center; color: var(--primary);">
+        <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 2rem; margin-bottom: 2rem; text-align: center; color: var(--primary);">
           {props.gallery.title}
         </h2>
       )}

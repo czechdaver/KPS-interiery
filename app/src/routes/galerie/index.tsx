@@ -1,17 +1,9 @@
 import { component$ } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
-import { Navigation } from '../../components/Navigation';
 import { GalleriesPage } from '../../components/GalleriesPage';
-import { Footer } from '../../components/Footer';
 
 export default component$(() => {
-  return (
-    <div>
-      <Navigation />
-      <GalleriesPage />
-      <Footer />
-    </div>
-  );
+  return <GalleriesPage />;
 });
 
 export const head: DocumentHead = {

@@ -140,7 +140,7 @@ const styles = `
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     margin: 0 !important; /* No margins - using flexbox gap */
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -149,7 +149,7 @@ const styles = `
   
   .portfolio-title {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 600;
     margin: 0 !important; /* No margins - using flexbox gap */
     line-height: 1.3;
     color: white;

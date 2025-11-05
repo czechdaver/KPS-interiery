@@ -130,7 +130,7 @@ const styles = `
   
   .contact-details h3 {
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--primary);
     margin-bottom: 0.5rem;
   }
@@ -287,7 +287,7 @@ const styles = `
     width: 100%;
     padding: 1.25rem 2rem;
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 600;
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
     color: var(--white);
     border: none;
@@ -401,7 +401,7 @@ const styles = `
     color: var(--white);
     padding: 0.75rem 1.75rem;
     border-radius: 30px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 15px rgba(199, 122, 90, 0.3);

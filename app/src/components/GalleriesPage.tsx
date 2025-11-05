@@ -3,6 +3,8 @@ import { Link } from "@builder.io/qwik-city";
 import { loadAllGalleries, getGalleriesByCategory, mapGalleryForDisplay, getLightboxImageUrl } from "../lib/gallery";
 import type { GalleryData } from "../lib/gallery";
 import { ResponsiveImage } from "./ResponsiveImage";
+import { Navigation } from "./Navigation";
+import { Footer } from "./Footer";
 import { PhArrowLeft, PhImages, PhCalendar, PhMapPin } from "~/components/icons";
 
 const styles = `
@@ -37,7 +39,7 @@ const styles = `
   
   .galleries-title {
     font-family: "Montserrat", sans-serif;
-    font-weight: 900;
+    font-weight: 800;
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 1.1;
     margin-bottom: 1rem;
@@ -141,7 +143,7 @@ const styles = `
   
   .gallery-section-title {
     font-family: "Montserrat", sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     font-size: clamp(1.8rem, 3vw, 2.5rem);
     color: var(--primary);
     margin-bottom: 1rem;
@@ -512,31 +514,36 @@ export const GalleriesPage = component$(() => {
   }
 
   return (
-    <div class="galleries-page section-after-nav">
-      <section class="galleries-hero">
-        <div class="container">
-          <div class="galleries-hero-content">
-            <div class="breadcrumb">
-              <Link href="/">Domů</Link>
-              <span class="breadcrumb-separator">/</span>
-              <span class="breadcrumb-current">Galerie</span>
-            </div>
-            
-            <h1 class="galleries-title">Naše realizace</h1>
-            <p class="galleries-subtitle">
-              Prohlédněte si kompletní galerii našich nejlepších projektů
-            </p>
-            <div class="back-button-wrapper">
-              <Link href="/" class="back-button">
-                <PhArrowLeft size={18} />
-                Zpět na úvod
-              </Link>
+    <>
+      <header role="banner">
+        <Navigation />
+      </header>
+
+      <main role="main" id="main-content" class="galleries-page section-after-nav">
+        <section class="galleries-hero">
+          <div class="container">
+            <div class="galleries-hero-content">
+              <div class="breadcrumb">
+                <Link href="/">Domů</Link>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Galerie</span>
+              </div>
+
+              <h1 class="galleries-title">Naše realizace</h1>
+              <p class="galleries-subtitle">
+                Prohlédněte si kompletní galerii našich nejlepších projektů
+              </p>
+              <div class="back-button-wrapper">
+                <Link href="/" class="back-button">
+                  <PhArrowLeft size={18} />
+                  Zpět na úvod
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section class="galleries-content">
+        <section class="galleries-content">
         <div class="container">
           
           {/* Kuchyně Section */}
@@ -889,6 +896,9 @@ export const GalleriesPage = component$(() => {
 
         </div>
       </section>
-    </div>
+      </main>
+
+      <Footer />
+    </>
   );
 });
