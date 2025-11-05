@@ -5,6 +5,7 @@
 // import { PhHeart, PhArrowLeft, PhCalendar } from '~/components/icons/phosphor';
 
 export { PhHeart } from './PhHeart';
+export { PhHouse } from './PhHouse';
 export { PhInstagramLogo } from './PhInstagramLogo';
 export { PhArrowLeft } from './PhArrowLeft';
 export { PhImages } from './PhImages';
@@ -30,6 +31,7 @@ export { PhClock } from './PhClock';
 // Component mapping for migration reference
 export const PHOSPHOR_ICON_MAPPING = {
   'ph-heart': 'PhHeart',
+  'ph-house': 'PhHouse',
   'ph-instagram-logo': 'PhInstagramLogo',
   'ph-arrow-left': 'PhArrowLeft',
   'ph-images': 'PhImages',

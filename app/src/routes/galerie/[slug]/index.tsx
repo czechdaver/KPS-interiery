@@ -459,7 +459,9 @@ export default component$(() => {
           {gallery.seoText && (
             <div class="gallery-description-section">
               <h2 class="section-title">O tomto projektu</h2>
-              <div class="seo-text-content">{gallery.seoText}</div>
+              <div class="seo-text-content">
+                <p>{gallery.seoText}</p>
+              </div>
             </div>
           )}
 

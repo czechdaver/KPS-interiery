@@ -165,8 +165,6 @@ const styles = `
   .gallery-section-description {
     font-size: 1.1rem;
     color: var(--gray);
-    max-width: 600px;
-    margin: 0 auto;
     line-height: 1.6;
   }
   
