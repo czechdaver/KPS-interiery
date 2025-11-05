@@ -121,7 +121,7 @@ export default component$(() => {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
 
-          // Defer GA loading until page is interactive (3s after load)
+          // Defer GA loading until page is interactive (1.5s after load)
           function loadGA() {
             var script = document.createElement('script');
             script.src = 'https://www.googletagmanager.com/gtag/js?id=G-0FH0FWZW41';
@@ -135,10 +135,10 @@ export default component$(() => {
           }
 
           if (document.readyState === 'complete') {
-            setTimeout(loadGA, 3000);
+            setTimeout(loadGA, 1500);
           } else {
             window.addEventListener('load', function() {
-              setTimeout(loadGA, 3000);
+              setTimeout(loadGA, 1500);
             });
           }
         `} />
