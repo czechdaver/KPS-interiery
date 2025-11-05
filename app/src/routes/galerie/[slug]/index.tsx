@@ -199,6 +199,29 @@ const styles = `
     padding: 3rem 0;
   }
 
+  .gallery-description-section {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+  }
+
+  .seo-text-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray);
+    text-align: justify;
+  }
+
+  .seo-text-content p {
+    margin-bottom: 1rem;
+  }
+
+  .seo-text-content p:last-child {
+    margin-bottom: 0;
+  }
+
   .gallery-info-section {
     background: var(--white);
     padding: 2rem;
@@ -431,6 +454,14 @@ export default component$(() => {
 
       <section class="gallery-content">
         <div class="container">
+
+          {/* SEO Description Section */}
+          {gallery.seoText && (
+            <div class="gallery-description-section">
+              <h2 class="section-title">O tomto projektu</h2>
+              <div class="seo-text-content">{gallery.seoText}</div>
+            </div>
+          )}
 
           {/* Gallery Info Section */}
           <div class="gallery-info-section">

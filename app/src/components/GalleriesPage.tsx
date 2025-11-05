@@ -551,7 +551,7 @@ export const GalleriesPage = component$(() => {
             <div class="gallery-section-header">
               <h2 class="gallery-section-title">Kuchyně</h2>
               <p class="gallery-section-description">
-                Moderní a funkční kuchyně navržené podle vašich potřeb a stylu života
+                Moderní a funkční kuchyně na míru navržené podle vašich potřeb a stylu života. Realizujeme kuchyně v různých stylech - od minimalistických bílých po elegantní černé nebo teplé dřevěné provedení. Specializujeme se na kuchyňské linky do L, U tvaru i s praktickým kuchyňským ostrůvkem. Používáme kvalitní materiály odolné vysokým teplotám a vlhkosti, moderní kování a elegantní pracovní desky z lamina, betonu či přírodního kamene.
               </p>
             </div>
 
@@ -620,7 +620,7 @@ export const GalleriesPage = component$(() => {
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Ložnice</h2>
                 <p class="gallery-section-description">
-                  Útulné a funkční ložnice s maximálním komfortem a praktickým úložným prostorem
+                  Útulné a funkční ložnice na míru s maximálním komfortem a praktickým úložným prostorem. Vytváříme kompletní ložnicový nábytek včetně vestavěných skříní, postelí s úložnými prostory a nočních stolků. Specializujeme se na řešení atypických prostorů včetně podkrovních místností se zkoseným stropem. Nabízíme široký výběr materiálů a povrchových úprav v moderním i klasickém designu pro vytvoření harmonického a relaxačního prostředí.
                 </p>
               </div>
 
@@ -690,7 +690,7 @@ export const GalleriesPage = component$(() => {
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Koupelny</h2>
                 <p class="gallery-section-description">
-                  Elegantní koupelnové prostory s důrazem na funkčnost a design
+                  Elegantní koupelnový nábytek na míru s důrazem na funkčnost, design a odolnost vůči vlhkosti. Vyrábíme koupelnové skříňky, umyvadlové skříňky, vysoké skříně a police z materiálů speciálně určených pro vlhké prostředí. Nabízíme moderní řešení s praktickým úložným prostorem, integrovaným osvětlením a elegantními povrchy odolnými vodě. Každý kousek je přizpůsoben rozměrům a stylu vaší koupelny pro maximální využití prostoru.
                 </p>
               </div>
               
@@ -760,7 +760,7 @@ export const GalleriesPage = component$(() => {
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Skříně a vestavěný nábytek</h2>
                 <p class="gallery-section-description">
-                  Vestavěné skříně, šatníky a nábytek na míru s důrazem na maximální využití prostoru
+                  Vestavěné skříně na míru, šatníky a nábytek s důrazem na maximální využití prostoru a praktičnost. Realizujeme skříně s posuvnými i otevíracími dveřmi, vnitřní uspořádání přizpůsobené vašim potřebám včetně polic, tyčí, zásuvek a košů. Specializujeme se na vestavěný nábytek do chodeb, pokojů i podkroví, včetně botníků a předsíňového nábytku. Nabízíme širokou škálu materiálů, barev a designů pro dokonalé sladění s vaším interiérem.
                 </p>
               </div>
 
@@ -830,7 +830,7 @@ export const GalleriesPage = component$(() => {
               <div class="gallery-section-header">
                 <h2 class="gallery-section-title">Ostatní projekty</h2>
                 <p class="gallery-section-description">
-                  Kancelářský nábytek, vestavěné skříně a další atypické realizace
+                  Kancelářský nábytek na míru, obývací stěny, chodby, schodiště a další atypické realizace zakázkového truhlářství. Vytváříme nábytek přesně podle vašich představ a požadavků včetně nestandardních rozměrů a tvarů. Specializujeme se na práci s masivm, včetně stylových live edge stolů a pracovních desek. Realizujeme také kompletní předsíně s botníky a věšáky, obývací sestavy i nábytek do podkroví. Každý projekt řešíme individuálně s důrazem na kvalitní zpracování a dlouhou životnost.
                 </p>
               </div>
               

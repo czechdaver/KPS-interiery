@@ -20,6 +20,7 @@ export interface GalleryData {
   date: string;
   imageCount: number;
   coverImages: string[]; // Array of images for gallery preview
+  seoText?: string; // Optional SEO-optimized descriptive text for gallery detail page
 }
 
 // Gallery slugs that correspond to folder names

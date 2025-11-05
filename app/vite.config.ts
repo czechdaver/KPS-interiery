@@ -45,6 +45,22 @@ export default defineConfig((): UserConfig => {
       exclude: [],
     },
 
+    // Production build optimizations
+    build: {
+      target: 'es2020',
+      minify: 'esbuild',
+      cssMinify: 'lightningcss',
+      reportCompressedSize: true,
+      chunkSizeWarningLimit: 1000,
+      sourcemap: false,
+    },
+
+    // Esbuild optimizations for production
+    esbuild: {
+      drop: ['console', 'debugger'],
+      legalComments: 'none',
+    },
+
     /**
      * This is an advanced setting. It improves the bundling of your server code. To use it, make sure you understand when your consumed packages are dependencies or dev dependencies. (otherwise things will break in production)
      */
