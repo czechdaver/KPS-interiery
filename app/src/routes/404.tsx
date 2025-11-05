@@ -136,12 +136,26 @@ export default component$(() => {
       box-shadow: 0 8px 24px rgba(200, 139, 78, 0.4);
     }
 
+    /* Override Link component styles */
+    a.link-card,
+    a.link-card:link,
+    a.link-card:visited {
+      text-decoration: none !important;
+      color: inherit !important;
+    }
+
+    a.link-card:hover {
+      text-decoration: none !important;
+    }
+
     .link-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
       font-size: 1.3rem;
       color: var(--primary);
       margin: 0;
+      text-align: center;
+      width: 100%;
     }
 
     .link-description {
@@ -150,6 +164,8 @@ export default component$(() => {
       color: var(--gray);
       line-height: 1.6;
       margin: 0;
+      text-align: center;
+      width: 100%;
     }
 
     @media (max-width: 768px) {
@@ -207,7 +223,7 @@ export default component$(() => {
 
       <section class="help-section">
         <div class="container">
-          <h2 class="help-title">Kam byste chtěli jít?</h2>
+          <h2 class="help-title">Kam dál?</h2>
 
           <div class="quick-links">
             <Link href="/" class="link-card">
