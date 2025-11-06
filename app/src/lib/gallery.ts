@@ -337,7 +337,8 @@ export function mapGalleryForDisplay(gallery: GalleryData) {
         src: getCoverImagePath(gallery.id, imgSrc),
         width: imageData?.width,
         height: imageData?.height,
-        alt: imageData?.alt || gallery.title
+        alt: imageData?.alt || gallery.title,
+        caption: imageData?.caption || gallery.title
       };
     })
   };
