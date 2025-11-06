@@ -686,7 +686,7 @@ export const GalleriesPage = component$(() => {
             </div>
           )}
 
-          {/* Koupelny Section */}}
+          {/* Koupelny Section */}
           {bathroomGalleries.length > 0 && (
             <div id="koupelny" class="gallery-section">
               <div class="gallery-section-header">
