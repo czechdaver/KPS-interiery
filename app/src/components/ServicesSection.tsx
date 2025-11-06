@@ -234,6 +234,7 @@ export const ServicesSection = component$(() => {
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bilo-hneda-l-varianta1/skrine-0001-web-400w.avif"}
               alt="Modern retro kitchen design"
+              title="Moderní retro kuchyně na míru - ukázka naší práce"
               class="service-background"
               width="400"
               height="320"
@@ -255,6 +256,7 @@ export const ServicesSection = component$(() => {
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/skrin-dvere-botnik/skrine-0115-web-400w.avif"}
               alt="Built-in wardrobe with sliding doors"
+              title="Vestavěná skříň s posuvnými dveřmi - ukázka realizace"
               class="service-background"
               width="400"
               height="320"
@@ -276,6 +278,7 @@ export const ServicesSection = component$(() => {
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/koupelna-1/koupelna-0018-web-400w.avif"}
               alt="Modern bathroom vanity"
+              title="Moderní koupelnový nábytek - ukázka naší práce"
               class="service-background"
               width="400"
               height="320"
@@ -297,6 +300,7 @@ export const ServicesSection = component$(() => {
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/chodba-bila/chodba_0024-web-400w.avif"}
               alt="Modern office workspace"
+              title="Moderní kancelářský prostor - ukázka naší práce"
               class="service-background"
               width="400"
               height="320"
@@ -315,9 +319,10 @@ export const ServicesSection = component$(() => {
           </div>
           
           <div class="service-card atypical-card">
-            <img 
+            <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif"}
               alt="Modern kitchen with custom design"
+              title="Atypické řešení kuchyně na míru - ukázka realizace"
               class="service-background"
               width="400"
               height="320"

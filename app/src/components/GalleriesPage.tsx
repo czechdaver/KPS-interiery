@@ -522,7 +522,7 @@ export const GalleriesPage = component$(() => {
           <div class="container">
             <div class="galleries-hero-content">
               <div class="breadcrumb">
-                <Link href="/">Domů</Link>
+                <Link href="/" title="Domů">Domů</Link>
                 <span class="breadcrumb-separator">/</span>
                 <span class="breadcrumb-current">Galerie</span>
               </div>
@@ -532,7 +532,7 @@ export const GalleriesPage = component$(() => {
                 Prohlédněte si kompletní galerii našich nejlepších projektů
               </p>
               <div class="back-button-wrapper">
-                <Link href="/" class="back-button">
+                <Link href="/" class="back-button" title="Přejít zpět na úvodní stránku">
                   <PhArrowLeft size={18} />
                   Zpět na úvod
                 </Link>
@@ -566,6 +566,7 @@ export const GalleriesPage = component$(() => {
                       <ResponsiveImage
                         src={coverImage.src}
                         alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                        title={coverImage.caption}
                         width={coverImage.width}
                         height={coverImage.height}
                         class="gallery-preview-image"
@@ -600,6 +601,7 @@ export const GalleriesPage = component$(() => {
                         <Link
                           href={`/galerie/${gallery.id}/`}
                           class="view-gallery-btn"
+                          title={`Zobrazit detail galerie ${displayGallery.title}`}
                         >
                           <PhImages size={18} />
                           Detail galerie
@@ -635,6 +637,7 @@ export const GalleriesPage = component$(() => {
                         <ResponsiveImage
                           src={coverImage.src}
                           alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                          title={coverImage.caption}
                           width={coverImage.width}
                           height={coverImage.height}
                           class="gallery-preview-image"
@@ -669,6 +672,7 @@ export const GalleriesPage = component$(() => {
                           <Link
                             href={`/galerie/${gallery.id}/`}
                             class="view-gallery-btn"
+                            title={`Zobrazit detail galerie ${displayGallery.title}`}
                           >
                             <PhImages size={18} />
                             Detail galerie
@@ -682,7 +686,7 @@ export const GalleriesPage = component$(() => {
             </div>
           )}
 
-          {/* Koupelny Section */}
+          {/* Koupelny Section */}}
           {bathroomGalleries.length > 0 && (
             <div id="koupelny" class="gallery-section">
               <div class="gallery-section-header">
@@ -705,6 +709,7 @@ export const GalleriesPage = component$(() => {
                         <ResponsiveImage
                           src={coverImage.src}
                           alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                          title={coverImage.caption}
                           width={coverImage.width}
                           height={coverImage.height}
                           class="gallery-preview-image"
@@ -739,6 +744,7 @@ export const GalleriesPage = component$(() => {
                           <Link
                             href={`/galerie/${gallery.id}/`}
                             class="view-gallery-btn"
+                            title={`Zobrazit detail galerie ${displayGallery.title}`}
                           >
                             <PhImages size={18} />
                             Detail galerie
@@ -775,6 +781,7 @@ export const GalleriesPage = component$(() => {
                         <ResponsiveImage
                           src={coverImage.src}
                           alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                          title={coverImage.caption}
                           width={coverImage.width}
                           height={coverImage.height}
                           class="gallery-preview-image"
@@ -809,6 +816,7 @@ export const GalleriesPage = component$(() => {
                           <Link
                             href={`/galerie/${gallery.id}/`}
                             class="view-gallery-btn"
+                            title={`Zobrazit detail galerie ${displayGallery.title}`}
                           >
                             <PhImages size={18} />
                             Detail galerie
@@ -845,6 +853,7 @@ export const GalleriesPage = component$(() => {
                         <ResponsiveImage
                           src={coverImage.src}
                           alt={coverImage.alt || `${displayGallery.title} - náhled`}
+                          title={coverImage.caption}
                           width={coverImage.width}
                           height={coverImage.height}
                           class="gallery-preview-image"
@@ -879,6 +888,7 @@ export const GalleriesPage = component$(() => {
                           <Link
                             href={`/galerie/${gallery.id}/`}
                             class="view-gallery-btn"
+                            title={`Zobrazit detail galerie ${displayGallery.title}`}
                           >
                             <PhImages size={18} />
                             Detail galerie

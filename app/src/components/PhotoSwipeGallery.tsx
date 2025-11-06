@@ -417,6 +417,7 @@ export const PhotoSwipeGallery = component$<PhotoSwipeGalleryProps>((props) => {
             <ResponsiveImage
               src={getImagePath(props.gallery.id, image.src)}
               alt={image.alt}
+              title={image.caption}
               class="gallery-image"
               loading={index < 8 ? "eager" : "lazy"}
               responsive={true}

@@ -380,11 +380,11 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
         <div class="container">
           <div class="category-hero-content">
             <nav class="breadcrumb">
-              <a href="/">
+              <a href="/" title="Domů">
                 🏠 Domů
               </a>
               <span class="breadcrumb-separator">/</span>
-              <a href="/galerie/">Galerie</a>
+              <a href="/galerie/" title="Galerie">Galerie</a>
               <span class="breadcrumb-separator">/</span>
               <span class="breadcrumb-current">{props.categoryName}</span>
             </nav>
@@ -398,7 +398,7 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
                props.galleries.length < 5 ? 'realizace' : 'realizací'}
             </div>
 
-            <a href="/galerie/" class="back-button">
+            <a href="/galerie/" class="back-button" title="Přejít zpět na všechny galerie">
               <PhArrowLeft size={18} />
               Zpět na všechny galerie
             </a>
@@ -424,6 +424,7 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
                       <ResponsiveImage
                         src={typeof coverImage === 'string' ? coverImage : coverImage.src}
                         alt={`${displayGallery.title} - náhled`}
+                        title={typeof coverImage === 'string' ? displayGallery.title : coverImage.caption}
                         class="gallery-preview-image"
                         loading="lazy"
                         responsive={true}
@@ -439,7 +440,7 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
 
                     <div class="gallery-info">
                       <h3 class="gallery-title">
-                        <a href={galleryUrl}>{displayGallery.title}</a>
+                        <a href={galleryUrl} title={`Zobrazit galerii ${displayGallery.title}`}>{displayGallery.title}</a>
                       </h3>
                       <p class="gallery-description">{displayGallery.description}</p>
 
@@ -457,6 +458,7 @@ export const GalleryCategoryPage = component$<GalleryCategoryPageProps>((props) 
                       <a
                         href={galleryUrl}
                         class="view-gallery-btn"
+                        title={`Zobrazit galerii ${displayGallery.title}`}
                       >
                         <PhEye size={18} />
                         Zobrazit galerii

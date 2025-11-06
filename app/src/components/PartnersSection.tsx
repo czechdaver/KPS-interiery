@@ -207,9 +207,10 @@ export const PartnersSection = component$(() => {
             {partners.map((partner, index) => (
               <div key={`${partner.name}-1-${index}`} class="partner-item">
                 <div class="partner-logo">
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}images/partners/${partner.logo}`}
                     alt={`${partner.name} logo`}
+                    title={`Logo partnera ${partner.name}`}
                     loading="lazy"
                     width="120"
                     height="60"
@@ -221,9 +222,10 @@ export const PartnersSection = component$(() => {
             {partners.map((partner, index) => (
               <div key={`${partner.name}-2-${index}`} class="partner-item">
                 <div class="partner-logo">
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}images/partners/${partner.logo}`}
                     alt={`${partner.name} logo`}
+                    title={`Logo partnera ${partner.name}`}
                     loading="lazy"
                     width="120"
                     height="60"

@@ -4,6 +4,7 @@ import { generateOptimizedImageSources } from "../lib/gallery";
 export interface ResponsiveImageProps {
   src: string;
   alt: string;
+  title?: string;
   width?: number;
   height?: number;
   class?: string;
@@ -16,6 +17,7 @@ export interface ResponsiveImageProps {
 export const ResponsiveImage = component$<ResponsiveImageProps>(({
   src,
   alt,
+  title,
   width,
   height,
   class: className = "",
@@ -53,6 +55,7 @@ export const ResponsiveImage = component$<ResponsiveImageProps>(({
         <img
           src={sources.fallback}
           alt={alt}
+          {...(title ? { title } : {})}
           {...(!responsive && width !== undefined ? { width } : !responsive ? { width: 800 } : {})}
           {...(!responsive && height !== undefined ? { height } : !responsive ? { height: 600 } : {})}
           class={className}
@@ -70,6 +73,7 @@ export const ResponsiveImage = component$<ResponsiveImageProps>(({
     <img
       src={sources.fallback}
       alt={alt}
+      {...(title ? { title } : {})}
       {...(!responsive && width !== undefined ? { width } : !responsive ? { width: 800 } : {})}
       {...(!responsive && height !== undefined ? { height } : !responsive ? { height: 600 } : {})}
       class={className}

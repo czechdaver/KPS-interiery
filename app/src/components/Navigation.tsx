@@ -491,37 +491,37 @@ export const Navigation = component$(() => {
       <div class="container">
         <div class="nav-content">
           <div class="nav-logo">
-            <Link href="/">
-              <img src={`${import.meta.env.BASE_URL}branding/kps-compact-logo.svg`} alt="KPS Interiéry" width="120" height="40" />
+            <Link href="/" title="Přejít na hlavní stránku KPS Interiéry">
+              <img src={`${import.meta.env.BASE_URL}branding/kps-compact-logo.svg`} alt="KPS Interiéry" title="KPS Interiéry - nábytek na míru" width="120" height="40" />
             </Link>
           </div>
 
           <div class="nav-right">
             <div class={`nav-menu ${isMenuOpen.value ? 'nav-menu-open' : ''}`}>
-              <a href="#uvod" class="nav-link" onClick$={(e) => handleNavigation(e, '#uvod')}>Úvod</a>
-              <a href="#sluzby" class="nav-link" onClick$={(e) => handleNavigation(e, '#sluzby')}>Služby</a>
-              <a href="#realizace" class="nav-link" onClick$={(e) => handleNavigation(e, '#realizace')}>Realizace</a>
+              <a href="#uvod" class="nav-link" title="Zobrazit úvodní sekci" onClick$={(e) => handleNavigation(e, '#uvod')}>Úvod</a>
+              <a href="#sluzby" class="nav-link" title="Zobrazit naše služby" onClick$={(e) => handleNavigation(e, '#sluzby')}>Služby</a>
+              <a href="#realizace" class="nav-link" title="Zobrazit naše realizace" onClick$={(e) => handleNavigation(e, '#realizace')}>Realizace</a>
 
               {/* Desktop Gallery Dropdown */}
               <div class="nav-dropdown desktop-only">
-                <a href="/galerie" class="nav-link" onClick$={handleGalleryClick}>
+                <a href="/galerie" class="nav-link" title="Prohlédnout galerii realizací" onClick$={handleGalleryClick}>
                   Galerie
                   <span class="dropdown-arrow">▼</span>
                 </a>
                 <div class="dropdown-menu">
-                  <a href="/galerie/#kuchyne" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#kuchyne')}>
+                  <a href="/galerie/#kuchyne" class="dropdown-item" title="Galerie kuchyní na míru" onClick$={(e) => handleNavigation(e, '/galerie/#kuchyne')}>
                     Kuchyně
                   </a>
-                  <a href="/galerie/#loznice" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#loznice')}>
+                  <a href="/galerie/#loznice" class="dropdown-item" title="Galerie ložnic a vestavěných skříní" onClick$={(e) => handleNavigation(e, '/galerie/#loznice')}>
                     Ložnice
                   </a>
-                  <a href="/galerie/#koupelny" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#koupelny')}>
+                  <a href="/galerie/#koupelny" class="dropdown-item" title="Galerie koupelnového nábytku" onClick$={(e) => handleNavigation(e, '/galerie/#koupelny')}>
                     Koupelny
                   </a>
-                  <a href="/galerie/#skrine" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#skrine')}>
+                  <a href="/galerie/#skrine" class="dropdown-item" title="Galerie skříní na míru" onClick$={(e) => handleNavigation(e, '/galerie/#skrine')}>
                     Skříně
                   </a>
-                  <a href="/galerie/#ostatni" class="dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#ostatni')}>
+                  <a href="/galerie/#ostatni" class="dropdown-item" title="Galerie ostatního nábytku" onClick$={(e) => handleNavigation(e, '/galerie/#ostatni')}>
                     Ostatní
                   </a>
                 </div>
@@ -534,33 +534,33 @@ export const Navigation = component$(() => {
                   <span class="dropdown-arrow">▼</span>
                 </button>
                 <div class="mobile-dropdown-content">
-                  <a href="/galerie/" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/')}>
+                  <a href="/galerie/" class="mobile-dropdown-item" title="Zobrazit všechny galerie" onClick$={(e) => handleNavigation(e, '/galerie/')}>
                     Všechny galerie
                   </a>
-                  <a href="/galerie/#kuchyne" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#kuchyne')}>
+                  <a href="/galerie/#kuchyne" class="mobile-dropdown-item" title="Galerie kuchyní na míru" onClick$={(e) => handleNavigation(e, '/galerie/#kuchyne')}>
                     Kuchyně
                   </a>
-                  <a href="/galerie/#loznice" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#loznice')}>
+                  <a href="/galerie/#loznice" class="mobile-dropdown-item" title="Galerie ložnic a vestavěných skříní" onClick$={(e) => handleNavigation(e, '/galerie/#loznice')}>
                     Ložnice
                   </a>
-                  <a href="/galerie/#koupelny" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#koupelny')}>
+                  <a href="/galerie/#koupelny" class="mobile-dropdown-item" title="Galerie koupelnového nábytku" onClick$={(e) => handleNavigation(e, '/galerie/#koupelny')}>
                     Koupelny
                   </a>
-                  <a href="/galerie/#skrine" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#skrine')}>
+                  <a href="/galerie/#skrine" class="mobile-dropdown-item" title="Galerie skříní na míru" onClick$={(e) => handleNavigation(e, '/galerie/#skrine')}>
                     Skříně
                   </a>
-                  <a href="/galerie/#ostatni" class="mobile-dropdown-item" onClick$={(e) => handleNavigation(e, '/galerie/#ostatni')}>
+                  <a href="/galerie/#ostatni" class="mobile-dropdown-item" title="Galerie ostatního nábytku" onClick$={(e) => handleNavigation(e, '/galerie/#ostatni')}>
                     Ostatní
                   </a>
                 </div>
               </div>
 
-              <a href="#kontakt" class="nav-link" onClick$={(e) => handleNavigation(e, '#kontakt')}>Kontakt</a>
-              <a href="#kontakt" class="btn btn-accent nav-cta" onClick$={(e) => handleNavigation(e, '#kontakt')}>Poptávka</a>
+              <a href="#kontakt" class="nav-link" title="Zobrazit kontaktní informace" onClick$={(e) => handleNavigation(e, '#kontakt')}>Kontakt</a>
+              <a href="#kontakt" class="btn btn-accent nav-cta" title="Odeslat poptávku" onClick$={(e) => handleNavigation(e, '#kontakt')}>Poptávka</a>
             </div>
 
             <div class="nav-mobile-controls" style="display: flex; align-items: center;">
-              <a href="#kontakt" class="btn btn-accent nav-cta-mobile" onClick$={(e) => handleNavigation(e, '#kontakt')}>Poptávka</a>
+              <a href="#kontakt" class="btn btn-accent nav-cta-mobile" title="Odeslat poptávku" onClick$={(e) => handleNavigation(e, '#kontakt')}>Poptávka</a>
               <button
                 class="nav-toggle"
                 onClick$={() => { isMenuOpen.value = !isMenuOpen.value; }}

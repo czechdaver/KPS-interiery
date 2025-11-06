@@ -402,6 +402,7 @@ export default component$(() => {
           <ResponsiveImage
             src={coverImagePath}
             alt={coverImageData.alt || gallery.title}
+            title={coverImageData.caption || gallery.title}
             width={coverImageData.width}
             height={coverImageData.height}
             loading="eager"
@@ -415,9 +416,9 @@ export default component$(() => {
         <div class="container">
           <div class="gallery-hero-content">
             <nav class="breadcrumb">
-              <Link href="/">Domů</Link>
+              <Link href="/" title="Domů">Domů</Link>
               <span class="breadcrumb-separator">/</span>
-              <Link href="/galerie/">Galerie</Link>
+              <Link href="/galerie/" title="Galerie">Galerie</Link>
               <span class="breadcrumb-separator">/</span>
               <span class="breadcrumb-current">{gallery.title}</span>
             </nav>
@@ -444,7 +445,7 @@ export default component$(() => {
               </div>
             </div>
 
-            <Link href="/galerie/" class="back-button">
+            <Link href="/galerie/" class="back-button" title="Přejít zpět na galerie">
               <PhArrowLeft size={18} />
               Zpět na galerie
             </Link>

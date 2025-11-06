@@ -215,28 +215,30 @@ export const Footer = component$(() => {
         <div class="footer-content">
           <div class="footer-brand">
             <div class="footer-logo">
-              <img src={`${import.meta.env.BASE_URL}branding/kps-logo-slogan-inverse.svg`} alt="KPS Interiéry" width="200" height="80" />
+              <img src={`${import.meta.env.BASE_URL}branding/kps-logo-slogan-inverse.svg`} alt="KPS Interiéry" title="KPS Interiéry - výrobce nábytku na míru" width="200" height="80" />
             </div>
             <p class="footer-description">
               Vytváříme nábytek na míru, který předčí vaše očekávání. 
               Kvalita, preciznost a spokojenost jsou naše hlavní hodnoty.
             </p>
             <div class="footer-social">
-              <a 
-                href="https://instagram.com/kpsinteriery" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://instagram.com/kpsinteriery"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="social-link"
                 aria-label="Sledujte nás na Instagramu"
+                title="Sledujte nás na Instagramu"
               >
                 <PhInstagramLogo size={22} />
               </a>
-              <a 
-                href="https://facebook.com/kpsinteriery" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://facebook.com/kpsinteriery"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="social-link"
                 aria-label="Sledujte nás na Facebooku"
+                title="Sledujte nás na Facebooku"
               >
                 <PhFacebookLogo size={22} />
               </a>
@@ -247,22 +249,22 @@ export const Footer = component$(() => {
             <div class="footer-column">
               <h3>Služby</h3>
               <ul>
-                <li><a href="#sluzby">Kuchyně na míru</a></li>
-                <li><a href="#sluzby">Vestavěné skříně</a></li>
-                <li><a href="#sluzby">Koupelnový nábytek</a></li>
-                <li><a href="#sluzby">Kancelářský nábytek</a></li>
-                <li><a href="#sluzby">Atypické řešení</a></li>
+                <li><a href="#sluzby" title="Kuchyně na míru - naše služba">Kuchyně na míru</a></li>
+                <li><a href="#sluzby" title="Vestavěné skříně - naše služba">Vestavěné skříně</a></li>
+                <li><a href="#sluzby" title="Koupelnový nábytek - naše služba">Koupelnový nábytek</a></li>
+                <li><a href="#sluzby" title="Kancelářský nábytek - naše služba">Kancelářský nábytek</a></li>
+                <li><a href="#sluzby" title="Atypické řešení nábytku - naše služba">Atypické řešení</a></li>
               </ul>
             </div>
             
             <div class="footer-column">
               <h3>Společnost</h3>
               <ul>
-                <li><a href="#uvod">Úvod</a></li>
-                <li><a href="#realizace">Naše realizace</a></li>
-                <li><a href="/galerie/">Galerie</a></li>
-                <li><a href="#partners">Naši partneři</a></li>
-                <li><a href="#kontakt">Kontakt</a></li>
+                <li><a href="#uvod" title="Přejít na úvod">Úvod</a></li>
+                <li><a href="#realizace" title="Zobrazit naše realizace">Naše realizace</a></li>
+                <li><a href="/galerie/" title="Prohlédnout galerii projektů">Galerie</a></li>
+                <li><a href="#partners" title="Zobrazit naše partnery">Naši partneři</a></li>
+                <li><a href="#kontakt" title="Zobrazit kontaktní informace">Kontakt</a></li>
               </ul>
             </div>
             
@@ -271,7 +273,7 @@ export const Footer = component$(() => {
               <ul>
                 <li>
                   <PhPhone size={16} class="icon-duotone-reverse" />
-                  <a href="tel:+420774127133">+420 774 127 133</a>
+                  <a href="tel:+420774127133" title="Zavolat na KPS Interiéry">+420 774 127 133</a>
                 </li>
                 <li>
                   <PhEnvelopeSimple size={16} class="icon-duotone-reverse" />
@@ -279,7 +281,7 @@ export const Footer = component$(() => {
                 </li>
                 <li>
                   <PhMapPin size={16} class="icon-duotone-reverse" />
-                  <a href="https://maps.google.com/?q=Stará+cesta+32,+Zlín-Štípa+763+14,+Česká+republika" target="_blank" rel="noopener noreferrer">
+                  <a href="https://maps.google.com/?q=Stará+cesta+32,+Zlín-Štípa+763+14,+Česká+republika" target="_blank" rel="noopener noreferrer" title="Zobrazit naši adresu na mapě">
                     Stará cesta 32, Zlín-Štípa 763 14
                   </a>
                 </li>
@@ -293,8 +295,8 @@ export const Footer = component$(() => {
             <p>&copy; 2024 KPS Interiéry. Všechna práva vyhrazena.</p>
           </div>
           <div class="footer-legal">
-            <a href="#privacy">Ochrana osobních údajů</a>
-            <a href="#terms">Obchodní podmínky</a>
+            <a href="#privacy" title="Přečíst zásady ochrany osobních údajů">Ochrana osobních údajů</a>
+            <a href="#terms" title="Přečíst obchodní podmínky">Obchodní podmínky</a>
           </div>
         </div>
       </div>
