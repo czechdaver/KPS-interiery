@@ -129,6 +129,8 @@ export default component$(() => {
       border-radius: 50%;
       color: var(--white);
       transition: var(--transition);
+      align-self: center;
+      margin: 0 auto;
     }
 
     .link-card:hover .link-icon {
