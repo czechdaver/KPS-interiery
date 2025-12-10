@@ -9,12 +9,12 @@ export interface PhHouseProps {
 /**
  * PhHouse - Duotone Phosphor Icon
  *
- * House/Home icon for navigation
- * Usage: <PhHouse size={24} class="icon-duotone" />
+ * Replacement for: <i class="ph-duotone ph-house" style="font-size: 24px;"></i>
+ * Usage: <PhHouse size={24} class="icon-duotone-reverse" />
  *
  * Supports:
- * - size prop (converts to width/height attributes)
- * - style prop (additional styles)
+ * - size prop (converts to font-size in style)
+ * - style prop (merged with size)
  * - class prop for CSS class names
  * - CSS custom properties: --ph-duotone-primary, --ph-duotone-secondary
  */
@@ -38,13 +38,13 @@ export const PhHouse = component$<PhHouseProps>(({
     >
       {/* Secondary/background path with lower opacity */}
       <path
-        d="M216,115.54V208a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.54a8,8,0,0,1,2.62-5.92l80-75.54a8,8,0,0,1,10.77,0l80,75.54A8,8,0,0,1,216,115.54Z"
+        d="M216,120v96H152V152H104v64H40V120a8,8,0,0,1,2.34-5.66l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,216,120Z"
         fill="var(--ph-duotone-secondary, currentColor)"
         opacity="0.2"
       />
       {/* Primary path with full opacity */}
       <path
-        d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v88a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V120l80-80,80,80Z"
+        d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"
         fill="var(--ph-duotone-primary, currentColor)"
       />
     </svg>

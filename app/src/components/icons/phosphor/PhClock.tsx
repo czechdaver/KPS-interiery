@@ -13,8 +13,8 @@ export interface PhClockProps {
  * Usage: <PhClock size={24} class="icon-duotone-reverse" />
  *
  * Supports:
- * - size prop (converts to width/height attributes)
- * - style prop (additional styles)
+ * - size prop (converts to font-size in style)
+ * - style prop (merged with size)
  * - class prop for CSS class names
  * - CSS custom properties: --ph-duotone-primary, --ph-duotone-secondary
  */

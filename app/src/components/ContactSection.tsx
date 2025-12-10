@@ -1,5 +1,5 @@
 import { component$, useStylesScoped$, useStore, $ } from "@builder.io/qwik";
-import { PhMapPin, PhPhone, PhEnvelopeSimple, PhClock } from "~/components/icons";
+import { PhMapPin, PhPhone, PhEnvelopeSimple, PhClock, PhAddressBookTabs } from "~/components/icons";
 import { ObfuscatedEmail } from "~/components/ObfuscatedEmail";
 
 const styles = `
@@ -657,6 +657,20 @@ ${formData.description}
               <div class="contact-details">
                 <h3>Otevírací doba</h3>
                 <p>Po-Pá: 8:00 - 16:00<br />So: Po domluvě<br />Ne: Zavřeno</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <PhAddressBookTabs size={28} />
+              </div>
+              <div class="contact-details">
+                <h3>Identifikační údaje</h3>
+                <p>
+                  IČO: 04676319<br />
+                  DIČ: CZ8905194474<br />
+                  Odpovědný vedoucí: Jan Pýcha
+                </p>
               </div>
             </div>
           </div>

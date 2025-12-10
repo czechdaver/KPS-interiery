@@ -27,6 +27,7 @@ export { PhEnvelopeSimple } from './PhEnvelopeSimple';
 export { PhMedal } from './PhMedal';
 export { PhCrosshair } from './PhCrosshair';
 export { PhClock } from './PhClock';
+export { PhAddressBookTabs } from './PhAddressBookTabs';
 
 // Component mapping for migration reference
 export const PHOSPHOR_ICON_MAPPING = {
@@ -53,4 +54,5 @@ export const PHOSPHOR_ICON_MAPPING = {
   'ph-medal': 'PhMedal',
   'ph-crosshair': 'PhCrosshair',
   'ph-clock': 'PhClock',
+  'ph-address-book-tabs': 'PhAddressBookTabs',
 } as const;

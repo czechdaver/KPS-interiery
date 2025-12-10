@@ -1,7 +1,10 @@
 import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import { useNavigate } from "@builder.io/qwik-city";
 import { PhCookingPot, PhDoorOpen, PhBathtub, PhDesk, PhMagicWand } from "~/components/icons";
 
 export const ServicesSection = component$(() => {
+  const nav = useNavigate();
+
   useStylesScoped$(`
         .services-section {
           background: var(--white);
@@ -230,7 +233,11 @@ export const ServicesSection = component$(() => {
         </div>
         
         <div class="services-grid">
-          <div class="service-card kitchen-card">
+          <div
+            class="service-card kitchen-card"
+            onClick$={() => nav('/galerie/#kuchyne')}
+            style="cursor: pointer;"
+          >
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-bilo-hneda-l-varianta1/skrine-0001-web-400w.avif"}
               alt="Modern retro kitchen design"
@@ -251,8 +258,12 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
           </div>
-          
-          <div class="service-card wardrobe-card">
+
+          <div
+            class="service-card wardrobe-card"
+            onClick$={() => nav('/galerie/#skrine')}
+            style="cursor: pointer;"
+          >
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/skrin-dvere-botnik/skrine-0115-web-400w.avif"}
               alt="Built-in wardrobe with sliding doors"
@@ -273,8 +284,12 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
           </div>
-          
-          <div class="service-card bathroom-card">
+
+          <div
+            class="service-card bathroom-card"
+            onClick$={() => nav('/galerie/#koupelny')}
+            style="cursor: pointer;"
+          >
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/koupelna-1/koupelna-0018-web-400w.avif"}
               alt="Modern bathroom vanity"
@@ -295,8 +310,12 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
           </div>
-          
-          <div class="service-card office-card">
+
+          <div
+            class="service-card office-card"
+            onClick$={() => nav('/galerie/#ostatni')}
+            style="cursor: pointer;"
+          >
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/chodba-bila/chodba_0024-web-400w.avif"}
               alt="Modern office workspace"
@@ -317,8 +336,12 @@ export const ServicesSection = component$(() => {
               </p>
             </div>
           </div>
-          
-          <div class="service-card atypical-card">
+
+          <div
+            class="service-card atypical-card"
+            onClick$={() => nav('/galerie/#ostatni')}
+            style="cursor: pointer;"
+          >
             <img
               src={(import.meta.env.BASE_URL || "/") + "images/galleries/kuchyn-retro-bila/kuchyne_0105-web-400w.avif"}
               alt="Modern kitchen with custom design"

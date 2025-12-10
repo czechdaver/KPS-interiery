@@ -16,6 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Icon mapping: [font-class-name] -> [svg-filename, ComponentName]
 const iconMappings = {
   'ph-heart': ['heart-duotone.svg', 'PhHeart'],
+  'ph-house': ['house-duotone.svg', 'PhHouse'],
   'ph-instagram-logo': ['instagram-logo-duotone.svg', 'PhInstagramLogo'],
   'ph-arrow-left': ['arrow-left-duotone.svg', 'PhArrowLeft'],
   'ph-images': ['images-duotone.svg', 'PhImages'],
@@ -36,7 +37,8 @@ const iconMappings = {
   'ph-envelope-simple': ['envelope-simple-duotone.svg', 'PhEnvelopeSimple'],
   'ph-medal': ['medal-duotone.svg', 'PhMedal'],
   'ph-crosshair': ['crosshair-duotone.svg', 'PhCrosshair'],
-  'ph-clock': ['clock-duotone.svg', 'PhClock']
+  'ph-clock': ['clock-duotone.svg', 'PhClock'],
+  'ph-address-book-tabs': ['address-book-tabs-duotone.svg', 'PhAddressBookTabs']
 };
 
 const duotoneAssetsPath = path.join(__dirname, '../node_modules/@phosphor-icons/core/assets/duotone');
@@ -127,17 +129,13 @@ export const ${componentName} = component$<${componentName}Props>(({
 }) => {
   const sizeValue = typeof size === 'number' ? \`\${size}px\` : (size || '1em');
 
-  const mergedStyle = {
-    fontSize: sizeValue,
-    ...style
-  };
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      width={sizeValue}
+      height={sizeValue}
       viewBox="0 0 256 256"
-      fill="currentColor"
-      style={mergedStyle}
+      style={style}
       class={className}
       {...props}
     >
