@@ -1,0 +1,199 @@
+# Sveltia CMS (kompatibilní s Decap CMS konfigurací) pro KPS Interiéry.
+# Obsah se ukládá přímo do Git repozitáře (commit na větev main) → GitHub Actions web znovu sestaví.
+# Schémata níže MUSÍ odpovídat Zod schématům v app/src/content.config.ts.
+
+backend:
+  name: github
+  repo: czechdaver/KPS-interiery
+  branch: main
+  # Přihlášení:
+  #  a) Osobní přístupový token (PAT) – v přihlašovací obrazovce zvolit "Sign in with Token"; nic dalšího nastavovat netřeba.
+  #  b) OAuth přes GitHub tlačítko – vyžaduje OAuth proxy (např. Cloudflare Worker "sveltia-cms-auth").
+  #     Po nasazení proxy odkomentujte a doplňte její URL:
+  # base_url: https://kps-cms-auth.<ucet>.workers.dev
+  # (volitelně auth_endpoint: auth – výchozí hodnota pro github je "auth")
+
+locale: cs
+site_url: https://kps-interiery.cz
+display_url: https://kps-interiery.cz
+logo_url: /branding/kps-logo.svg
+# Astro: prázdná volitelná pole vynechat, ať neselže validace kolekcí.
+output:
+  omit_empty_optional_fields: true
+# Názvy složek/souborů bez diakritiky (kuchyn-cerna, ne kuchyň-černá).
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+
+# Výchozí složka pro média mimo kolekce (nepoužívá se pro realizace).
+media_folder: app/src/assets/uploads
+public_folder: ../assets/uploads
+
+collections:
+  # ---------------------------------------------------------------- Realizace
+  - name: projects
+    label: Realizace
+    label_singular: Realizaci
+    folder: app/src/content/projects
+    path: '{{slug}}/index' # každá realizace = vlastní složka s index.json + fotkami
+    extension: json
+    format: json
+    create: true
+    slug: '{{title}}'
+    identifier_field: title
+    # Fotky se ukládají vedle index.json a v JSON jsou jako relativní cesta (Astro image()).
+    media_folder: ''
+    public_folder: ''
+    summary: '{{title}} · {{category}} · {{date}}'
+    sortable_fields: [title, date, order, category]
+    view_filters:
+      - { label: Zvýrazněné, field: featured, pattern: true }
+    view_groups:
+      - { label: Kategorie, field: category }
+    fields:
+      - { name: title, label: Název, widget: string }
+      - name: category
+        label: Kategorie
+        widget: select
+        options: [Kuchyně, Skříně, Ložnice, Koupelny, Ostatní]
+      - { name: location, label: Lokalita, widget: string, required: false, default: '' }
+      - name: date
+        label: Datum realizace
+        widget: string
+        hint: 'Ve formátu RRRR-MM, např. 2025-09'
+        pattern: ['^\d{4}-\d{2}$', 'Zadejte ve tvaru RRRR-MM (např. 2025-09)']
+      - { name: featured, label: Zvýrazněná (úvodní stránka / velká karta), widget: boolean, default: false }
+      - { name: order, label: Pořadí, widget: number, value_type: int, default: 100, hint: 'Menší číslo = výše v seznamu' }
+      - { name: description, label: Krátký popis, widget: text }
+      - { name: cover, label: Titulní fotka, widget: image, hint: 'JPG, delší strana cca 2560 px' }
+      - name: features
+        label: Vlastnosti
+        widget: list
+        required: false
+        hint: 'Odrážky typu "Matná černá dvířka"'
+        field: { name: feature, label: Vlastnost, widget: string }
+      - name: materials
+        label: Materiály
+        widget: list
+        required: false
+        field: { name: material, label: Materiál, widget: string }
+      - { name: seoText, label: SEO text (delší popis pro Google), widget: text, required: false }
+      - name: images
+        label: Fotogalerie
+        widget: list
+        min: 1
+        hint: 'Alespoň jedna fotka. Alt text je povinný (přístupnost + SEO).'
+        fields:
+          - { name: src, label: Fotka, widget: image }
+          - { name: alt, label: Alt text (popis co je na fotce), widget: string }
+          - { name: caption, label: Popisek, widget: string, required: false }
+
+  # ------------------------------------------------------------------- Služby
+  - name: services
+    label: Služby
+    label_singular: Službu
+    folder: app/src/content/services
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{title}}'
+    identifier_field: title
+    summary: '{{title}}'
+    sortable_fields: [title, order]
+    fields:
+      - { name: title, label: Název, widget: string }
+      - { name: short, label: Krátký popis, widget: string }
+      - { name: icon, label: Ikona, widget: string, hint: 'Název z phosphoricons.com ve tvaru ph:… , např. ph:cooking-pot-light' }
+      - { name: order, label: Pořadí, widget: number, value_type: int, default: 100 }
+      - name: category
+        label: Kategorie realizací
+        widget: select
+        required: false
+        options: [Kuchyně, Skříně, Ložnice, Koupelny, Ostatní]
+      - name: projects
+        label: Vybrané realizace
+        widget: relation
+        collection: projects
+        # Hodnota = slug realizace = název její složky (kuchyn-cerna). Pokud by Sveltia uložilo "kuchyn-cerna/index",
+        # ověřte po prvním uložení a případně přepněte na value_field: title (a upravte schéma) – viz docs/CMS.md.
+        search_fields: [title]
+        value_field: '{{slug}}'
+        display_fields: [title]
+        multiple: true
+        required: false
+      - { name: body, label: Text, widget: markdown }
+
+  # ---------------------------------------------------------------- Nastavení
+  - name: settings
+    label: Nastavení webu
+    files:
+      - name: site
+        label: Kontakty a obecné údaje
+        file: app/src/content/settings/site.json
+        format: json
+        fields:
+          - { name: company, label: Firma, widget: string }
+          - { name: ico, label: IČO, widget: string }
+          - { name: phone, label: Telefon, widget: string }
+          - { name: email, label: E-mail, widget: string, pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', 'Zadejte platný e-mail'] }
+          - { name: street, label: Ulice a č.p., widget: string }
+          - { name: city, label: Město, widget: string }
+          - { name: zip, label: PSČ, widget: string }
+          - { name: region, label: Kraj, widget: string }
+          - { name: mapsUrl, label: Odkaz na mapu (URL), widget: string }
+          - name: openingHours
+            label: Otevírací doba
+            widget: list
+            summary: '{{fields.days}}: {{fields.hours}}'
+            fields:
+              - { name: days, label: Dny, widget: string }
+              - { name: hours, label: Hodiny, widget: string }
+          - name: serviceArea
+            label: Oblast působení
+            widget: list
+            field: { name: area, label: Oblast, widget: string }
+          - name: social
+            label: Sociální sítě
+            widget: object
+            fields:
+              - { name: instagram, label: Instagram (URL), widget: string }
+              - { name: facebook, label: Facebook (URL), widget: string }
+          - { name: web3formsKey, label: Web3Forms klíč (formulář), widget: string, hint: 'Veřejný přístupový klíč formuláře – neměnit bez potřeby' }
+          - name: stats
+            label: Čísla na úvodní stránce
+            widget: list
+            summary: '{{fields.value}} – {{fields.label}}'
+            fields:
+              - { name: value, label: Hodnota, widget: string }
+              - { name: label, label: Popisek, widget: string }
+          - name: heroProjects
+            label: Realizace v úvodním hero
+            widget: relation
+            collection: projects
+            search_fields: [title]
+            value_field: '{{slug}}'
+            display_fields: [title]
+            multiple: true
+      - name: partners
+        label: Partneři a dodavatelé
+        file: app/src/content/partners/partners.json
+        format: json
+        # Logo se ukládá do app/src/assets/partners a v JSON je cesta ../../assets/partners/…
+        media_folder: /app/src/assets/partners
+        public_folder: ../../assets/partners
+        fields:
+          - name: partners
+            label: Partneři
+            widget: list
+            summary: '{{fields.name}} ({{fields.group}})'
+            fields:
+              - { name: id, label: ID (malá písmena bez mezer, např. blum), widget: string, pattern: ['^[a-z0-9-]+$', 'Jen malá písmena, čísla a pomlčky'] }
+              - { name: name, label: Název, widget: string }
+              - { name: logo, label: Logo (SVG nebo PNG), widget: image }
+              - { name: url, label: Web (URL), widget: string, required: false }
+              - name: group
+                label: Skupina
+                widget: select
+                default: ostatní
+                options: [kování, materiály, dřezy a baterie, ostatní]

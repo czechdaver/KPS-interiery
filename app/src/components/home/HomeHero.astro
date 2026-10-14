@@ -1,0 +1,249 @@
+---
+/**
+ * Homepage hero: fullscreen filmový crossfade + ken-burns z `settings.heroProjects`.
+ * Autoplay jen bez reduced-motion, pauza tlačítkem / při skrytí stránky. Štítek aktuální realizace odkazuje na detail.
+ */
+import { Picture } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import { getSettings, type Project } from '../../lib/site';
+
+const s = await getSettings();
+const slides = (await Promise.all(s.heroProjects.map((r) => getEntry(r)))).filter(Boolean) as Project[];
+const widthsFor = (w: number) => {
+  const base = [640, 960, 1280, 1600, 1920, 2560].filter((x) => x < w);
+  return [...base, Math.min(w, 2560)];
+};
+---
+<section class="hero relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-mocha-950 text-cream" aria-labelledby="hero-title" data-hero>
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    {slides.map((p, i) => (
+      <div class:list={['hero-slide absolute inset-0', i === 0 && 'is-active']} data-slide={i}>
+        <Picture fallbackFormat="webp"
+          src={p.data.cover}
+          alt=""
+          formats={['avif']}
+          widths={widthsFor(p.data.cover.width)}
+          sizes="100vw"
+          layout="full-width"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={i === 0 ? 'high' : 'auto'}
+          decoding={i === 0 ? 'sync' : 'async'}
+          class="hero-img h-full w-full object-cover"
+        />
+      </div>
+    ))}
+    <!-- kontrastní vrstvy (nad fotkami): horní pro header, spodní a levá pro text -->
+    <div class="hero-shade absolute inset-0 z-[2]"></div>
+    <div class="hero-grain absolute inset-0 z-[3] opacity-[0.06] mix-blend-overlay"></div>
+  </div>
+
+  <div class="container-x relative flex flex-1 flex-col justify-end pb-10 pt-[calc(var(--header-h)+3rem)] sm:pb-14">
+    <p class="hero-in eyebrow on-dark mb-6 flex items-center gap-4" style="--d:0">
+      <span class="inline-block h-px w-10 bg-caramel" aria-hidden="true"></span>
+      Kvalita. Preciznost. Spokojenost.
+    </p>
+    <h1 id="hero-title" class="hero-title max-w-[14ch] font-display text-[length:var(--text-display)] font-light leading-[0.98] tracking-[-0.03em] !text-cream">
+      <span class="hero-line"><span style="--d:1">Nábytek na míru,</span></span>
+      <span class="hero-line"><span style="--d:2">který <em>předčí</em></span></span>
+      <span class="hero-line"><span style="--d:3">vaše očekávání</span></span>
+    </h1>
+
+    <div class="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-7">
+        <p class="hero-in max-w-xl text-lead text-cream/85" style="--d:4">
+          Kuchyně, skříně a interiéry od návrhu po montáž. Navrhujeme, vyrábíme v naší dílně a montujeme – ve Zlíně a po celé Moravě.
+        </p>
+        <div class="hero-in mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap" style="--d:5">
+          <Button href="/kontakt/" arrow>Nezávazná poptávka</Button>
+          <Button href="/realizace/" variant="ghost-light">Prohlédnout realizace</Button>
+        </div>
+      </div>
+
+      {slides.length > 0 && (
+        <div class="hero-in flex flex-col gap-4 lg:col-span-5 lg:items-end" style="--d:6">
+          <div class="relative min-h-11 w-full lg:max-w-sm" aria-live="polite" data-hero-labels>
+            {slides.map((p, i) => (
+              <a
+                href={`/realizace/${p.id}/`}
+                class:list={['hero-label group absolute inset-x-0 bottom-0 flex items-baseline gap-3 text-sm lg:justify-end', i === 0 && 'is-active']}
+                data-label={i}
+                tabindex={i === 0 ? undefined : -1}
+                aria-hidden={i === 0 ? undefined : 'true'}
+              >
+                <span class="font-display text-base text-caramel tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                <span class="text-cream/90 underline-offset-4 decoration-caramel group-hover:underline">
+                  <span class="sr-only">Aktuální realizace: </span>{p.data.title}{p.data.location && <span class="text-cream/70"> · {p.data.location}</span>}
+                </span>
+                <Icon name="ph:arrow-up-right-light" class="size-4 shrink-0 self-center text-caramel transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+          {slides.length > 1 && (
+            <div class="flex w-full items-center gap-3 lg:max-w-sm">
+              <div class="flex flex-1 gap-2" role="group" aria-label="Výběr fotografie">
+                {slides.map((p, i) => (
+                  <button type="button" class="hero-dot group relative h-11 flex-1 cursor-pointer" data-dot={i} aria-label={`Zobrazit ${p.data.title}`} aria-current={i === 0 ? 'true' : undefined}>
+                    <span class="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 overflow-hidden rounded-full bg-cream/25">
+                      <span class="hero-progress absolute inset-0 origin-left bg-caramel"></span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <button type="button" class="grid size-11 shrink-0 cursor-pointer place-items-center rounded-full border border-cream/30 text-cream transition-colors hover:border-cream hover:bg-cream hover:text-mocha-900" data-hero-toggle aria-label="Pozastavit prezentaci" aria-pressed="false">
+                <Icon name="ph:pause-light" class="icon-pause size-5" aria-hidden="true" />
+                <Icon name="ph:play-light" class="icon-play hidden size-5" aria-hidden="true" />
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+
+    <a href="#manifest" class="scroll-cue absolute right-[var(--gutter)] top-1/2 hidden -translate-y-1/2 flex-col items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.3em] text-cream/75 transition-colors hover:text-cream xl:flex" aria-label="Posunout na obsah">
+      <span aria-hidden="true">Scroll</span>
+      <span class="relative block h-12 w-px overflow-hidden bg-cream/20" aria-hidden="true"><span class="scroll-cue-bar absolute inset-x-0 top-0 h-1/2 bg-caramel"></span></span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero { --slide-dur: 7000ms; }
+  .hero-slide { opacity: 0; transition: opacity 1.8s var(--ease-in-out-quart); }
+  .hero-slide.is-active { opacity: 1; z-index: 1; }
+  .hero-slide.is-leaving { opacity: 0; z-index: 0; }
+  .hero-slide :global(img), .hero-img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-slide :global(img) { transform: scale(1.08); transform-origin: 60% 50%; }
+  .hero-slide:nth-child(even) :global(img) { transform-origin: 35% 60%; }
+  .hero-title :global(em) { font-style: italic; color: var(--color-caramel-light); font-weight: 300; }
+  .hero-line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .hero-line > span { display: inline-block; }
+  .hero-label { opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 0.6s var(--ease-out-expo), transform 0.8s var(--ease-out-expo); }
+  .hero-label.is-active { opacity: 1; transform: none; pointer-events: auto; }
+  .hero-progress { transform: scaleX(0); }
+  .hero-dot[aria-current='true'] .hero-progress { transform: scaleX(1); }
+  .hero-dot:hover .hero-progress { background: var(--color-caramel-light); }
+  .hero-dot:focus-visible { outline-offset: 0; }
+  [data-hero][data-paused='true'] .icon-pause { display: none; }
+  [data-hero][data-paused='true'] .icon-play { display: block; }
+  .hero-shade {
+    background:
+      linear-gradient(180deg, rgb(28 18 16 / 0.78) 0%, rgb(28 18 16 / 0.25) 22%, rgb(28 18 16 / 0) 38%),
+      linear-gradient(0deg, rgb(28 18 16 / 0.94) 0%, rgb(28 18 16 / 0.72) 32%, rgb(28 18 16 / 0.28) 62%, rgb(28 18 16 / 0.12) 100%),
+      linear-gradient(90deg, rgb(28 18 16 / 0.6) 0%, rgb(28 18 16 / 0.2) 55%, rgb(28 18 16 / 0) 80%);
+  }
+  .hero-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-slide.is-active :global(img) { animation: kenburns calc(var(--slide-dur) + 2000ms) linear forwards; }
+    .hero-slide.is-leaving :global(img) { transform: scale(1); }
+    [data-hero][data-paused='true'] .hero-slide :global(img) { animation-play-state: paused; }
+    [data-hero][data-autoplay='true'] .hero-dot[aria-current='true'] .hero-progress { animation: progress var(--slide-dur) linear forwards; }
+    [data-hero][data-paused='true'] .hero-dot[aria-current='true'] .hero-progress { animation-play-state: paused; }
+
+    :global(html.js) .hero-line > span { transform: translateY(105%); animation: rise 1.3s var(--ease-out-expo) forwards; animation-delay: calc(150ms + var(--d) * 110ms); }
+    :global(html.js) .hero-in { opacity: 0; transform: translateY(16px); animation: fadeup 1.1s var(--ease-out-expo) forwards; animation-delay: calc(250ms + var(--d) * 110ms); }
+    .scroll-cue-bar { animation: cue 2.4s var(--ease-in-out-quart) infinite; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide { transition: none; }
+    .hero-slide :global(img) { transform: none; }
+  }
+  @keyframes kenburns { from { transform: scale(1.08); } to { transform: scale(1); } }
+  @keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes rise { to { transform: none; } }
+  @keyframes fadeup { to { opacity: 1; transform: none; } }
+  @keyframes cue { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(200%); } }
+</style>
+
+<script>
+  let cleanup: (() => void) | null = null;
+
+  function init() {
+    cleanup?.();
+    cleanup = null;
+    const hero = document.querySelector<HTMLElement>('[data-hero]');
+    if (!hero) return;
+    const slides = [...hero.querySelectorAll<HTMLElement>('[data-slide]')];
+    if (slides.length < 2) return;
+    const labels = [...hero.querySelectorAll<HTMLElement>('[data-label]')];
+    const dots = [...hero.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    const toggle = hero.querySelector<HTMLButtonElement>('[data-hero-toggle]');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dur = 7000;
+    let index = 0;
+    let timer: number | undefined;
+    let userPaused = reduce;
+    let leaveTimer: number | undefined;
+
+    const loadSlide = (i: number) => {
+      // vynutí načtení lazy obrázku další fotky s předstihem
+      slides[i]?.querySelectorAll('img').forEach((img) => { if (img.loading === 'lazy') img.loading = 'eager'; });
+    };
+
+    const go = (next: number) => {
+      next = (next + slides.length) % slides.length;
+      if (next === index) return;
+      const prev = slides[index];
+      prev.classList.remove('is-active');
+      prev.classList.add('is-leaving');
+      window.clearTimeout(leaveTimer);
+      leaveTimer = window.setTimeout(() => slides.forEach((s) => s.classList.remove('is-leaving')), 1900);
+      loadSlide(next);
+      slides[next].classList.add('is-active');
+      labels.forEach((l, i) => {
+        const on = i === next;
+        l.classList.toggle('is-active', on);
+        on ? l.removeAttribute('tabindex') : l.setAttribute('tabindex', '-1');
+        on ? l.removeAttribute('aria-hidden') : l.setAttribute('aria-hidden', 'true');
+      });
+      dots.forEach((d, i) => (i === next ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current')));
+      index = next;
+      loadSlide((next + 1) % slides.length);
+      schedule();
+    };
+
+    const schedule = () => {
+      window.clearTimeout(timer);
+      // restart CSS progress animace
+      const bar = dots[index]?.querySelector<HTMLElement>('.hero-progress');
+      if (bar) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+      if (userPaused || document.hidden) return;
+      timer = window.setTimeout(() => go(index + 1), dur);
+    };
+
+    const setPaused = (p: boolean) => {
+      userPaused = p;
+      hero.dataset.paused = String(p);
+      hero.dataset.autoplay = String(!p);
+      toggle?.setAttribute('aria-pressed', String(p));
+      toggle?.setAttribute('aria-label', p ? 'Spustit prezentaci' : 'Pozastavit prezentaci');
+      schedule();
+    };
+
+    const onVis = () => schedule();
+    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+    toggle?.addEventListener('click', () => setPaused(!userPaused));
+    document.addEventListener('visibilitychange', onVis);
+
+    // druhou fotku přednačteme až po načtení stránky
+    const idle = () => loadSlide(1);
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    if (w.requestIdleCallback) w.requestIdleCallback(idle, { timeout: 2500 });
+    else setTimeout(idle, 1500);
+
+    setPaused(userPaused);
+
+    cleanup = () => {
+      window.clearTimeout(timer);
+      window.clearTimeout(leaveTimer);
+      document.removeEventListener('visibilitychange', onVis);
+    };
+  }
+
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('astro:before-swap', () => { cleanup?.(); cleanup = null; });
+</script>

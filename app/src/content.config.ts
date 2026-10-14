@@ -37,26 +37,30 @@ const services = defineCollection({
 
 /** Partneři / dodavatelé. */
 const partners = defineCollection({
-  loader: file('./src/content/partners/partners.json'),
-  schema: ({ image }) => z.object({ name: z.string(), logo: image(), url: z.string().url().optional(), group: z.enum(['kování', 'materiály', 'dřezy a baterie', 'ostatní']).default('ostatní') }),
+  // Root je objekt { "partners": [...] } (kvůli Sveltia CMS) → převedeme na mapu id → položka.
+  loader: file('./src/content/partners/partners.json', {
+    parser: (text) => Object.fromEntries((JSON.parse(text).partners as { id: string }[]).map((p) => [p.id, p])),
+  }),
+  schema: ({ image }) => z.object({ name: z.string(), logo: image(), url: z.url().optional(), group: z.enum(['kování', 'materiály', 'dřezy a baterie', 'ostatní']).default('ostatní') }),
 });
 
 /** Globální nastavení webu (kontakty, hero, texty) – jeden JSON soubor. */
 const settings = defineCollection({
-  loader: file('./src/content/settings/site.json'),
+  // Root je plain objekt (kvůli Sveltia CMS) → jediná položka s id "site".
+  loader: file('./src/content/settings/site.json', { parser: (text) => ({ site: JSON.parse(text) }) }),
   schema: z.object({
     company: z.string(),
     ico: z.string(),
     phone: z.string(),
-    email: z.string().email(),
+    email: z.email(),
     street: z.string(),
     city: z.string(),
     zip: z.string(),
     region: z.string(),
-    mapsUrl: z.string().url(),
+    mapsUrl: z.url(),
     openingHours: z.array(z.object({ days: z.string(), hours: z.string() })),
     serviceArea: z.array(z.string()),
-    social: z.object({ instagram: z.string().url(), facebook: z.string().url() }),
+    social: z.object({ instagram: z.url(), facebook: z.url() }),
     web3formsKey: z.string(),
     stats: z.array(z.object({ value: z.string(), label: z.string() })),
     heroProjects: z.array(reference('projects')),

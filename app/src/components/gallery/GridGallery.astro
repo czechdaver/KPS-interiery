@@ -1,0 +1,22 @@
+---
+/** Kompaktní mřížka náhledů. */
+import GalleryFigure from './GalleryFigure.astro';
+import type { GalleryImage } from './data';
+
+interface Props { images: GalleryImage[] }
+const { images } = Astro.props;
+---
+<ul class="container-x grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4" role="list">
+  {images.map((im) => (
+    <li>
+      <GalleryFigure
+        image={im}
+        aspect="none"
+        caption={false}
+        mediaClass="aspect-square rounded-sm"
+        widths={[320, 480, 640]}
+        sizes="(min-width: 1440px) 340px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+      />
+    </li>
+  ))}
+</ul>

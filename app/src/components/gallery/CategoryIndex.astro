@@ -1,0 +1,36 @@
+---
+/** Editorialní seznam kategorií s odkazy na SEO landing stránky. */
+import { Icon } from 'astro-icon/components';
+import { pad2 } from './data';
+import { realizaceLabel } from './format';
+
+interface Props {
+  categories: { name: string; slug: string; count: number }[];
+  current?: string;
+  heading?: string;
+}
+const { categories, current, heading = 'Procházet podle kategorie' } = Astro.props;
+---
+<nav class="container-x" aria-labelledby="kat-index-title">
+  <h2 id="kat-index-title" class="eyebrow">{heading}</h2>
+  <ul class="mt-6 border-t border-linen" role="list">
+    {categories.map((c, k) => (
+      <li class="border-b border-linen">
+        <a
+          href={`/realizace/kategorie/${c.slug}/`}
+          class="kat-link group flex min-h-16 items-center gap-5 py-5 md:gap-10 md:py-7"
+          aria-current={c.slug === current ? 'page' : undefined}
+        >
+          <span class="w-8 shrink-0 text-sm font-semibold tabular-nums text-caramel-ink">{pad2(k + 1)}</span>
+          <span class="flex-1 font-display text-h3 text-mocha-800 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:translate-x-2">{c.name}</span>
+          <span class="hidden text-sm text-mocha-600 sm:inline">{realizaceLabel(c.count)}</span>
+          <Icon name="ph:arrow-up-right-light" class="size-6 shrink-0 text-mocha-800 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .kat-link[aria-current='page'] span:nth-child(2) { font-style: italic; color: var(--color-caramel-ink); }
+</style>

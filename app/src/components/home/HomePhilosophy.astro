@@ -1,0 +1,46 @@
+---
+/** Filozofie: velká detailní fotografie + citát. Fotka z realizace (fallback první projekt). */
+import { Picture } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import Button from '../ui/Button.astro';
+import { getProjects } from '../../lib/site';
+
+const proj = (await getEntry('projects', 'ostatni-live-edge-masiv')) ?? (await getProjects())[0];
+const img = proj?.data.images[1] ?? proj?.data.images[0];
+---
+<section class="section-y overflow-hidden bg-cream" aria-labelledby="philosophy-title">
+  <div class="container-x grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+    {img && (
+      <figure class="philo-media relative lg:col-span-7" data-reveal>
+        <div class="overflow-hidden rounded-lg bg-linen">
+          <Picture fallbackFormat="webp" src={img.src} alt={img.alt} formats={['avif']} widths={[640, 960, 1280, 1600].filter((w) => w <= img.src.width)} sizes="(min-width: 1024px) 56vw, 100vw" layout="full-width" loading="lazy" class="philo-img aspect-[4/5] h-full w-full object-cover sm:aspect-[3/2] lg:aspect-[4/3]" />
+        </div>
+        <figcaption class="mt-4 flex items-center gap-3 text-sm text-mocha-600">
+          <span class="h-px w-8 bg-caramel-ink" aria-hidden="true"></span>
+          <a href={`/realizace/${proj!.id}/`} class="underline-offset-4 decoration-caramel hover:text-mocha-800 hover:underline">{proj!.data.title}</a>
+        </figcaption>
+      </figure>
+    )}
+    <div class="lg:col-span-5">
+      <p class="eyebrow mb-8" data-reveal>Naše filozofie</p>
+      <h2 id="philosophy-title" class="sr-only">Naše filozofie</h2>
+      <blockquote data-reveal style="--reveal-i:1">
+        <span class="block font-display text-[6rem] leading-[0.5] text-caramel-ink" aria-hidden="true">“</span>
+        <p class="philo-quote font-display text-h2 font-light text-mocha-800">
+          Dobrý nábytek poznáte až po letech. Pořád drží, pořád funguje a&nbsp;pořád se vám <em>líbí</em>.
+        </p>
+      </blockquote>
+      <p class="mt-8 max-w-md text-mocha-700" data-reveal style="--reveal-i:2">
+        Proto neděláme kompromisy u věcí, které nejsou vidět – u kování, hran, spojů a přesného zaměření. Právě na nich záleží, jak bude interiér sloužit za deset let.
+      </p>
+      <div class="mt-8" data-reveal style="--reveal-i:3">
+        <Button href="/o-nas/" variant="ghost" arrow>Více o nás</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .philo-quote :global(em) { font-style: italic; color: var(--color-caramel-ink); }
+  .philo-media :global(picture) { display: block; }
+</style>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+---
+<BaseLayout title="Stránka nenalezena | KPS Interiéry" description="Požadovaná stránka neexistuje." noindex headerOverlay>
+  <section class="on-dark relative flex min-h-[85dvh] items-center bg-mocha-950 pb-20 pt-[calc(var(--header-h)+3rem)] text-cream">
+    <div class="container-x">
+      <p class="eyebrow on-dark mb-6" data-reveal>Chyba 404</p>
+      <p class="font-display font-light italic leading-[0.85] text-caramel text-[clamp(7rem,28vw,22rem)]" aria-hidden="true" data-reveal style="--reveal-i:1">404</p>
+      <h1 class="mt-6 max-w-3xl font-display text-h1 font-light !text-cream" data-reveal style="--reveal-i:2">Tady nic nestojí, ale zbytek domu ano</h1>
+      <p class="mt-6 max-w-xl text-lead text-cream/80" data-reveal style="--reveal-i:3">Stránka, kterou hledáte, neexistuje nebo se přestěhovala. Podívejte se na naše realizace, nebo nám napište.</p>
+      <div class="mt-10 flex flex-wrap gap-4" data-reveal style="--reveal-i:4">
+        <Button href="/realizace/" arrow>Realizace</Button>
+        <Button href="/kontakt/" variant="ghost-light">Kontakt</Button>
+        <Button href="/" variant="ghost-light">Domů</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

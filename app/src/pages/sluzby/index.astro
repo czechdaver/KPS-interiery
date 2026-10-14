@@ -1,0 +1,119 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import ServiceBlock from '../../components/sections/ServiceBlock.astro';
+import PartnersMarquee from '../../components/sections/PartnersMarquee.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import { getSettings, categorySlug } from '../../lib/site';
+
+const settings = await getSettings();
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const projects = await getCollection('projects');
+const byId = new Map(projects.map((p) => [p.id, p]));
+
+const blocks = await Promise.all(
+  services.map(async (s) => {
+    const { Content } = await render(s);
+    const imgs = s.data.projects
+      .map((r) => byId.get(r.id))
+      .filter((p): p is NonNullable<typeof p> => !!p)
+      .slice(0, 3)
+      .map((p) => ({ src: p.data.cover, alt: p.data.images[0]?.alt ?? p.data.title }));
+    return { s, Content, imgs };
+  }),
+);
+
+const partners = await getCollection('partners');
+const groups = (['kování', 'materiály', 'dřezy a baterie'] as const).map((g) => ({
+  name: g,
+  items: partners.filter((p) => p.data.group === g).sort((a, b) => a.data.name.localeCompare(b.data.name, 'cs')),
+}));
+const groupTitle: Record<string, string> = { 'kování': 'Kování a mechanismy', 'materiály': 'Desky a materiály', 'dřezy a baterie': 'Dřezy a baterie' };
+
+const heroImg = byId.get('kuchyn-bila-ostruvek')?.data.cover;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: 'Služby KPS Interiéry',
+  itemListElement: services.map((s) => ({
+    '@type': 'Service',
+    name: s.data.title,
+    description: s.data.short,
+    url: new URL(`/sluzby/#${s.id}`, Astro.site).toString(),
+    provider: { '@type': 'LocalBusiness', name: settings.company },
+    areaServed: settings.serviceArea,
+  })),
+};
+---
+<BaseLayout
+  title="Služby – nábytek a kuchyně na míru"
+  description="Kuchyně, vestavěné skříně, ložnice, koupelnový nábytek a atypická řešení na míru. Návrh, výroba i montáž z jedné ruky – Zlín a okolí."
+  image={heroImg}
+  schema={schema}
+>
+  <PageHero
+    eyebrow="Služby"
+    title="Od prvního náčrtu po montáž"
+    accent="montáž"
+    lead="Navrhujeme, vyrábíme a montujeme nábytek na míru pro domácnosti i firmy. Jeden tým, jeden rukopis, žádní prostředníci."
+    image={heroImg}
+    imageAlt="Bílá kuchyň na míru s ostrůvkem"
+  />
+
+  <nav aria-label="Přehled služeb" class="border-b border-linen bg-cream-50">
+    <ul class="container-x flex gap-x-6 gap-y-1 overflow-x-auto py-3 text-sm font-semibold text-mocha-700 sm:flex-wrap">
+      {services.map((s) => (
+        <li class="shrink-0"><a href={`#${s.id}`} class="inline-flex min-h-11 items-center underline-offset-[6px] decoration-caramel hover:underline">{s.data.title}</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  {blocks.map(({ s, Content, imgs }, i) => (
+    <ServiceBlock
+      id={s.id}
+      index={i}
+      title={s.data.title}
+      short={s.data.short}
+      icon={s.data.icon}
+      images={imgs}
+      href={s.data.category ? `/realizace/kategorie/${categorySlug(s.data.category)}/` : undefined}
+      flip={i % 2 === 1}
+      tone={i % 2 === 1 ? 'dark' : 'light'}
+    >
+      <Content />
+    </ServiceBlock>
+  ))}
+
+  <section class="section-y bg-cream" aria-labelledby="materialy">
+    <div class="container-x">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow">Materiály a kování</p>
+        <h2 id="materialy" class="mt-4 text-h2">Pracujeme s <em class="font-light italic text-caramel-ink">prověřenými</em> značkami</h2>
+        <p class="mt-5 text-lead text-mocha-600">Kvalita nábytku se pozná po letech používání. Proto sázíme na osvědčené výrobce kování, desek a příslušenství.</p>
+      </div>
+      <div class="mt-12 grid gap-px overflow-hidden rounded-md bg-linen md:grid-cols-3">
+        {groups.map((g, i) => (
+          <div class="bg-cream-50 p-6 sm:p-8" data-reveal style={`--reveal-i:${i}`}>
+            <h3 class="text-h3">{groupTitle[g.name]}</h3>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {g.items.map((p) => (
+                <li>
+                  {p.data.url ? (
+                    <a href={p.data.url} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-full border border-mocha-800/20 px-4 text-sm font-semibold text-mocha-800 transition-colors hover:border-mocha-800 hover:bg-mocha-800 hover:text-cream">{p.data.name}</a>
+                  ) : (
+                    <span class="inline-flex min-h-11 items-center rounded-full border border-mocha-800/20 px-4 text-sm font-semibold text-mocha-800">{p.data.name}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <PartnersMarquee />
+  <CtaBand />
+</BaseLayout>

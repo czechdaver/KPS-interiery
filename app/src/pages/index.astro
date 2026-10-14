@@ -1,10 +1,76 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Picture } from 'astro:assets';
-import { getProjects } from '../lib/site';
-const projects = await getProjects();
+import HomeHero from '../components/home/HomeHero.astro';
+import HomeManifest from '../components/home/HomeManifest.astro';
+import HomeFeatured from '../components/home/HomeFeatured.astro';
+import HomeServices from '../components/home/HomeServices.astro';
+import HomePhilosophy from '../components/home/HomePhilosophy.astro';
+import ProcessSteps from '../components/sections/ProcessSteps.astro';
+import PartnersMarquee from '../components/sections/PartnersMarquee.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { getImage } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import { getSettings } from '../lib/site';
+
+const s = await getSettings();
+const site = Astro.site ?? new URL('https://kps-interiery.cz');
+const heroProject = s.heroProjects[0] ? await getEntry(s.heroProjects[0]) : undefined;
+const ogImage = heroProject?.data.cover;
+const schemaImg = ogImage ? await getImage({ src: ogImage, width: 1200, format: 'jpg' }) : undefined;
+
+/** "Po–Pá" + "8:00–16:00" → OpeningHoursSpecification. Nečíselné časy ("po domluvě") vynecháme. */
+const DAYS: Record<string, string> = { po: 'Monday', út: 'Tuesday', ut: 'Tuesday', st: 'Wednesday', čt: 'Thursday', ct: 'Thursday', pá: 'Friday', pa: 'Friday', so: 'Saturday', ne: 'Sunday' };
+const ORDER = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const pad = (t: string) => t.padStart(5, '0');
+const opening = s.openingHours.flatMap((o) => {
+  const t = o.hours.match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2})/);
+  if (!t) return [];
+  const parts = o.days.toLowerCase().split(/\s*[–-]\s*/).map((d) => DAYS[d.trim()]).filter(Boolean);
+  if (!parts.length) return [];
+  const days = parts.length === 2 ? ORDER.slice(ORDER.indexOf(parts[0]), ORDER.indexOf(parts[1]) + 1) : parts;
+  return [{ '@type': 'OpeningHoursSpecification', dayOfWeek: days, opens: pad(t[1]), closes: pad(t[2]) }];
+});
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': ['FurnitureStore', 'LocalBusiness'],
+  '@id': new URL('/#organization', site).href,
+  name: s.company,
+  alternateName: 'KPS Interiéry',
+  description: 'Zakázková výroba kuchyní a nábytku na míru – návrh, výroba a montáž. Zlín a celá Morava.',
+  url: new URL('/', site).href,
+  logo: new URL('/branding/kps-logo.svg', site).href,
+  ...(schemaImg && { image: new URL(schemaImg.src, site).href }),
+  telephone: s.phone.replace(/\s+/g, ''),
+  email: s.email,
+  taxID: s.ico,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: s.street,
+    addressLocality: s.city,
+    postalCode: s.zip,
+    addressRegion: s.region,
+    addressCountry: 'CZ',
+  },
+  hasMap: s.mapsUrl,
+  ...(opening.length && { openingHoursSpecification: opening }),
+  areaServed: s.serviceArea.map((name) => ({ '@type': 'AdministrativeArea', name })),
+  sameAs: Object.values(s.social),
+};
 ---
-<BaseLayout title="KPS Interiéry – kuchyně a nábytek na míru" description="Zakázková výroba kuchyní a nábytku na míru. Zlín a celá Morava.">
-  <h1 class="text-display">STUB</h1>
-  {projects.slice(0, 2).map((p) => <Picture src={p.data.cover} alt={p.data.title} formats={['avif', 'webp']} width={800} />)}
+<BaseLayout
+  title="KPS Interiéry – kuchyně a nábytek na míru, Zlín"
+  description="Kuchyně, vestavěné skříně a nábytek na míru od návrhu po montáž. Vlastní výroba, prověřené materiály. Zlín a celá Morava."
+  image={ogImage}
+  schema={schema}
+  headerOverlay
+>
+  <HomeHero />
+  <HomeManifest />
+  <HomeFeatured />
+  <HomeServices />
+  <ProcessSteps variant="dark" />
+  <PartnersMarquee />
+  <HomePhilosophy />
+  <CtaBand />
 </BaseLayout>

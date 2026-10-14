@@ -1,0 +1,87 @@
+---
+/** Filmový pás – horizontální scroll se scroll-snap, tažení myší, kolečko, šipky na klávesnici. Logika v gallery-client.ts. */
+import { Icon } from 'astro-icon/components';
+import GalleryFigure from './GalleryFigure.astro';
+import { pad2, type GalleryImage } from './data';
+
+interface Props { images: GalleryImage[]; label: string }
+const { images, label } = Astro.props;
+---
+<div class="filmstrip" data-filmstrip>
+  <div
+    class="fs-track"
+    data-fs-track
+    data-lenis-prevent-wheel
+    tabindex="0"
+    role="region"
+    aria-roledescription="filmový pás"
+    aria-label={`${label} – posouvejte šipkami vlevo a vpravo`}
+  >
+    {images.map((im) => (
+      <GalleryFigure
+        image={im}
+        class="fs-item"
+        style={`--r:${im.ratio.toFixed(4)}`}
+        mediaClass="fs-media"
+        sizes={im.orientation === 'portrait' ? '(min-width: 768px) 30vw, 55vw' : '(min-width: 768px) 62vw, 88vw'}
+      />
+    ))}
+    <div class="fs-end" aria-hidden="true"></div>
+  </div>
+  <div class="container-x mt-6 flex items-center gap-5">
+    <span class="fs-count text-sm font-semibold tabular-nums text-mocha-800" aria-hidden="true"><span data-fs-current>01</span><span class="text-mocha-400"> / {pad2(images.length)}</span></span>
+    <div class="relative h-px flex-1 bg-linen" aria-hidden="true">
+      <div class="fs-progress absolute inset-y-0 left-0 w-full origin-left bg-caramel-ink" data-fs-progress></div>
+    </div>
+    <div class="flex gap-2">
+      <button type="button" class="fs-btn" data-fs-prev aria-label="Předchozí fotografie"><Icon name="ph:arrow-left-light" class="size-5" aria-hidden="true" /></button>
+      <button type="button" class="fs-btn" data-fs-next aria-label="Další fotografie"><Icon name="ph:arrow-right-light" class="size-5" aria-hidden="true" /></button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .fs-track {
+    display: flex;
+    gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--gutter);
+    padding-inline: var(--gutter);
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    cursor: grab;
+    --fs-h: clamp(260px, 62svh, 680px);
+  }
+  .fs-track::-webkit-scrollbar { display: none; }
+  .fs-track.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+  .fs-track.is-dragging :global(a) { pointer-events: none; }
+  .fs-track:focus-visible { outline-offset: -2px; border-radius: 0; }
+  .fs-track :global(.fs-item) {
+    flex: none;
+    width: calc(var(--fs-h) * var(--r));
+    max-width: calc(100vw - 2 * var(--gutter));
+    scroll-snap-align: start;
+  }
+  .fs-track :global(.fs-media) { height: var(--fs-h); aspect-ratio: auto !important; }
+  .fs-track :global(.fs-item img) { -webkit-user-drag: none; }
+  @media (max-width: 767.98px) {
+    .fs-track { --fs-h: clamp(240px, 52svh, 520px); }
+  }
+  .fs-end { flex: none; width: 1px; }
+  .fs-progress { transform: scaleX(0); transition: transform 0.2s linear; }
+  .fs-btn {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-mocha-800) 25%, transparent);
+    color: var(--color-mocha-800);
+    transition: background-color 0.3s var(--ease-out-expo), color 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+  .fs-btn:hover:not(:disabled) { background: var(--color-mocha-800); color: var(--color-cream); border-color: var(--color-mocha-800); }
+  .fs-btn:disabled { opacity: 0.35; cursor: default; }
+</style>

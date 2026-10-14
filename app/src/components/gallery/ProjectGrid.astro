@@ -1,0 +1,19 @@
+---
+/** Responzivní grid karet realizací (1 / 2 / 3 sloupce). */
+import ProjectCard from '../ui/ProjectCard.astro';
+import { categorySlug, type Project } from '../../lib/site';
+
+interface Props { projects: Project[]; eagerCount?: number; class?: string }
+const { projects, eagerCount = 0, class: cls } = Astro.props;
+---
+<ul class:list={['pgrid grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-20', cls]} role="list">
+  {projects.map((p, k) => (
+    <li data-filter-item data-cat={categorySlug(p.data.category)} data-id={p.id} class="min-w-0">
+      <ProjectCard project={p} index={k} eager={k < eagerCount} sizes="(min-width: 1440px) 450px, (min-width: 1024px) 31vw, (min-width: 640px) 48vw, 100vw" />
+    </li>
+  ))}
+</ul>
+
+<style>
+  .pgrid > li[hidden] { display: none; }
+</style>

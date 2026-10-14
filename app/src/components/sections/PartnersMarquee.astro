@@ -1,0 +1,112 @@
+---
+/**
+ * Sdílená sekce partnerů: nekonečný CSS marquee log z kolekce `partners`.
+ * Pauza při hoveru/focusu, reduced-motion = statická mřížka. Loga monochrom → barva při hoveru.
+ */
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+  variant?: 'light' | 'cream';
+  id?: string;
+}
+const {
+  eyebrow = 'Partneři a dodavatelé',
+  title = 'Pracujeme s materiály, <em>kterým věříme</em>',
+  text = 'Kování, desky, dřezy i baterie vybíráme od prověřených výrobců. Kvalita hotového nábytku začíná u každého pantu.',
+  variant = 'light',
+  id = 'partneri',
+} = Astro.props;
+const partners = await getCollection('partners');
+const H = 40; // výška loga v px
+const logos = partners.map((p) => {
+  const ratio = p.data.logo.width && p.data.logo.height ? p.data.logo.width / p.data.logo.height : 3;
+  return { ...p.data, id: p.id, w: Math.round(Math.min(ratio, 4.5) * H), h: Math.round(Math.min(ratio, 4.5) * H / ratio) };
+});
+const headingId = `${id}-title`;
+---
+<section id={id} aria-labelledby={headingId} class:list={['section-y overflow-hidden', variant === 'cream' ? 'bg-cream' : 'bg-cream-50']}>
+  <div class="container-x grid gap-6 lg:grid-cols-12 lg:items-end">
+    <div class="lg:col-span-7">
+      <p class="eyebrow mb-5" data-reveal>{eyebrow}</p>
+      <h2 id={headingId} class="partners-title text-h2 font-light" data-reveal style="--reveal-i:1" set:html={title} />
+    </div>
+    {text && <p class="text-lead text-mocha-700 lg:col-span-5 lg:pb-1" data-reveal style="--reveal-i:2">{text}</p>}
+  </div>
+
+  <div class="marquee mt-12 lg:mt-16" data-reveal style="--reveal-i:2">
+    {[0, 1].map((copy) => (
+      <ul class="marquee-track" role="list" aria-label={copy === 0 ? 'Loga partnerů' : undefined} aria-hidden={copy === 1 ? 'true' : undefined} data-copy={copy}>
+        {logos.map((l) => (
+          <li class="marquee-item">
+            {l.url ? (
+              <a href={l.url} rel="noopener" target="_blank" class="logo-link" tabindex={copy === 1 ? -1 : undefined} aria-label={copy === 0 ? `${l.name} (otevře se v novém okně)` : undefined}>
+                <Image src={l.logo} alt={copy === 0 ? l.name : ''} width={l.w} height={l.h} loading="lazy" class="logo-img" />
+              </a>
+            ) : (
+              <span class="logo-link">
+                <Image src={l.logo} alt={copy === 0 ? l.name : ''} width={l.w} height={l.h} loading="lazy" class="logo-img" />
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</section>
+
+<style>
+  .partners-title :global(em) { font-style: italic; color: var(--color-caramel-ink); }
+  .marquee {
+    --gap: clamp(2.5rem, 1.5rem + 3vw, 5rem);
+    --dur: 70s;
+    position: relative;
+    display: flex;
+    gap: var(--gap);
+    overflow: hidden;
+    padding-block: 1.5rem;
+    border-block: 1px solid var(--color-linen);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gap);
+    min-width: 100%;
+    justify-content: space-around;
+    animation: marquee var(--dur) linear infinite;
+  }
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track { animation-play-state: paused; }
+  .marquee-item { flex: none; }
+  .logo-link {
+    display: grid;
+    place-items: center;
+    min-height: 44px;
+    border-radius: 4px;
+  }
+  .logo-img {
+    height: 40px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
+    filter: grayscale(1) contrast(0.9);
+    opacity: 0.55;
+    transition: filter 0.6s var(--ease-out-expo), opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+  }
+  .logo-link:hover .logo-img,
+  .logo-link:focus-visible .logo-img { filter: none; opacity: 1; transform: scale(1.04); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - var(--gap))); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee { -webkit-mask-image: none; mask-image: none; padding-inline: var(--gutter); }
+    .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; row-gap: 2rem; flex: 1 1 auto; }
+    .marquee-track[data-copy='1'] { display: none; }
+  }
+</style>

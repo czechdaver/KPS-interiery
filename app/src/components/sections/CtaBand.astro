@@ -1,0 +1,50 @@
+---
+/** Sdílený CTA pás (tmavá mocha): velký nadpis, telefon z nastavení + tlačítko na /kontakt/. `title` smí obsahovat <em>. */
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import { getSettings, telHref } from '../../lib/site';
+interface Props {
+  title?: string;
+  text?: string;
+  eyebrow?: string;
+  id?: string;
+}
+const {
+  title = 'Řekněte nám o&nbsp;svém <em>prostoru</em>',
+  text = 'Pošlete nám rozměry, fotky nebo jen hrubou představu. Ozveme se, probereme možnosti a domluvíme další postup. Poptávka je nezávazná.',
+  eyebrow = 'Nezávazná poptávka',
+  id = 'cta',
+} = Astro.props;
+const s = await getSettings();
+const headingId = `${id}-title`;
+---
+<section id={id} aria-labelledby={headingId} class="cta-band on-dark relative isolate overflow-hidden bg-mocha-900 text-cream/80">
+  <div class="cta-glow pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="container-x section-y grid gap-12 lg:grid-cols-12 lg:items-end">
+    <div class="lg:col-span-8">
+      <p class="eyebrow mb-6" data-reveal>{eyebrow}</p>
+      <h2 id={headingId} class="cta-title font-display text-[length:var(--text-display)] font-light leading-[0.98] !text-cream" data-reveal style="--reveal-i:1" set:html={title} />
+      {text && <p class="mt-8 max-w-2xl text-lead text-cream/80" data-reveal style="--reveal-i:2">{text}</p>}
+    </div>
+    <div class="flex flex-col gap-6 lg:col-span-4 lg:items-end lg:text-right" data-reveal style="--reveal-i:3">
+      <a href={telHref(s.phone)} class="group inline-flex min-h-11 items-center gap-3 font-display text-h3 text-cream transition-colors hover:text-caramel lg:flex-row-reverse">
+        <span class="grid size-12 shrink-0 place-items-center rounded-full border border-cream/25 transition-colors group-hover:border-caramel group-hover:bg-caramel group-hover:text-mocha-950">
+          <Icon name="ph:phone-light" class="size-6" aria-hidden="true" />
+        </span>
+        <span><span class="sr-only">Zavolejte nám: </span>{s.phone}</span>
+      </a>
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <Button href="/kontakt/" arrow>Nezávazná poptávka</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-title :global(em) { font-style: italic; color: var(--color-caramel); }
+  .cta-glow {
+    background:
+      radial-gradient(60% 80% at 100% 100%, rgb(200 139 78 / 0.16), transparent 60%),
+      radial-gradient(40% 60% at 0% 0%, rgb(112 86 81 / 0.25), transparent 70%);
+  }
+</style>

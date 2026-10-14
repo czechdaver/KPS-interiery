@@ -1,0 +1,120 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectGrid from '../../../components/gallery/ProjectGrid.astro';
+import FeaturedGrid from '../../../components/gallery/FeaturedGrid.astro';
+import CategoryIndex from '../../../components/gallery/CategoryIndex.astro';
+import CtaBand from '../../../components/gallery/CtaBand.astro';
+import { copyFor } from '../../../components/gallery/categories';
+import { fotoLabel, realizaceLabel, splitAccent } from '../../../components/gallery/format';
+import { CATEGORIES, getProjects, getSettings } from '../../../lib/site';
+
+export const getStaticPaths = (async () => {
+  const projects = await getProjects();
+  return CATEGORIES.filter((c) => projects.some((p) => p.data.category === c.name)).map((c) => ({
+    params: { kategorie: c.slug },
+    props: { name: c.name, slug: c.slug },
+  }));
+}) satisfies GetStaticPaths;
+
+const { name, slug } = Astro.props;
+const all = await getProjects();
+const settings = await getSettings();
+const projects = all.filter((p) => p.data.category === name);
+const featured = projects.filter((p) => p.data.featured);
+const rest = projects.filter((p) => !p.data.featured);
+const categories = CATEGORIES.map((c) => ({ ...c, count: all.filter((p) => p.data.category === c.name).length })).filter((c) => c.count > 0);
+const copy = copyFor(slug);
+const h = splitAccent(copy.heading, copy.accent);
+const photoCount = projects.reduce((s, p) => s + p.data.images.length, 0);
+const locations = [...new Set(projects.map((p) => p.data.location).filter(Boolean))];
+
+const site = Astro.site!;
+const url = new URL(`/realizace/kategorie/${slug}/`, site).href;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: copy.seoTitle,
+    description: copy.intro,
+    url,
+    inLanguage: 'cs',
+    publisher: { '@type': 'Organization', name: settings.company, url: site.href },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: projects.length,
+      itemListElement: projects.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(`/realizace/${p.id}/`, site).href, name: p.data.title })),
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Úvod', item: site.href },
+      { '@type': 'ListItem', position: 2, name: 'Realizace', item: new URL('/realizace/', site).href },
+      { '@type': 'ListItem', position: 3, name, item: url },
+    ],
+  },
+];
+---
+<BaseLayout title={copy.seoTitle} description={`${copy.intro} ${realizaceLabel(projects.length)} s fotografiemi.`.slice(0, 300)} image={projects[0]?.data.cover} schema={schema}>
+  <section class="bg-cream pb-12 pt-10 md:pb-16 md:pt-14 lg:pt-16">
+    <div class="container-x">
+      <nav aria-label="Drobečková navigace" class="text-sm text-mocha-600" data-reveal>
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/realizace/" class="inline-flex min-h-11 items-center gap-2 underline-offset-4 hover:text-mocha-800 hover:underline"><Icon name="ph:arrow-left-light" class="size-4" aria-hidden="true" />Všechny realizace</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-mocha-800">{name}</li>
+        </ol>
+      </nav>
+      <div class="mt-8 grid gap-10 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-8">
+          <p class="eyebrow" data-reveal>Realizace · {name}</p>
+          <h1 class="mt-5 text-display" data-reveal style="--reveal-i:1">
+            {h.before}{h.accent && <em class="font-light italic text-caramel-ink">{h.accent}</em>}{h.after}
+          </h1>
+        </div>
+        <div class="lg:col-span-4 lg:pb-3">
+          <p class="text-lead text-mocha-600" data-reveal style="--reveal-i:2">{copy.intro}</p>
+        </div>
+      </div>
+      <div class="mt-12 grid gap-6 border-y border-linen py-6 md:mt-16 md:grid-cols-12 md:items-center" data-reveal style="--reveal-i:3">
+        <p class="text-sm font-semibold text-mocha-800 md:col-span-4">
+          {realizaceLabel(projects.length)} · {fotoLabel(photoCount)}
+        </p>
+        <p class="text-mocha-600 md:col-span-8">{copy.body}</p>
+      </div>
+      {locations.length > 0 && (
+        <p class="mt-4 text-sm text-mocha-600" data-reveal style="--reveal-i:4">Lokality: {locations.join(', ')}</p>
+      )}
+    </div>
+  </section>
+
+  <div class="bg-cream-50 pb-[clamp(4.5rem,3rem+7vw,10rem)]">
+    {featured.length > 0 && (
+      <section aria-labelledby="cat-featured" class="pt-14 md:pt-20">
+        <div class="container-x">
+          <h2 id="cat-featured" class="mb-10 text-h2 md:mb-14">Vybrané projekty</h2>
+          <FeaturedGrid projects={featured} eagerFirst />
+        </div>
+      </section>
+    )}
+    {rest.length > 0 && (
+      <section aria-labelledby="cat-all" class:list={[featured.length > 0 ? 'pt-24 md:pt-36' : 'pt-14 md:pt-20']}>
+        <div class="container-x">
+          <h2 id="cat-all" class:list={['mb-10 text-h2 md:mb-14', featured.length > 0 && 'border-t border-linen pt-10 md:pt-14']}>
+            {featured.length > 0 ? 'Další projekty' : `Všechny projekty v kategorii ${name}`}
+          </h2>
+          <ProjectGrid projects={rest} eagerCount={featured.length > 0 ? 0 : 1} />
+        </div>
+      </section>
+    )}
+  </div>
+
+  <div class="bg-cream-50 pb-[clamp(4.5rem,3rem+7vw,10rem)]">
+    <CategoryIndex categories={categories} current={slug} heading="Další kategorie" />
+  </div>
+
+  <CtaBand heading={copy.cta} lead={copy.ctaLead} />
+</BaseLayout>

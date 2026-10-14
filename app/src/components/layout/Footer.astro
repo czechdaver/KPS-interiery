@@ -1,4 +1,73 @@
 ---
-// STUB – nahradí agent "chrome"
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+import { NAV, getSettings, telHref } from '../../lib/site';
+
+const s = await getSettings();
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const year = new Date().getFullYear();
+const h = 'mb-5 text-xs font-bold uppercase tracking-[0.22em] text-caramel';
+const link = 'inline-flex min-h-9 items-center text-cream/80 underline-offset-4 decoration-caramel transition-colors hover:text-cream hover:underline';
 ---
-<footer class="bg-mocha-950 text-cream p-8">KPS Interiéry</footer>
+<footer class="on-dark bg-mocha-950 text-cream/80">
+  <div class="container-x section-y pb-12">
+    <div class="border-b border-white/10 pb-16 md:pb-24">
+      <p class="eyebrow on-dark mb-6">Kontakt</p>
+      <p class="max-w-4xl font-display text-[length:var(--text-h1)] font-light leading-[1.05] tracking-tight text-cream">
+        Pojďme navrhnout <em class="text-caramel">váš interiér</em>
+      </p>
+      <div class="mt-10 flex flex-col gap-3 text-lead sm:flex-row sm:flex-wrap sm:gap-x-10">
+        <a href={`mailto:${s.email}`} class="inline-flex min-h-11 items-center gap-3 text-cream underline-offset-[6px] decoration-caramel hover:underline"><Icon name="ph:envelope-simple-light" class="size-6 text-caramel" aria-hidden="true" />{s.email}</a>
+        <a href={telHref(s.phone)} class="inline-flex min-h-11 items-center gap-3 text-cream underline-offset-[6px] decoration-caramel hover:underline"><Icon name="ph:phone-light" class="size-6 text-caramel" aria-hidden="true" />{s.phone}</a>
+      </div>
+    </div>
+
+    <div class="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+      <div class="lg:col-span-4">
+        <a href="/" aria-label="KPS Interiéry – domů" class="inline-block">
+          <img src="/branding/kps-logo-slogan-inverse.svg" alt="KPS Interiéry" width="220" height="110" class="h-auto w-48 sm:w-56" loading="lazy" />
+        </a>
+        <div class="mt-8 flex gap-3">
+          <a href={s.social.instagram} aria-label="Instagram" rel="noopener" class="social-btn"><Icon name="ph:instagram-logo-light" class="size-6" aria-hidden="true" /></a>
+          <a href={s.social.facebook} aria-label="Facebook" rel="noopener" class="social-btn"><Icon name="ph:facebook-logo-light" class="size-6" aria-hidden="true" /></a>
+        </div>
+      </div>
+
+      <nav aria-label="Navigace v patičce" class="lg:col-span-2">
+        <h2 class={h + ' !font-sans !text-caramel'}>Navigace</h2>
+        <ul class="space-y-1">
+          {NAV.map((n) => <li><a href={n.href} class={link}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <nav aria-label="Služby" class="lg:col-span-2">
+        <h2 class={h + ' !font-sans !text-caramel'}>Služby</h2>
+        <ul class="space-y-1">
+          {services.map((sv) => <li><a href={`/sluzby/#${sv.id}`} class={link}>{sv.data.title}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-4">
+        <h2 class={h + ' !font-sans !text-caramel'}>Kontakt</h2>
+        <address class="space-y-4 not-italic">
+          <p>
+            <strong class="font-semibold text-cream">{s.company}</strong><br />
+            {s.street}<br />{s.zip} {s.city}<br />
+            <a href={s.mapsUrl} rel="noopener" class={link}>Zobrazit na mapě</a>
+          </p>
+          <p>IČO: {s.ico}</p>
+          <ul class="space-y-1">
+            {s.openingHours.map((o) => (
+              <li class="flex justify-between gap-6 border-b border-white/10 py-1.5 sm:max-w-xs"><span>{o.days}</span><span class="text-cream">{o.hours}</span></li>
+            ))}
+          </ul>
+        </address>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-cream/70 sm:flex-row sm:justify-between">
+      <p>© {year} {s.company} Všechna práva vyhrazena.</p>
+      <p>Nábytek a interiéry na míru</p>
+    </div>
+  </div>
+</footer>

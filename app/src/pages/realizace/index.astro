@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryFilter from '../../components/gallery/CategoryFilter.astro';
+import FeaturedGrid from '../../components/gallery/FeaturedGrid.astro';
+import ProjectGrid from '../../components/gallery/ProjectGrid.astro';
+import CategoryIndex from '../../components/gallery/CategoryIndex.astro';
+import CtaBand from '../../components/gallery/CtaBand.astro';
+import { CATEGORIES, getProjects, getSettings } from '../../lib/site';
+import { realizaceLabel, fotoLabel } from '../../components/gallery/format';
+
+const projects = await getProjects();
+const settings = await getSettings();
+const featured = projects.filter((p) => p.data.featured);
+const rest = projects.filter((p) => !p.data.featured);
+const categories = CATEGORIES.map((c) => ({ ...c, count: projects.filter((p) => p.data.category === c.name).length })).filter((c) => c.count > 0);
+const photoCount = projects.reduce((s, p) => s + p.data.images.length, 0);
+
+const site = Astro.site!;
+const url = new URL('/realizace/', site).href;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Realizace – kuchyně a nábytek na míru',
+    url,
+    inLanguage: 'cs',
+    publisher: { '@type': 'Organization', name: settings.company, url: site.href },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: projects.length,
+      itemListElement: projects.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: new URL(`/realizace/${p.id}/`, site).href,
+        name: p.data.title,
+      })),
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Úvod', item: site.href },
+      { '@type': 'ListItem', position: 2, name: 'Realizace', item: url },
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Realizace – kuchyně a nábytek na míru"
+  description="Prohlédněte si naše realizace kuchyní, vestavěných skříní, ložnic, koupelen a dalšího nábytku na míru. Fotografie hotových zakázek KPS Interiéry."
+  image={featured[0]?.data.cover ?? projects[0]?.data.cover}
+  schema={schema}
+>
+  <section class="rz-hero bg-cream pb-12 pt-14 md:pb-16 md:pt-20 lg:pt-24">
+    <div class="container-x grid gap-10 lg:grid-cols-12 lg:items-end">
+      <div class="lg:col-span-8">
+        <p class="eyebrow" data-reveal>Realizace</p>
+        <h1 class="mt-5 text-display" data-reveal style="--reveal-i:1">
+          Interiéry, které vznikly <em class="font-light italic text-caramel-ink">na míru</em>
+        </h1>
+      </div>
+      <div class="lg:col-span-4 lg:pb-3">
+        <p class="text-lead text-mocha-600" data-reveal style="--reveal-i:2">
+          Každá zakázka začíná zaměřením a končí posledním seřízeným dvířkem. Projděte si kuchyně, skříně, ložnice i koupelny, které jsme navrhli a vyrobili pro naše zákazníky.
+        </p>
+      </div>
+    </div>
+    <div class="container-x mt-12 md:mt-16">
+      <dl class="grid grid-cols-3 border-y border-linen" data-reveal style="--reveal-i:3">
+        <div class="py-5 pr-4">
+          <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-mocha-600">Realizací</dt>
+          <dd class="mt-1 font-display text-h3 text-mocha-800">{projects.length}</dd>
+        </div>
+        <div class="border-l border-linen py-5 pl-4 md:pl-8">
+          <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-mocha-600">Fotografií</dt>
+          <dd class="mt-1 font-display text-h3 text-mocha-800">{photoCount}</dd>
+        </div>
+        <div class="border-l border-linen py-5 pl-4 md:pl-8">
+          <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-mocha-600">Kategorií</dt>
+          <dd class="mt-1 font-display text-h3 text-mocha-800">{categories.length}</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="rz-filterbar bg-cream-50 pt-10 md:pt-14">
+    <div class="container-x">
+      <CategoryFilter total={projects.length} categories={categories} />
+    </div>
+  </div>
+
+  <div data-filter-scope class="bg-cream-50 pb-[clamp(4.5rem,3rem+7vw,10rem)]">
+    {featured.length > 0 && (
+      <section data-filter-section aria-labelledby="featured-title" class="pt-14 md:pt-20">
+        <div class="container-x">
+          <div class="mb-10 flex items-baseline justify-between gap-6 md:mb-14">
+            <h2 id="featured-title" class="text-h2">Vybrané realizace</h2>
+            <p class="hidden text-sm text-mocha-600 md:block">{realizaceLabel(featured.length)} · {fotoLabel(featured.reduce((s, p) => s + p.data.images.length, 0))}</p>
+          </div>
+          <FeaturedGrid projects={featured} eagerFirst />
+        </div>
+      </section>
+    )}
+    {rest.length > 0 && (
+      <section data-filter-section aria-labelledby="all-title" class="pt-24 md:pt-36">
+        <div class="container-x">
+          <div class="mb-10 flex items-baseline justify-between gap-6 border-t border-linen pt-10 md:mb-14 md:pt-14">
+            <h2 id="all-title" class="text-h2">Další realizace</h2>
+          </div>
+          <ProjectGrid projects={rest} />
+        </div>
+      </section>
+    )}
+  </div>
+
+  <div class="bg-cream-50 pb-[clamp(4.5rem,3rem+7vw,10rem)]">
+    <CategoryIndex categories={categories} />
+  </div>
+
+  <CtaBand heading="Máte představu o svém interiéru?" lead="Ozvěte se nám s rozměry nebo pár fotkami prostoru. Společně navrhneme řešení, které bude sedět přesně na míru." />
+</BaseLayout>
+
+<style is:global>
+  html.is-filtering::view-transition-group(*) {
+    animation-duration: 0.6s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  html.is-filtering::view-transition-old(root),
+  html.is-filtering::view-transition-new(root) {
+    animation-duration: 0.3s;
+  }
+</style>

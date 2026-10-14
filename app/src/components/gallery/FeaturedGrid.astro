@@ -1,0 +1,75 @@
+---
+/** Asymetrický editorial layout vybraných realizací (velké karty, číslování 01/02…). */
+import ProjectCard from '../ui/ProjectCard.astro';
+import { categorySlug, type Project } from '../../lib/site';
+import { featuredSlot } from './slots';
+
+interface Props { projects: Project[]; eagerFirst?: boolean }
+const { projects, eagerFirst = false } = Astro.props;
+---
+<ul class="featured" role="list" data-featured-list>
+  {projects.map((p, k) => (
+    <li class="featured-item" data-filter-item data-cat={categorySlug(p.data.category)} data-id={p.id} data-slot={featuredSlot(k, projects.length)}>
+      <span class="featured-num" aria-hidden="true"></span>
+      <ProjectCard
+        project={p}
+        size="lg"
+        index={k}
+        eager={eagerFirst && k === 0}
+        sizes="(min-width: 1440px) 820px, (min-width: 1024px) 58vw, (min-width: 768px) 50vw, 100vw"
+      />
+    </li>
+  ))}
+</ul>
+
+<style>
+  .featured {
+    display: grid;
+    gap: 3.5rem 1.5rem;
+    counter-reset: featured;
+  }
+  .featured-item { counter-increment: featured; min-width: 0; }
+  .featured-item[hidden] { display: none; }
+  .featured-num {
+    display: block;
+    margin-bottom: 0.875rem;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.06em;
+    color: var(--color-caramel-ink);
+  }
+  .featured-num::before { content: counter(featured, decimal-leading-zero); }
+  .featured-num::after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 2.5rem;
+    height: 1px;
+    margin-left: 0.75rem;
+    background: currentColor;
+    opacity: 0.5;
+  }
+
+  @media (min-width: 768px) {
+    .featured { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .featured-item[data-slot='full'] { grid-column: 1 / -1; }
+    .featured-item:not([data-slot='full']) :global([data-card-media]) { aspect-ratio: 4 / 5; }
+  }
+  @media (min-width: 1024px) {
+    .featured {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: clamp(1.5rem, 1rem + 1.5vw, 3rem);
+      row-gap: clamp(5rem, 3rem + 4vw, 9rem);
+    }
+    .featured-item[data-slot='wl'] { grid-column: 1 / span 7; }
+    .featured-item[data-slot='nr'] { grid-column: 9 / span 4; margin-top: clamp(6rem, 4rem + 6vw, 12rem); }
+    .featured-item[data-slot='nl'] { grid-column: 1 / span 4; align-self: end; }
+    .featured-item[data-slot='wr'] { grid-column: 6 / span 7; }
+    .featured-item[data-slot='wl'] :global([data-card-media]),
+    .featured-item[data-slot='wr'] :global([data-card-media]) { aspect-ratio: 5 / 4; }
+    .featured-item[data-slot='nl'] :global([data-card-media]),
+    .featured-item[data-slot='nr'] :global([data-card-media]) { aspect-ratio: 4 / 5; }
+    .featured-item[data-slot='full'] :global([data-card-media]) { aspect-ratio: 21 / 9; }
+  }
+</style>

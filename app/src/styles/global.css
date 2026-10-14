@@ -113,3 +113,8 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
+
+/* Astro responsive images vkládá `@layer astro.images { :where([data-astro-image]) { height: auto } }`,
+   které (jako později deklarovaná vrstva) přebije Tailwind utilitu `h-full` → fotky by nevyplnily box s jiným poměrem stran.
+   Nevrstvené pravidlo má přednost před všemi vrstvami. */
+img[data-astro-image].h-full { height: 100%; }

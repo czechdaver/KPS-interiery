@@ -1,0 +1,13 @@
+{
+  "name": "KPS Interiéry",
+  "short_name": "KPS",
+  "description": "Nábytek a kuchyně na míru – Zlínský kraj.",
+  "lang": "cs",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fbf7f4",
+  "theme_color": "#2a1a17",
+  "icons": [
+    { "src": "/branding/fav.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

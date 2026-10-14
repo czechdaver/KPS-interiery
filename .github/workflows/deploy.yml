@@ -2,9 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
-  # Trigger deployment to update gallery detail pages
 
 permissions:
   contents: read
@@ -18,115 +17,33 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      # Workaround for Rollup native binary issues in CI
-      ROLLUP_SKIP_NODE_NATIVE: '1'
-      ROLLUP_DISABLE_NATIVE: '1'
+    defaults:
+      run:
+        working-directory: app
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
 
-      - name: Install dependencies
-        working-directory: app
-        run: |
-          # Remove lockfile to avoid optional dependency issues in CI
-          rm -f package-lock.json
-          rm -rf node_modules
-          npm install
+      - run: npm ci
 
-      - name: Install Rollup native binary (workaround)
-        working-directory: app
-        run: |
-          npm install @rollup/rollup-linux-x64-gnu --save-dev --no-save || true
-
-      - name: Verify QwikCity configuration
-        working-directory: app
-        run: |
-          echo "🔍 Verifying QwikCity configuration..."
-          
-          # Check that React files don't exist (they would conflict)
-          if [ -f "index.html" ]; then
-            echo "❌ ERROR: index.html found - this conflicts with QwikCity SSR"
-            echo "📝 Solution: mv index.html index.html.backup"
-            exit 1
-          fi
-          
-          if [ -f "main.tsx" ]; then
-            echo "❌ ERROR: main.tsx found - this conflicts with QwikCity SSR"
-            echo "📝 Solution: mv main.tsx main.tsx.backup"
-            exit 1
-          fi
-          
-          # Verify QwikCity entry points exist
-          if [ ! -f "src/entry.ssr.tsx" ]; then
-            echo "❌ ERROR: src/entry.ssr.tsx not found"
-            exit 1
-          fi
-          
-          if [ ! -f "src/entry.dev.tsx" ]; then
-            echo "❌ ERROR: src/entry.dev.tsx not found"
-            exit 1
-          fi
-          
-          echo "✅ QwikCity configuration verified"
-          echo "✅ No conflicting React files found"
-          echo "✅ All required entry points present"
-
-      - name: Type check
-        working-directory: app
-        run: npm run typecheck
-
-      - name: Lint
-        working-directory: app
-        run: npm run lint
-
-      - name: Build client bundle
-        working-directory: app
-        run: npm run build
-
-      - name: Save client build artifacts
-        working-directory: app
-        run: |
-          # Save the client build artifacts before they're overwritten by static generation
-          mkdir -p ../temp-build
-          cp -r dist/build ../temp-build/ 2>/dev/null || echo "No build directory found"
-          cp -r dist/assets ../temp-build/ 2>/dev/null || echo "No assets directory found"
-          cp -r dist/*.json ../temp-build/ 2>/dev/null || echo "No JSON files found"
-
-      - name: Generate static pages
-        working-directory: app
-        run: npx vite build -c adapters/static/vite.config.ts
-
-      - name: Restore client build artifacts
-        working-directory: app
-        run: |
-          # Restore the client build artifacts to the static output
-          cp -r ../temp-build/build dist/ 2>/dev/null || echo "No build directory to restore"
-          cp -r ../temp-build/assets dist/ 2>/dev/null || echo "No assets directory to restore"
-          cp ../temp-build/*.json dist/ 2>/dev/null || echo "No JSON files to restore"
-
-          # Copy static assets from public (directories and key files)
-          cp -r public/branding dist/ || true
-          cp -r public/images dist/ || true
-          cp -f public/CNAME dist/CNAME || true
-          cp -f public/robots.txt dist/robots.txt || true
-          cp -f public/sitemap.xml dist/sitemap.xml || true
-
-          # Add .nojekyll to prevent Jekyll processing
-          touch dist/.nojekyll
-
-          echo "Final deployment directory contents:"
-          ls -la dist/
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      # Cache zpracovaných obrázků (astro:assets) – výrazně zrychlí build.
+      - uses: actions/cache@v4
         with:
-          path: 'app/dist'
+          path: app/node_modules/.astro
+          key: astro-assets-${{ runner.os }}-${{ hashFiles('app/package-lock.json', 'app/src/content/**/*.jpg', 'app/src/content/**/*.jpeg', 'app/src/content/**/*.png', 'app/src/assets/**') }}
+          restore-keys: |
+            astro-assets-${{ runner.os }}-
+
+      - run: npm run build # astro check && astro build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/dist
 
   deploy:
     needs: build
@@ -135,6 +52,5 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4

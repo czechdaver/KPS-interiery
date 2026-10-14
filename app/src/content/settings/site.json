@@ -1,56 +1,53 @@
-[
-  {
-    "id": "site",
-    "company": "KPS Interiéry s.r.o.",
-    "ico": "04676319",
-    "phone": "+420 774 127 133",
-    "email": "info@kps-interiery.cz",
-    "street": "Stará cesta 32",
-    "city": "Zlín-Štípa",
-    "zip": "763 14",
-    "region": "Zlínský kraj",
-    "mapsUrl": "https://maps.google.com/?q=Star%C3%A1+cesta+32,+Zl%C3%ADn-%C5%A0t%C3%ADpa",
-    "openingHours": [
-      {
-        "days": "Po–Pá",
-        "hours": "8:00–16:00"
-      },
-      {
-        "days": "So",
-        "hours": "po domluvě"
-      }
-    ],
-    "serviceArea": [
-      "Zlínský kraj",
-      "Olomoucký kraj",
-      "Moravskoslezský kraj",
-      "Jihomoravský kraj",
-      "Vysočina"
-    ],
-    "social": {
-      "instagram": "https://www.instagram.com/kpsinteriery",
-      "facebook": "https://www.facebook.com/kpsinteriery"
+{
+  "company": "KPS Interiéry s.r.o.",
+  "ico": "04676319",
+  "phone": "+420 774 127 133",
+  "email": "info@kps-interiery.cz",
+  "street": "Stará cesta 32",
+  "city": "Zlín-Štípa",
+  "zip": "763 14",
+  "region": "Zlínský kraj",
+  "mapsUrl": "https://maps.google.com/?q=Star%C3%A1+cesta+32,+Zl%C3%ADn-%C5%A0t%C3%ADpa",
+  "openingHours": [
+    {
+      "days": "Po–Pá",
+      "hours": "8:00–16:00"
     },
-    "web3formsKey": "720d65a7-bfb4-4a2c-9059-8c7182decfdd",
-    "stats": [
-      {
-        "value": "28+",
-        "label": "zdokumentovaných realizací"
-      },
-      {
-        "value": "100 %",
-        "label": "výroba na míru"
-      },
-      {
-        "value": "27",
-        "label": "prověřených dodavatelů"
-      }
-    ],
-    "heroProjects": [
-      "kuchyn-bila-ostruvek",
-      "kuchyn-cerna",
-      "kuchyn-bila-u-tvar",
-      "kuchyn-retro-bila"
-    ]
-  }
-]
+    {
+      "days": "So",
+      "hours": "po domluvě"
+    }
+  ],
+  "serviceArea": [
+    "Zlínský kraj",
+    "Olomoucký kraj",
+    "Moravskoslezský kraj",
+    "Jihomoravský kraj",
+    "Vysočina"
+  ],
+  "social": {
+    "instagram": "https://www.instagram.com/kpsinteriery",
+    "facebook": "https://www.facebook.com/kpsinteriery"
+  },
+  "web3formsKey": "720d65a7-bfb4-4a2c-9059-8c7182decfdd",
+  "stats": [
+    {
+      "value": "28+",
+      "label": "zdokumentovaných realizací"
+    },
+    {
+      "value": "100 %",
+      "label": "výroba na míru"
+    },
+    {
+      "value": "27",
+      "label": "prověřených dodavatelů"
+    }
+  ],
+  "heroProjects": [
+    "kuchyn-bila-ostruvek",
+    "kuchyn-cerna",
+    "kuchyn-bila-u-tvar",
+    "kuchyn-retro-bila"
+  ]
+}

@@ -9,11 +9,11 @@ const d = project.data;
 ---
 <article class="group relative" data-reveal style={`--reveal-i:${index % 6}`} data-category={d.category}>
   <a href={`/realizace/${project.id}/`} class="block focus-visible:outline-offset-4" aria-label={`${d.title} – ${d.location}`}>
-    <div class:list={['relative overflow-hidden rounded-md bg-linen', size === 'lg' ? 'aspect-[4/3] lg:aspect-[16/10]' : 'aspect-[4/5]']}>
-      <Picture
+    <div data-card-media class:list={['relative overflow-hidden rounded-md bg-linen', size === 'lg' ? 'aspect-[4/3] lg:aspect-[16/10]' : 'aspect-[4/5]']}>
+      <Picture fallbackFormat="webp"
         src={d.cover}
         alt={d.images[0]?.alt ?? d.title}
-        formats={['avif', 'webp']}
+        formats={['avif']}
         widths={size === 'lg' ? [640, 960, 1280, 1600, 2000] : [400, 640, 800, 1000]}
         sizes={sizes}
         layout="full-width"

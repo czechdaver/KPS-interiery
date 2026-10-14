@@ -1,0 +1,88 @@
+---
+/**
+ * Galerie projektu: přepínač pohledů (Editorial / Pás / Mřížka) + PhotoSwipe lightbox.
+ * Všechny pohledy sdílí jeden zdroj slidů (JSON níže), index = pořadí fotky v projektu.
+ */
+import { Icon } from 'astro-icon/components';
+import EditorialGallery from './EditorialGallery.astro';
+import Filmstrip from './Filmstrip.astro';
+import GridGallery from './GridGallery.astro';
+import { fotoLabel } from './categories';
+import type { GalleryImage } from './data';
+// KPS přestylování PhotoSwipe (malé, statické); samotné photoswipe.css se načítá dynamicky
+import './lightbox.css';
+
+interface Props {
+  images: GalleryImage[];
+  title: string;
+  /** Index fotky, která je už v hero – v editorial pohledu se vynechá */
+  skipIndex?: number;
+}
+const { images, title, skipIndex = -1 } = Astro.props;
+const editorial = images.length > 2 ? images.filter((im) => im.index !== skipIndex) : images;
+const slides = images.map((im) => im.lightbox);
+const views = [
+  { id: 'editorial', label: 'Editorial', icon: 'ph:rows-light' },
+  { id: 'filmstrip', label: 'Pás', icon: 'ph:film-strip-light' },
+  { id: 'grid', label: 'Mřížka', icon: 'ph:squares-four-light' },
+] as const;
+---
+<section class="section-y pt-0" aria-labelledby="galerie-title" data-gallery>
+  <div class="container-x flex flex-col gap-6 border-t border-linen pt-10 sm:flex-row sm:items-end sm:justify-between md:pt-14">
+    <div>
+      <p class="eyebrow">Galerie</p>
+      <h2 id="galerie-title" class="mt-3 text-h2">Fotografie z realizace</h2>
+      <p class="mt-2 text-sm text-mocha-600">{fotoLabel(images.length)} · klikněte pro zvětšení</p>
+    </div>
+    <div class="view-switch" role="group" aria-label="Způsob zobrazení galerie">
+      {views.map((v, k) => (
+        <button type="button" class="view-btn" data-view-btn={v.id} aria-pressed={k === 0 ? 'true' : 'false'} aria-controls={`gal-${v.id}`}>
+          <Icon name={v.icon} class="size-5" aria-hidden="true" />
+          <span>{v.label}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="mt-12 md:mt-16">
+    <div id="gal-editorial" data-gallery-view="editorial"><EditorialGallery images={editorial} /></div>
+    <div id="gal-filmstrip" data-gallery-view="filmstrip" hidden><Filmstrip images={images} label={`Fotografie: ${title}`} /></div>
+    <div id="gal-grid" data-gallery-view="grid" hidden><GridGallery images={images} /></div>
+  </div>
+
+  <script type="application/json" data-gallery-slides set:html={JSON.stringify(slides)} />
+</section>
+
+<script>
+  import { mountGallery, unmountGallery } from './gallery-client';
+  document.addEventListener('astro:page-load', mountGallery);
+  document.addEventListener('astro:before-swap', unmountGallery);
+</script>
+
+<style>
+  .view-switch {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 0.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-linen);
+    background: var(--color-cream);
+  }
+  .view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-mocha-600);
+    cursor: pointer;
+    transition: background-color 0.35s var(--ease-out-expo), color 0.35s;
+  }
+  .view-btn:hover { color: var(--color-mocha-800); }
+  .view-btn[aria-pressed='true'] { background: var(--color-mocha-800); color: var(--color-cream); }
+  [data-gallery-view].is-entering { animation: gal-in 0.6s var(--ease-out-expo) both; }
+  @keyframes gal-in { from { opacity: 0; transform: translateY(12px); } }
+</style>

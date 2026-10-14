@@ -1,0 +1,208 @@
+---
+/**
+ * Vybrané realizace: na desktopu (≥1024 px, bez reduced-motion) horizontální pinned scroll přes GSAP ScrollTrigger,
+ * jinde nativní horizontální pás se scroll-snap (swipe). Karty = vlastní editorialní varianta.
+ */
+import { Picture } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import { getProjects, formatMonth } from '../../lib/site';
+
+const featured = (await getProjects()).filter((p) => p.data.featured);
+const shapes = ['tall', 'wide', 'tall', 'wide', 'tall', 'wide'] as const;
+---
+<section class="featured on-dark relative overflow-hidden bg-mocha-900 text-cream/80" aria-labelledby="featured-title" data-featured>
+  <div class="featured-pin flex lg:min-h-[100svh] flex-col justify-center py-[clamp(4.5rem,3rem+5vw,7rem)]" data-featured-pin>
+    <div class="container-x flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="eyebrow mb-5" data-reveal>Vybrané realizace</p>
+        <h2 id="featured-title" class="featured-title text-h1 font-light !text-cream" data-reveal style="--reveal-i:1">Kuchyně, které <em>už slouží</em></h2>
+      </div>
+      <div class="flex items-center gap-6" data-reveal style="--reveal-i:2">
+        <span class="hidden font-display text-lg tabular-nums text-cream/75 lg:inline" aria-hidden="true" data-featured-count>01 / {String(featured.length).padStart(2, '0')}</span>
+        <Button href="/realizace/" variant="ghost-light" arrow>Všechny realizace</Button>
+      </div>
+    </div>
+
+    <div class="featured-viewport mt-12 lg:mt-16" data-featured-viewport>
+      <ul class="featured-track" role="list" data-featured-track>
+        {featured.map((p, i) => {
+          const shape = shapes[i % shapes.length];
+          return (
+            <li class:list={['featured-item', `is-${shape}`]} data-featured-item>
+              <a href={`/realizace/${p.id}/`} class="group block" aria-label={`${p.data.title}, ${p.data.location} – zobrazit realizaci`}>
+                <div class="featured-media relative overflow-hidden rounded-md bg-mocha-800">
+                  <Picture fallbackFormat="webp"
+                    src={p.data.cover}
+                    alt={p.data.images[0]?.alt ?? p.data.title}
+                    formats={['avif']}
+                    widths={[480, 720, 960, 1200, 1600].filter((w) => w <= p.data.cover.width)}
+                    sizes={shape === 'wide' ? '(min-width: 1024px) 52vw, 86vw' : '(min-width: 1024px) 30vw, 72vw'}
+                    layout="full-width"
+                    loading="lazy"
+                    class="featured-img h-full w-full object-cover transition-transform duration-[1200ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+                  />
+                  <span class="view-tag pointer-events-none absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-cream px-4 py-2 text-sm font-semibold text-mocha-900" aria-hidden="true">
+                    Zobrazit <Icon name="ph:arrow-up-right-light" class="size-4" />
+                  </span>
+                </div>
+                <div class="mt-5 flex items-start gap-5">
+                  <span class="font-display text-lg tabular-nums text-caramel" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <div class="min-w-0">
+                    <h3 class="font-display text-h3 !text-cream decoration-caramel decoration-1 underline-offset-[6px] group-hover:underline">{p.data.title}</h3>
+                    <p class="mt-1 text-sm text-cream/75">{[p.data.location, p.data.category, formatMonth(p.data.date)].filter(Boolean).join(' · ')}</p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          );
+        })}
+        <li class="featured-item is-end" data-featured-item>
+          <a href="/realizace/" class="group flex h-full flex-col justify-between rounded-md border border-white/15 p-8 transition-colors duration-500 hover:border-caramel hover:bg-mocha-800 lg:p-10">
+            <span class="eyebrow">Galerie</span>
+            <span>
+              <span class="block font-display text-h2 font-light text-cream">Prohlédněte si <em class="text-caramel">všechny realizace</em></span>
+              <span class="mt-8 inline-grid size-14 place-items-center rounded-full bg-caramel text-mocha-950 transition-transform duration-500 group-hover:translate-x-2">
+                <Icon name="ph:arrow-right-light" class="size-6" aria-hidden="true" />
+              </span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="container-x mt-10 hidden lg:block" aria-hidden="true" data-featured-progress-wrap>
+      <div class="h-px w-full bg-white/10"><div class="featured-progress h-px origin-left bg-caramel" data-featured-progress></div></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .featured-title :global(em) { font-style: italic; color: var(--color-caramel); }
+  .featured-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .featured-viewport::-webkit-scrollbar { display: none; }
+  .featured-track {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+    width: max-content;
+    padding-inline: max(var(--gutter), calc((100vw - 1440px) / 2 + var(--gutter)));
+  }
+  .featured-item { flex: none; scroll-snap-align: start; }
+  .featured-item.is-tall { width: min(72vw, 22rem); }
+  .featured-item.is-wide { width: min(86vw, 34rem); }
+  .featured-item.is-end { width: min(72vw, 22rem); align-self: stretch; }
+  .is-tall .featured-media { aspect-ratio: 4 / 5; }
+  .is-wide .featured-media { aspect-ratio: 4 / 3; }
+  .featured-media :global(picture) { display: block; height: 100%; }
+  .featured-media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .featured-progress { transform: scaleX(0); }
+  .view-tag { opacity: 0; transform: translateY(8px); transition: opacity 0.5s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+  .group:hover .view-tag, .group:focus-visible .view-tag { opacity: 1; transform: none; }
+
+  @media (min-width: 1024px) {
+    .featured-item.is-tall { width: clamp(20rem, 28vw, 30rem); }
+    .featured-item.is-wide { width: clamp(30rem, 48vw, 50rem); }
+    .featured-item.is-end { width: clamp(20rem, 26vw, 26rem); }
+    .featured-media { max-height: 58svh; }
+    .is-tall .featured-media { aspect-ratio: 4 / 5; }
+    .is-wide .featured-media { aspect-ratio: 3 / 2; }
+  }
+  /* GSAP režim: místo nativního scrollu posouváme track transformem */
+  .featured[data-pinned='true'] .featured-viewport { overflow: hidden; scroll-snap-type: none; }
+  .featured[data-pinned='true'] .featured-track { will-change: transform; }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { getLenis } from '../../lib/motion';
+
+  gsap.registerPlugin(ScrollTrigger);
+  let mm: gsap.MatchMedia | null = null;
+
+  function init() {
+    mm?.revert();
+    mm = null;
+    const section = document.querySelector<HTMLElement>('[data-featured]');
+    if (!section) return;
+    const pin = section.querySelector<HTMLElement>('[data-featured-pin]')!;
+    const viewport = section.querySelector<HTMLElement>('[data-featured-viewport]')!;
+    const track = section.querySelector<HTMLElement>('[data-featured-track]')!;
+    const progress = section.querySelector<HTMLElement>('[data-featured-progress]');
+    const count = section.querySelector<HTMLElement>('[data-featured-count]');
+    const items = [...track.querySelectorAll<HTMLElement>('[data-featured-item]')];
+    const total = items.length - 1; // bez koncové karty
+
+    mm = gsap.matchMedia();
+    mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+      const lenis = getLenis();
+      const onLenis = () => ScrollTrigger.update();
+      lenis?.on('scroll', onLenis);
+      section.dataset.pinned = 'true';
+      viewport.scrollLeft = 0;
+      const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
+
+      const tween = gsap.to(track, {
+        x: () => -distance(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          pin,
+          start: 'top top',
+          end: () => `+=${distance()}`,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          onUpdate: (st) => {
+            if (progress) progress.style.transform = `scaleX(${st.progress})`;
+            if (count) {
+              const n = Math.min(total, Math.max(1, Math.round(st.progress * (total - 1)) + 1));
+              count.textContent = `${String(n).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+            }
+          },
+        },
+      });
+
+      // fotky v pásu: jemný parallax uvnitř rámu
+      items.forEach((item) => {
+        const img = item.querySelector('picture');
+        if (!img) return;
+        gsap.fromTo(img, { xPercent: -4, scale: 1.1 }, {
+          xPercent: 4, scale: 1.1, ease: 'none',
+          scrollTrigger: { trigger: item, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true },
+        });
+      });
+
+      // klávesnice: focus na kartu mimo obraz → posuň stránku tak, aby byla vidět
+      const onFocus = (e: FocusEvent) => {
+        const item = (e.target as HTMLElement).closest<HTMLElement>('[data-featured-item]');
+        const st = tween.scrollTrigger;
+        if (!item || !st) return;
+        viewport.scrollLeft = 0;
+        const target = Math.min(distance(), Math.max(0, item.offsetLeft - (window.innerWidth - item.offsetWidth) / 2));
+        const y = st.start + (distance() ? (target / distance()) * (st.end - st.start) : 0);
+        const l = getLenis();
+        if (l) l.scrollTo(y, { immediate: true }); else window.scrollTo(0, y);
+      };
+      track.addEventListener('focusin', onFocus);
+
+      return () => {
+        track.removeEventListener('focusin', onFocus);
+        lenis?.off('scroll', onLenis);
+        delete section.dataset.pinned;
+        if (progress) progress.style.transform = '';
+      };
+    });
+  }
+
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('astro:before-swap', () => { mm?.revert(); mm = null; });
+</script>

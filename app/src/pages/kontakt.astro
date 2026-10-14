@@ -1,0 +1,155 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import ContactForm from '../components/sections/ContactForm.astro';
+import { getSettings, telHref } from '../lib/site';
+
+const s = await getSettings();
+const [mailUser, mailDomain] = s.email.split('@');
+const embed = `https://www.google.com/maps?q=${encodeURIComponent(`${s.street}, ${s.zip} ${s.city}`)}&output=embed`;
+const dayMap: Record<string, string> = { 'Po–Pá': 'Mo-Fr', So: 'Sa' };
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Kontakt – KPS Interiéry',
+  mainEntity: {
+    '@type': 'LocalBusiness',
+    name: s.company,
+    telephone: s.phone,
+    email: s.email,
+    taxID: s.ico,
+    address: { '@type': 'PostalAddress', streetAddress: s.street, addressLocality: s.city, postalCode: s.zip, addressCountry: 'CZ' },
+    openingHoursSpecification: s.openingHours
+      .filter((o) => /\d/.test(o.hours) && dayMap[o.days])
+      .map((o) => {
+        const [opens, closes] = o.hours.split('–');
+        return { '@type': 'OpeningHoursSpecification', dayOfWeek: o.days === 'Po–Pá' ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] : 'Saturday', opens, closes };
+      }),
+    areaServed: s.serviceArea,
+    sameAs: [s.social.instagram, s.social.facebook],
+  },
+};
+---
+<BaseLayout
+  title="Kontakt a poptávka"
+  description={`Napište nebo zavolejte: ${s.phone}. KPS Interiéry, ${s.street}, ${s.city}. Poptávkový formulář, otevírací doba a mapa.`}
+  schema={schema}
+>
+  <PageHero
+    eyebrow="Kontakt"
+    title="Pojďme se potkat nad vaším prostorem"
+    accent="potkat"
+    lead="Popište nám, co plánujete. Ozveme se, domluvíme nezávaznou schůzku a společně najdeme řešení."
+  />
+
+  <section class="section-y bg-cream-50 !pt-12 md:!pt-16" aria-label="Kontaktní údaje a formulář">
+    <div class="container-x grid gap-14 lg:grid-cols-12 lg:gap-20">
+      <div class="space-y-10 lg:col-span-5" data-reveal>
+        <div>
+          <h2 class="text-h3">Kontaktní údaje</h2>
+          <ul class="mt-6 divide-y divide-linen border-y border-linen">
+            <li class="flex items-start gap-4 py-4">
+              <Icon name="ph:phone-light" class="mt-1 size-6 shrink-0 text-caramel-ink" aria-hidden="true" />
+              <div><p class="text-sm text-mocha-600">Telefon</p>
+                <a href={telHref(s.phone)} class="inline-flex min-h-11 items-center font-display text-2xl text-mocha-800 underline-offset-[6px] decoration-caramel hover:underline">{s.phone}</a></div>
+            </li>
+            <li class="flex items-start gap-4 py-4">
+              <Icon name="ph:envelope-simple-light" class="mt-1 size-6 shrink-0 text-caramel-ink" aria-hidden="true" />
+              <div><p class="text-sm text-mocha-600">E-mail</p>
+                <span data-mail data-u={mailUser} data-d={mailDomain} class="inline-flex min-h-11 items-center font-display text-2xl text-mocha-800 break-all">
+                  <noscript>{mailUser} [zavináč] {mailDomain}</noscript>
+                </span></div>
+            </li>
+            <li class="flex items-start gap-4 py-4">
+              <Icon name="ph:map-pin-light" class="mt-1 size-6 shrink-0 text-caramel-ink" aria-hidden="true" />
+              <div><p class="text-sm text-mocha-600">Provozovna</p>
+                <address class="not-italic text-mocha-800">{s.company}<br />{s.street}<br />{s.zip} {s.city}</address>
+                <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-mocha-800 underline underline-offset-[6px] decoration-caramel">Otevřít v Mapách<span class="sr-only"> (nové okno)</span></a></div>
+            </li>
+            <li class="flex items-start gap-4 py-4">
+              <Icon name="ph:clock-light" class="mt-1 size-6 shrink-0 text-caramel-ink" aria-hidden="true" />
+              <div class="w-full"><p class="text-sm text-mocha-600">Otevírací doba</p>
+                <dl class="mt-1 text-mocha-800">
+                  {s.openingHours.map((o) => (
+                    <div class="flex justify-between gap-6 py-0.5"><dt>{o.days}</dt><dd>{o.hours}</dd></div>
+                  ))}
+                </dl></div>
+            </li>
+            <li class="flex items-start gap-4 py-4">
+              <Icon name="ph:buildings-light" class="mt-1 size-6 shrink-0 text-caramel-ink" aria-hidden="true" />
+              <div><p class="text-sm text-mocha-600">Fakturační údaje</p>
+                <p class="text-mocha-800">{s.company}<br />IČO {s.ico}</p></div>
+            </li>
+          </ul>
+          <ul class="mt-6 flex gap-3">
+            <li><a href={s.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram KPS Interiéry" class="inline-flex size-11 items-center justify-center rounded-full border border-mocha-800/25 text-mocha-800 transition-colors hover:bg-mocha-800 hover:text-cream"><Icon name="ph:instagram-logo-light" class="size-5" aria-hidden="true" /></a></li>
+            <li><a href={s.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook KPS Interiéry" class="inline-flex size-11 items-center justify-center rounded-full border border-mocha-800/25 text-mocha-800 transition-colors hover:bg-mocha-800 hover:text-cream"><Icon name="ph:facebook-logo-light" class="size-5" aria-hidden="true" /></a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-h3">Kde pracujeme</h2>
+          <p class="mt-3 text-mocha-600">Realizujeme zakázky napříč Moravou. Bližší podmínky si rádi upřesníme při první schůzce.</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {s.serviceArea.map((a) => <li class="rounded-full border border-linen bg-cream px-4 py-1.5 text-sm text-mocha-800">{a}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7" data-reveal style="--reveal-i:1">
+        <div class="rounded-md border border-linen bg-cream p-6 sm:p-10">
+          <h2 class="text-h2">Poptávkový formulář</h2>
+          <p class="mb-8 mt-3 text-mocha-600">Čím víc nám napíšete, tím konkrétněji odpovíme.</p>
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream pb-20 md:pb-28" aria-labelledby="mapa-h">
+    <div class="container-x">
+      <h2 id="mapa-h" class="sr-only">Mapa</h2>
+      <div data-map data-src={embed} class="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-md bg-mocha-900 sm:aspect-[21/9]">
+        <div data-map-ph class="px-6 text-center text-cream">
+          <Icon name="ph:map-trifold-light" class="mx-auto size-10 text-caramel" aria-hidden="true" />
+          <p class="mt-4 font-display text-2xl">{s.street}, {s.city}</p>
+          <p class="mx-auto mt-2 max-w-md text-sm text-cream/75">Mapa se načte až po kliknutí. Teprve tehdy se připojíme ke službě Google Maps.</p>
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <button type="button" data-map-load class="inline-flex min-h-11 cursor-pointer items-center rounded-full bg-caramel px-6 font-semibold text-mocha-950 transition-colors hover:bg-caramel-light">Zobrazit mapu</button>
+            <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center rounded-full border border-cream/30 px-6 font-semibold text-cream transition-colors hover:bg-cream hover:text-mocha-900">Otevřít v Mapách<span class="sr-only"> (nové okno)</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function init() {
+      document.querySelectorAll<HTMLElement>('[data-mail]').forEach((el) => {
+        if (el.querySelector('a')) return;
+        const addr = `${el.dataset.u}@${el.dataset.d}`;
+        const a = document.createElement('a');
+        a.href = `mailto:${addr}`;
+        a.textContent = addr;
+        a.className = 'underline-offset-[6px] decoration-caramel hover:underline';
+        el.replaceChildren(a);
+      });
+      const map = document.querySelector<HTMLElement>('[data-map]');
+      const btn = map?.querySelector<HTMLButtonElement>('[data-map-load]');
+      btn?.addEventListener('click', () => {
+        if (!map || map.querySelector('iframe')) return;
+        const f = document.createElement('iframe');
+        f.src = map.dataset.src!;
+        f.title = 'Mapa – KPS Interiéry';
+        f.loading = 'lazy';
+        f.referrerPolicy = 'no-referrer-when-downgrade';
+        f.className = 'absolute inset-0 h-full w-full border-0';
+        map.querySelector('[data-map-ph]')?.remove();
+        map.append(f);
+      });
+    }
+    document.addEventListener('astro:page-load', init);
+  </script>
+</BaseLayout>

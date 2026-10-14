@@ -1,0 +1,125 @@
+---
+/**
+ * Jedna fotografie galerie: <figure> s odkazem (spouští PhotoSwipe; bez JS otevře originál),
+ * placeholder v dominantní barvě, rozměry z ImageMetadata (bez CLS), jemný popisek.
+ */
+import { Picture } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { bgStyle, fitWidths, pad2, type GalleryImage } from './data';
+
+interface Props {
+  image: GalleryImage;
+  sizes: string;
+  widths?: number[];
+  /** 'ratio' = výška z poměru stran, 'fill' = vyplní rodiče (height:100%), 'none' = řídí rodič třídou */
+  aspect?: 'ratio' | 'fill' | 'none';
+  caption?: boolean;
+  class?: string;
+  mediaClass?: string;
+  captionClass?: string;
+  style?: string;
+  loading?: 'lazy' | 'eager';
+}
+const {
+  image,
+  sizes,
+  widths = [480, 800, 1200],
+  aspect = 'ratio',
+  caption = true,
+  class: cls,
+  mediaClass,
+  captionClass,
+  style,
+  loading = 'lazy',
+} = Astro.props;
+const num = pad2(image.index + 1);
+const text = image.caption || image.alt;
+const mediaStyle = [bgStyle(image.color), aspect === 'ratio' ? `aspect-ratio:${image.src.width} / ${image.src.height}` : '']
+  .filter(Boolean)
+  .join(';');
+---
+<figure class:list={['gf group/gf', cls]} style={style}>
+  <a
+    href={image.lightbox.src}
+    data-pswp-index={image.index}
+    data-astro-reload
+    data-astro-prefetch="false"
+    class:list={[
+      'gf-media relative block overflow-hidden bg-linen',
+      aspect === 'fill' && 'h-full',
+      mediaClass,
+    ]}
+    style={mediaStyle || undefined}
+    aria-label={`Zvětšit fotografii ${num}: ${image.alt}`}
+  >
+    <Picture fallbackFormat="webp"
+      src={image.src}
+      alt={image.alt}
+      formats={['avif']}
+      widths={fitWidths(widths, image.src)}
+      sizes={sizes}
+      loading={loading}
+      decoding="async"
+      class="gf-img h-full w-full object-cover"
+    />
+    <span class="gf-zoom" aria-hidden="true">
+      <Icon name="ph:frame-corners-light" class="size-4" />
+      Zobrazit
+    </span>
+  </a>
+  {caption && text && (
+    <figcaption class:list={['gf-cap', captionClass]}>
+      <span class="gf-num">{num}</span>
+      <span>{text}</span>
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .gf-img {
+    transition: transform 1.2s var(--ease-out-expo), opacity 0.6s ease;
+  }
+  @media (hover: hover) {
+    .gf-media:hover .gf-img { transform: scale(1.04); }
+  }
+  .gf-zoom {
+    position: absolute;
+    right: 0.875rem;
+    bottom: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-mocha-950) 62%, transparent);
+    color: var(--color-cream);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+    pointer-events: none;
+  }
+  @media (hover: hover) {
+    .gf-media:hover .gf-zoom,
+    .gf-media:focus-visible .gf-zoom { opacity: 1; transform: none; }
+  }
+  .gf-media:focus-visible { outline-offset: 4px; }
+  .gf-cap {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-mocha-600);
+  }
+  .gf-num {
+    flex: none;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-caramel-ink);
+  }
+</style>

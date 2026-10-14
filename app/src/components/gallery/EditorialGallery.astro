@@ -1,0 +1,153 @@
+---
+/**
+ * Editorialní galerie – řádky skládá `composeRows` podle orientace fotek.
+ * Řádky s více fotkami jsou "justified": flex-grow = poměr stran, takže mají stejnou výšku bez ořezu.
+ */
+import GalleryFigure from './GalleryFigure.astro';
+import { composeRows, type Row } from './compose';
+import type { GalleryImage } from './data';
+
+interface Props { images: GalleryImage[] }
+const { images } = Astro.props;
+const rows = composeRows(images);
+
+const MAX = 1392; // šířka obsahu při max-width 1440 px
+/** sizes pro položku, která na desktopu zabírá `share` šířky obsahu a na mobilu `mobile` (v vw) */
+const sizesFor = (share: number, mobile = 100) =>
+  `(min-width: 1440px) ${Math.round(MAX * share)}px, (min-width: 768px) ${Math.round(share * 100)}vw, ${mobile}vw`;
+const shares = (row: Row<GalleryImage>) => {
+  const sum = row.items.reduce((s, it) => s + it.ratio, 0);
+  return row.items.map((it) => it.ratio / sum);
+};
+/** Efektivní poměr stran sloupce dvou fotek nad sebou */
+const stackedRatio = (a: GalleryImage, b: GalleryImage) => 1 / (1 / a.ratio + 1 / b.ratio);
+---
+<div class="editorial" data-composer>
+  {rows.map((row) => {
+    if (row.kind === 'full') {
+      const im = row.items[0];
+      return (
+        <div class="ed-row ed-full" data-row="full">
+          <GalleryFigure image={im} sizes="100vw" widths={[800, 1200, 1600, 2400]} mediaClass="ed-full-media" captionClass="container-x" />
+        </div>
+      );
+    }
+    if (row.kind === 'inset' || row.kind === 'solo') {
+      const im = row.items[0];
+      const solo = row.kind === 'solo';
+      return (
+        <div class:list={['ed-row container-x', solo ? 'ed-solo' : 'ed-inset', row.flip && 'is-flip']} data-row={row.kind}>
+          <GalleryFigure
+            image={im}
+            sizes={solo ? sizesFor(0.42) : sizesFor(0.75)}
+            class="ed-side"
+            captionClass="ed-side-cap"
+          />
+        </div>
+      );
+    }
+    if (row.kind === 'stack') {
+      const [big, a, b] = row.items;
+      const colA = big.ratio;
+      const colB = stackedRatio(a, b);
+      const total = colA + colB;
+      return (
+        <div class:list={['ed-row container-x ed-stack', row.flip && 'is-flip']} data-row="stack" style={`--ca:${colA.toFixed(4)}fr;--cb:${colB.toFixed(4)}fr`}>
+          <GalleryFigure image={big} sizes={sizesFor(colA / total)} class="ed-stack-big" mediaClass="ed-stack-big-media" />
+          <div class="ed-stack-col">
+            <GalleryFigure image={a} sizes={sizesFor(colB / total, 50)} />
+            <GalleryFigure image={b} sizes={sizesFor(colB / total, 50)} />
+          </div>
+        </div>
+      );
+    }
+    // pair | diptych | trio | duo – justified řádek
+    const sh = shares(row);
+    const mobile = row.kind === 'diptych' ? 'ed-m-row' : row.kind === 'trio' ? 'ed-m-trio' : 'ed-m-col';
+    return (
+      <div class:list={['ed-row container-x ed-justified', mobile]} data-row={row.kind}>
+        {row.items.map((im, k) => (
+          <GalleryFigure
+            image={im}
+            sizes={sizesFor(sh[k], row.kind === 'diptych' || (row.kind === 'trio' && k > 0) ? 50 : 100)}
+            style={`--r:${im.ratio.toFixed(4)}`}
+            class="ed-cell"
+          />
+        ))}
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .editorial {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 2rem + 5vw, 8rem);
+  }
+
+  /* full-bleed */
+  .ed-full :global(.ed-full-media) {
+    width: 100%;
+    max-height: 88svh;
+  }
+
+  /* inset / solo – fotka odsazená v gridu, popisek vedle */
+  @media (min-width: 768px) {
+    .ed-inset :global(.ed-side),
+    .ed-solo :global(.ed-side) {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: clamp(1.5rem, 1rem + 1.5vw, 3rem);
+      align-items: end;
+    }
+    .ed-inset :global(.gf-media) { grid-column: 4 / span 9; grid-row: 1; }
+    .ed-inset :global(.ed-side-cap) { grid-column: 1 / span 3; grid-row: 1; }
+    .ed-inset.is-flip :global(.gf-media) { grid-column: 1 / span 9; }
+    .ed-inset.is-flip :global(.ed-side-cap) { grid-column: 10 / span 3; }
+
+    .ed-solo :global(.gf-media) { grid-column: 6 / span 5; grid-row: 1; }
+    .ed-solo :global(.ed-side-cap) { grid-column: 2 / span 4; grid-row: 1; justify-self: end; max-width: 22rem; }
+    .ed-solo.is-flip :global(.gf-media) { grid-column: 3 / span 5; }
+    .ed-solo.is-flip :global(.ed-side-cap) { grid-column: 8 / span 4; justify-self: start; }
+
+    .ed-inset :global(.ed-side-cap),
+    .ed-solo :global(.ed-side-cap) {
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 0 0 0.25rem;
+      font-size: 0.9375rem;
+    }
+  }
+
+  /* justified řádky */
+  .ed-justified { display: flex; gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem); }
+  .ed-justified :global(.ed-cell) { min-width: 0; }
+  .ed-m-col { flex-direction: column; gap: 2.5rem; }
+  .ed-m-row :global(.ed-cell) { flex: var(--r) 1 0%; }
+  .ed-m-trio { display: grid; grid-template-columns: 1fr 1fr; }
+  .ed-m-trio :global(.ed-cell:first-child) { grid-column: 1 / -1; }
+  @media (max-width: 767.98px) {
+    .ed-m-row :global(.gf-cap),
+    .ed-m-trio :global(.ed-cell:not(:first-child) .gf-cap) { font-size: 0.75rem; }
+  }
+  @media (min-width: 768px) {
+    .ed-m-col,
+    .ed-m-trio { display: flex; flex-direction: row; gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem); }
+    .ed-justified :global(.ed-cell) { flex: var(--r) 1 0%; }
+  }
+
+  /* stack: 1 velká na výšku + 2 nad sebou */
+  .ed-stack { display: grid; gap: clamp(0.75rem, 0.5rem + 1vw, 1.5rem); }
+  .ed-stack-col { display: grid; grid-template-columns: 1fr 1fr; gap: inherit; align-content: start; }
+  @media (min-width: 768px) {
+    .ed-stack { grid-template-columns: var(--ca) var(--cb); }
+    .ed-stack.is-flip { grid-template-columns: var(--cb) var(--ca); }
+    .ed-stack.is-flip :global(.ed-stack-big) { order: 2; }
+    .ed-stack-col { grid-template-columns: 1fr; }
+    .ed-stack :global(.ed-stack-big) { display: flex; flex-direction: column; }
+    .ed-stack :global(.ed-stack-big-media) { flex: 1 1 auto; aspect-ratio: auto !important; min-height: 0; }
+    .ed-stack :global(.ed-stack-big-media picture),
+    .ed-stack :global(.ed-stack-big-media img) { position: absolute; inset: 0; }
+  }
+</style>

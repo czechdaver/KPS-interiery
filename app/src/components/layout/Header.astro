@@ -1,5 +1,192 @@
 ---
-// STUB – nahradí agent "chrome"
+import { Icon } from 'astro-icon/components';
+import Button from '../ui/Button.astro';
+import { NAV, getSettings, telHref } from '../../lib/site';
+
 interface Props { overlay?: boolean }
+const { overlay = false } = Astro.props;
+const s = await getSettings();
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || path.startsWith(href);
 ---
-<header class="h-[var(--header-h)]"><a href="/"><img src="/branding/kps-logo.svg" alt="KPS Interiéry" width="200" height="20" /></a></header>
+{!overlay && <div class="h-[var(--header-h)]" aria-hidden="true"></div>}
+<header class="site-header" data-site-header data-overlay={overlay ? 'true' : 'false'} data-solid={overlay ? 'false' : 'true'}>
+  <div class="container-x flex h-full items-center justify-between gap-6">
+    <a href="/" class="site-logo" aria-label="KPS Interiéry – domů">
+      <img class="logo-dark" src="/branding/kps-logo.svg" alt="KPS Interiéry" width="570" height="56" />
+      <img class="logo-light" src="/branding/kps-logo-inverse.svg" alt="" aria-hidden="true" width="570" height="56" />
+    </a>
+
+    <nav aria-label="Hlavní navigace" class="hidden lg:block">
+      <ul class="flex items-center gap-9">
+        {NAV.map((n) => (
+          <li>
+            <a href={n.href} class="nav-link" aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <a href={telHref(s.phone)} class="nav-link phone hidden xl:inline-flex items-center gap-2">
+        <Icon name="ph:phone-light" class="size-5" aria-hidden="true" />{s.phone}
+      </a>
+      <span class="hidden lg:contents"><Button href="/kontakt/" class="!min-h-11 !px-6 !py-2.5 text-sm">Poptávka</Button></span>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Otevřít menu" data-menu-toggle>
+        <span class="bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden data-mobile-menu>
+  <div class="flex h-full flex-col overflow-y-auto px-[var(--gutter)] pb-8 pt-[calc(var(--header-h)+1.5rem)]">
+    <nav aria-label="Mobilní navigace" class="my-auto">
+      <ul class="space-y-1">
+        {[{ href: '/', label: 'Domů' }, ...NAV].map((n, i) => (
+          <li class="menu-item" style={`--i:${i}`}>
+            <a href={n.href} class="block py-2 font-display text-[clamp(2.25rem,9vw,3.5rem)] font-light leading-tight tracking-tight text-cream transition-colors hover:text-caramel" aria-current={n.href !== '/' && isActive(n.href) ? 'page' : undefined}>{n.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="menu-item mt-10 space-y-5 border-t border-white/10 pt-6 text-cream/80" style="--i:6">
+      <div class="flex flex-col gap-1">
+        <a href={telHref(s.phone)} class="inline-flex min-h-11 items-center gap-2 hover:text-caramel"><Icon name="ph:phone-light" class="size-5" aria-hidden="true" />{s.phone}</a>
+        <a href={`mailto:${s.email}`} class="inline-flex min-h-11 items-center gap-2 hover:text-caramel"><Icon name="ph:envelope-simple-light" class="size-5" aria-hidden="true" />{s.email}</a>
+      </div>
+      <div class="flex gap-3">
+        <a href={s.social.instagram} aria-label="Instagram" rel="noopener" class="social-btn"><Icon name="ph:instagram-logo-light" class="size-6" aria-hidden="true" /></a>
+        <a href={s.social.facebook} aria-label="Facebook" rel="noopener" class="social-btn"><Icon name="ph:facebook-logo-light" class="size-6" aria-hidden="true" /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .site-header {
+    position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h);
+    transition: transform .5s var(--ease-out-expo), background-color .4s, border-color .4s, backdrop-filter .4s;
+    border-bottom: 1px solid transparent;
+    color: var(--color-cream);
+  }
+  .site-header[data-solid='true'] {
+    background-color: color-mix(in srgb, var(--color-cream-50) 85%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-bottom-color: color-mix(in srgb, var(--color-mocha-800) 10%, transparent);
+    color: var(--color-mocha-800);
+  }
+  .site-header[data-hidden='true'] { transform: translateY(-101%); }
+  .site-header[data-menu='open'] {
+    transform: none; background-color: transparent; border-bottom-color: transparent;
+    -webkit-backdrop-filter: none; backdrop-filter: none; color: var(--color-cream);
+  }
+  .site-logo { position: relative; display: block; flex: none; height: 1.25rem; aspect-ratio: 570 / 56; }
+  @media (min-width: 640px) { .site-logo { height: 1.5rem; } }
+  .site-logo img { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity .3s; }
+  .site-logo .logo-light { opacity: 1; }
+  .site-logo .logo-dark { opacity: 0; }
+  .site-header[data-solid='true']:not([data-menu='open']) .logo-light { opacity: 0; }
+  .site-header[data-solid='true']:not([data-menu='open']) .logo-dark { opacity: 1; }
+
+  .nav-link { position: relative; padding-block: .5rem; font-size: .9375rem; font-weight: 600; letter-spacing: .02em; color: inherit; }
+  .site-header:not([data-solid='true']) .nav-link { color: var(--color-cream); }
+  .nav-link::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: .15rem; height: 1px; background: var(--color-caramel);
+    transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease-out-expo);
+  }
+  .nav-link:hover::after, .nav-link[aria-current='page']::after { transform: scaleX(1); }
+
+  @media (min-width: 64rem) { .menu-toggle { display: none !important; } }
+  .menu-toggle { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; margin-right: -.5rem; color: inherit; cursor: pointer; }
+  .menu-toggle .bars { position: relative; width: 1.5rem; height: 1rem; display: block; }
+  .menu-toggle .bars span { position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor; transition: transform .45s var(--ease-out-expo), top .45s var(--ease-out-expo); }
+  .menu-toggle .bars span:first-child { top: 3px; }
+  .menu-toggle .bars span:last-child { top: 11px; }
+  .menu-toggle[aria-expanded='true'] .bars span:first-child { top: 7px; transform: rotate(45deg); }
+  .menu-toggle[aria-expanded='true'] .bars span:last-child { top: 7px; transform: rotate(-45deg); }
+
+  .mobile-menu { position: fixed; inset: 0; z-index: 40; background: var(--color-mocha-950); opacity: 0; visibility: hidden; transition: opacity .4s var(--ease-out-expo), visibility 0s .4s; }
+  .mobile-menu[hidden] { display: none; }
+  .mobile-menu.is-open { opacity: 1; visibility: visible; transition-delay: 0s; }
+  .mobile-menu .menu-item { opacity: 0; transform: translateY(24px); }
+  .mobile-menu.is-open .menu-item { opacity: 1; transform: none; transition: opacity .7s var(--ease-out-expo), transform .7s var(--ease-out-expo); transition-delay: calc(.12s + var(--i) * 70ms); }
+  .mobile-menu a[aria-current='page'] { color: var(--color-caramel); }
+  .social-btn { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1px solid rgb(245 236 230 / .25); border-radius: 9999px; color: var(--color-cream); transition: background-color .3s, color .3s, border-color .3s; }
+  .social-btn:hover { background: var(--color-caramel); border-color: var(--color-caramel); color: var(--color-mocha-950); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu .menu-item { opacity: 1; transform: none; }
+  }
+</style>
+
+<script>
+  let ctrl: AbortController | null = null;
+
+  function init() {
+    ctrl?.abort();
+    ctrl = new AbortController();
+    const { signal } = ctrl;
+    const header = document.querySelector<HTMLElement>('[data-site-header]');
+    const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+    const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+    if (!header || !menu || !toggle) return;
+    const overlay = header.dataset.overlay === 'true';
+    const lenis = () => (window as any).__lenis;
+    let open = false;
+    let lastY = window.scrollY;
+
+    const update = () => {
+      const y = window.scrollY;
+      if (!open) {
+        header.dataset.solid = !overlay || y > 40 ? 'true' : 'false';
+        header.dataset.hidden = y > 120 && y > lastY + 2 ? 'true' : y < lastY - 2 || y <= 120 ? 'false' : header.dataset.hidden ?? 'false';
+      }
+      lastY = y;
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true, signal });
+
+    const focusables = () => [toggle, ...menu.querySelectorAll<HTMLElement>('a[href]')];
+    const setOpen = (v: boolean) => {
+      if (v === open) return;
+      open = v;
+      toggle.setAttribute('aria-expanded', String(v));
+      toggle.setAttribute('aria-label', v ? 'Zavřít menu' : 'Otevřít menu');
+      if (v) {
+        menu.hidden = false;
+        void menu.offsetWidth;
+        menu.classList.add('is-open');
+        header.dataset.menu = 'open';
+        header.dataset.hidden = 'false';
+        document.documentElement.style.overflow = 'hidden';
+        lenis()?.stop();
+        menu.querySelector<HTMLElement>('a')?.focus({ preventScroll: true });
+      } else {
+        menu.classList.remove('is-open');
+        delete header.dataset.menu;
+        document.documentElement.style.overflow = '';
+        lenis()?.start();
+        setTimeout(() => { if (!open) menu.hidden = true; }, 420);
+        update();
+      }
+    };
+    toggle.addEventListener('click', () => setOpen(!open), { signal });
+    menu.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) setOpen(false); }, { signal });
+    document.addEventListener('keydown', (e) => {
+      if (!open) return;
+      if (e.key === 'Escape') { setOpen(false); toggle.focus(); return; }
+      if (e.key !== 'Tab') return;
+      const f = focusables();
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      else if (!f.includes(document.activeElement as HTMLElement)) { e.preventDefault(); first.focus(); }
+    }, { signal });
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); }, { signal });
+    document.addEventListener('astro:before-swap', () => {
+      if (open) { document.documentElement.style.overflow = ''; lenis()?.start(); open = false; }
+    }, { signal });
+  }
+  document.addEventListener('astro:page-load', init);
+</script>

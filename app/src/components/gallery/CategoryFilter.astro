@@ -1,0 +1,66 @@
+---
+/**
+ * Filtr kategorií (bez reloadu). Tlačítka s aria-pressed, URL ?kategorie=<slug> přes history.replaceState,
+ * animace přes View Transition API (fallback: fade). Filtruje prvky [data-filter-item][data-cat] v [data-filter-scope].
+ */
+interface Props {
+  total: number;
+  categories: { name: string; slug: string; count: number }[];
+}
+const { total, categories } = Astro.props;
+---
+<div class="filter" data-filter role="group" aria-label="Filtrovat realizace podle kategorie">
+  <div class="filter-scroll">
+    <button type="button" class="chip" data-filter-btn="" aria-pressed="true">
+      Vše <span class="chip-count">{total}</span>
+    </button>
+    {categories.map((c) => (
+      <button type="button" class="chip" data-filter-btn={c.slug} data-filter-name={c.name} aria-pressed="false">
+        {c.name} <span class="chip-count">{c.count}</span>
+      </button>
+    ))}
+  </div>
+  <p class="sr-only" aria-live="polite" data-filter-status></p>
+</div>
+
+<script>
+  import { mountFilter, unmountFilter } from './filter-client';
+  document.addEventListener('astro:page-load', mountFilter);
+  document.addEventListener('astro:before-swap', unmountFilter);
+</script>
+
+<style>
+  .filter-scroll {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 2.75rem;
+    padding: 0 1.15rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-mocha-800) 18%, transparent);
+    background: transparent;
+    color: var(--color-mocha-800);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.35s var(--ease-out-expo), color 0.35s, border-color 0.35s;
+  }
+  .chip:hover { border-color: var(--color-mocha-800); }
+  .chip[aria-pressed='true'] {
+    background: var(--color-mocha-800);
+    border-color: var(--color-mocha-800);
+    color: var(--color-cream);
+  }
+  .chip-count {
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-mocha-600);
+  }
+  .chip[aria-pressed='true'] .chip-count { color: var(--color-caramel); }
+</style>

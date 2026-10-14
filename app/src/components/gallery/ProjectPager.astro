@@ -1,0 +1,48 @@
+---
+/** Předchozí / další realizace (tmavý pás). Náhledy bez transition:name, aby nekolidovaly s kartami. */
+import { Picture } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import type { Project } from '../../lib/site';
+
+interface Props { prev: Project; next: Project }
+const { prev, next } = Astro.props;
+const items = [
+  { p: prev, label: 'Předchozí realizace', dir: 'prev' as const },
+  { p: next, label: 'Další realizace', dir: 'next' as const },
+];
+---
+<nav class="on-dark bg-mocha-900 text-cream" aria-label="Další projekty">
+  <ul class="grid md:grid-cols-2" role="list">
+    {items.map(({ p, label, dir }) => (
+      <li class:list={['border-white/10', dir === 'next' ? 'border-t md:border-l md:border-t-0' : '']}>
+        <a href={`/realizace/${p.id}/`} rel={dir} class:list={['pager-link group flex items-center gap-5 px-[var(--gutter)] py-8 md:gap-8 md:py-12', dir === 'next' && 'md:flex-row-reverse md:text-right']}>
+          <span class="relative block aspect-[4/3] w-24 shrink-0 overflow-hidden rounded-sm bg-mocha-800 sm:w-32 lg:w-44">
+            <Picture fallbackFormat="webp"
+              src={p.data.cover}
+              alt=""
+              formats={['avif']}
+              widths={[192, 352]}
+              sizes="(min-width: 1024px) 176px, (min-width: 640px) 128px, 96px"
+              class="h-full w-full object-cover opacity-80 transition-[transform,opacity] duration-[1200ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.06] group-hover:opacity-100"
+            />
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="eyebrow inline-flex items-center gap-2">
+              {dir === 'prev' && <Icon name="ph:arrow-left-light" class="size-4" aria-hidden="true" />}
+              {label}
+              {dir === 'next' && <Icon name="ph:arrow-right-light" class="size-4" aria-hidden="true" />}
+            </span>
+            <span class="mt-2 block font-display text-h3 text-cream">{p.data.title}</span>
+            <span class="mt-1 block text-sm text-cream/70">{p.data.category} · {p.data.location}</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .pager-link { transition: background-color 0.5s var(--ease-out-expo); }
+  .pager-link:hover { background: color-mix(in srgb, var(--color-cream) 4%, transparent); }
+  .pager-link:focus-visible { outline-offset: -4px; }
+</style>

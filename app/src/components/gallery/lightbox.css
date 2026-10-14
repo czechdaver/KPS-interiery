@@ -1,0 +1,117 @@
+/* PhotoSwipe v KPS barvách – importuje se staticky v ProjectGallery.astro (selektory .pswp.pswp--kps přebijí dynamicky načtené photoswipe.css) */
+.pswp.pswp--kps {
+  --pswp-bg: var(--color-mocha-950, #1c1210);
+  --pswp-placeholder-bg: var(--color-mocha-900, #2a1a17);
+  --pswp-icon-color: var(--color-cream, #f5ece6);
+  --pswp-icon-color-secondary: var(--color-mocha-950, #1c1210);
+  --pswp-icon-stroke-color: var(--color-mocha-950, #1c1210);
+  --pswp-icon-stroke-width: 0;
+  --pswp-error-text-color: var(--color-cream, #f5ece6);
+  font-family: var(--font-sans);
+}
+
+.pswp.pswp--kps .pswp__top-bar {
+  height: 72px;
+  align-items: center;
+  padding-inline: clamp(0.5rem, 2vw, 1.5rem);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--color-mocha-950, #1c1210) 70%, transparent), transparent);
+}
+
+.pswp.pswp--kps .pswp__button {
+  width: 48px;
+  height: 48px;
+  margin: 0 2px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  opacity: 0.9;
+  transition: background-color 0.3s, color 0.3s, opacity 0.3s;
+}
+.pswp.pswp--kps .pswp__button .pswp__icn {
+  /* vlastní ikony jsou tahové (stroke=currentColor) */
+  color: var(--pswp-icon-color);
+  fill: none;
+  position: static;
+  width: 28px;
+  height: 28px;
+}
+.pswp.pswp--kps .pswp__button:hover,
+.pswp.pswp--kps .pswp__button:focus-visible {
+  opacity: 1;
+  color: var(--color-caramel, #c88b4e);
+  --pswp-icon-color: var(--color-caramel, #c88b4e);
+  background: color-mix(in srgb, var(--color-cream, #f5ece6) 8%, transparent);
+}
+.pswp.pswp--kps .pswp__button:focus-visible {
+  outline: 2px solid var(--color-caramel, #c88b4e);
+  outline-offset: 2px;
+}
+
+.pswp.pswp--kps .pswp__button--arrow {
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin-top: -28px;
+  border: 1px solid color-mix(in srgb, var(--color-cream, #f5ece6) 18%, transparent);
+  background: color-mix(in srgb, var(--color-mocha-950, #1c1210) 45%, transparent);
+  backdrop-filter: blur(6px);
+}
+.pswp.pswp--kps .pswp__button--arrow--prev { left: clamp(0.75rem, 2vw, 1.75rem); }
+.pswp.pswp--kps .pswp__button--arrow--next { right: clamp(0.75rem, 2vw, 1.75rem); }
+.pswp.pswp--kps .pswp__button--arrow .pswp__icn { width: 28px; height: 28px; margin: 0; top: auto; left: auto; }
+.pswp.pswp--kps .pswp__button--arrow--next .pswp__icn { transform: none; }
+.pswp.pswp--kps .pswp__button--arrow:hover { border-color: var(--color-caramel, #c88b4e); }
+@media (max-width: 767.98px) {
+  .pswp.pswp--kps .pswp__button--arrow { top: auto; bottom: 1rem; margin-top: 0; width: 48px; height: 48px; }
+}
+
+.pswp.pswp--kps .pswp__counter {
+  height: auto;
+  margin: 0 0 0 clamp(0.5rem, 1.5vw, 1rem);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 48px;
+  color: var(--color-caramel, #c88b4e);
+  opacity: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: none;
+}
+
+.pswp.pswp--kps .pswp__kps-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(100%, 52rem);
+  display: flex;
+  justify-content: center;
+  gap: 0.875rem;
+  padding: 1.25rem 4.5rem 1.5rem;
+  color: color-mix(in srgb, var(--color-cream, #f5ece6) 88%, transparent);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  text-align: center;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.pswp.pswp--kps .pswp__kps-caption:empty { display: none; }
+.pswp.pswp--kps .pswp__kps-num {
+  color: var(--color-caramel, #c88b4e);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 767.98px) {
+  .pswp.pswp--kps .pswp__kps-caption { padding: 1rem 4.25rem 1.6rem; font-size: 0.8125rem; text-align: left; justify-content: flex-start; }
+}
+
+.pswp.pswp--kps.pswp--ui-visible .pswp__kps-caption { opacity: 1; }
+.pswp.pswp--kps:not(.pswp--ui-visible) .pswp__kps-caption { opacity: 0; }
+
+.pswp.pswp--kps .pswp__img { border-radius: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pswp.pswp--kps, .pswp.pswp--kps * { transition-duration: 0.01ms !important; }
+}

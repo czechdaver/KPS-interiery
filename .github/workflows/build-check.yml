@@ -1,0 +1,40 @@
+name: Build check
+
+# Jen ověření buildu (bez nasazení) pro větve mimo main a pull requesty.
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - run: npm ci
+
+      - uses: actions/cache@v4
+        with:
+          path: app/node_modules/.astro
+          key: astro-assets-${{ runner.os }}-${{ hashFiles('app/package-lock.json', 'app/src/content/**/*.jpg', 'app/src/content/**/*.jpeg', 'app/src/content/**/*.png', 'app/src/assets/**') }}
+          restore-keys: |
+            astro-assets-${{ runner.os }}-
+
+      - run: npm run build

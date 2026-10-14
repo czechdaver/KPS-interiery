@@ -1,0 +1,122 @@
+---
+import { Picture } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import ProcessSteps from '../components/sections/ProcessSteps.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import { getSettings, getProjects } from '../lib/site';
+
+const s = await getSettings();
+const projects = await getProjects();
+const pick = (id: string) => projects.find((p) => p.id === id);
+const collage = ['kuchyn-cerna', 'loznice-hneda-zkosene', 'skrin-posuv-vstup', 'koupelna-cerna', 'ostatni-schody']
+  .map(pick)
+  .filter((p): p is NonNullable<typeof p> => !!p)
+  .map((p) => ({ src: p.data.cover, alt: p.data.images[0]?.alt ?? p.data.title, title: p.data.title }));
+const hero = pick('kuchyn-bila-u-tvar');
+
+const values = [
+  { k: 'K', name: 'Kvalita', icon: 'ph:seal-check-light', text: 'Pracujeme s prověřenými materiály a kováním od známých výrobců. Nábytek má sloužit dlouho a vypadat dobře i po letech.' },
+  { k: 'P', name: 'Preciznost', icon: 'ph:ruler-light', text: 'Každá zakázka vzniká podle zaměření přímo u vás. Výroba na míru znamená, že na detailech záleží, na spárách i na vnitřním uspořádání.' },
+  { k: 'S', name: 'Spokojenost', icon: 'ph:handshake-light', text: 'Úspěšná zakázka je taková, ze které máte radost i při každodenním používání. Proto s vámi vše domlouváme jasně a bez překvapení.' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'O nás – KPS Interiéry',
+  mainEntity: { '@type': 'Organization', name: s.company, areaServed: s.serviceArea, url: new URL('/', Astro.site).toString() },
+};
+---
+<BaseLayout
+  title="O nás – nábytek na míru ze Zlína"
+  description="KPS znamená Kvalita, Preciznost, Spokojenost. Od návrhu po montáž, s vlastní výrobou, pro domácnosti i firmy na Moravě."
+  image={hero?.data.cover}
+  schema={schema}
+>
+  <PageHero
+    eyebrow="O nás"
+    title="Kvalita, preciznost, spokojenost"
+    accent="preciznost"
+    lead="KPS Interiéry je studio nábytku na míru ze Zlína-Štípy. Interiér pro vás navrhneme, vyrobíme i nainstalujeme."
+    image={hero?.data.cover}
+    imageAlt={hero?.data.images[0]?.alt ?? ''}
+  />
+
+  <section class="section-y bg-cream-50" aria-labelledby="pribeh">
+    <div class="container-x grid gap-10 lg:grid-cols-12 lg:gap-20">
+      <div class="lg:col-span-5" data-reveal>
+        <p class="eyebrow">Náš přístup</p>
+        <h2 id="pribeh" class="mt-4 text-h2">Jedna ruka od <em class="font-light italic text-caramel-ink">návrhu</em> po montáž</h2>
+      </div>
+      <div class="space-y-5 text-lead text-mocha-700 lg:col-span-7" data-reveal style="--reveal-i:1">
+        <p>Název KPS není náhoda: je to slib, který si dáváme u každé zakázky. Kvalita materiálů, preciznost zpracování a vaše spokojenost na konci.</p>
+        <p>Nábytek vyrábíme ve vlastní výrobě, takže máme celý proces pod kontrolou. Nezačínáme u katalogu, ale u vašeho prostoru, vašich zvyklostí a rozpočtu. Navrhneme řešení, vyrobíme je a sami namontujeme.</p>
+        <p>Pracujeme pro rodiny i pro firmy: od kuchyní a vestavěných skříní přes ložnice a koupelny po atypické zakázky, jako jsou schody, dveře nebo stoly z masivu.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-y on-dark bg-mocha-900 text-cream/85" aria-labelledby="hodnoty">
+    <div class="container-x">
+      <div class="max-w-2xl" data-reveal>
+        <p class="eyebrow">Hodnoty</p>
+        <h2 id="hodnoty" class="mt-4 text-h2 !text-cream">K · P · S</h2>
+      </div>
+      <ul class="mt-12 grid gap-px overflow-hidden rounded-md bg-white/10 md:grid-cols-3">
+        {values.map((v, i) => (
+          <li class="bg-mocha-900 p-7 sm:p-10" data-reveal style={`--reveal-i:${i}`}>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-7xl font-light text-caramel" aria-hidden="true">{v.k}</span>
+              <Icon name={v.icon} class="size-9 text-caramel" aria-hidden="true" />
+            </div>
+            <h3 class="mt-6 text-h3 !text-cream">{v.name}</h3>
+            <p class="mt-3 text-cream/80">{v.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <ProcessSteps />
+
+  <section class="section-y bg-cream" aria-labelledby="oblast">
+    <div class="container-x grid gap-10 lg:grid-cols-12 lg:gap-20">
+      <div class="lg:col-span-5" data-reveal>
+        <p class="eyebrow">Oblast působení</p>
+        <h2 id="oblast" class="mt-4 text-h2">Zlín, Morava <em class="font-light italic text-caramel-ink">a okolí</em></h2>
+        <p class="mt-5 text-lead text-mocha-600">Sídlíme ve Zlíně-Štípě a realizujeme zakázky v těchto regionech. Jste mimo? Zeptejte se, rádi se domluvíme.</p>
+      </div>
+      <ol class="divide-y divide-mocha-800/15 border-y border-mocha-800/15 lg:col-span-7" data-reveal style="--reveal-i:1">
+        {s.serviceArea.map((a, i) => (
+          <li class="flex items-baseline gap-5 py-4 sm:py-5">
+            <span class="w-8 font-display text-lg text-caramel-ink" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="font-display text-h3 text-mocha-800">{a}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  {collage.length >= 4 && (
+    <section class="section-y overflow-hidden bg-cream-50" aria-label="Ukázky naší práce">
+      <div class="container-x grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-12">
+        {collage.map((c, i) => (
+          <figure
+            class:list={[
+              'overflow-hidden rounded-md bg-linen',
+              ['col-span-2 aspect-[4/3] md:col-span-7 md:aspect-[16/10]', 'aspect-[4/5] md:col-span-5 md:aspect-auto', 'aspect-[4/5] md:col-span-4 md:aspect-[4/5]', 'aspect-[4/5] md:col-span-4 md:aspect-[4/5]', 'col-span-2 aspect-[4/3] md:col-span-4 md:aspect-[4/5]'][i],
+            ]}
+            data-reveal
+            style={`--reveal-i:${i}`}
+          >
+            <Picture fallbackFormat="webp" src={c.src} alt={c.alt} formats={['avif']} widths={[400, 640, 900, 1200]} sizes={i === 0 ? '(min-width: 768px) 58vw, 100vw' : '(min-width: 768px) 33vw, 50vw'} class="h-full w-full object-cover" />
+          </figure>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <CtaBand />
+</BaseLayout>

@@ -1,0 +1,41 @@
+---
+/** Závěrečná výzva k poptávce (odkaz na /kontakt/ + telefon ze settings). */
+import Button from '../ui/Button.astro';
+import { getSettings, telHref } from '../../lib/site';
+
+interface Props { heading: string; lead: string; eyebrow?: string }
+const { heading, lead, eyebrow = 'Poptávka' } = Astro.props;
+const settings = await getSettings();
+---
+<section class="cta-band relative overflow-hidden bg-cream section-y" aria-labelledby="cta-title">
+  <div class="container-x grid gap-10 lg:grid-cols-12 lg:items-end">
+    <div class="lg:col-span-7">
+      <p class="eyebrow" data-reveal>{eyebrow}</p>
+      <h2 id="cta-title" class="mt-5 text-h1" data-reveal style="--reveal-i:1">{heading}</h2>
+      <p class="mt-6 max-w-xl text-lead text-mocha-600" data-reveal style="--reveal-i:2">{lead}</p>
+    </div>
+    <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:col-span-5 lg:justify-end" data-reveal style="--reveal-i:3">
+      <Button href="/kontakt/" arrow>Nezávazná poptávka</Button>
+      <Button href={telHref(settings.phone)} variant="ghost">{settings.phone}</Button>
+    </div>
+  </div>
+  <span aria-hidden="true" class="cta-mark">KPS</span>
+</section>
+
+<style>
+  .cta-mark {
+    position: absolute;
+    right: -0.04em;
+    bottom: -0.28em;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(8rem, 4rem + 18vw, 22rem);
+    line-height: 1;
+    color: var(--color-linen);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+  .cta-band > .container-x { position: relative; z-index: 1; }
+</style>

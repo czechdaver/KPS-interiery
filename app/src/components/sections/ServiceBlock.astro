@@ -1,0 +1,59 @@
+---
+/** Jedna služba jako editorial blok. `flip` = obrácené rozložení na desktopu. */
+import { Picture } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import type { ImageMetadata } from 'astro';
+import Button from '../ui/Button.astro';
+interface Img { src: ImageMetadata; alt: string }
+interface Props {
+  id: string;
+  index: number;
+  title: string;
+  short: string;
+  icon: string;
+  images: Img[];
+  href?: string;
+  flip?: boolean;
+  tone?: 'light' | 'dark';
+}
+const { id, index, title, short, icon, images, href, flip = false, tone = 'light' } = Astro.props;
+const dark = tone === 'dark';
+const [a, b, c] = images;
+const num = String(index + 1).padStart(2, '0');
+---
+<section id={id} class:list={['section-y scroll-mt-4', dark ? 'on-dark bg-mocha-900 text-cream/85' : 'bg-cream-50']}>
+  <div class="container-x grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+    <div class:list={['lg:col-span-5', flip ? 'lg:order-2' : '']} data-reveal>
+      <div class="flex items-center gap-4">
+        <span class:list={['font-display text-5xl font-light', dark ? 'text-caramel' : 'text-caramel-ink']} aria-hidden="true">{num}</span>
+        <span class:list={['h-px flex-1', dark ? 'bg-white/10' : 'bg-linen']}></span>
+        <Icon name={icon} class:list={['size-9', dark ? 'text-caramel' : 'text-caramel-ink']} aria-hidden="true" />
+      </div>
+      <h2 class:list={['mt-6 text-h2', dark ? '!text-cream' : '']}>{title}</h2>
+      <p class:list={['mt-4 font-display text-xl italic', dark ? 'text-caramel-light' : 'text-mocha-600']}>{short}</p>
+      <div class:list={['prose-kps mt-6 space-y-4 text-base leading-relaxed', dark ? 'text-cream/80' : 'text-mocha-700']}>
+        <slot />
+      </div>
+      {href && <Button href={href} variant={dark ? 'ghost-light' : 'dark'} arrow class="mt-8">Ukázky realizací</Button>}
+    </div>
+    <div class:list={['grid grid-cols-6 gap-3 sm:gap-4 lg:col-span-7', flip ? 'lg:order-1' : '']}>
+      {a && (
+        <div class:list={['overflow-hidden rounded-md bg-linen', b ? 'col-span-4 aspect-[4/5]' : 'col-span-6 aspect-[4/3]']} data-reveal style="--reveal-i:1">
+          <Picture fallbackFormat="webp" src={a.src} alt={a.alt} formats={['avif']} widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 40vw, 90vw" class="h-full w-full object-cover" />
+        </div>
+      )}
+      {b && (
+        <div class="col-span-2 flex flex-col gap-3 sm:gap-4">
+          <div class="flex-1 overflow-hidden rounded-md bg-linen" data-reveal style="--reveal-i:2">
+            <Picture fallbackFormat="webp" src={b.src} alt={b.alt} formats={['avif']} widths={[240, 400, 600]} sizes="(min-width: 1024px) 20vw, 30vw" class="h-full w-full object-cover" />
+          </div>
+          {c && (
+            <div class="flex-1 overflow-hidden rounded-md bg-linen" data-reveal style="--reveal-i:3">
+              <Picture fallbackFormat="webp" src={c.src} alt={c.alt} formats={['avif']} widths={[240, 400, 600]} sizes="(min-width: 1024px) 20vw, 30vw" class="h-full w-full object-cover" />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
