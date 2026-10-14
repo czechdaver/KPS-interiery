@@ -1,0 +1,26 @@
+---
+/** Sdílené tlačítko/odkaz. variant: primary (caramel), dark (mocha), ghost (obrys), link (text + šipka). */
+import { Icon } from 'astro-icon/components';
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'dark' | 'ghost' | 'ghost-light' | 'link';
+  arrow?: boolean;
+  type?: 'button' | 'submit';
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, variant = 'primary', arrow = false, type = 'button', class: cls = '', ...rest } = Astro.props;
+const base = 'group inline-flex min-h-11 items-center justify-center gap-3 font-semibold tracking-wide transition-[background-color,color,border-color,transform] duration-300 ease-[var(--ease-out-expo)] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed';
+const v = {
+  primary: 'rounded-full bg-caramel px-7 py-3 text-mocha-950 hover:bg-caramel-light active:scale-[0.98]',
+  dark: 'rounded-full bg-mocha-800 px-7 py-3 text-cream hover:bg-mocha-700 active:scale-[0.98]',
+  ghost: 'rounded-full border border-mocha-800/25 px-7 py-3 text-mocha-800 hover:border-mocha-800 hover:bg-mocha-800 hover:text-cream',
+  'ghost-light': 'rounded-full border border-cream/30 px-7 py-3 text-cream hover:border-cream hover:bg-cream hover:text-mocha-900',
+  link: 'px-0 py-2 text-mocha-800 underline-offset-[6px] decoration-caramel decoration-1 hover:underline',
+}[variant];
+const Tag = href ? 'a' : 'button';
+---
+<Tag href={href} type={href ? undefined : type} class:list={[base, v, cls]} {...rest}>
+  <slot />
+  {arrow && <Icon name="ph:arrow-right-light" class="size-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />}
+</Tag>
