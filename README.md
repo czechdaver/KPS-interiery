@@ -1,107 +1,14 @@
-# KPS Interiéry — Qwik + Qwik City
+# KPS Interiéry — web v2 (Astro)
 
-This repository hosts the KPS Interiéry website built with Qwik + Qwik City and deployed to GitHub Pages. The web app lives under `app/` and is built as a fully static site using the Qwik City static adapter.
+Statický web kuchyňského studia KPS Interiéry postavený na **Astro 7** s obsahem v Content Collections a editací přes **Sveltia CMS** (`/admin`).
 
-## ⚠️ IMPORTANT: Fully Static Site
-
-**This is a FULLY STATIC site hosted on GitHub Pages.**
-
-- ❌ NO backend/server-side code is possible
-- ❌ NO API routes (Next.js API routes, Express endpoints, etc.)
-- ❌ NO server-side environment variables
-- ❌ NO database or server-side services
-- ✅ ONLY static HTML/CSS/JS files
-- ✅ ONLY client-side JavaScript (fetch to external APIs)
-
-**Contact Form**: Uses external Web3Forms API (client-side submission). See `form-info.md` for details.
-
-## Project Structure
-
-- `app/` — Qwik app root
-  - `src/` — components, routes, styles
-  - `src/routes/` — file‑based routing (Qwik City)
-  - `vite.config.ts` — Vite config with dynamic base for Pages
-  - `adapters/static/vite.config.ts` — Qwik City static adapter config
-  - `dist/` — build output
-- `docs/` — product docs (tech stack, setup, content)
-
-## Tech Stack
-
-- Qwik + Qwik City (`@builder.io/qwik`, `@builder.io/qwik-city`)
-- Vite 5
-- Tailwind CSS v4 (via `@tailwindcss/postcss`)
-- Tailwind Variants (`tailwind-variants`)
-- PostCSS (`@tailwindcss/postcss`, `postcss-preset-env`, `autoprefixer`)
-- TypeScript
-- Biome (TS/JS formatter & linter)
-- Stylelint (CSS/SCSS)
-- SASS
-
-See `docs/techstack.md` for details.
-
-## Prerequisites
-
-- Node.js 20+
-- Package manager: npm (CI uses npm). You may also use Bun locally if preferred.
-
-## Getting Started
-
-1) Install dependencies
-
-```sh
+```bash
 cd app
 npm install
+npm run dev      # http://localhost:4321
+npm run build    # astro check + build do app/dist
 ```
 
-2) Start dev server
-
-```sh
-npm run dev
-# open http://localhost:5173
-```
-
-## Build & Preview
-
-- Build static site (required for GitHub Pages):
-
-```sh
-npm run build:static
-# outputs to app/dist
-```
-
-- Preview production build locally:
-
-```sh
-npm run preview
-```
-
-## Deployment (GitHub Pages)
-
-Deployments are automated via GitHub Actions (`.github/workflows/deploy.yml`). The workflow:
-
-- Builds from `app/`
-- Exports `PAGES_BASE_PATH` for correct Vite base:
-  - User/org pages: base = `/`
-  - Project pages: base = `/<repo-name>/`
-- Runs `npm run build:static` (Qwik City static adapter) to generate `dist/index.html`
-- Publishes `app/dist` to GitHub Pages and copies `404.html` for SPA routing fallback
-
-## Troubleshooting CI
-
-- Rollup native prebuilds on Linux CI can fail. The workflow sets:
-  - `ROLLUP_SKIP_NODE_NATIVE=1`
-  - `ROLLUP_DISABLE_NATIVE=1`
-- It also performs a fresh install without reusing a lockfile cache.
-
-If a build fails, check the latest GitHub Actions logs.
-
-## Useful Scripts (in `app/package.json`)
-
-- `dev` — start dev server (SSR)
-- `build` — Qwik build (generates plan)
-- `build:static` — Qwik build + static adapter build (Pages)
-- `preview` — preview production build
-
-## License
-
-Private project. All rights reserved.
+- Obsah: `app/src/content/` (realizace = složka s `index.json` + fotky, služby = markdown, `settings/site.json` = kontakty a globální nastavení)
+- Design brief a architektura: [`docs/REDESIGN.md`](docs/REDESIGN.md)
+- Nová realizace: vytvoř složku v `app/src/content/projects/<slug>/`, vlož fotky (JPG ~2560 px) a `index.json` – nebo použij `/admin`. Optimalizace (AVIF/WebP, srcset) proběhne automaticky při buildu.

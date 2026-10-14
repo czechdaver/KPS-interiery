@@ -1,0 +1,164 @@
+[
+  {
+    "id": "blum",
+    "name": "Blum",
+    "logo": "../../assets/partners/blum.svg",
+    "group": "kování"
+  },
+  {
+    "id": "egger",
+    "name": "Egger",
+    "logo": "../../assets/partners/egger.svg",
+    "group": "materiály"
+  },
+  {
+    "id": "kronospan",
+    "name": "Kronospan",
+    "logo": "../../assets/partners/kronospan.svg",
+    "group": "materiály"
+  },
+  {
+    "id": "fundermax",
+    "name": "Fundermax",
+    "logo": "../../assets/partners/Fundermax.svg",
+    "group": "materiály"
+  },
+  {
+    "id": "hettich",
+    "name": "Hettich",
+    "logo": "../../assets/partners/Hettich.svg",
+    "group": "kování"
+  },
+  {
+    "id": "franke",
+    "name": "Franke",
+    "logo": "../../assets/partners/franke.svg",
+    "group": "dřezy a baterie"
+  },
+  {
+    "id": "blanco",
+    "name": "Blanco",
+    "logo": "../../assets/partners/blanco.svg",
+    "group": "dřezy a baterie"
+  },
+  {
+    "id": "hafele",
+    "name": "Häfele",
+    "logo": "../../assets/partners/Hafele.svg",
+    "group": "kování"
+  },
+  {
+    "id": "kaindl",
+    "name": "Kaindl",
+    "logo": "../../assets/partners/Kaindl.svg",
+    "group": "materiály"
+  },
+  {
+    "id": "kesseboehmer",
+    "name": "Kesseböhmer",
+    "logo": "../../assets/partners/Kesseboehmer.svg",
+    "group": "kování"
+  },
+  {
+    "id": "kooplast",
+    "name": "Kooplast",
+    "logo": "../../assets/partners/Kooplast.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "sapeli",
+    "name": "Sapeli",
+    "logo": "../../assets/partners/Sapeli.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "cobra",
+    "name": "Cobra",
+    "logo": "../../assets/partners/cobra.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "demos",
+    "name": "Demos",
+    "logo": "../../assets/partners/demos.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "doornite",
+    "name": "Doornite",
+    "logo": "../../assets/partners/doornite.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "jaf",
+    "name": "JAF",
+    "logo": "../../assets/partners/jaf.svg",
+    "group": "materiály"
+  },
+  {
+    "id": "kerrock",
+    "name": "Kerrock",
+    "logo": "../../assets/partners/kerrock.svg",
+    "group": "materiály"
+  },
+  {
+    "id": "kili",
+    "name": "Kili",
+    "logo": "../../assets/partners/kili.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "lamelio",
+    "name": "Lamelio",
+    "logo": "../../assets/partners/lamelio.svg",
+    "group": "materiály"
+  },
+  {
+    "id": "mivokor",
+    "name": "Mivokor",
+    "logo": "../../assets/partners/mivokor.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "mt",
+    "name": "MT",
+    "logo": "../../assets/partners/MT.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "rostex",
+    "name": "Rostex",
+    "logo": "../../assets/partners/rostex.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "salu",
+    "name": "Salu",
+    "logo": "../../assets/partners/salu.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "schock",
+    "name": "Schock",
+    "logo": "../../assets/partners/schock.svg",
+    "group": "dřezy a baterie"
+  },
+  {
+    "id": "trachea",
+    "name": "Trachea",
+    "logo": "../../assets/partners/trachea.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "wireli",
+    "name": "Wireli",
+    "logo": "../../assets/partners/wireli.svg",
+    "group": "ostatní"
+  },
+  {
+    "id": "zlomek",
+    "name": "Zlomek",
+    "logo": "../../assets/partners/Zlomek.svg",
+    "group": "ostatní"
+  }
+]

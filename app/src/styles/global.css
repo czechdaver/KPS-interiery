@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/manrope';
+
+/*
+ * KPS Interiéry — design tokens v2 ("Mocha Sophistication" → editorial).
+ * Barvy vychází z původní KPS palety (Figma: KPS Interiéry · Design system v1).
+ * Kontrast: caramel (#C88B4E) NEPOUŽÍVAT pro malý text na světlém pozadí (2.6:1) –
+ * pro text na krému použij `text-caramel-ink` (#8A5A2B, 5.3:1). Na tmavém pozadí je caramel OK.
+ */
+@theme {
+  --color-mocha-950: #1c1210; /* nejtmavší plochy, footer */
+  --color-mocha-900: #2a1a17; /* --warm-dark */
+  --color-mocha-800: #322624; /* --primary (logo) */
+  --color-mocha-700: #3e2f2b; /* --primary-light */
+  --color-mocha-600: #705651; /* --accent-dark */
+  --color-mocha-500: #8d6e63; /* --accent */
+  --color-mocha-400: #a0817a; /* --accent-light */
+  --color-caramel: #c88b4e; /* --secondary */
+  --color-caramel-light: #d4a373; /* --secondary-light */
+  --color-caramel-ink: #8a5a2b; /* caramel pro text na světlém pozadí */
+  --color-cream: #f5ece6; /* --neutral-base */
+  --color-cream-50: #fbf7f4;
+  --color-linen: #ebe0d7; /* jemné oddělovače na krému */
+  --color-ink: #3e2723; /* --dark-gray, výchozí text */
+  --color-success: #059669;
+  --color-error: #dc2626;
+
+  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+
+  --shadow-card: 0 1px 2px rgb(50 38 36 / 0.06), 0 8px 24px -8px rgb(50 38 36 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(50 38 36 / 0.08), 0 24px 48px -16px rgb(50 38 36 / 0.32);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --text-display: clamp(2.75rem, 1.6rem + 5.2vw, 6.5rem);
+  --text-display--line-height: 0.98;
+  --text-h1: clamp(2.25rem, 1.5rem + 3.2vw, 4.5rem);
+  --text-h1--line-height: 1.04;
+  --text-h2: clamp(1.875rem, 1.35rem + 2.2vw, 3.25rem);
+  --text-h2--line-height: 1.1;
+  --text-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
+  --text-h3--line-height: 1.2;
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-lead--line-height: 1.6;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --gutter: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+    --header-h: 76px;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: var(--header-h);
+  }
+  body {
+    @apply bg-cream-50 font-sans text-ink antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: var(--color-mocha-800);
+  }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--color-caramel); color: var(--color-mocha-950); }
+  :focus-visible {
+    outline: 2px solid var(--color-caramel);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  img { max-width: 100%; height: auto; }
+}
+
+@layer components {
+  .container-x { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: var(--gutter); }
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-caramel-ink);
+  }
+  .on-dark .eyebrow, .eyebrow.on-dark { color: var(--color-caramel); }
+  .section-y { padding-block: clamp(4.5rem, 3rem + 7vw, 10rem); }
+}
+
+/* Motion: prvky s [data-reveal] animuje src/lib/motion.ts. Bez JS / s reduced-motion jsou vždy viditelné. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] { opacity: 0; transform: translateY(24px); }
+  html.js [data-reveal].is-revealed {
+    opacity: 1; transform: none;
+    transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-i, 0) * 70ms);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,6 +1,0 @@
-node_modules
-.dist
-build
-public
-bun.lock
-bun.lockb

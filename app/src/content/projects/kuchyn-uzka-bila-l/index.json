@@ -1,0 +1,56 @@
+{
+  "title": "Bílá kuchyň do L - úzký prostor",
+  "category": "Kuchyně",
+  "location": "Přerov",
+  "date": "2025-09",
+  "featured": false,
+  "order": 100,
+  "description": "Funkční bílá kuchyň ve tvaru L navržená pro úzké prostory s maximálním využitím plochy a inteligentními řešeními.",
+  "cover": "./kuchyn-0225-web.jpg",
+  "features": [
+    "L-shaped layout pro úzké prostory",
+    "Bílá dvířka pro optické zvětšení",
+    "Inteligentní úložné systémy",
+    "Kompaktní řešení spotřebičů",
+    "Maximální využití plochy"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Kompaktní deska",
+    "Minimalistické úchyty",
+    "Kování Blum"
+  ],
+  "seoText": "Tato bílé kuchyně na míru s tvarem do L byla zrealizována v lokalitě Přerov a představuje dokonalý příklad funkčního a moderního řešení kuchyňského prostoru. Projekt vyniká precizním zpracováním a promyšleným designem, který kombinuje estetiku s maximální praktičností. Kuchyně využívá kvalitní materiály včetně lamino bílá mat, kompaktní deska, minimalistické úchyty, kování blum, které zajišťují dlouhou životnost a odolnost proti každodennímu používání. Mezi klíčové vlastnosti patří l-shaped layout pro úzké prostory, bílá dvířka pro optické zvětšení, inteligentní úložné systémy, kompaktní řešení spotřebičů. Vestavěné spotřebiče jsou dokonale integrovány pro jednotný vzhled, rozsáhlé úložné prostory poskytují místo pro všechny kuchyňské potřeby. Kvalitní kování zajišťuje tichý a plynulý chod všech mechanismů i po letech používání. Moderní LED osvětlení vytváří příjemnou atmosféru a perfektně osvětluje pracovní plochy. Celková realizace odpovídá nejvyšším standardům truhlářského řemesla ve Zlínském kraji a představuje investici do kvalitního nábytku, který vydrží desetiletí.",
+  "images": [
+    {
+      "src": "./kuchyn-0225-web.jpg",
+      "alt": "Bílá L-kuchyň - celkový pohled",
+      "caption": "Celkový pohled na bílou L-kuchyň v úzkém prostoru"
+    },
+    {
+      "src": "./kuchyn-0227-web.jpg",
+      "alt": "Bílá L-kuchyň - pracovní plocha",
+      "caption": "Optimalizovaná pracovní plocha s vestavěnými spotřebiči"
+    },
+    {
+      "src": "./kuchyn-0229-web.jpg",
+      "alt": "Bílá L-kuchyň - úložné systémy",
+      "caption": "Inteligentní úložné systémy pro úzké prostory"
+    },
+    {
+      "src": "./kuchyn-0231-web.jpg",
+      "alt": "Bílá L-kuchyň - rohové řešení",
+      "caption": "Detail rohového řešení L-tvaru"
+    },
+    {
+      "src": "./kuchyn-0232-web.jpg",
+      "alt": "Bílá L-kuchyň - horní skříňky",
+      "caption": "Bílé horní skříňky pro optické zvětšení"
+    },
+    {
+      "src": "./kuchyn-0233-web.jpg",
+      "alt": "Bílá L-kuchyň - kompletní pohled",
+      "caption": "Kompletní pohled na funkční řešení úzkého prostoru"
+    }
+  ]
+}

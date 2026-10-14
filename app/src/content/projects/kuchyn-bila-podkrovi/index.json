@@ -1,0 +1,93 @@
+{
+  "title": "Bílá kuchyň v podkroví",
+  "category": "Kuchyně",
+  "location": "Ostrava",
+  "date": "2024-11",
+  "featured": false,
+  "order": 100,
+  "description": "Elegantní bílá kuchyně přizpůsobená podkrovním prostorům se šikmými střechami a maximální využitím dostupného prostoru.",
+  "cover": "./kuchyne_0031-web.jpg",
+  "features": [
+    "Přizpůsobení šikmým střechám",
+    "Maximální využití prostoru",
+    "Bílá matná dvířka",
+    "Vestavěné spotřebiče",
+    "Optimalizované úložné systémy",
+    "LED osvětlení",
+    "Kvalitní kování"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "seoText": "Tato bílé kuchyně na míru s tvarem do L byla zrealizována v lokalitě Ostrava a představuje dokonalý příklad funkčního a moderního řešení kuchyňského prostoru. Projekt vyniká precizním zpracováním a promyšleným designem, který kombinuje estetiku s maximální praktičností. Kuchyně využívá kvalitní materiály včetně lamino bílá mat, kompaktní deska, nerezové úchyty, kování blum, které zajišťují dlouhou životnost a odolnost proti každodennímu používání. Mezi klíčové vlastnosti patří přizpůsobení šikmým střechám, maximální využití prostoru, bílá matná dvířka, vestavěné spotřebiče. Vestavěné spotřebiče jsou dokonale integrovány pro jednotný vzhled, rozsáhlé úložné prostory poskytují místo pro všechny kuchyňské potřeby. Kvalitní kování zajišťuje tichý a plynulý chod všech mechanismů i po letech používání. Moderní LED osvětlení vytváří příjemnou atmosféru a perfektně osvětluje pracovní plochy. Celková realizace odpovídá nejvyšším standardům truhlářského řemesla ve Zlínském kraji a představuje investici do kvalitního nábytku, který vydrží desetiletí.",
+  "images": [
+    {
+      "src": "./kuchyne_0031-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - celkový pohled",
+      "caption": "Celkový pohled na bílou kuchyni v podkroví"
+    },
+    {
+      "src": "./kuchyne_0042-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail vysokých skříněk",
+      "caption": "Vysoké bílé skříňky využívající výšku prostoru"
+    },
+    {
+      "src": "./kuchyne_0044-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - pracovní plocha",
+      "caption": "Pracovní plocha s bílými horními skříňkami"
+    },
+    {
+      "src": "./kuchyne_0045-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail úložných prostor",
+      "caption": "Promyšlené úložné prostory v podkroví"
+    },
+    {
+      "src": "./kuchyne_0046-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - kuchyňská linka",
+      "caption": "Bílá kuchyňská linka přizpůsobená šikmým stropům"
+    },
+    {
+      "src": "./kuchyne_0047-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - kompletní realizace",
+      "caption": "Kompletní realizace bílé kuchyně v podkroví"
+    },
+    {
+      "src": "./kuchyne_0048-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail spotřebičů",
+      "caption": "Vestavěné spotřebiče a úložné systémy"
+    },
+    {
+      "src": "./kuchyne_0051-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - další pohled",
+      "caption": "Alternativní pohled na kuchyňskou linku"
+    },
+    {
+      "src": "./kuchyne_0058-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail řešení",
+      "caption": "Detail řešení podkrovního prostoru"
+    },
+    {
+      "src": "./kuchyne_0061-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - vertikální pohled",
+      "caption": "Vertikální pohled na úložné systémy"
+    },
+    {
+      "src": "./kuchyne_0064-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - dokončená realizace",
+      "caption": "Dokončená realizace bílé kuchyně"
+    },
+    {
+      "src": "./kuchyne_0039-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - detail kuchyňského ostrůvku",
+      "caption": "Detail kuchyňského ostrůvku s pracovní plochou"
+    },
+    {
+      "src": "./kuchyne_0041-web.jpg",
+      "alt": "Bílá kuchyň v podkroví - vertikální pohled na úložné systémy",
+      "caption": "Vertikální pohled ukazující maximální využití výšky prostoru"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Obývací pokoj",
+  "category": "Ostatní",
+  "location": "Zlín",
+  "date": "2025-03",
+  "featured": false,
+  "order": 100,
+  "description": "Moderní obývací pokoj s funkčním nábytkem, elegantním designem a integrovanými úložnými prostory.",
+  "cover": "./obyvak-0218-web.jpg",
+  "features": [
+    "Multifunkční nábytek",
+    "Moderní design",
+    "Integrované úložné prostory",
+    "Elegantní provedení",
+    "Kvalitní materiály"
+  ],
+  "materials": [
+    "Lamino v moderních dekorech",
+    "Kvalitní kování",
+    "Integrované osvětlení",
+    "Designové prvky"
+  ],
+  "seoText": "Zakázkový nábytek na míru realizovaný v Zlín představuje individuální řešení odpovídající specifickým požadavkům projektu. Obývací stěna a nábytek do obýváku navržený na míru pro optimální využití prostoru, ukládání elektroniky, knih a dekorací. Používáme kvalitní materiály včetně lamino v moderních dekorech, kvalitní kování, integrované osvětlení, designové prvky, které zajišťují dlouhou životnost a odolnost. Každý projekt řešíme individuálně s důrazem na precizní truhlářské zpracování, kvalitní povrchovou úpravu a funkčnost. Realizace odráží naše dlouholeté zkušenosti s výrobou nábytku na míru ve Zlínském kraji. Celkový design je harmonicky sladěn s interiérem a životním stylem zákazníka. Věnujeme maximální pozornost detailům, kvalitě spojů, hran a povrchových úprav pro vytvoření nábytku, který vydrží generace.",
+  "images": [
+    {
+      "src": "./obyvak-0218-web.jpg",
+      "alt": "Obývací pokoj - celkový pohled",
+      "caption": "Celkový pohled na moderní obývací pokoj"
+    },
+    {
+      "src": "./obyvak-0219-web.jpg",
+      "alt": "Obývací pokoj - multifunkční nábytek",
+      "caption": "Multifunkční nábytek s úložnými prostory"
+    },
+    {
+      "src": "./obyvak-0221-web.jpg",
+      "alt": "Obývací pokoj - designové prvky",
+      "caption": "Elegantní designové prvky a materiály"
+    },
+    {
+      "src": "./obyvak-0222-web.jpg",
+      "alt": "Obývací pokoj - detail provedení",
+      "caption": "Detail kvalitního provedení a osvětlení"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "title": "Bílá chodba",
+  "category": "Ostatní",
+  "location": "Hodonín",
+  "date": "2024-04",
+  "featured": false,
+  "order": 100,
+  "description": "Světlé řešení chodby v bílém provedení s maximálním využitím prostoru a čistými liniemi.",
+  "cover": "./chodba_0024-web.jpg",
+  "features": [
+    "Bílé provedení pro optické zvětšení",
+    "Funkční úložné prostory",
+    "Čisté linie a minimalistický design",
+    "Maximální využití prostoru"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Minimalistické úchyty",
+    "Kování Blum"
+  ],
+  "seoText": "Zakázkový nábytek na míru realizovaný v Hodonín představuje individuální řešení odpovídající specifickým požadavkům projektu. Nábytek do chodby včetně botníku, věšákové stěny a úložných skříní vytváří funkční vstupní prostor s dostatkem místa pro oblečení, obuv a doplňky. Používáme kvalitní materiály včetně lamino bílá mat, minimalistické úchyty, kování blum, které zajišťují dlouhou životnost a odolnost. Každý projekt řešíme individuálně s důrazem na precizní truhlářské zpracování, kvalitní povrchovou úpravu a funkčnost. Realizace odráží naše dlouholeté zkušenosti s výrobou nábytku na míru ve Zlínském kraji. Celkový design je harmonicky sladěn s interiérem a životním stylem zákazníka. Věnujeme maximální pozornost detailům, kvalitě spojů, hran a povrchových úprav pro vytvoření nábytku, který vydrží generace.",
+  "images": [
+    {
+      "src": "./chodba_0024-web.jpg",
+      "alt": "Bílá chodba - celkový pohled",
+      "caption": "Celkový pohled na bílou chodbu s úložnými prostory"
+    },
+    {
+      "src": "./chodba_0027-web.jpg",
+      "alt": "Bílá chodba - detail úložných systémů",
+      "caption": "Detail funkčních úložných systémů"
+    },
+    {
+      "src": "./chodba_0028-web.jpg",
+      "alt": "Bílá chodba - boční pohled",
+      "caption": "Boční pohled na chodbové řešení"
+    },
+    {
+      "src": "./chodba_0030-web.jpg",
+      "alt": "Bílá chodba - detailní záběr",
+      "caption": "Detailní záběr bílých povrchů a úchytů"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "title": "Bílo-hnědá kuchyň do L - varianta 1",
+  "category": "Kuchyně",
+  "location": "Brno",
+  "date": "2025-09",
+  "featured": false,
+  "order": 100,
+  "description": "Elegantní kuchyň v uspořádání do L kombinující bílé horní skříňky s hnědými dolními, vytvářející harmonický a praktický prostor.",
+  "cover": "./skrine-0001-web.jpg",
+  "features": [
+    "Uspořádání do tvaru L",
+    "Kombinace bílých a hnědých front",
+    "Kontrastní barevné řešení",
+    "Moderní úchyty",
+    "LED osvětlení",
+    "Rohové optimalizace",
+    "Kvalitní kování"
+  ],
+  "materials": [
+    "Lamino bílá mat",
+    "Lamino hnědá",
+    "Kompaktní deska",
+    "Nerezové úchyty",
+    "Kování Blum"
+  ],
+  "seoText": "Tato hnědé kuchyně na míru s tvarem do L byla zrealizována v lokalitě Brno a představuje dokonalý příklad funkčního a moderního řešení kuchyňského prostoru. Projekt vyniká precizním zpracováním a promyšleným designem, který kombinuje estetiku s maximální praktičností. Kuchyně využívá kvalitní materiály včetně lamino bílá mat, lamino hnědá, kompaktní deska, nerezové úchyty, kování blum, které zajišťují dlouhou životnost a odolnost proti každodennímu používání. Mezi klíčové vlastnosti patří uspořádání do tvaru l, kombinace bílých a hnědých front, kontrastní barevné řešení, moderní úchyty. Vestavěné spotřebiče jsou dokonale integrovány pro jednotný vzhled, rozsáhlé úložné prostory poskytují místo pro všechny kuchyňské potřeby. Kvalitní kování zajišťuje tichý a plynulý chod všech mechanismů i po letech používání. Moderní LED osvětlení vytváří příjemnou atmosféru a perfektně osvětluje pracovní plochy. Celková realizace odpovídá nejvyšším standardům truhlářského řemesla ve Zlínském kraji a představuje investici do kvalitního nábytku, který vydrží desetiletí.",
+  "images": [
+    {
+      "src": "./skrine-0001-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - celkový pohled",
+      "caption": "Celkový pohled na bílo-hnědou kuchyni v uspořádání do L"
+    },
+    {
+      "src": "./skrine-0004-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - detail kombinace barev",
+      "caption": "Detail kombinace bílých a hnědých front"
+    },
+    {
+      "src": "./skrine-0005-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - pracovní plocha",
+      "caption": "Praktická pracovní plocha s kontrastními barvami"
+    },
+    {
+      "src": "./skrine-0007-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - úložné systémy",
+      "caption": "Efektivní úložné systémy v moderním provedení"
+    },
+    {
+      "src": "./skrine-0010-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - rohové řešení",
+      "caption": "Rohové řešení s optimálním využitím prostoru"
+    },
+    {
+      "src": "./skrine-0017-web.jpg",
+      "alt": "Bílo-hnědá kuchyň do L - dokončená realizace",
+      "caption": "Dokončená realizace elegantní dvoubarevné kuchyně"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Picture } from 'astro:assets';
+import { getProjects } from '../lib/site';
+const projects = await getProjects();
+---
+<BaseLayout title="KPS Interiéry – kuchyně a nábytek na míru" description="Zakázková výroba kuchyní a nábytku na míru. Zlín a celá Morava.">
+  <h1 class="text-display">STUB</h1>
+  {projects.slice(0, 2).map((p) => <Picture src={p.data.cover} alt={p.data.title} formats={['avif', 'webp']} width={800} />)}
+</BaseLayout>

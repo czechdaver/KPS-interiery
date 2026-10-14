@@ -1,0 +1,126 @@
+{
+  "title": "Dveře a další prvky",
+  "category": "Ostatní",
+  "location": "Prostějov",
+  "date": "2025-02",
+  "featured": false,
+  "order": 100,
+  "description": "Kolekce různých dveří a dalších interiérových prvků v různých stylech, provedeních a materiálech.",
+  "cover": "./ostatni-0030-web.jpg",
+  "features": [
+    "Široká škála stylů a dekorů",
+    "Různé typy dveří a výplní",
+    "Kvalitní kování a mechanismy",
+    "Individuální řešení na míru",
+    "Atypické rozměry"
+  ],
+  "materials": [
+    "Různé dekory lamina",
+    "Skleněné výplně",
+    "Kvalitní kování",
+    "Speciální povrchové úpravy"
+  ],
+  "seoText": "Zakázkový nábytek na míru realizovaný v Prostějov představuje individuální řešení odpovídající specifickým požadavkům projektu. Atypický nábytek na míru navržený přesně podle požadavků zákazníka a specifik prostoru. Používáme kvalitní materiály včetně různé dekory lamina, skleněné výplně, kvalitní kování, speciální povrchové úpravy, které zajišťují dlouhou životnost a odolnost. Každý projekt řešíme individuálně s důrazem na precizní truhlářské zpracování, kvalitní povrchovou úpravu a funkčnost. Realizace odráží naše dlouholeté zkušenosti s výrobou nábytku na míru ve Zlínském kraji. Celkový design je harmonicky sladěn s interiérem a životním stylem zákazníka. Věnujeme maximální pozornost detailům, kvalitě spojů, hran a povrchových úprav pro vytvoření nábytku, který vydrží generace.",
+  "images": [
+    {
+      "src": "./ostatni-0030-web.jpg",
+      "alt": "Dveře a prvky - moderní dveře",
+      "caption": "Moderní dveře s čistými liniemi"
+    },
+    {
+      "src": "./ostatni-0043-web.jpg",
+      "alt": "Dveře a prvky - skleněné výplně",
+      "caption": "Dveře se skleněnými výplněmi"
+    },
+    {
+      "src": "./ostatni-0077-web.jpg",
+      "alt": "Dveře a prvky - klasické provedení",
+      "caption": "Klasické provedení s elegantními detaily"
+    },
+    {
+      "src": "./ostatni-0103-web.jpg",
+      "alt": "Dveře a prvky - různé styly",
+      "caption": "Široká škála stylů a dekorů"
+    },
+    {
+      "src": "./ostatni-0105-web.jpg",
+      "alt": "Dveře a prvky - kvalitní kování",
+      "caption": "Kvalitní kování a mechanismy"
+    },
+    {
+      "src": "./ostatni-0107-web.jpg",
+      "alt": "Dveře a prvky - individuální řešení",
+      "caption": "Individuální řešení podle požadavků"
+    },
+    {
+      "src": "./ostatni-0111-web.jpg",
+      "alt": "Dveře a prvky - povrchové úpravy",
+      "caption": "Různé povrchové úpravy a dekory"
+    },
+    {
+      "src": "./ostatni-0117-web.jpg",
+      "alt": "Dveře a prvky - detail provedení",
+      "caption": "Detail precizního provedení"
+    },
+    {
+      "src": "./ostatni-0172-web.jpg",
+      "alt": "Dveře a prvky - celkový přehled",
+      "caption": "Přehled různých typů dveří"
+    },
+    {
+      "src": "./ostatni2-0044-web.jpg",
+      "alt": "Dveře a prvky - další varianta",
+      "caption": "Další varianta provedení dveří"
+    },
+    {
+      "src": "./ostatni2-0045-web.jpg",
+      "alt": "Dveře a prvky - designové řešení",
+      "caption": "Designové řešení pro moderní interiéry"
+    },
+    {
+      "src": "./ostatni2-0047-web.jpg",
+      "alt": "Dveře a prvky - kontrastní materiály",
+      "caption": "Kombinace kontrastních materiálů"
+    },
+    {
+      "src": "./ostatni2-0049-web.jpg",
+      "alt": "Dveře a prvky - funkční prvky",
+      "caption": "Funkční prvky a dodatky"
+    },
+    {
+      "src": "./ostatni2-0051-web.jpg",
+      "alt": "Dveře a prvky - minimalistický styl",
+      "caption": "Minimalistický styl s čistými liniemi"
+    },
+    {
+      "src": "./ostatni2-0052-web.jpg",
+      "alt": "Dveře a prvky - luxusní provedení",
+      "caption": "Luxusní provedení s kvalitními materiály"
+    },
+    {
+      "src": "./ostatni2-0054-web.jpg",
+      "alt": "Dveře a prvky - atypické rozměry",
+      "caption": "Atypické rozměry na míru"
+    },
+    {
+      "src": "./ostatni2-0055-web.jpg",
+      "alt": "Dveře a prvky - kompletní systémy",
+      "caption": "Kompletní systémy dveří a zárubní"
+    },
+    {
+      "src": "./ostatni2-0162-web.jpg",
+      "alt": "Dveře a prvky - speciální aplikace",
+      "caption": "Speciální aplikace a řešení"
+    },
+    {
+      "src": "./ostatni2-0212-web.jpg",
+      "alt": "Dveře a prvky - finální úpravy",
+      "caption": "Finální úpravy a dokončení"
+    },
+    {
+      "src": "./ostatni2-0216-web.jpg",
+      "alt": "Dveře a prvky - celková kolekce",
+      "caption": "Přehled celkové kolekce dveří a prvků"
+    }
+  ]
+}

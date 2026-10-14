@@ -1,0 +1,71 @@
+{
+  "title": "Skříně a dveře",
+  "category": "Skříně",
+  "location": "Praha",
+  "date": "2024-10",
+  "featured": false,
+  "order": 100,
+  "description": "Kompletní řešení skříní a dveří s jednotným designem, kvalitním zpracováním a funkční organizací.",
+  "cover": "./skrine-0031-web.jpg",
+  "features": [
+    "Jednotný design skříní a dveří",
+    "Kvalitní materiály a kování",
+    "Funkční vnitřní organizace",
+    "Různé velikosti a konfigurace",
+    "Precizní zpracování"
+  ],
+  "materials": [
+    "Lamino v různých dekorech",
+    "Kvalitní kování Blum",
+    "Interiérové vybavení",
+    "Elegantní úchyty"
+  ],
+  "seoText": "Vestavěná skříň na míru s otevíracími dveřmi realizovaná v Praha představuje ideální řešení pro maximální využití úložného prostoru. Projekt je navržen přesně podle rozměrů místnosti a požadavků na vnitřní uspořádání. Používáme kvalitní materiály lamino v různých dekorech, kvalitní kování blum, interiérové vybavení, elegantní úchyty, které zajišťují pevnost konstrukce a dlouhou životnost. Vnitřní uspořádání zahrnuje optimální kombinaci polic různých výšek, tyčí na věšení oblečení, výsuvných zásuvek a košů pro dokonalou organizaci šatníku. Otevírací dveře s kvalitním kováním zajišťují snadný přístup k celému obsahu skříně. Každý detail je precizně vyroben s důrazem na kvalitní zpracování, stabilitu a funkčnost. Skříň dokonale využívá prostor od podlahy ke stropu, včetně atypických koutů a výklenků. Celková realizace kombinuje praktičnost s elegantním designem, který se harmonicky začleňuje do interiéru.",
+  "images": [
+    {
+      "src": "./skrine-0031-web.jpg",
+      "alt": "Skříně a dveře - celkový pohled",
+      "caption": "Celkový pohled na sestavu skříní a dveří"
+    },
+    {
+      "src": "./skrine-0032-web.jpg",
+      "alt": "Skříně a dveře - detail dveří",
+      "caption": "Detail kvalitních dveří s elegantními úchyty"
+    },
+    {
+      "src": "./skrine-0033-web.jpg",
+      "alt": "Skříně a dveře - vnitřní organizace",
+      "caption": "Funkční vnitřní organizace skříní"
+    },
+    {
+      "src": "./skrine-0034-web.jpg",
+      "alt": "Skříně a dveře - různé velikosti",
+      "caption": "Různé velikosti a konfigurace skříní"
+    },
+    {
+      "src": "./skrine-0036-web.jpg",
+      "alt": "Skříně a dveře - materiály",
+      "caption": "Detail kvalitních materiálů a povrchů"
+    },
+    {
+      "src": "./skrine-0037-web.jpg",
+      "alt": "Skříně a dveře - kování",
+      "caption": "Kvalitní kování a mechanismy"
+    },
+    {
+      "src": "./skrine-0039-web.jpg",
+      "alt": "Skříně a dveře - jednotný design",
+      "caption": "Jednotný design v celém prostoru"
+    },
+    {
+      "src": "./skrine-0041-web.jpg",
+      "alt": "Skříně a dveře - detailní zpracování",
+      "caption": "Detailní zpracování hran a spojů"
+    },
+    {
+      "src": "./skrine-0043-web.jpg",
+      "alt": "Skříně a dveře - kompletní sestava",
+      "caption": "Kompletní sestava s jednotným vzhledem"
+    }
+  ]
+}
