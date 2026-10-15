@@ -11,7 +11,8 @@
     "build:fast": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "build:preview": "PREVIEW=1 astro build --outDir dist-preview"
+    "build:preview": "PREVIEW=1 astro build --outDir dist-preview",
+    "deploy:preview": "npm run build:preview && npx --yes netlify-cli@27.12.1 deploy --prod --dir dist-preview --site c45bcc83-1a65-43fc-8b5c-0b7785b4faf0 --no-build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
