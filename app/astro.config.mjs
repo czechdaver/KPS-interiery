@@ -4,12 +4,15 @@ import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
 import pruneUnusedAssets from './integrations/prune-unused-assets.mjs';
+import previewMode from './integrations/preview-mode.mjs';
+
+const PREVIEW = process.env.PREVIEW === '1';
 
 export default defineConfig({
   site: 'https://kps-interiery.cz',
   trailingSlash: 'ignore',
   output: 'static',
-  integrations: [sitemap({ filter: (page) => !page.includes('/admin') }), icon(), pruneUnusedAssets()],
+  integrations: [sitemap({ filter: (page) => !page.includes('/admin') }), icon(), pruneUnusedAssets(), ...(PREVIEW ? [previewMode()] : [])],
   image: {
     layout: 'constrained',
     responsiveStyles: true,
