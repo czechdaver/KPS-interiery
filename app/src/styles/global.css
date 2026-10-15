@@ -79,8 +79,17 @@
   }
   p { text-wrap: pretty; }
   ::selection { background: var(--color-caramel); color: var(--color-mocha-950); }
+  /* Focus ring: na světlém caramel-ink (5.5:1 na cream-50), na tmavých plochách caramel (5.8:1 na mocha-900).
+     Samotný caramel by na krému měl jen 2.7:1 (WCAG žádá 3:1). */
+  :root { --focus-ring: var(--color-caramel-ink); }
+  .on-dark,
+  .mobile-menu,
+  [data-site-header][data-solid='false'],
+  [data-site-header][data-menu='open'],
+  [data-hero],
+  .pswp { --focus-ring: var(--color-caramel); }
   :focus-visible {
-    outline: 2px solid var(--color-caramel);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 3px;
     border-radius: 4px;
   }
